@@ -7,7 +7,7 @@ const SearchBar = ({ searchTerm, onSearchChange }) => {
       label="Search"
       variant="outlined"
       fullWidth
-      value={searchTerm}
+      value={searchTerm || ""}
       onChange={(e) => onSearchChange(e.target.value)}
       style={{ marginBottom: '20px' }}
     />
