@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TableView from './components/TableView';
+import SummaryTableWrapper from './components/SummaryTable/SummaryTableWrapper';
 import DetailView from './components/DetailView';
 import SearchBar from './components/SearchBar';
 import { Box, Button, CircularProgress } from '@mui/material';
@@ -19,7 +19,7 @@ function App() {
       { loading ? (
       <CircularProgress /> 
       ) : (
-        <TableView domainObjects={filteredObjects} onSelect={setSelectedObject} />
+        <SummaryTableWrapper domainObjects={filteredObjects} onSelect={setSelectedObject} />
       )}
 
       <Box sx={{ mt: 2 }}>
