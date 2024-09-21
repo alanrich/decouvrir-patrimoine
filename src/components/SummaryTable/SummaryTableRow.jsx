@@ -2,31 +2,34 @@ import React from 'react';
 import { TableRow } from '@mui/material';
 import SummaryTableCell from './SummaryTableCell';
 
-const SummaryTableRow = ({ headerRow = false, object, onSelect }) => {
+const SummaryTableRow = ({ headerRow = false, object, onSelect, columns  }) => {
   if (headerRow) {
     return (
       <TableRow>
-        <SummaryTableCell isHeader={true} content="Address" />
-        <SummaryTableCell isHeader={true} content="INSEE Code" />
-        <SummaryTableCell isHeader={true} content="Municipality" />
-        <SummaryTableCell isHeader={true} content="Latitude" />
-        <SummaryTableCell isHeader={true} content="Longitude" />
+        {columns.map((column) => (
+          <SummaryTableCell key={column.accessor} isHeader={true} content={column.Header} />
+        ))}
       </TableRow>
     );
-    
   }
+
   if (!object) {
     return null; // Prevent rendering if object is undefined
   }
 
   return (
     <TableRow hover onClick={() => onSelect(object)}>
-      <SummaryTableCell content={object.adresse || 'N/A'} />
-      <SummaryTableCell content={object.code_insee || 'N/A'} />
-      <SummaryTableCell content={object.commune || 'N/A'} />
-      <SummaryTableCell content={object.geo_point_2d?.lat || 'N/A'} />
-      <SummaryTableCell content={object.geo_point_2d?.lon || 'N/A'} />
+      {columns.map((column) => {
+        // Extract the value using the accessor
+        const value = column.accessor.split('.').reduce((acc, key) => acc && acc[key], object) || 'N/A';
+        console.log('Cell Value:', value); // Log the value for each cell
+        return (
+          <SummaryTableCell key={column.accessor} content={value} />
+        );
+      })}
     </TableRow>
   );
 };
+
 export default SummaryTableRow;
+

@@ -2,16 +2,16 @@ import React from 'react';
 import { Table as MuiTable, TableBody, TableContainer, TableHead, Paper, TablePagination } from '@mui/material';
 import SummaryTableRow from './SummaryTableRow';
 
-const SummaryTable = ({ domainObjects, page, rowsPerPage, onPageChange, onRowsPerPageChange, onSelect }) => {
+const SummaryTable = ({ domainObjects, page, rowsPerPage, onPageChange, onRowsPerPageChange, onSelect, columns }) => {
   return (
     <TableContainer component={Paper}>
       <MuiTable>
         <TableHead>
-          <SummaryTableRow headerRow={true} />
+          <SummaryTableRow headerRow={true} columns={columns} />
         </TableHead>
         <TableBody>
           {domainObjects.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((object, index) => (
-            <SummaryTableRow key={index} object={object} onSelect={onSelect} />
+            <SummaryTableRow key={index} object={object} columns={columns} onSelect={onSelect} />
           ))}
         </TableBody>
       </MuiTable>
