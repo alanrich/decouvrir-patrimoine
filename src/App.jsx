@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Typography, Box, Button, CircularProgress } from '@mui/material';
+import { CssBaseline, Box, Button, CircularProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import MainAppBar from './components/MainAppBar/MainAppBar';
+import MainToolBar from './components/MainToolBar/MainToolBar';
+import MainDrawer from './components/MainDrawer/MainDrawer';
 import SummaryTableWrapper from './components/SummaryTable/SummaryTableWrapper';
 import DetailView from './components/DetailView';
-import SearchBar from './components/SearchBar';
 import { useDomainObjects } from './hooks/useDomainObjects';
 import { usePersistentSelectedObject } from './hooks/usePersistentSelectedObject';
 
@@ -17,7 +19,7 @@ const theme = createTheme({
       main: '#f50057',
     },
     background: {
-      default: '#f4f6f8', // Light grey
+      default: '#f4f6f8',
       paper: '#fff',
     },
     text: {
@@ -39,20 +41,17 @@ const AppContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  padding: '20px',
+  paddingLeft: '2rem',
+  paddingRight: '2rem',
+  paddingBottom: '2rem',
+  paddingTop: '6.5rem', // Adjust for the combined height MainAppBar & MainToolBar
   backgroundColor: theme.palette.background.default,
 }));
 
 const TableContainer = styled('div')({
   width: '80%',
-  margin: '20px 0',
+  margin: '2rem 0',
 });
-
-const Header = styled(Typography)(({ theme }) => ({
-  fontSize: '2rem',
-  marginBottom: '20px',
-  color: theme.palette.primary.main,
-}));
 
 function App() {
   const [searchTerm, setSearchTerm] = useState(null);
@@ -61,10 +60,11 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline /> {/* Normalize styles across browsers */}
+      <CssBaseline />
       <AppContainer>
-        <Header variant="h5">Anabasis Dashboard</Header>
-        <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+        <MainAppBar />
+        <MainToolBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <MainDrawer />
 
         {loading ? (
           <CircularProgress />
@@ -74,7 +74,7 @@ function App() {
           </TableContainer>
         )}
 
-        <Box sx={{ mt: 2 }}>
+        <Box sx={{ mt: '2rem' }}>
           <DetailView object={selectedObject} />
         </Box>
 
@@ -84,8 +84,8 @@ function App() {
             color="secondary"
             onClick={clearSelectedObject}
             sx={{
-              mt: 2,
-              padding: '10px 20px',
+              mt: '2rem',
+              padding: '0.625rem 1.25rem',
               textTransform: 'none',
               '&:hover': { backgroundColor: '#d32f2f' },
             }}

@@ -11,11 +11,11 @@ const DetailView = ({ object }) => {
     <Card
       sx={{
         marginTop: '20px',
-        boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)', // Subtle shadow
+        boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
         height: 'auto',
-        width: '600px',  // Extended by 50% (original was 400px)
-        borderRadius: '8px', // Matches SummaryTable's border radius
-        border: '1px solid #ddd',  // Consistent border with SummaryTable
+        width: '600px',
+        borderRadius: '8px',
+        border: '1px solid #ddd',
       }}
     >
       {/* Header for DetailView */}
@@ -23,7 +23,7 @@ const DetailView = ({ object }) => {
         sx={{
           backgroundColor: '#f4f6f8',  // Light gray background
           padding: '8px 16px',
-          borderBottom: '1px solid #ddd',  // Border under the header
+          borderBottom: '1px solid #ddd',
           borderTopLeftRadius: '8px',
           borderTopRightRadius: '8px',
         }}
@@ -35,7 +35,7 @@ const DetailView = ({ object }) => {
 
       <CardContent
         sx={{
-          padding: '16px',  // Consistent padding
+          padding: '16px',
         }}
       >
         {object ? (

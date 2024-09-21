@@ -50,7 +50,7 @@ const SummaryTable = ({ domainObjects, page, rowsPerPage, onPageChange, onRowsPe
       <Box
         sx={{
           flexShrink: 0,
-          borderTop: '1px solid #ddd',  // Border between the table and pagination ==> might be better looking
+          borderTop: '1px solid #ddd', 
           padding: '0px 16px',
           backgroundColor: '#f9f9f9', 
         }}

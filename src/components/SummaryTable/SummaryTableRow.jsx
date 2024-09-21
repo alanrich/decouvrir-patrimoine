@@ -23,7 +23,7 @@ const SummaryTableRow = ({ headerRow = false, object, onSelect, columns  }) => {
       onClick={() => onSelect(object)}
       sx={{
         cursor: 'pointer',
-        '&:hover': { backgroundColor: '#e3f2fd' },  // Hover effect
+        '&:hover': { backgroundColor: '#e3f2fd' },
       }}
     >
       {columns.map((column) => {

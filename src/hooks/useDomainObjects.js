@@ -23,7 +23,7 @@ export const useDomainObjects = (searchTerm) => {
     fetchData();
   }, []);
 
-  // Filter objects based on the search term
+  // Filter objects based on the terms that are searched
   useEffect(() => {
     const term = searchTerm || "";
     setFilteredObjects(

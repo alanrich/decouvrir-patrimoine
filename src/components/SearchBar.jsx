@@ -1,25 +1,38 @@
 import React from 'react';
-import { TextField } from '@mui/material';
+import { TextField, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 const SearchBar = ({ searchTerm, onSearchChange }) => {
   return (
-    <TextField
-      label="Search"
+    (<TextField
       variant="outlined"
-      fullWidth
       value={searchTerm || ""}
       onChange={(e) => onSearchChange(e.target.value)}
       sx={{
-        mb: 2,
-        borderRadius: '8px',
+        borderRadius: '0.5rem',
+        height: '3rem',
         '& .MuiOutlinedInput-root': {
-          borderRadius: '20px',
+          height: '2rem', 
+          borderRadius: '1rem', 
           '&.Mui-focused fieldset': {
             borderColor: '#1976d2',
           },
         },
+        maxWidth: '18rem', 
       }}
-    />
+      slotProps={{
+        input: {
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+          style: {
+            backgroundColor: '#fff',
+          },
+        }
+      }}
+    />)
   );
 };
 
