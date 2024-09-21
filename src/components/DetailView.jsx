@@ -1,23 +1,82 @@
-import React from "react";
-import { Card, CardContent, CardHeader, Typography } from "@mui/material";
+import React from 'react';
+import { Card, CardContent, Typography, Box, Grid, Chip } from '@mui/material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import MapIcon from '@mui/icons-material/Map';
+import BusinessIcon from '@mui/icons-material/Business';
+import PublicIcon from '@mui/icons-material/Public';
+import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 
 const DetailView = ({ object }) => {
   return (
-    <Card style={{ marginTop: '20px' }}>
-      <CardHeader title="Detail View" />
-      <CardContent>
+    <Card
+      sx={{
+        marginTop: '20px',
+        boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)', // Subtle shadow
+        height: 'auto',
+        width: '600px',  // Extended by 50% (original was 400px)
+        borderRadius: '8px', // Matches SummaryTable's border radius
+        border: '1px solid #ddd',  // Consistent border with SummaryTable
+      }}
+    >
+      {/* Header for DetailView */}
+      <Box
+        sx={{
+          backgroundColor: '#f4f6f8',  // Light gray background
+          padding: '8px 16px',
+          borderBottom: '1px solid #ddd',  // Border under the header
+          borderTopLeftRadius: '8px',
+          borderTopRightRadius: '8px',
+        }}
+      >
+        <Typography variant="h6" sx={{ fontSize: '1rem', fontWeight: 500, color: '#333' }}>
+          Detail View
+        </Typography>
+      </Box>
+
+      <CardContent
+        sx={{
+          padding: '16px',  // Consistent padding
+        }}
+      >
         {object ? (
-          <>
-            <Typography variant="h5">{object.adresse || "No Address Provided"}</Typography>
-            <Typography>INSEE Code: {object.code_insee || "Unknown Code"}</Typography>
-            <Typography>Municipality: {object.commune || "Unknown Municipality"}</Typography>
-            <Typography>Latitude: {object.geo_point_2d?.lat || "Unknown Latitude"}</Typography>
-            <Typography>Longitude: {object.geo_point_2d?.lon || "Unknown Longitude"}</Typography>
-          </>
+          <Grid container spacing={2}>
+            {/* Address */}
+            <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+              <LocationOnIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
+              <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Address:</Typography>
+              <Typography variant="body1" sx={{ marginLeft: '8px', fontWeight: 'bold' }}>{object.adresse || 'N/A'}</Typography>
+            </Grid>
+
+            {/* INSEE Code */}
+            <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+              <MapIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
+              <Typography variant="body1" sx={{ fontWeight: 'bold' }}>INSEE Code:</Typography>
+              <Chip label={object.code_insee || 'N/A'} sx={{ marginLeft: '8px', backgroundColor: '#e0f7fa', fontWeight: 'bold' }} />
+            </Grid>
+
+            {/* Municipality */}
+            <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+              <BusinessIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
+              <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Municipality:</Typography>
+              <Chip label={object.commune || 'N/A'} sx={{ marginLeft: '8px', backgroundColor: '#e8eaf6', fontWeight: 'bold' }} />
+            </Grid>
+
+            {/* Latitude */}
+            <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+              <PublicIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
+              <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Latitude:</Typography>
+              <Typography variant="body1" sx={{ marginLeft: '8px', fontWeight: 'bold' }}>{object.geo_point_2d?.lat || 'N/A'}</Typography>
+            </Grid>
+
+            {/* Longitude */}
+            <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+              <GpsFixedIcon sx={{ color: '#1976d2', marginRight: '8px' }} />
+              <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Longitude:</Typography>
+              <Typography variant="body1" sx={{ marginLeft: '8px', fontWeight: 'bold' }}>{object.geo_point_2d?.lon || 'N/A'}</Typography>
+            </Grid>
+          </Grid>
         ) : (
-          <Typography style={{ color: 'gray' }}>
-            No item selected. Please select an item from the table.
-          </Typography>
+          <Typography color="textSecondary">No item selected.</Typography>
         )}
       </CardContent>
     </Card>

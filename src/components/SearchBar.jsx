@@ -9,7 +9,16 @@ const SearchBar = ({ searchTerm, onSearchChange }) => {
       fullWidth
       value={searchTerm || ""}
       onChange={(e) => onSearchChange(e.target.value)}
-      style={{ marginBottom: '20px' }}
+      sx={{
+        mb: 2,
+        borderRadius: '8px',
+        '& .MuiOutlinedInput-root': {
+          borderRadius: '20px',
+          '&.Mui-focused fieldset': {
+            borderColor: '#1976d2',
+          },
+        },
+      }}
     />
   );
 };
