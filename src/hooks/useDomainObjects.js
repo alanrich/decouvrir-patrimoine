@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export const useDomainObjects = (searchTerm) => {
   const [domainObjects, setDomainObjects] = useState([]);
@@ -9,13 +9,13 @@ export const useDomainObjects = (searchTerm) => {
     const fetchData = async () => {
       try {
         // Fetch the local JSON file, can't find an API atm
-        const response = await fetch('/data/videoprotection.json');
+        const response = await fetch("/data/videoprotection.json");
         const data = await response.json();
         setDomainObjects(data);
         setFilteredObjects(data);
         setLoading(false);
       } catch (error) {
-        console.error('Error loading JSON file:', error);
+        console.error("Error loading JSON file:", error);
         setLoading(false);
       }
     };
@@ -27,11 +27,12 @@ export const useDomainObjects = (searchTerm) => {
   useEffect(() => {
     const term = searchTerm || "";
     setFilteredObjects(
-        domainObjects.filter((object) =>
+      domainObjects.filter(
+        (object) =>
           object.adresse.toLowerCase().includes(term.toLowerCase()) ||
           object.commune.toLowerCase().includes(term.toLowerCase())
-        )
-      );
+      )
+    );
   }, [searchTerm, domainObjects]);
 
   return { filteredObjects, loading };

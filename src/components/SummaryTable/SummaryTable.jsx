@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Table as MuiTable,
   TableBody,
@@ -7,8 +7,8 @@ import {
   Paper,
   TablePagination,
   Box,
-} from '@mui/material';
-import SummaryTableRow from './SummaryTableRow';
+} from "@mui/material";
+import SummaryTableRow from "./SummaryTableRow";
 
 const SummaryTable = ({
   domainObjects,
@@ -23,15 +23,15 @@ const SummaryTable = ({
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        flexDirection: "column",
         // Remove flex: 1 to prevent the Box from stretching
         // Set a fixed height or let the parent control it
-        height: height ||'100%',
-        border: '1px solid #ddd',
-        borderRadius: '8px',
-        boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
-        overflow: 'hidden',
+        height: height || "100%",
+        border: "1px solid #ddd",
+        borderRadius: "8px",
+        boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+        overflow: "hidden",
       }}
     >
       <TableContainer
@@ -39,8 +39,8 @@ const SummaryTable = ({
         sx={{
           // Remove flex: 1 to prevent stretching
           // Set maxHeight to constrain the table's height
-          maxHeight: '100%', // Ensures it doesn't exceed its parent's height
-          overflowY: 'auto', // Enables vertical scrolling when content overflows
+          maxHeight: "100%", // Ensures it doesn't exceed its parent's height
+          overflowY: "auto", // Enables vertical scrolling when content overflows
           // Remove padding and margins that might affect the height
           margin: 0,
           padding: 0,
@@ -49,9 +49,9 @@ const SummaryTable = ({
         <MuiTable stickyHeader>
           <TableHead
             sx={{
-              '& .MuiTableCell-root': {
-                paddingTop: '10px',
-                paddingBottom: '10px',
+              "& .MuiTableCell-root": {
+                paddingTop: "10px",
+                paddingBottom: "10px",
               },
             }}
           >
@@ -75,9 +75,9 @@ const SummaryTable = ({
       <Box
         sx={{
           flexShrink: 0,
-          borderTop: '1px solid #ddd',
-          padding: '0px 16px',
-          backgroundColor: '#f9f9f9',
+          borderTop: "1px solid #ddd",
+          padding: "0px 16px",
+          backgroundColor: "#f9f9f9",
         }}
       >
         <TablePagination
@@ -89,13 +89,14 @@ const SummaryTable = ({
           onRowsPerPageChange={onRowsPerPageChange}
           rowsPerPageOptions={[5, 10, 25, 50]}
           sx={{
-            minHeight: '42px',
-            '& .MuiToolbar-root': {
-              minHeight: '42px',
+            minHeight: "42px",
+            "& .MuiToolbar-root": {
+              minHeight: "42px",
             },
-            '& .MuiTablePagination-displayedRows, & .MuiTablePagination-actions': {
-              fontSize: '0.8125rem',
-            },
+            "& .MuiTablePagination-displayedRows, & .MuiTablePagination-actions":
+              {
+                fontSize: "0.8125rem",
+              },
           }}
         />
       </Box>
