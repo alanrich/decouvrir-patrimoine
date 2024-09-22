@@ -2,10 +2,19 @@ import React from 'react';
 import { TableRow } from '@mui/material';
 import SummaryTableCell from './SummaryTableCell';
 
-const SummaryTableRow = ({ headerRow = false, object, onSelect, columns  }) => {
+const SummaryTableRow = ({ headerRow = false, object, onSelect, columns }) => {
   if (headerRow) {
     return (
-      <TableRow sx={{ backgroundColor: '#e0e0e0', fontWeight: 'bold' }}>
+      <TableRow
+        sx={{
+          backgroundColor: '#e0e0e0',
+          fontWeight: 'bold',
+          '& .MuiTableCell-root': {
+            paddingTop: '10px',
+            paddingBottom: '10px',
+          },
+        }}
+      >
         {columns.map((column) => (
           <SummaryTableCell key={column.accessor} isHeader={true} content={column.Header} />
         ))}
@@ -18,12 +27,16 @@ const SummaryTableRow = ({ headerRow = false, object, onSelect, columns  }) => {
   }
 
   return (
-    <TableRow 
+    <TableRow
       hover
       onClick={() => onSelect(object)}
       sx={{
         cursor: 'pointer',
         '&:hover': { backgroundColor: '#e3f2fd' },
+        '& .MuiTableCell-root': {
+          paddingTop: '10px',
+          paddingBottom: '10px',
+        },
       }}
     >
       {columns.map((column) => {
@@ -38,4 +51,3 @@ const SummaryTableRow = ({ headerRow = false, object, onSelect, columns  }) => {
 };
 
 export default SummaryTableRow;
-

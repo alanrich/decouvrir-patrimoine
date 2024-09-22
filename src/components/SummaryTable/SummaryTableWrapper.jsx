@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SummaryTable from './SummaryTable';
+import { Box } from '@mui/material';
 
 const SummaryTableWrapper = ({ domainObjects, onSelect }) => {
   const [page, setPage] = useState(0);
@@ -23,15 +24,18 @@ const SummaryTableWrapper = ({ domainObjects, onSelect }) => {
   };
 
   return (
-    <SummaryTable
-      columns={columns}
-      domainObjects={domainObjects}
-      page={page}
-      rowsPerPage={rowsPerPage}
-      onPageChange={handleChangePage}
-      onRowsPerPageChange={handleChangeRowsPerPage}
-      onSelect={onSelect}
-    />
+    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <SummaryTable
+        columns={columns}
+        domainObjects={domainObjects}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        onSelect={onSelect}
+        height="300px" // Pass the desired height as a prop
+      />
+    </Box>
   );
 };
 
