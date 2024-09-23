@@ -57,8 +57,14 @@ const RightPane = styled("div")({
 
 function App() {
   const [searchTerm, setSearchTerm] = useState(null);
-  const { selectedObject, setSelectedObject, clearSelectedObject } =
-    usePersistentSelectedObject();
+
+  const {
+    selectedObject,
+    setSelectedObject,
+    selectedObjectLoaded,
+    clearSelectedObject,
+  } = usePersistentSelectedObject();
+
   const { filteredObjects, loading } = useDomainObjects(searchTerm);
 
   return (
@@ -115,6 +121,7 @@ function App() {
               <MapView
                 domainObjects={filteredObjects}
                 selectedObject={selectedObject}
+                selectedObjectLoaded={selectedObjectLoaded}
                 onSelect={setSelectedObject}
               />
             </RightPane>
