@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo, useCallback } from "react";
 import {
   Card,
   CardContent,
@@ -9,6 +9,7 @@ import {
   Tabs,
   Tab,
 } from "@mui/material";
+import PropTypes from "prop-types";
 import { styled } from "@mui/system";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MapIcon from "@mui/icons-material/Map";
@@ -34,12 +35,10 @@ const ChromeTab = styled(Tab)(({ theme }) => ({
   borderRadius: "0.75rem 0.75rem 0 0",
   backgroundColor: "#e0e0e0",
   transition: "background-color 0.3s ease-in-out",
-  // borderBottom: "3px solid transparent",
 
   "&.Mui-selected": {
     backgroundColor: "#ADD8E6",
     boxShadow: "0 2px 5px rgba(0,0,0,0.15)", // Slight shadow to elevate active tab
-    //borderBottom: "3px solid #ffffff", // Active tab border extending down
   },
 
   "&:hover": {
@@ -52,12 +51,30 @@ const TabPanel = ({ children, value, index }) => {
   return value === index ? <Box sx={{ padding: 2 }}>{children}</Box> : null;
 };
 
-const DetailView = ({ object }) => {
+// Temporarily memoize it all, (probably too much overhead)
+// As the component grows more complex we will see what's expensive to re-render
+const DetailView = memo(({ object }) => {
+  // consider refactoring to TypeScript for a refresher on TS syntax
+  DetailView.propTypes = {
+    object: PropTypes.shape({
+      adresse: PropTypes.string,
+      code_insee: PropTypes.string,
+      commune: PropTypes.string,
+      geo_point_2d: PropTypes.shape({
+        lat: PropTypes.number,
+        lon: PropTypes.number,
+      }),
+    }),
+  };
+
+  DetailView.defaultProps = {
+    object: null,
+  };
   const [tabValue, setTabValue] = useState(0);
 
-  const handleTabChange = (event, newValue) => {
+  const handleTabChange = useCallback((event, newValue) => {
     setTabValue(newValue);
-  };
+  }, []);
 
   return (
     <Card
@@ -231,6 +248,6 @@ const DetailView = ({ object }) => {
       </CardContent>
     </Card>
   );
-};
+});
 
 export default DetailView;

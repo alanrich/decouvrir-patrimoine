@@ -10,8 +10,15 @@ export const usePersistentSelectedObject = () => {
   useEffect(() => {
     const storedObject = localStorage.getItem("selectedObject");
     if (storedObject) {
-      setSelectedObject(JSON.parse(storedObject));
-      setSelectedObjectLoaded(true); // to inform the Map if a selected object was loaded from local Storage
+      try {
+        setSelectedObject(JSON.parse(storedObject));
+        setSelectedObjectLoaded(true); // to inform the Map if a selected object was loaded from local Storage
+      } catch (error) {
+        console.error("Error parsing selectedObject from localStorage:", error);
+        // Handle invalid JSON if it is found in localStorage
+        localStorage.removeItem("selectedObject");
+        setSelectedObject(null);
+      }
     }
   }, []);
 

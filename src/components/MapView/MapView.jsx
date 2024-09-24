@@ -34,28 +34,38 @@ const MapView = ({
         selectedObjectLoaded={selectedObjectLoaded}
       />
 
-      {domainObjects.map((object, index) => (
-        <Marker
-          key={index}
-          position={[object.geo_point_2d.lat, object.geo_point_2d.lon]}
-          icon={object === selectedObject ? SelectedCameraIcon : CameraIcon}
-          eventHandlers={{
-            click: () => {
-              onSelect(object);
-            },
-          }}
-        >
-          <Popup>
-            <div>
-              <strong>{object.adresse}</strong>
-              <br />
-              Municipality: {object.commune}
-              <br />
-              INSEE Code: {object.code_insee}
-            </div>
-          </Popup>
-        </Marker>
-      ))}
+      {domainObjects
+        // validate the surveillance camera has a geoLocation before giving it a ma
+        .filter(
+          (object) =>
+            object.geo_point_2d &&
+            object.geo_point_2d.lat != null &&
+            object.geo_point_2d.lon != null
+        )
+        .map((object, index) => (
+          <Marker
+            key={index}
+            position={[object.geo_point_2d.lat, object.geo_point_2d.lon]}
+            icon={object === selectedObject ? SelectedCameraIcon : CameraIcon}
+            // TODO: Memoize the click handler with a useCallBack if we add more complex children to the popup,
+            // like photos of persons of interest or warning alerts for high activity or recent events
+            eventHandlers={{
+              click: () => {
+                onSelect(object);
+              },
+            }}
+          >
+            <Popup>
+              <div>
+                <strong>{object.adresse}</strong>
+                <br />
+                Municipality: {object.commune}
+                <br />
+                INSEE Code: {object.code_insee}
+              </div>
+            </Popup>
+          </Marker>
+        ))}
     </MapContainer>
   );
 };

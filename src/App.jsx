@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, Box, Button, CircularProgress } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -10,6 +10,7 @@ import DetailView from "./components/DetailView";
 import MapView from "./components/MapView/MapView";
 import { useDomainObjects } from "./hooks/useDomainObjects";
 import { usePersistentSelectedObject } from "./hooks/usePersistentSelectedObject";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const theme = createTheme({
   palette: {
@@ -67,67 +68,92 @@ function App() {
 
   const { filteredObjects, loading } = useDomainObjects(searchTerm);
 
+  // Memoize functions that are passed to children
+  const handleSetSearchTerm = useCallback((term) => {
+    setSearchTerm(term);
+  }, []);
+
+  const handleSetSelectedObject = useCallback(
+    (object) => {
+      setSelectedObject(object);
+    },
+    [setSelectedObject]
+  );
+
+  const handleClearSelectedObject = useCallback(() => {
+    clearSelectedObject();
+  }, [clearSelectedObject]);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppContainer>
-        <MainDrawer />
+      <ErrorBoundary>
+        <AppContainer>
+          <MainDrawer />
 
-        <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-          <MainAppBar />
-          <MainToolBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <div
+            style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
+          >
+            <MainAppBar />
+            <MainToolBar
+              searchTerm={searchTerm}
+              setSearchTerm={handleSetSearchTerm}
+            />
 
-          <WorkspaceContainer>
-            <LeftPane>
-              {loading ? (
-                <CircularProgress />
-              ) : (
-                <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                  <SummaryTableWrapper
-                    domainObjects={filteredObjects}
-                    onSelect={setSelectedObject}
-                  />
-                </Box>
-              )}
+            <WorkspaceContainer>
+              <LeftPane>
+                {loading ? (
+                  <CircularProgress />
+                ) : (
+                  <Box
+                    sx={{ flex: 1, display: "flex", flexDirection: "column" }}
+                  >
+                    <SummaryTableWrapper
+                      domainObjects={filteredObjects}
+                      onSelect={handleSetSelectedObject}
+                    />
+                  </Box>
+                )}
 
-              <Box
-                sx={{
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  mt: "1rem",
-                }}
-              >
-                <DetailView object={selectedObject} />
-              </Box>
-
-              {selectedObject && (
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={clearSelectedObject}
+                <Box
                   sx={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
                     mt: "1rem",
-                    padding: "0.625rem 1.25rem",
-                    textTransform: "none",
-                    "&:hover": { backgroundColor: "#d32f2f" },
                   }}
                 >
-                  Clear Selection
-                </Button>
-              )}
-            </LeftPane>
-            <RightPane>
-              <MapView
-                domainObjects={filteredObjects}
-                selectedObject={selectedObject}
-                selectedObjectLoaded={selectedObjectLoaded}
-                onSelect={setSelectedObject}
-              />
-            </RightPane>
-          </WorkspaceContainer>
-        </div>
-      </AppContainer>
+                  <DetailView object={selectedObject} />
+                </Box>
+
+                {selectedObject && (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleClearSelectedObject}
+                    sx={{
+                      mt: "1rem",
+                      padding: "0.625rem 1.25rem",
+                      textTransform: "none",
+                      "&:hover": { backgroundColor: "#d32f2f" },
+                    }}
+                  >
+                    Clear Selection
+                  </Button>
+                )}
+              </LeftPane>
+              <RightPane>
+                <MapView
+                  domainObjects={filteredObjects}
+                  selectedObject={selectedObject}
+                  selectedObjectLoaded={selectedObjectLoaded}
+                  onSelect={setSelectedObject}
+                />
+              </RightPane>
+            </WorkspaceContainer>
+          </div>
+        </AppContainer>
+      </ErrorBoundary>
     </ThemeProvider>
   );
 }
