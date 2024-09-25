@@ -1,3 +1,4 @@
+// DetailView.js
 import React, { useState, memo, useCallback, useEffect } from "react";
 import {
   Card,
@@ -5,22 +6,16 @@ import {
   Typography,
   Box,
   Grid,
-  Chip,
   Tabs,
   Tab,
-  List,
-  ListItem,
-  ListItemText,
-  TextField,
-  Button,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { styled } from "@mui/system";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import MapIcon from "@mui/icons-material/Map";
-import BusinessIcon from "@mui/icons-material/Business";
-import PublicIcon from "@mui/icons-material/Public";
-import GpsFixedIcon from "@mui/icons-material/GpsFixed";
+import GeoLocationTab from "./GeoLocationTab";
+import IncidentsTab from "./IncidentsTab";
+import PersonsOfInterestTab from "./PersonsOfInterestTab";
+import NotesTab from "./NotesTab";
+import TabPanel from "./TabPanel";
 
 const ChromeTabs = styled(Tabs)({
   "& .MuiTabs-indicator": {
@@ -47,19 +42,11 @@ const ChromeTab = styled(Tab)(({ theme }) => ({
   },
 
   "&:hover": {
-    backgroundColor: "#ADD8E6", // Hover effect for inactive tabs ==> Change color
+    backgroundColor: "#ADD8E6", // Hover effect for inactive tabs
   },
 }));
 
-// Tab Panel renders content based on which tab is selected
-const TabPanel = ({ children, value, index }) => {
-  return value === index ? <Box sx={{ padding: 2 }}>{children}</Box> : null;
-};
-
-// Temporarily memoize it all, (probably too much overhead)
-// As the component grows more complex we will see what's expensive to re-render
 const DetailView = memo(({ object }) => {
-  // consider refactoring to TypeScript for a refresher on TS syntax
   DetailView.propTypes = {
     object: PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -76,6 +63,7 @@ const DetailView = memo(({ object }) => {
   DetailView.defaultProps = {
     object: null,
   };
+
   const [tabValue, setTabValue] = useState(0);
 
   const handleTabChange = useCallback((event, newValue) => {
@@ -196,11 +184,11 @@ const DetailView = memo(({ object }) => {
           borderBottom: "1px solid #ddd",
           borderTopLeftRadius: "8px",
           borderTopRightRadius: "8px",
-          height: "3.5rem", // Set height of header area so active tab covers full height ==> Might complicate future styling work
+          height: "3.5rem", // Set height of header area so active tab covers full height
         }}
       >
         <ChromeTabs value={tabValue} onChange={handleTabChange}>
-          {["General", "Incidents", "Persons of Interest", "Notes"].map(
+          {["GeoLocation", "Incidents", "Persons of Interest", "Notes"].map(
             (label, index) => (
               <ChromeTab
                 key={label}
@@ -216,253 +204,41 @@ const DetailView = memo(({ object }) => {
       <CardContent sx={{ padding: "16px", flex: 1 }}>
         {object ? (
           <>
-            {/* General Tab */}
+            {/* GeoLocation Tab */}
             <TabPanel value={tabValue} index={0}>
-              {object ? (
-                <Grid container spacing={2}>
-                  {/* Address */}
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{ display: "flex", alignItems: "center" }}
-                  >
-                    <LocationOnIcon
-                      sx={{ color: "#1976d2", marginRight: "8px" }}
-                    />
-                    <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                      Address:
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      sx={{ marginLeft: "8px", fontWeight: "bold" }}
-                    >
-                      {object.adresse || "N/A"}
-                    </Typography>
-                  </Grid>
-
-                  {/* INSEE Code */}
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{ display: "flex", alignItems: "center" }}
-                  >
-                    <MapIcon sx={{ color: "#1976d2", marginRight: "8px" }} />
-                    <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                      INSEE Code:
-                    </Typography>
-                    <Chip
-                      label={object.code_insee || "N/A"}
-                      sx={{
-                        marginLeft: "8px",
-                        backgroundColor: "#e0f7fa",
-                        fontWeight: "bold",
-                      }}
-                    />
-                  </Grid>
-
-                  {/* Municipality */}
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{ display: "flex", alignItems: "center" }}
-                  >
-                    <BusinessIcon
-                      sx={{ color: "#1976d2", marginRight: "8px" }}
-                    />
-                    <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                      Municipality:
-                    </Typography>
-                    <Chip
-                      label={object.commune || "N/A"}
-                      sx={{
-                        marginLeft: "8px",
-                        backgroundColor: "#e8eaf6",
-                        fontWeight: "bold",
-                      }}
-                    />
-                  </Grid>
-
-                  {/* Latitude */}
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{ display: "flex", alignItems: "center" }}
-                  >
-                    <PublicIcon sx={{ color: "#1976d2", marginRight: "8px" }} />
-                    <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                      Latitude:
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      sx={{ marginLeft: "8px", fontWeight: "bold" }}
-                    >
-                      {object.geo_point_2d?.lat || "N/A"}
-                    </Typography>
-                  </Grid>
-
-                  {/* Longitude */}
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{ display: "flex", alignItems: "center" }}
-                  >
-                    <GpsFixedIcon
-                      sx={{ color: "#1976d2", marginRight: "8px" }}
-                    />
-                    <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                      Longitude:
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      sx={{ marginLeft: "8px", fontWeight: "bold" }}
-                    >
-                      {object.geo_point_2d?.lon || "N/A"}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              ) : (
-                <Typography color="textSecondary">No item selected.</Typography>
-              )}
+              <GeoLocationTab object={object} />
             </TabPanel>
 
             {/* Incidents Tab */}
             <TabPanel value={tabValue} index={1}>
-              <Typography>
-                <Typography variant="h6" gutterBottom>
-                  Add Incident
-                </Typography>
-                <TextField
-                  label="Description"
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                  fullWidth
-                  value={incidentDescription}
-                  onChange={(e) => setIncidentDescription(e.target.value)}
-                  sx={{ mb: 2 }}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleAddIncident}
-                >
-                  Add Incident
-                </Button>
-
-                {incidents.length > 0 && (
-                  <>
-                    <Typography variant="h6" gutterBottom sx={{ mt: 4 }}>
-                      Previous Incidents
-                    </Typography>
-                    <List>
-                      {incidents.map((incident) => (
-                        <ListItem key={incident.id} alignItems="flex-start">
-                          <ListItemText
-                            primary={incident.description}
-                            secondary={incident.date}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </>
-                )}
-              </Typography>
+              <IncidentsTab
+                incidents={incidents}
+                handleAddIncident={handleAddIncident}
+                incidentDescription={incidentDescription}
+                setIncidentDescription={setIncidentDescription}
+              />
             </TabPanel>
 
             {/* Persons of Interest Tab */}
             <TabPanel value={tabValue} index={2}>
-              <Typography>
-                <Typography variant="h6" gutterBottom>
-                  Add Person of Interest
-                </Typography>
-                <TextField
-                  label="Name"
-                  variant="outlined"
-                  fullWidth
-                  value={personName}
-                  onChange={(e) => setPersonName(e.target.value)}
-                  sx={{ mb: 2 }}
-                />
-                <TextField
-                  label="Description"
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                  fullWidth
-                  value={personDescription}
-                  onChange={(e) => setPersonDescription(e.target.value)}
-                  sx={{ mb: 2 }}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleAddPerson}
-                >
-                  Add Person
-                </Button>
-
-                {personsOfInterest.length > 0 && (
-                  <>
-                    <Typography variant="h6" gutterBottom sx={{ mt: 4 }}>
-                      Persons of Interest
-                    </Typography>
-                    <List>
-                      {personsOfInterest.map((person) => (
-                        <ListItem key={person.id} alignItems="flex-start">
-                          <ListItemText
-                            primary={person.name}
-                            secondary={person.description}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </>
-                )}
-              </Typography>
+              <PersonsOfInterestTab
+                personsOfInterest={personsOfInterest}
+                handleAddPerson={handleAddPerson}
+                personName={personName}
+                setPersonName={setPersonName}
+                personDescription={personDescription}
+                setPersonDescription={setPersonDescription}
+              />
             </TabPanel>
 
             {/* Notes Tab */}
             <TabPanel value={tabValue} index={3}>
-              <Typography>
-                <Typography variant="h6" gutterBottom>
-                  Add Note
-                </Typography>
-                <TextField
-                  label="Note"
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                  fullWidth
-                  value={noteText}
-                  onChange={(e) => setNoteText(e.target.value)}
-                  sx={{ mb: 2 }}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleAddNote}
-                >
-                  Add Note
-                </Button>
-
-                {notes.length > 0 && (
-                  <>
-                    <Typography variant="h6" gutterBottom sx={{ mt: 4 }}>
-                      Notes
-                    </Typography>
-                    <List>
-                      {notes.map((note) => (
-                        <ListItem key={note.id} alignItems="flex-start">
-                          <ListItemText
-                            primary={note.text}
-                            secondary={note.date}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </>
-                )}
-              </Typography>
+              <NotesTab
+                notes={notes}
+                handleAddNote={handleAddNote}
+                noteText={noteText}
+                setNoteText={setNoteText}
+              />
             </TabPanel>
           </>
         ) : (
