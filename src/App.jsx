@@ -6,7 +6,7 @@ import MainAppBar from "./components/MainAppBar/MainAppBar";
 import MainToolBar from "./components/MainToolBar/MainToolBar";
 import MainDrawer from "./components/MainDrawer/MainDrawer";
 import SummaryTableWrapper from "./components/SummaryTable/SummaryTableWrapper";
-import DetailView from "./components/DetailView";
+import DetailView from "./components/DetailView/DetailView";
 import MapView from "./components/MapView/MapView";
 import { useDomainObjects } from "./hooks/useDomainObjects";
 import { usePersistentSelectedObject } from "./hooks/usePersistentSelectedObject";

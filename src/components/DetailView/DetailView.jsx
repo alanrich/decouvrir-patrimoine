@@ -1,4 +1,4 @@
-import React, { useState, memo, useCallback } from "react";
+import React, { useState, memo, useCallback, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -8,6 +8,11 @@ import {
   Chip,
   Tabs,
   Tab,
+  List,
+  ListItem,
+  ListItemText,
+  TextField,
+  Button,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { styled } from "@mui/system";
@@ -57,6 +62,7 @@ const DetailView = memo(({ object }) => {
   // consider refactoring to TypeScript for a refresher on TS syntax
   DetailView.propTypes = {
     object: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       adresse: PropTypes.string,
       code_insee: PropTypes.string,
       commune: PropTypes.string,
@@ -75,6 +81,100 @@ const DetailView = memo(({ object }) => {
   const handleTabChange = useCallback((event, newValue) => {
     setTabValue(newValue);
   }, []);
+
+  // State for incidents, notes, and persons of interest
+  const [incidents, setIncidents] = useState([]);
+  const [notes, setNotes] = useState([]);
+  const [personsOfInterest, setPersonsOfInterest] = useState([]);
+
+  // State for form inputs
+  const [incidentDescription, setIncidentDescription] = useState("");
+  const [noteText, setNoteText] = useState("");
+  const [personName, setPersonName] = useState("");
+  const [personDescription, setPersonDescription] = useState("");
+
+  // Load existing data from localStorage when the component mounts or object changes
+  useEffect(() => {
+    if (object && object.id != null) {
+      // Load incidents
+      const savedIncidents = JSON.parse(
+        localStorage.getItem(`incidents_${object.id}`)
+      );
+      if (savedIncidents) {
+        setIncidents(savedIncidents);
+      } else {
+        setIncidents([]);
+      }
+
+      // Load notes
+      const savedNotes = JSON.parse(localStorage.getItem(`notes_${object.id}`));
+      if (savedNotes) {
+        setNotes(savedNotes);
+      } else {
+        setNotes([]);
+      }
+
+      // Load persons of interest
+      const savedPersons = JSON.parse(
+        localStorage.getItem(`persons_${object.id}`)
+      );
+      if (savedPersons) {
+        setPersonsOfInterest(savedPersons);
+      } else {
+        setPersonsOfInterest([]);
+      }
+    }
+  }, [object]);
+
+  // Handlers for saving data
+  const handleAddIncident = () => {
+    if (incidentDescription.trim() !== "") {
+      const newIncident = {
+        id: Date.now(),
+        description: incidentDescription.trim(),
+        date: new Date().toLocaleString(),
+      };
+      const updatedIncidents = [...incidents, newIncident];
+      setIncidents(updatedIncidents);
+      localStorage.setItem(
+        `incidents_${object.id}`,
+        JSON.stringify(updatedIncidents)
+      );
+      setIncidentDescription("");
+    }
+  };
+
+  const handleAddNote = () => {
+    if (noteText.trim() !== "") {
+      const newNote = {
+        id: Date.now(),
+        text: noteText.trim(),
+        date: new Date().toLocaleString(),
+      };
+      const updatedNotes = [...notes, newNote];
+      setNotes(updatedNotes);
+      localStorage.setItem(`notes_${object.id}`, JSON.stringify(updatedNotes));
+      setNoteText("");
+    }
+  };
+
+  const handleAddPerson = () => {
+    if (personName.trim() !== "" && personDescription.trim() !== "") {
+      const newPerson = {
+        id: Date.now(),
+        name: personName.trim(),
+        description: personDescription.trim(),
+      };
+      const updatedPersons = [...personsOfInterest, newPerson];
+      setPersonsOfInterest(updatedPersons);
+      localStorage.setItem(
+        `persons_${object.id}`,
+        JSON.stringify(updatedPersons)
+      );
+      setPersonName("");
+      setPersonDescription("");
+    }
+  };
 
   return (
     <Card
@@ -227,19 +327,142 @@ const DetailView = memo(({ object }) => {
 
             {/* Incidents Tab */}
             <TabPanel value={tabValue} index={1}>
-              <Typography>Incidents data will be shown here...</Typography>
+              <Typography>
+                <Typography variant="h6" gutterBottom>
+                  Add Incident
+                </Typography>
+                <TextField
+                  label="Description"
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  fullWidth
+                  value={incidentDescription}
+                  onChange={(e) => setIncidentDescription(e.target.value)}
+                  sx={{ mb: 2 }}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleAddIncident}
+                >
+                  Add Incident
+                </Button>
+
+                {incidents.length > 0 && (
+                  <>
+                    <Typography variant="h6" gutterBottom sx={{ mt: 4 }}>
+                      Previous Incidents
+                    </Typography>
+                    <List>
+                      {incidents.map((incident) => (
+                        <ListItem key={incident.id} alignItems="flex-start">
+                          <ListItemText
+                            primary={incident.description}
+                            secondary={incident.date}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </>
+                )}
+              </Typography>
             </TabPanel>
 
             {/* Persons of Interest Tab */}
             <TabPanel value={tabValue} index={2}>
               <Typography>
-                Persons of Interest data will be shown here...
+                <Typography variant="h6" gutterBottom>
+                  Add Person of Interest
+                </Typography>
+                <TextField
+                  label="Name"
+                  variant="outlined"
+                  fullWidth
+                  value={personName}
+                  onChange={(e) => setPersonName(e.target.value)}
+                  sx={{ mb: 2 }}
+                />
+                <TextField
+                  label="Description"
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  fullWidth
+                  value={personDescription}
+                  onChange={(e) => setPersonDescription(e.target.value)}
+                  sx={{ mb: 2 }}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleAddPerson}
+                >
+                  Add Person
+                </Button>
+
+                {personsOfInterest.length > 0 && (
+                  <>
+                    <Typography variant="h6" gutterBottom sx={{ mt: 4 }}>
+                      Persons of Interest
+                    </Typography>
+                    <List>
+                      {personsOfInterest.map((person) => (
+                        <ListItem key={person.id} alignItems="flex-start">
+                          <ListItemText
+                            primary={person.name}
+                            secondary={person.description}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </>
+                )}
               </Typography>
             </TabPanel>
 
             {/* Notes Tab */}
             <TabPanel value={tabValue} index={3}>
-              <Typography>Notes data will be shown here...</Typography>
+              <Typography>
+                <Typography variant="h6" gutterBottom>
+                  Add Note
+                </Typography>
+                <TextField
+                  label="Note"
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  fullWidth
+                  value={noteText}
+                  onChange={(e) => setNoteText(e.target.value)}
+                  sx={{ mb: 2 }}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleAddNote}
+                >
+                  Add Note
+                </Button>
+
+                {notes.length > 0 && (
+                  <>
+                    <Typography variant="h6" gutterBottom sx={{ mt: 4 }}>
+                      Notes
+                    </Typography>
+                    <List>
+                      {notes.map((note) => (
+                        <ListItem key={note.id} alignItems="flex-start">
+                          <ListItemText
+                            primary={note.text}
+                            secondary={note.date}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </>
+                )}
+              </Typography>
             </TabPanel>
           </>
         ) : (
