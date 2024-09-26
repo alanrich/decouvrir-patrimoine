@@ -47,6 +47,11 @@ const LeftPane = styled("div")({
   padding: "1rem",
   height: "100%",
   overflow: "hidden",
+  // Makes sure that each component takes up 50% of the height
+  "& > div": {
+    flex: "0 0 50%", // fix the height at 50%, prevent any expansion/shrinking on zoom
+    overflow: "hidden",
+  },
 });
 
 const RightPane = styled("div")({

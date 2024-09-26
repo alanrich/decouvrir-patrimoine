@@ -25,9 +25,7 @@ const SummaryTable = ({
       sx={{
         display: "flex",
         flexDirection: "column",
-        // Remove flex: 1 to prevent the Box from stretching
-        // Set a fixed height or let the parent control it
-        height: height || "100%",
+        height: "100%",
         border: "1px solid #ddd",
         borderRadius: "8px",
         boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
@@ -37,13 +35,11 @@ const SummaryTable = ({
       <TableContainer
         component={Paper}
         sx={{
-          // Remove flex: 1 to prevent stretching
-          // Set maxHeight to constrain the table's height
-          maxHeight: "100%", // Ensures it doesn't exceed its parent's height
-          overflowY: "auto", // Enables vertical scrolling when content overflows
-          // Remove padding and margins that might affect the height
+          flexGrow: 1,
+          overflowY: "auto",
           margin: 0,
           padding: 0,
+          height: "100%",
         }}
       >
         <MuiTable stickyHeader>

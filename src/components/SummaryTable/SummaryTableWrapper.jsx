@@ -33,7 +33,6 @@ const SummaryTableWrapper = ({ domainObjects, onSelect }) => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
         onSelect={onSelect}
-        height="300px" // Pass the desired height as a prop
       />
     </Box>
   );

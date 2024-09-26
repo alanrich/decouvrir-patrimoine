@@ -1,14 +1,5 @@
-// DetailView.js
 import React, { useState, memo, useCallback, useEffect } from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Box,
-  Grid,
-  Tabs,
-  Tab,
-} from "@mui/material";
+import { Card, CardContent, Typography, Box, Tabs, Tab } from "@mui/material";
 import PropTypes from "prop-types";
 import { styled } from "@mui/system";
 import GeoLocationTab from "./GeoLocationTab";
@@ -169,11 +160,12 @@ const DetailView = memo(({ object }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        flex: 1, // Allow the component to grow and fill the parent
+        flex: 1,
         boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
         borderRadius: "8px",
         border: "1px solid #ddd",
         overflow: "auto",
+        mb: "16px",
       }}
     >
       {/* Tabs for DetailView */}
@@ -184,7 +176,7 @@ const DetailView = memo(({ object }) => {
           borderBottom: "1px solid #ddd",
           borderTopLeftRadius: "8px",
           borderTopRightRadius: "8px",
-          height: "3.5rem", // Set height of header area so active tab covers full height
+          height: "3.5rem",
         }}
       >
         <ChromeTabs value={tabValue} onChange={handleTabChange}>
