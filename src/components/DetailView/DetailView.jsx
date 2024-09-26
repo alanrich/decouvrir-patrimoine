@@ -1,12 +1,12 @@
-import React, { useState, memo, useCallback, useEffect } from "react";
+import React, { memo } from "react";
 import { Card, CardContent, Typography, Box, Tabs, Tab } from "@mui/material";
 import PropTypes from "prop-types";
 import { styled } from "@mui/system";
-import GeoLocationTab from "./GeoLocationTab";
-import IncidentsTab from "./IncidentsTab";
-import PersonsOfInterestTab from "./PersonsOfInterestTab";
-import NotesTab from "./NotesTab";
-import TabPanel from "./TabPanel";
+import GeoLocationTab from "./DetailViewTabs/GeoLocationTab";
+import IncidentsTab from "./DetailViewTabs/IncidentsTab";
+import PersonsOfInterestTab from "./DetailViewTabs/PersonsOfInterestTab";
+import NotesTab from "./DetailViewTabs/NotesTab";
+import TabPanel from "./DetailViewTabs/TabPanel";
 
 const ChromeTabs = styled(Tabs)({
   "& .MuiTabs-indicator": {
@@ -37,208 +37,125 @@ const ChromeTab = styled(Tab)(({ theme }) => ({
   },
 }));
 
-const DetailView = memo(({ object }) => {
-  DetailView.propTypes = {
-    object: PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      adresse: PropTypes.string,
-      code_insee: PropTypes.string,
-      commune: PropTypes.string,
-      geo_point_2d: PropTypes.shape({
-        lat: PropTypes.number,
-        lon: PropTypes.number,
-      }),
-    }),
-  };
-
-  DetailView.defaultProps = {
-    object: null,
-  };
-
-  const [tabValue, setTabValue] = useState(0);
-
-  const handleTabChange = useCallback((event, newValue) => {
-    setTabValue(newValue);
-  }, []);
-
-  // State for incidents, notes, and persons of interest
-  const [incidents, setIncidents] = useState([]);
-  const [notes, setNotes] = useState([]);
-  const [personsOfInterest, setPersonsOfInterest] = useState([]);
-
-  // State for form inputs
-  const [incidentDescription, setIncidentDescription] = useState("");
-  const [noteText, setNoteText] = useState("");
-  const [personName, setPersonName] = useState("");
-  const [personDescription, setPersonDescription] = useState("");
-
-  // Load existing data from localStorage when the component mounts or object changes
-  useEffect(() => {
-    if (object && object.id != null) {
-      // Load incidents
-      const savedIncidents = JSON.parse(
-        localStorage.getItem(`incidents_${object.id}`)
-      );
-      if (savedIncidents) {
-        setIncidents(savedIncidents);
-      } else {
-        setIncidents([]);
-      }
-
-      // Load notes
-      const savedNotes = JSON.parse(localStorage.getItem(`notes_${object.id}`));
-      if (savedNotes) {
-        setNotes(savedNotes);
-      } else {
-        setNotes([]);
-      }
-
-      // Load persons of interest
-      const savedPersons = JSON.parse(
-        localStorage.getItem(`persons_${object.id}`)
-      );
-      if (savedPersons) {
-        setPersonsOfInterest(savedPersons);
-      } else {
-        setPersonsOfInterest([]);
-      }
-    }
-  }, [object]);
-
-  // Handlers for saving data
-  const handleAddIncident = () => {
-    if (incidentDescription.trim() !== "") {
-      const newIncident = {
-        id: Date.now(),
-        description: incidentDescription.trim(),
-        date: new Date().toLocaleString(),
-      };
-      const updatedIncidents = [...incidents, newIncident];
-      setIncidents(updatedIncidents);
-      localStorage.setItem(
-        `incidents_${object.id}`,
-        JSON.stringify(updatedIncidents)
-      );
-      setIncidentDescription("");
-    }
-  };
-
-  const handleAddNote = () => {
-    if (noteText.trim() !== "") {
-      const newNote = {
-        id: Date.now(),
-        text: noteText.trim(),
-        date: new Date().toLocaleString(),
-      };
-      const updatedNotes = [...notes, newNote];
-      setNotes(updatedNotes);
-      localStorage.setItem(`notes_${object.id}`, JSON.stringify(updatedNotes));
-      setNoteText("");
-    }
-  };
-
-  const handleAddPerson = () => {
-    if (personName.trim() !== "" && personDescription.trim() !== "") {
-      const newPerson = {
-        id: Date.now(),
-        name: personName.trim(),
-        description: personDescription.trim(),
-      };
-      const updatedPersons = [...personsOfInterest, newPerson];
-      setPersonsOfInterest(updatedPersons);
-      localStorage.setItem(
-        `persons_${object.id}`,
-        JSON.stringify(updatedPersons)
-      );
-      setPersonName("");
-      setPersonDescription("");
-    }
-  };
-
-  return (
-    <Card
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        flex: 1,
-        boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
-        borderRadius: "8px",
-        border: "1px solid #ddd",
-        overflow: "auto",
-        mb: "16px",
-      }}
-    >
-      {/* Tabs for DetailView */}
-      <Box
+const DetailView = memo(
+  ({
+    object,
+    tabValue,
+    handleTabChange,
+    incidents,
+    notes,
+    personsOfInterest,
+    handleAddIncident,
+    handleAddNote,
+    handleAddPerson,
+    incidentDescription,
+    noteText,
+    personName,
+    personDescription,
+    setIncidentDescription,
+    setNoteText,
+    setPersonName,
+    setPersonDescription,
+  }) => {
+    return (
+      <Card
         sx={{
-          backgroundColor: "#f4f6f8",
-          padding: "8px 8px",
-          borderBottom: "1px solid #ddd",
-          borderTopLeftRadius: "8px",
-          borderTopRightRadius: "8px",
-          height: "3.5rem",
+          display: "flex",
+          flexDirection: "column",
+          flex: 1,
+          boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+          borderRadius: "8px",
+          border: "1px solid #ddd",
+          overflow: "auto",
+          mb: "16px",
         }}
       >
-        <ChromeTabs value={tabValue} onChange={handleTabChange}>
-          {["GeoLocation", "Incidents", "Persons of Interest", "Notes"].map(
-            (label, index) => (
-              <ChromeTab
-                key={label}
-                label={label}
-                selected={tabValue === index}
-              />
-            )
+        <Box
+          sx={{
+            backgroundColor: "#f4f6f8",
+            padding: "8px 8px",
+            borderBottom: "1px solid #ddd",
+            borderTopLeftRadius: "8px",
+            borderTopRightRadius: "8px",
+            height: "3.5rem",
+          }}
+        >
+          <ChromeTabs value={tabValue} onChange={handleTabChange}>
+            {["GeoLocation", "Incidents", "Persons of Interest", "Notes"].map(
+              (label, index) => (
+                <ChromeTab
+                  key={label}
+                  label={label}
+                  selected={tabValue === index}
+                />
+              )
+            )}
+          </ChromeTabs>
+        </Box>
+
+        <CardContent sx={{ padding: "16px", flex: 1 }}>
+          {object ? (
+            <>
+              <TabPanel value={tabValue} index={0}>
+                <GeoLocationTab object={object} />
+              </TabPanel>
+
+              <TabPanel value={tabValue} index={1}>
+                <IncidentsTab
+                  incidents={incidents}
+                  handleAddIncident={handleAddIncident}
+                  incidentDescription={incidentDescription}
+                  setIncidentDescription={setIncidentDescription}
+                />
+              </TabPanel>
+
+              <TabPanel value={tabValue} index={2}>
+                <PersonsOfInterestTab
+                  personsOfInterest={personsOfInterest}
+                  handleAddPerson={handleAddPerson}
+                  personName={personName}
+                  setPersonName={setPersonName}
+                  personDescription={personDescription}
+                  setPersonDescription={setPersonDescription}
+                />
+              </TabPanel>
+
+              <TabPanel value={tabValue} index={3}>
+                <NotesTab
+                  notes={notes}
+                  handleAddNote={handleAddNote}
+                  noteText={noteText}
+                  setNoteText={setNoteText}
+                />
+              </TabPanel>
+            </>
+          ) : (
+            <Typography color="textSecondary">No item selected.</Typography>
           )}
-        </ChromeTabs>
-      </Box>
+        </CardContent>
+      </Card>
+    );
+  }
+);
 
-      {/* Tab Content */}
-      <CardContent sx={{ padding: "16px", flex: 1 }}>
-        {object ? (
-          <>
-            {/* GeoLocation Tab */}
-            <TabPanel value={tabValue} index={0}>
-              <GeoLocationTab object={object} />
-            </TabPanel>
-
-            {/* Incidents Tab */}
-            <TabPanel value={tabValue} index={1}>
-              <IncidentsTab
-                incidents={incidents}
-                handleAddIncident={handleAddIncident}
-                incidentDescription={incidentDescription}
-                setIncidentDescription={setIncidentDescription}
-              />
-            </TabPanel>
-
-            {/* Persons of Interest Tab */}
-            <TabPanel value={tabValue} index={2}>
-              <PersonsOfInterestTab
-                personsOfInterest={personsOfInterest}
-                handleAddPerson={handleAddPerson}
-                personName={personName}
-                setPersonName={setPersonName}
-                personDescription={personDescription}
-                setPersonDescription={setPersonDescription}
-              />
-            </TabPanel>
-
-            {/* Notes Tab */}
-            <TabPanel value={tabValue} index={3}>
-              <NotesTab
-                notes={notes}
-                handleAddNote={handleAddNote}
-                noteText={noteText}
-                setNoteText={setNoteText}
-              />
-            </TabPanel>
-          </>
-        ) : (
-          <Typography color="textSecondary">No item selected.</Typography>
-        )}
-      </CardContent>
-    </Card>
-  );
-});
+DetailView.propTypes = {
+  object: PropTypes.object,
+  tabValue: PropTypes.number.isRequired,
+  handleTabChange: PropTypes.func.isRequired,
+  incidents: PropTypes.array.isRequired,
+  notes: PropTypes.array.isRequired,
+  personsOfInterest: PropTypes.array.isRequired,
+  handleAddIncident: PropTypes.func.isRequired,
+  handleAddNote: PropTypes.func.isRequired,
+  handleAddPerson: PropTypes.func.isRequired,
+  incidentDescription: PropTypes.string.isRequired,
+  noteText: PropTypes.string.isRequired,
+  personName: PropTypes.string.isRequired,
+  personDescription: PropTypes.string.isRequired,
+  setIncidentDescription: PropTypes.func.isRequired,
+  setNoteText: PropTypes.func.isRequired,
+  setPersonName: PropTypes.func.isRequired,
+  setPersonDescription: PropTypes.func.isRequired,
+};
 
 export default DetailView;
