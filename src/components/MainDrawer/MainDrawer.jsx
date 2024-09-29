@@ -8,6 +8,8 @@ import {
   ListItemIcon,
   Toolbar,
   useMediaQuery,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -17,6 +19,7 @@ import { useTheme } from "@mui/material/styles";
 
 const MainDrawer = ({ setSelectedDataSet }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -36,7 +39,14 @@ const MainDrawer = ({ setSelectedDataSet }) => {
   };
 
   const drawerItems = [
-    { icon: <DashboardIcon />, label: "Dashboard" },
+    {
+      icon: (
+        <IconButton onClick={handleMenuOpen}>
+          <DashboardIcon />
+        </IconButton>
+      ),
+      label: "Dashboard",
+    },
     { icon: <AccountCircleIcon />, label: "Profile" },
     { icon: <SettingsIcon />, label: "Settings" },
   ];
@@ -44,7 +54,14 @@ const MainDrawer = ({ setSelectedDataSet }) => {
   const drawerContent = (
     <List>
       {drawerItems.map((item, index) => (
-        <ListItem button key={index}>
+        <ListItem
+          button
+          key={index}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <Tooltip title={item.label} placement="top-end">
             <ListItemIcon
               sx={{
