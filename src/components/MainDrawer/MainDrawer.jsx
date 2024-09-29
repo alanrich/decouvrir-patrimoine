@@ -15,13 +15,24 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useTheme } from "@mui/material/styles";
 
-const MainDrawer = () => {
+const MainDrawer = ({ setSelectedDataSet }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget); // Open the menu
+  };
+
+  const handleMenuClose = (dataSet) => {
+    if (dataSet) {
+      setSelectedDataSet(dataSet);
+    }
+    setAnchorEl(null); // Close the menu
   };
 
   const drawerItems = [
@@ -93,6 +104,26 @@ const MainDrawer = () => {
           {drawerContent}
         </Drawer>
       )}
+
+      {/* Dashboard Menu */}
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <MenuItem onClick={() => handleMenuClose("videoprotection")}>
+          Cameras
+        </MenuItem>
+        <MenuItem onClick={() => handleMenuClose("museums")}>Museums</MenuItem>
+      </Menu>
     </>
   );
 };

@@ -63,6 +63,7 @@ const RightPane = styled("div")({
 
 function App() {
   const [searchTerm, setSearchTerm] = useState(null);
+  const [selectedDataSet, setSelectedDataSet] = useState("videoprotection");
 
   const {
     selectedObject,
@@ -71,7 +72,10 @@ function App() {
     clearSelectedObject,
   } = usePersistentSelectedObject();
 
-  const { filteredObjects, loading } = useDomainObjects(searchTerm);
+  const { filteredObjects, loading } = useDomainObjects(
+    searchTerm,
+    selectedDataSet
+  );
 
   // Memoize functions that are passed to children
   const handleSetSearchTerm = useCallback((term) => {
@@ -94,7 +98,7 @@ function App() {
       <CssBaseline />
       <ErrorBoundary>
         <AppContainer>
-          <MainDrawer />
+          <MainDrawer setSelectedDataSet={setSelectedDataSet} />
 
           <div
             style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
@@ -116,6 +120,7 @@ function App() {
                     <SummaryTableWrapper
                       domainObjects={filteredObjects}
                       onSelect={handleSetSelectedObject}
+                      selectedDataSet={selectedDataSet}
                     />
                   </Box>
                 )}

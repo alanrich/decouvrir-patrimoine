@@ -13,9 +13,21 @@ const MapView = ({
   onSelect,
   selectedObjectLoaded,
 }) => {
+  const getCoordinates = (object) => {
+    if (object.geo_point_2d) {
+      // For videoprotection dataset
+      return [object.geo_point_2d.lat, object.geo_point_2d.lon];
+    } else if (object.coordonnees) {
+      // For museums dataset
+      return [object.coordonnees.lat, object.coordonnees.lon];
+    } else {
+      return null; // Coordinates not available
+    }
+  };
+
   const initialPosition =
     domainObjects.length > 0
-      ? [domainObjects[0].geo_point_2d.lat, domainObjects[0].geo_point_2d.lon]
+      ? getCoordinates(domainObjects[0]) || [48.8192, 2.2389]
       : [48.8192, 2.2389]; // Default Map Center, just south of bois du boulogne for now, reassess if we find more data sets for paris
 
   return (
@@ -36,36 +48,37 @@ const MapView = ({
 
       {domainObjects
         // validate the surveillance camera has a geoLocation before giving it a ma
-        .filter(
-          (object) =>
-            object.geo_point_2d &&
-            object.geo_point_2d.lat != null &&
-            object.geo_point_2d.lon != null
-        )
-        .map((object, index) => (
-          <Marker
-            key={index}
-            position={[object.geo_point_2d.lat, object.geo_point_2d.lon]}
-            icon={object === selectedObject ? SelectedCameraIcon : CameraIcon}
-            // TODO: Memoize the click handler with a useCallBack if we add more complex children to the popup,
-            // like photos of persons of interest or warning alerts for high activity or recent events
-            eventHandlers={{
-              click: () => {
-                onSelect(object);
-              },
-            }}
-          >
-            <Popup>
-              <div>
-                <strong>{object.adresse}</strong>
-                <br />
-                Municipality: {object.commune}
-                <br />
-                INSEE Code: {object.code_insee}
-              </div>
-            </Popup>
-          </Marker>
-        ))}
+        .filter((object) => {
+          const coords = getCoordinates(object);
+          return coords && coords[0] != null && coords[1] != null;
+        })
+        .map((object, index) => {
+          const coords = getCoordinates(object);
+          return (
+            <Marker
+              key={index}
+              position={coords}
+              icon={object === selectedObject ? SelectedCameraIcon : CameraIcon}
+              // TODO: Memoize the click handler with a useCallBack if we add more complex children to the popup,
+              // like photos of persons of interest or warning alerts for high activity or recent events
+              eventHandlers={{
+                click: () => {
+                  onSelect(object);
+                },
+              }}
+            >
+              <Popup>
+                <div>
+                  <strong>{object.adresse || object.nom_officiel}</strong>
+                  <br />
+                  Municipality: {object.commune}
+                  <br />
+                  INSEE Code: {object.code_insee}
+                </div>
+              </Popup>
+            </Marker>
+          );
+        })}
     </MapContainer>
   );
 };

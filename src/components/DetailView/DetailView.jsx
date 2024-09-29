@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { Card, CardContent, Typography, Box, Tabs, Tab } from "@mui/material";
 import PropTypes from "prop-types";
 import { styled } from "@mui/system";
-import GeoLocationTab from "./DetailViewTabs/GeoLocationTab";
+import GeneralTab from "./DetailViewTabs/GeneralTab";
 import IncidentsTab from "./DetailViewTabs/IncidentsTab";
 import PersonsOfInterestTab from "./DetailViewTabs/PersonsOfInterestTab";
 import NotesTab from "./DetailViewTabs/NotesTab";
@@ -81,7 +81,7 @@ const DetailView = memo(
           }}
         >
           <ChromeTabs value={tabValue} onChange={handleTabChange}>
-            {["GeoLocation", "Incidents", "Persons of Interest", "Notes"].map(
+            {["General", "Incidents", "Persons of Interest", "Notes"].map(
               (label, index) => (
                 <ChromeTab
                   key={label}
@@ -97,7 +97,7 @@ const DetailView = memo(
           {object ? (
             <>
               <TabPanel value={tabValue} index={0}>
-                <GeoLocationTab object={object} />
+                <GeneralTab object={object} />
               </TabPanel>
 
               <TabPanel value={tabValue} index={1}>
