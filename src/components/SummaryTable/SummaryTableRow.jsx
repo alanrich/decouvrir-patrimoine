@@ -44,11 +44,7 @@ const SummaryTableRow = ({ headerRow = false, object, onSelect, columns }) => {
       }}
     >
       {columns.map((column) => {
-        // Extract the value using the accessor
-        const value =
-          column.accessor
-            .split(".")
-            .reduce((acc, key) => acc && acc[key], object) || "N/A";
+        const value = object[column.accessor] || "N/A";
         return <SummaryTableCell key={column.accessor} content={value} />;
       })}
     </TableRow>
