@@ -133,7 +133,10 @@ function App() {
                     mt: "1rem",
                   }}
                 >
-                  <DetailViewWrapper object={selectedObject} />
+                  <DetailViewWrapper
+                    object={selectedObject}
+                    selectedDataSet={selectedDataSet}
+                  />
                 </Box>
 
                 {selectedObject && (
