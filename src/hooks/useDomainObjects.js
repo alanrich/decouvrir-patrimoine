@@ -10,9 +10,6 @@ export const useDomainObjects = (searchTerm, selectedDataSet) => {
     const fetchData = async () => {
       try {
         let dataFile = "";
-        if (selectedDataSet === "videoprotection") {
-          dataFile = "/data/videoprotection.json";
-        }
         if (selectedDataSet === "museums") {
           dataFile = "/data/museums.json";
         }
@@ -25,26 +22,7 @@ export const useDomainObjects = (searchTerm, selectedDataSet) => {
         if (Array.isArray(data)) {
           validData = data
             .map((object) => {
-              if (selectedDataSet === "videoprotection") {
-                if (
-                  object.adresse &&
-                  object.commune &&
-                  object.geo_point_2d &&
-                  typeof object.geo_point_2d.lat === "number" &&
-                  typeof object.geo_point_2d.lon === "number"
-                ) {
-                  return {
-                    id: object.id,
-                    name: object.adresse,
-                    address: object.adresse,
-                    city: object.commune,
-                    latitude: object.geo_point_2d.lat,
-                    longitude: object.geo_point_2d.lon,
-                    rawData: object,
-                    dataSet: selectedDataSet,
-                  };
-                }
-              } else if (selectedDataSet === "museums") {
+              if (selectedDataSet === "museums") {
                 if (
                   object.adresse &&
                   object.ville &&

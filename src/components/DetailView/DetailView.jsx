@@ -3,6 +3,9 @@ import { Card, CardContent, Typography, Box, Tabs, Tab } from "@mui/material";
 import PropTypes from "prop-types";
 import { styled } from "@mui/system";
 import GeneralTab from "./DetailViewTabs/GeneralTab";
+import HistoryTab from "./DetailViewTabs/HistoryTab";
+import VisitorInfoTab from "./DetailViewTabs/VisitorInfoTab";
+import ArtworksTab from "./DetailViewTabs/ArtworksTab";
 import TabPanel from "./DetailViewTabs/TabPanel";
 
 const ChromeTabs = styled(Tabs)({
@@ -38,6 +41,12 @@ const DetailView = memo(
   ({ object, selectedDataSet, tabValue, handleTabChange }) => {
     const tabs = [
       { label: "Overview", component: <GeneralTab object={object} /> },
+      { label: "Histoire", component: <HistoryTab object={object} /> },
+      { label: "Œuvres", component: <ArtworksTab object={object} /> },
+      {
+        label: "Infos Visiteur",
+        component: <VisitorInfoTab object={object} />,
+      },
       // TODO: Add more tabs later, think what tabs should be called
     ];
     return (

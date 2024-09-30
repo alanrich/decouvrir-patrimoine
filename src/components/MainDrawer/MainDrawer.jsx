@@ -137,7 +137,7 @@ const MainDrawer = ({ setSelectedDataSet }) => {
         }}
       >
         <MenuItem onClick={() => handleMenuClose("videoprotection")}>
-          Cameras
+          Expand This List
         </MenuItem>
         <MenuItem onClick={() => handleMenuClose("museums")}>Museums</MenuItem>
       </Menu>

@@ -1,13 +1,33 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Paper } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
+const FieldTitle = styled(Typography)(({ theme }) => ({
+  display: "inline-block",
+  backgroundColor: "#e0f7fa", // Light blue color
+  color: theme.palette.text.primary,
+  padding: "6px 12px",
+  borderRadius: "20px",
+  marginBottom: "8px",
+  fontWeight: "bold",
+}));
+
+const Field = ({ title, value }) => (
+  <Grid item xs={12} sm={6}>
+    <FieldTitle variant="subtitle1">{title}:</FieldTitle>
+    <Typography variant="body1" sx={{ marginLeft: 1 }}>
+      {value}
+    </Typography>
+  </Grid>
+);
 
 const GeneralTab = ({ object }) => {
   if (!object) {
     return <Typography color="textSecondary">No item selected.</Typography>;
   }
 
-  const { rawData, dataSet } = object;
-  // TODO: determine which data should be excluded from general tab
+  const { rawData } = object;
+
   const excludedKeys = [
     "coordonnees",
     "adresse",
@@ -16,70 +36,38 @@ const GeneralTab = ({ object }) => {
     "identifiant",
     "refmer",
   ];
-  // TODO: Implement a filter to either remove empty fields or display "no info given"
 
   return (
-    <Grid container spacing={2}>
-      {dataSet === "videoprotection" && (
-        <>
-          <Grid item xs={12}>
-            <Typography variant="h6">{object.name}</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="body1">Adresse: {object.address}</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="body1">Ville: {object.city}</Typography>
-          </Grid>
-          {/* Add more fields as needed */}
-        </>
-      )}
+    <Paper elevation={3} sx={{ padding: 2 }}>
+      <Grid container spacing={2}>
+        {/* General Info */}
+        <Grid item xs={12}>
+          <Typography variant="h5" component="h2" gutterBottom>
+            {object.name}
+          </Typography>
+        </Grid>
 
-      {dataSet === "museums" && (
-        <>
-          {/* General Info that Each DataSet ought to display */}
-          <Grid item xs={12}>
-            <Typography variant="h6">{object.name}</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="subtitle1" color="textSecondary">
-              Adresse:{" "}
-            </Typography>
-            <Typography variant="body1">{object.address}</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="subtitle1" color="textSecondary">
-              Ville:{" "}
-            </Typography>
-            <Typography variant="body1">{object.city}</Typography>
-          </Grid>
+        <Field title="Adresse" value={object.address || "No info given"} />
+        <Field title="Ville" value={object.city || "No info given"} />
 
-          {/* Data Specific to Museum DataSet */}
-          {Object.keys(rawData)
-            .filter((key) => !excludedKeys.includes(key))
-            .map((key) => (
-              <Grid item xs={12} sm={6} key={key}>
-                <Typography variant="subtitle1" color="textSecondary">
-                  {key
-                    .replace(/_/g, " ")
-                    .replace(/\b\w/g, (l) => l.toUpperCase())}
-                  :
-                </Typography>
-                <Typography variant="body1">
-                  {Array.isArray(rawData[key])
-                    ? rawData[key].join(", ")
-                    : rawData[key]}
-                </Typography>
-              </Grid>
-            ))}
-        </>
-      )}
-    </Grid>
+        {/* Additional Museum Data */}
+        {Object.keys(rawData)
+          .filter((key) => !excludedKeys.includes(key))
+          .map((key) => {
+            const formattedKey = key
+              .replace(/_/g, " ")
+              .replace(/\b\w/g, (l) => l.toUpperCase());
+            const value =
+              rawData[key] != null && rawData[key] !== ""
+                ? Array.isArray(rawData[key])
+                  ? rawData[key].join(", ")
+                  : rawData[key]
+                : "No info given";
+            return <Field key={key} title={formattedKey} value={value} />;
+          })}
+      </Grid>
+    </Paper>
   );
-};
-
-GeneralTab.defaultProps = {
-  object: null,
 };
 
 export default GeneralTab;
