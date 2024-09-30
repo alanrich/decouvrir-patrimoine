@@ -3,9 +3,6 @@ import { Card, CardContent, Typography, Box, Tabs, Tab } from "@mui/material";
 import PropTypes from "prop-types";
 import { styled } from "@mui/system";
 import GeneralTab from "./DetailViewTabs/GeneralTab";
-import IncidentsTab from "./DetailViewTabs/IncidentsTab";
-import PersonsOfInterestTab from "./DetailViewTabs/PersonsOfInterestTab";
-import NotesTab from "./DetailViewTabs/NotesTab";
 import TabPanel from "./DetailViewTabs/TabPanel";
 
 const ChromeTabs = styled(Tabs)({
@@ -38,25 +35,11 @@ const ChromeTab = styled(Tab)(({ theme }) => ({
 }));
 
 const DetailView = memo(
-  ({
-    object,
-    tabValue,
-    handleTabChange,
-    incidents,
-    notes,
-    personsOfInterest,
-    handleAddIncident,
-    handleAddNote,
-    handleAddPerson,
-    incidentDescription,
-    noteText,
-    personName,
-    personDescription,
-    setIncidentDescription,
-    setNoteText,
-    setPersonName,
-    setPersonDescription,
-  }) => {
+  ({ object, selectedDataSet, tabValue, handleTabChange }) => {
+    const tabs = [
+      { label: "Overview", component: <GeneralTab object={object} /> },
+      // TODO: Add more tabs later, think what tabs should be called
+    ];
     return (
       <Card
         sx={{
@@ -81,54 +64,23 @@ const DetailView = memo(
           }}
         >
           <ChromeTabs value={tabValue} onChange={handleTabChange}>
-            {["General", "Incidents", "Persons of Interest", "Notes"].map(
-              (label, index) => (
-                <ChromeTab
-                  key={label}
-                  label={label}
-                  selected={tabValue === index}
-                />
-              )
-            )}
+            {tabs.map((tab, index) => (
+              <ChromeTab
+                key={index}
+                label={tab.label}
+                // selected={tabValue === index}
+              />
+            ))}
           </ChromeTabs>
         </Box>
 
         <CardContent sx={{ padding: "16px", flex: 1 }}>
           {object ? (
-            <>
-              <TabPanel value={tabValue} index={0}>
-                <GeneralTab object={object} />
+            tabs.map((tab, index) => (
+              <TabPanel key={index} value={tabValue} index={index}>
+                {tab.component}
               </TabPanel>
-
-              <TabPanel value={tabValue} index={1}>
-                <IncidentsTab
-                  incidents={incidents}
-                  handleAddIncident={handleAddIncident}
-                  incidentDescription={incidentDescription}
-                  setIncidentDescription={setIncidentDescription}
-                />
-              </TabPanel>
-
-              <TabPanel value={tabValue} index={2}>
-                <PersonsOfInterestTab
-                  personsOfInterest={personsOfInterest}
-                  handleAddPerson={handleAddPerson}
-                  personName={personName}
-                  setPersonName={setPersonName}
-                  personDescription={personDescription}
-                  setPersonDescription={setPersonDescription}
-                />
-              </TabPanel>
-
-              <TabPanel value={tabValue} index={3}>
-                <NotesTab
-                  notes={notes}
-                  handleAddNote={handleAddNote}
-                  noteText={noteText}
-                  setNoteText={setNoteText}
-                />
-              </TabPanel>
-            </>
+            ))
           ) : (
             <Typography color="textSecondary">No item selected.</Typography>
           )}
@@ -140,22 +92,9 @@ const DetailView = memo(
 
 DetailView.propTypes = {
   object: PropTypes.object,
+  selectedDataSet: PropTypes.string.isRequired,
   tabValue: PropTypes.number.isRequired,
   handleTabChange: PropTypes.func.isRequired,
-  incidents: PropTypes.array.isRequired,
-  notes: PropTypes.array.isRequired,
-  personsOfInterest: PropTypes.array.isRequired,
-  handleAddIncident: PropTypes.func.isRequired,
-  handleAddNote: PropTypes.func.isRequired,
-  handleAddPerson: PropTypes.func.isRequired,
-  incidentDescription: PropTypes.string.isRequired,
-  noteText: PropTypes.string.isRequired,
-  personName: PropTypes.string.isRequired,
-  personDescription: PropTypes.string.isRequired,
-  setIncidentDescription: PropTypes.func.isRequired,
-  setNoteText: PropTypes.func.isRequired,
-  setPersonName: PropTypes.func.isRequired,
-  setPersonDescription: PropTypes.func.isRequired,
 };
 
 export default DetailView;
