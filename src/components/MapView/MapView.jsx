@@ -13,27 +13,15 @@ const MapView = ({
   onSelect,
   selectedObjectLoaded,
 }) => {
-  const getCoordinates = (object) => {
-    if (object.geo_point_2d) {
-      // For videoprotection dataset
-      return [object.geo_point_2d.lat, object.geo_point_2d.lon];
-    } else if (object.coordonnees) {
-      // For museums dataset
-      return [object.coordonnees.lat, object.coordonnees.lon];
-    } else {
-      return null; // Coordinates not available
-    }
-  };
-
   const initialPosition =
     domainObjects.length > 0
-      ? getCoordinates(domainObjects[0]) || [48.8192, 2.2389]
-      : [48.8192, 2.2389]; // Default Map Center, just south of bois du boulogne for now, reassess if we find more data sets for paris
+      ? [domainObjects[0].latitude, domainObjects[0].longitude]
+      : [48.8192, 2.2389];
 
   return (
     <MapContainer
       center={initialPosition}
-      zoom={13}
+      zoom={6}
       style={{ height: "100%", width: "100%" }}
     >
       <TileLayer
@@ -47,20 +35,13 @@ const MapView = ({
       />
 
       {domainObjects
-        // validate the surveillance camera has a geoLocation before giving it a ma
-        .filter((object) => {
-          const coords = getCoordinates(object);
-          return coords && coords[0] != null && coords[1] != null;
-        })
+        .filter((object) => object.latitude != null && object.longitude != null)
         .map((object, index) => {
-          const coords = getCoordinates(object);
           return (
             <Marker
               key={index}
-              position={coords}
+              position={[object.latitude, object.longitude]}
               icon={object === selectedObject ? SelectedCameraIcon : CameraIcon}
-              // TODO: Memoize the click handler with a useCallBack if we add more complex children to the popup,
-              // like photos of persons of interest or warning alerts for high activity or recent events
               eventHandlers={{
                 click: () => {
                   onSelect(object);
@@ -69,11 +50,9 @@ const MapView = ({
             >
               <Popup>
                 <div>
-                  <strong>{object.adresse || object.nom_officiel}</strong>
+                  <strong>{object.name}</strong>
                   <br />
-                  Municipality: {object.commune}
-                  <br />
-                  INSEE Code: {object.code_insee}
+                  City: {object.city}
                 </div>
               </Popup>
             </Marker>

@@ -8,12 +8,11 @@ const MapController = ({ selectedObject, selectedObjectLoaded }) => {
     if (
       selectedObject &&
       selectedObjectLoaded &&
-      selectedObject.geo_point_2d &&
-      selectedObject.geo_point_2d.lat != null &&
-      selectedObject.geo_point_2d.lon != null
+      selectedObject.latitude != null &&
+      selectedObject.longitude != null
     )
       map.setView(
-        [selectedObject.geo_point_2d.lat, selectedObject.geo_point_2d.lon],
+        [selectedObject.latitude, selectedObject.longitude],
         map.getZoom(),
         { animate: true }
       );
