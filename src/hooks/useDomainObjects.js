@@ -16,31 +16,57 @@ export const useDomainObjects = (searchTerm, selectedDataSet) => {
         if (selectedDataSet === "museums") {
           dataFile = "/data/museums.json";
         }
+
         const response = await fetch(dataFile);
         const data = await response.json();
 
         // validate the data based on data set user selects
         let validData = [];
         if (Array.isArray(data)) {
-          if (dataFile === "/data/videoprotection.json") {
-            validData = data.filter(
-              (object) =>
-                object.adresse &&
-                object.commune &&
-                object.geo_point_2d &&
-                typeof object.geo_point_2d.lat === "number" &&
-                typeof object.geo_point_2d.lon === "number"
-            );
-          } else if (dataFile === "/data/museums.json") {
-            validData = data.filter(
-              (object) =>
-                object.adresse &&
-                object.ville &&
-                object.coordonnees &&
-                typeof object.coordonnees.lat === "number" &&
-                typeof object.coordonnees.lon === "number"
-            );
-          }
+          validData = data
+            .map((object) => {
+              if (selectedDataSet === "videoprotection") {
+                if (
+                  object.adresse &&
+                  object.commune &&
+                  object.geo_point_2d &&
+                  typeof object.geo_point_2d.lat === "number" &&
+                  typeof object.geo_point_2d.lon === "number"
+                ) {
+                  return {
+                    id: object.id,
+                    name: object.adresse,
+                    address: object.adresse,
+                    city: object.commune,
+                    latitude: object.geo_point_2d.lat,
+                    longitude: object.geo_point_2d.lon,
+                    rawData: object,
+                    dataSet: selectedDataSet,
+                  };
+                }
+              } else if (selectedDataSet === "museums") {
+                if (
+                  object.adresse &&
+                  object.ville &&
+                  object.coordonnees &&
+                  typeof object.coordonnees.lat === "number" &&
+                  typeof object.coordonnees.lon === "number"
+                ) {
+                  return {
+                    id: object.identifiant,
+                    name: object.nom_officiel,
+                    address: object.adresse,
+                    city: object.ville,
+                    latitude: object.coordonnees.lat,
+                    longitude: object.coordonnees.lon,
+                    rawData: object,
+                    dataSet: selectedDataSet,
+                  };
+                }
+              }
+              return null; // Exclude any invalid data
+            })
+            .filter(Boolean); // Remove any null entries
           setDomainObjects(validData);
           setFilteredObjects(validData);
         } else {
@@ -57,27 +83,19 @@ export const useDomainObjects = (searchTerm, selectedDataSet) => {
   }, [selectedDataSet]);
 
   // Filter objects based on the terms that are searched
-  // TO DO: This will get more more complex when multiple domain object types are added
   useEffect(() => {
     const term = searchTerm || "";
     setFilteredObjects(
       domainObjects.filter((object) => {
-        if (selectedDataSet === "videoprotection") {
-          return (
-            object.adresse.toLowerCase().includes(term.toLowerCase()) ||
-            object.commune.toLowerCase().includes(term.toLowerCase())
-          );
-        } else if (selectedDataSet === "museums") {
-          return (
-            (typeof object.nom_officiel === "string" &&
-              object.nom_officiel.toLowerCase().includes(term.toLowerCase())) ||
-            (typeof object.ville === "string" &&
-              object.ville.toLowerCase().includes(term.toLowerCase()))
-          );
-        }
-        return false;
+        return (
+          (object.name &&
+            object.name.toLowerCase().includes(term.toLowerCase())) ||
+          (object.city &&
+            object.city.toLowerCase().includes(term.toLowerCase()))
+        );
       })
     );
-  }, [searchTerm, domainObjects, selectedDataSet]);
+  }, [searchTerm, domainObjects]);
+
   return { filteredObjects, loading };
 };
