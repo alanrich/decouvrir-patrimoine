@@ -18,7 +18,6 @@ const SummaryTable = ({
   onRowsPerPageChange,
   onSelect,
   columns,
-  height,
 }) => {
   return (
     <Box

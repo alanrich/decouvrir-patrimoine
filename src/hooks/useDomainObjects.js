@@ -4,6 +4,8 @@ export const useDomainObjects = (searchTerm, selectedDataSet) => {
   const [domainObjects, setDomainObjects] = useState([]);
   const [filteredObjects, setFilteredObjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     // fetch the data from the data folder
@@ -96,17 +98,20 @@ export const useDomainObjects = (searchTerm, selectedDataSet) => {
   // Filter objects based on the terms that are searched
   useEffect(() => {
     const term = searchTerm || "";
-    setFilteredObjects(
-      domainObjects.filter((object) => {
-        return (
-          (object.name &&
-            object.name.toLowerCase().includes(term.toLowerCase())) ||
-          (object.city &&
-            object.city.toLowerCase().includes(term.toLowerCase()))
-        );
-      })
+    const filtered = domainObjects.filter((object) => {
+      return (
+        (object.name &&
+          object.name.toLowerCase().includes(term.toLowerCase())) ||
+        (object.city && object.city.toLowerCase().includes(term.toLowerCase()))
+      );
+    });
+    // Fix performance issues
+    const paginated = filtered.slice(
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage
     );
-  }, [searchTerm, domainObjects]);
+    setFilteredObjects(paginated);
+  }, [searchTerm, domainObjects, page, rowsPerPage]);
 
   return { filteredObjects, loading };
 };
