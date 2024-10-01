@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import SummaryTable from "./SummaryTable";
 import { Box } from "@mui/material";
 
@@ -25,14 +25,14 @@ const SummaryTableWrapper = ({ domainObjects, onSelect, selectedDataSet }) => {
     ];
   }
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = useCallback((event, newPage) => {
     setPage(newPage);
-  };
+  });
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = useCallback((event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
-  };
+  });
 
   return (
     <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>

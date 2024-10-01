@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, Suspense, lazy } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, Box, Button, CircularProgress } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -7,7 +7,7 @@ import MainToolBar from "./components/MainToolBar/MainToolBar";
 import MainDrawer from "./components/MainDrawer/MainDrawer";
 import SummaryTableWrapper from "./components/SummaryTable/SummaryTableWrapper";
 import DetailViewWrapper from "./components/DetailView/DetailViewWrapper";
-import MapView from "./components/MapView/MapView";
+// import MapView from "./components/MapView/MapView";
 import { useDomainObjects } from "./hooks/useDomainObjects";
 import { usePersistentSelectedObject } from "./hooks/usePersistentSelectedObject";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -60,6 +60,8 @@ const RightPane = styled("div")({
   padding: "1rem",
   backgroundColor: "#e0e0e0",
 });
+
+const MapView = lazy(() => import("./components/MapView/MapView"));
 
 function App() {
   const [searchTerm, setSearchTerm] = useState(null);
@@ -156,12 +158,14 @@ function App() {
                 )}
               </LeftPane>
               <RightPane>
-                <MapView
-                  domainObjects={filteredObjects}
-                  selectedObject={selectedObject}
-                  selectedObjectLoaded={selectedObjectLoaded}
-                  onSelect={setSelectedObject}
-                />
+                <Suspense fallback={<div>Loading map...</div>}>
+                  <MapView
+                    domainObjects={filteredObjects}
+                    selectedObject={selectedObject}
+                    selectedObjectLoaded={selectedObjectLoaded}
+                    onSelect={setSelectedObject}
+                  />
+                </Suspense>
               </RightPane>
             </WorkspaceContainer>
           </div>
