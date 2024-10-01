@@ -28,14 +28,26 @@ const GeneralTab = ({ object }) => {
 
   const { rawData, dataSet } = object;
 
-  const excludedKeys = [
-    "coordonnees",
-    "adresse",
-    "ville",
-    "nom_officiel",
-    "identifiant",
-    "refmer",
-  ];
+  const excludedKeys = {
+    museums: [
+      "coordonnees",
+      "adresse",
+      "ville",
+      "nom_officiel",
+      "identifiant",
+      "refmer",
+    ],
+
+    festivals: [
+      "geocodage_xy",
+      "adresse_postale",
+      "commune_principale_de_deroulement",
+      "nom_du_festival",
+      "identifiant",
+    ],
+  };
+
+  const dataSetExcludedKeys = excludedKeys[dataSet] || [];
 
   return (
     <Paper elevation={3} sx={{ padding: 2 }}>
@@ -51,25 +63,20 @@ const GeneralTab = ({ object }) => {
         <Field title="Ville" value={object.city || "No info given"} />
 
         {/* Additional Museum Data */}
-        {dataSet === "museums" && (
-          <>
-            {Object.keys(rawData)
-              .filter((key) => !excludedKeys.includes(key))
-              .map((key) => {
-                const formattedKey = key
-                  .replace(/_/g, " ")
-                  .replace(/\b\w/g, (l) => l.toUpperCase());
-                const value =
-                  rawData[key] != null && rawData[key] !== ""
-                    ? Array.isArray(rawData[key])
-                      ? rawData[key].join(", ")
-                      : rawData[key]
-                    : "No info given";
-                return <Field key={key} title={formattedKey} value={value} />;
-              })}
-          </>
-        )}
-        {dataSet === "festivals" && <div>Hi</div>}
+        {Object.keys(rawData)
+          .filter((key) => !dataSetExcludedKeys.includes(key))
+          .map((key) => {
+            const formattedKey = key
+              .replace(/_/g, " ")
+              .replace(/\b\w/g, (l) => l.toUpperCase());
+            const value =
+              rawData[key] != null && rawData[key] !== ""
+                ? Array.isArray(rawData[key])
+                  ? rawData[key].join(", ")
+                  : rawData[key]
+                : "No info given";
+            return <Field key={key} title={formattedKey} value={value} />;
+          })}
       </Grid>
     </Paper>
   );

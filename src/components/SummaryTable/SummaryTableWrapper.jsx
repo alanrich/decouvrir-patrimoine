@@ -6,12 +6,24 @@ const SummaryTableWrapper = ({ domainObjects, onSelect, selectedDataSet }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const columns = [
-    { Header: "Name", accessor: "name" },
-    { Header: "City", accessor: "city" },
-    { Header: "Latitude", accessor: "latitude" },
-    { Header: "Longitude", accessor: "longitude" },
-  ];
+  let columns = [];
+
+  if (selectedDataSet === "museums") {
+    columns = [
+      { Header: "Name", accessor: "name" },
+      { Header: "City", accessor: "city" },
+      { Header: "Latitude", accessor: "latitude" },
+      { Header: "Longitude", accessor: "longitude" },
+    ];
+  } else if (selectedDataSet === "festivals") {
+    columns = [
+      { Header: "Name", accessor: "name" },
+      { Header: "Genre", accessor: "genre" },
+      { Header: "City", accessor: "city" },
+      { Header: "Latitude", accessor: "latitude" },
+      { Header: "Longitude", accessor: "longitude" },
+    ];
+  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

@@ -12,7 +12,7 @@ export const useDomainObjects = (searchTerm, selectedDataSet) => {
         let dataFile = "";
         if (selectedDataSet === "museums") {
           dataFile = "/data/museums.json";
-        } else if ((selectedDataSet = "festivals")) {
+        } else if (selectedDataSet === "festivals") {
           dataFile = "/data/festivals.json";
         }
 
@@ -53,16 +53,23 @@ export const useDomainObjects = (searchTerm, selectedDataSet) => {
                   object.commune_principale_de_deroulement &&
                   object.geocodage_xy &&
                   object.geocodage_xy.lat &&
-                  object.geocodage_xy.long &&
+                  object.geocodage_xy.lon &&
                   typeof object.geocodage_xy.lat === "number" &&
-                  typeof object.object.geocodage_xy.lon === "number"
+                  typeof object.geocodage_xy.lon === "number"
                 )
                   return {
+                    id:
+                      object.identifiant ||
+                      object.identifiant_cnm ||
+                      object.code_insee_commune,
                     genre: object.discipline_dominante,
                     name: object.nom_du_festival,
-                    address: object.adresse_postale,
+                    address:
+                      object.adresse_postale ||
+                      object.nom_de_la_voie ||
+                      "No address provided",
                     city: object.commune_principale_de_deroulement,
-                    latititude: object.geocodage_xy.lat,
+                    latitude: object.geocodage_xy.lat,
                     longitude: object.geocodage_xy.lon,
                     rawData: object,
                     dataSet: selectedDataSet,
