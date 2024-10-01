@@ -14,6 +14,7 @@ const SummaryTable = ({
   domainObjects,
   page,
   rowsPerPage,
+  totalObjects,
   onPageChange,
   onRowsPerPageChange,
   onSelect,
@@ -53,16 +54,14 @@ const SummaryTable = ({
             <SummaryTableRow headerRow={true} columns={columns} />
           </TableHead>
           <TableBody>
-            {domainObjects
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((object, index) => (
-                <SummaryTableRow
-                  key={index}
-                  object={object}
-                  columns={columns}
-                  onSelect={onSelect}
-                />
-              ))}
+            {domainObjects.map((object, index) => (
+              <SummaryTableRow
+                key={index}
+                object={object}
+                columns={columns}
+                onSelect={onSelect}
+              />
+            ))}
           </TableBody>
         </MuiTable>
       </TableContainer>
@@ -77,7 +76,7 @@ const SummaryTable = ({
       >
         <TablePagination
           component="div"
-          count={domainObjects.length}
+          count={totalObjects}
           page={page}
           onPageChange={onPageChange}
           rowsPerPage={rowsPerPage}

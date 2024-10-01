@@ -66,6 +66,8 @@ const MapView = lazy(() => import("./components/MapView/MapView"));
 function App() {
   const [searchTerm, setSearchTerm] = useState(null);
   const [selectedDataSet, setSelectedDataSet] = useState("museums");
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const {
     selectedObject,
@@ -74,12 +76,13 @@ function App() {
     clearSelectedObject,
   } = usePersistentSelectedObject();
 
-  const { filteredObjects, loading } = useDomainObjects(
+  const { filteredObjects, totalObjects, loading } = useDomainObjects(
     searchTerm,
-    selectedDataSet
+    selectedDataSet,
+    page,
+    rowsPerPage
   );
 
-  // Memoize functions that are passed to children
   const handleSetSearchTerm = useCallback((term) => {
     setSearchTerm(term);
   }, []);
@@ -94,6 +97,15 @@ function App() {
   const handleClearSelectedObject = useCallback(() => {
     clearSelectedObject();
   }, [clearSelectedObject]);
+
+  const handleChangePage = useCallback((event, newPage) => {
+    setPage(newPage);
+  }, []);
+
+  const handleChangeRowsPerPage = useCallback((event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -121,8 +133,13 @@ function App() {
                   >
                     <SummaryTableWrapper
                       domainObjects={filteredObjects}
+                      totalObjects={totalObjects}
                       onSelect={handleSetSelectedObject}
                       selectedDataSet={selectedDataSet}
+                      page={page}
+                      rowsPerPage={rowsPerPage}
+                      onPageChange={handleChangePage}
+                      onRowsPerPageChange={handleChangeRowsPerPage}
                     />
                   </Box>
                 )}
@@ -161,6 +178,7 @@ function App() {
                 <Suspense fallback={<div>Loading map...</div>}>
                   <MapView
                     domainObjects={filteredObjects}
+                    totalObjects={totalObjects}
                     selectedObject={selectedObject}
                     selectedObjectLoaded={selectedObjectLoaded}
                     onSelect={setSelectedObject}

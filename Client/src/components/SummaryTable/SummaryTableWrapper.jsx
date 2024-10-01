@@ -2,10 +2,16 @@ import React, { useCallback, useState } from "react";
 import SummaryTable from "./SummaryTable";
 import { Box } from "@mui/material";
 
-const SummaryTableWrapper = ({ domainObjects, onSelect, selectedDataSet }) => {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
+const SummaryTableWrapper = ({
+  domainObjects,
+  totalObjects,
+  onSelect,
+  selectedDataSet,
+  page,
+  rowsPerPage,
+  onPageChange,
+  onRowsPerPageChange,
+}) => {
   let columns = [];
 
   if (selectedDataSet === "museums") {
@@ -25,15 +31,6 @@ const SummaryTableWrapper = ({ domainObjects, onSelect, selectedDataSet }) => {
     ];
   }
 
-  const handleChangePage = useCallback((event, newPage) => {
-    setPage(newPage);
-  });
-
-  const handleChangeRowsPerPage = useCallback((event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  });
-
   return (
     <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <SummaryTable
@@ -41,8 +38,9 @@ const SummaryTableWrapper = ({ domainObjects, onSelect, selectedDataSet }) => {
         domainObjects={domainObjects}
         page={page}
         rowsPerPage={rowsPerPage}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+        totalObjects={totalObjects}
+        onPageChange={onPageChange}
+        onRowsPerPageChange={onRowsPerPageChange}
         onSelect={onSelect}
       />
     </Box>

@@ -1,7 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
-export const useDomainObjects = (searchTerm, selectedDataSet) => {
+export const useDomainObjects = (
+  searchTerm,
+  selectedDataSet,
+  page,
+  rowsPerPage
+) => {
   const [domainObjects, setDomainObjects] = useState([]);
+  const [totalObjects, setTotalObjects] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,7 +23,8 @@ export const useDomainObjects = (searchTerm, selectedDataSet) => {
 
         const response = await fetch(apiUrl);
         const result = await response.json();
-        const data = await result.json();
+
+        const data = result.data;
 
         // validate the data based on data set user selects
         const validData = data

@@ -8,7 +8,9 @@ import {
 } from "../../assets/MapIcons/SecurityCameraIcon";
 
 const MapView = ({
+  // Lets try loading all map markers and see how perf. is
   domainObjects,
+  totalObjects,
   selectedObject,
   onSelect,
   selectedObjectLoaded,
