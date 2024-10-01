@@ -74,11 +74,7 @@ const DetailView = memo(
         >
           <ChromeTabs value={tabValue} onChange={handleTabChange}>
             {tabs.map((tab, index) => (
-              <ChromeTab
-                key={index}
-                label={tab.label}
-                // selected={tabValue === index}
-              />
+              <ChromeTab key={index} label={tab.label} />
             ))}
           </ChromeTabs>
         </Box>

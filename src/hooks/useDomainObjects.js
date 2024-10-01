@@ -12,6 +12,8 @@ export const useDomainObjects = (searchTerm, selectedDataSet) => {
         let dataFile = "";
         if (selectedDataSet === "museums") {
           dataFile = "/data/museums.json";
+        } else if ((selectedDataSet = "festivals")) {
+          dataFile = "/data/festivals.json";
         }
 
         const response = await fetch(dataFile);
@@ -24,6 +26,7 @@ export const useDomainObjects = (searchTerm, selectedDataSet) => {
             .map((object) => {
               if (selectedDataSet === "museums") {
                 if (
+                  object.nom_officiel &&
                   object.adresse &&
                   object.ville &&
                   object.coordonnees &&
@@ -41,6 +44,29 @@ export const useDomainObjects = (searchTerm, selectedDataSet) => {
                     dataSet: selectedDataSet,
                   };
                 }
+              }
+              if (selectedDataSet === "festivals") {
+                if (
+                  object.discipline_dominante &&
+                  object.nom_du_festival &&
+                  object.adresse_postale &&
+                  object.commune_principale_de_deroulement &&
+                  object.geocodage_xy &&
+                  object.geocodage_xy.lat &&
+                  object.geocodage_xy.long &&
+                  typeof object.geocodage_xy.lat === "number" &&
+                  typeof object.object.geocodage_xy.lon === "number"
+                )
+                  return {
+                    genre: object.discipline_dominante,
+                    name: object.nom_du_festival,
+                    address: object.adresse_postale,
+                    city: object.commune_principale_de_deroulement,
+                    latititude: object.geocodage_xy.lat,
+                    longitude: object.geocodage_xy.lon,
+                    rawData: object,
+                    dataSet: selectedDataSet,
+                  };
               }
               return null; // Exclude any invalid data
             })

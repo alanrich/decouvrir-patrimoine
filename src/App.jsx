@@ -63,7 +63,7 @@ const RightPane = styled("div")({
 
 function App() {
   const [searchTerm, setSearchTerm] = useState(null);
-  const [selectedDataSet, setSelectedDataSet] = useState("videoprotection");
+  const [selectedDataSet, setSelectedDataSet] = useState("museums");
 
   const {
     selectedObject,

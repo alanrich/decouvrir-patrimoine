@@ -26,7 +26,7 @@ const GeneralTab = ({ object }) => {
     return <Typography color="textSecondary">No item selected.</Typography>;
   }
 
-  const { rawData } = object;
+  const { rawData, dataSet } = object;
 
   const excludedKeys = [
     "coordonnees",
@@ -51,20 +51,25 @@ const GeneralTab = ({ object }) => {
         <Field title="Ville" value={object.city || "No info given"} />
 
         {/* Additional Museum Data */}
-        {Object.keys(rawData)
-          .filter((key) => !excludedKeys.includes(key))
-          .map((key) => {
-            const formattedKey = key
-              .replace(/_/g, " ")
-              .replace(/\b\w/g, (l) => l.toUpperCase());
-            const value =
-              rawData[key] != null && rawData[key] !== ""
-                ? Array.isArray(rawData[key])
-                  ? rawData[key].join(", ")
-                  : rawData[key]
-                : "No info given";
-            return <Field key={key} title={formattedKey} value={value} />;
-          })}
+        {dataSet === "museums" && (
+          <>
+            {Object.keys(rawData)
+              .filter((key) => !excludedKeys.includes(key))
+              .map((key) => {
+                const formattedKey = key
+                  .replace(/_/g, " ")
+                  .replace(/\b\w/g, (l) => l.toUpperCase());
+                const value =
+                  rawData[key] != null && rawData[key] !== ""
+                    ? Array.isArray(rawData[key])
+                      ? rawData[key].join(", ")
+                      : rawData[key]
+                    : "No info given";
+                return <Field key={key} title={formattedKey} value={value} />;
+              })}
+          </>
+        )}
+        {dataSet === "festivals" && <div>Hi</div>}
       </Grid>
     </Paper>
   );
