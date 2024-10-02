@@ -8,6 +8,7 @@ import MainDrawer from "./components/MainDrawer/MainDrawer";
 import SummaryTableWrapper from "./components/SummaryTable/SummaryTableWrapper";
 import DetailViewWrapper from "./components/DetailView/DetailViewWrapper";
 // import MapView from "./components/MapView/MapView";
+import { useDebounce } from "./hooks/useDebounce";
 import { useDomainObjects } from "./hooks/useDomainObjects";
 import { usePersistentSelectedObject } from "./hooks/usePersistentSelectedObject";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -76,12 +77,18 @@ function App() {
     clearSelectedObject,
   } = usePersistentSelectedObject();
 
-  const { filteredObjects, totalObjects, loading } = useDomainObjects(
-    searchTerm,
-    selectedDataSet,
-    page,
-    rowsPerPage
-  );
+  // TODO
+  const debouncedSearchTerm = useDebounce(searchTerm, 200);
+
+  // TODO: What were we using domainObjects for??
+  const { filteredObjects, domainObjects, totalObjects, loading } =
+    useDomainObjects(
+      searchTerm,
+      selectedDataSet,
+      page,
+      rowsPerPage,
+      debouncedSearchTerm
+    );
 
   const handleSetSearchTerm = useCallback((term) => {
     setSearchTerm(term);
@@ -132,7 +139,7 @@ function App() {
                     sx={{ flex: 1, display: "flex", flexDirection: "column" }}
                   >
                     <SummaryTableWrapper
-                      domainObjects={filteredObjects}
+                      domainObjects={filteredObjects} // why are we using filteredObjects here
                       totalObjects={totalObjects}
                       onSelect={handleSetSelectedObject}
                       selectedDataSet={selectedDataSet}

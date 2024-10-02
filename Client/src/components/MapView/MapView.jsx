@@ -35,7 +35,7 @@ const MapView = ({
         selectedObject={selectedObject}
         selectedObjectLoaded={selectedObjectLoaded}
       />
-
+      {/* Return all domain object in the useDomainObjects hook and populate the map with all markers*/}
       {domainObjects
         .filter((object) => object.latitude != null && object.longitude != null)
         .map((object, index) => {

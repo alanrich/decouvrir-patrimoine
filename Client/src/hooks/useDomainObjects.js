@@ -52,22 +52,17 @@ export const useDomainObjects = (
             }
             if (selectedDataSet === "festivals") {
               if (
-                object.discipline_dominante &&
                 object.nom_du_festival &&
-                object.adresse_postale &&
                 object.commune_principale_de_deroulement &&
                 object.geocodage_xy &&
-                object.geocodage_xy.lat &&
-                object.geocodage_xy.lon &&
+                // object.geocodage_xy.lat &&
+                // object.geocodage_xy.lon &&
                 typeof object.geocodage_xy.lat === "number" &&
                 typeof object.geocodage_xy.lon === "number"
               )
                 return {
-                  id:
-                    object.identifiant ||
-                    object.identifiant_cnm ||
-                    object.code_insee_commune,
-                  genre: object.discipline_dominante,
+                  id: object.identifiant || object.identifiant_cnm,
+                  genre: object.discipline_dominante || "N/A",
                   name: object.nom_du_festival,
                   address:
                     object.adresse_postale ||
@@ -108,5 +103,5 @@ export const useDomainObjects = (
     });
   }, [searchTerm, domainObjects]);
 
-  return { filteredObjects, totalObjects, loading };
+  return { filteredObjects, domainObjects, totalObjects, loading };
 };

@@ -2,6 +2,8 @@ import React from "react";
 import { TextField, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
+// TODO: e and e accent aigu, accent grave, accent circonflex should not be recognized as unique characters
+// just make accents of all letters irrelevent to search
 const SearchBar = ({ searchTerm, onSearchChange }) => {
   return (
     <TextField
