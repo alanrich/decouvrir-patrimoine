@@ -1,10 +1,11 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 
 export const useDomainObjects = (
   searchTerm,
   selectedDataSet,
   page,
-  rowsPerPage
+  rowsPerPage,
+  sortBy
 ) => {
   const [domainObjects, setDomainObjects] = useState([]);
   const [totalObjects, setTotalObjects] = useState(0);
@@ -15,10 +16,23 @@ export const useDomainObjects = (
     const fetchData = async () => {
       try {
         let apiUrl = "";
+        let sortParam = "";
+
+        if (sortBy && sortBy.length > 0) {
+          const sort = sortBy[0];
+          sortParam = `&sortBy=${sort.id}&sortOrder=${
+            sort.desc ? "desc" : "asc"
+          }`;
+        }
+
+        const searchParam = searchTerm
+          ? `&searchTerm=${encodeURIComponent(searchTerm)}`
+          : "";
+
         if (selectedDataSet === "museums") {
-          apiUrl = `http://localhost:3001/api/museums?page=${page}&rowsPerPage=${rowsPerPage}`;
+          apiUrl = `http://localhost:3001/api/museums?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         } else if (selectedDataSet === "festivals") {
-          apiUrl = `http://localhost:3001/api/festivals?page=${page}&rowsPerPage=${rowsPerPage}`;
+          apiUrl = `http://localhost:3001/api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         }
 
         const response = await fetch(apiUrl);
@@ -89,19 +103,7 @@ export const useDomainObjects = (
     };
 
     fetchData();
-  }, [selectedDataSet, page, rowsPerPage]);
+  }, [searchTerm, selectedDataSet, page, rowsPerPage, sortBy]);
 
-  // Filter objects based on the terms that are searched
-  const filteredObjects = useMemo(() => {
-    const term = searchTerm ? searchTerm.toLowerCase() : "";
-
-    return domainObjects.filter((object) => {
-      return (
-        (object.name && object.name.toLowerCase().includes(term)) ||
-        (object.city && object.city.toLowerCase().includes(term))
-      );
-    });
-  }, [searchTerm, domainObjects]);
-
-  return { filteredObjects, domainObjects, totalObjects, loading };
+  return { domainObjects, totalObjects, loading };
 };

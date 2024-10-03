@@ -7,7 +7,6 @@ import MainToolBar from "./components/MainToolBar/MainToolBar";
 import MainDrawer from "./components/MainDrawer/MainDrawer";
 import SummaryTableWrapper from "./components/SummaryTable/SummaryTableWrapper";
 import DetailViewWrapper from "./components/DetailView/DetailViewWrapper";
-// import MapView from "./components/MapView/MapView";
 import { useDebounce } from "./hooks/useDebounce";
 import { useDomainObjects } from "./hooks/useDomainObjects";
 import { usePersistentSelectedObject } from "./hooks/usePersistentSelectedObject";
@@ -69,6 +68,18 @@ function App() {
   const [selectedDataSet, setSelectedDataSet] = useState("museums");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [sortBy, setSortBy] = useState("name");
+  const [sortOrder, setSortOrder] = useState("asc");
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
+  const { domainObjects, totalObjects, loading } = useDomainObjects(
+    debouncedSearchTerm,
+    selectedDataSet,
+    page,
+    rowsPerPage,
+    [{ id: sortBy, desc: sortOrder === "desc" }] // Pass sortBy as an array
+  );
 
   const {
     selectedObject,
@@ -76,19 +87,6 @@ function App() {
     selectedObjectLoaded,
     clearSelectedObject,
   } = usePersistentSelectedObject();
-
-  // TODO
-  const debouncedSearchTerm = useDebounce(searchTerm, 200);
-
-  // TODO: What were we using domainObjects for??
-  const { filteredObjects, domainObjects, totalObjects, loading } =
-    useDomainObjects(
-      searchTerm,
-      selectedDataSet,
-      page,
-      rowsPerPage,
-      debouncedSearchTerm
-    );
 
   const handleSetSearchTerm = useCallback((term) => {
     setSearchTerm(term);
@@ -128,6 +126,11 @@ function App() {
             <MainToolBar
               searchTerm={searchTerm}
               setSearchTerm={handleSetSearchTerm}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+              selectedDataSet={selectedDataSet}
             />
 
             <WorkspaceContainer>
@@ -139,7 +142,7 @@ function App() {
                     sx={{ flex: 1, display: "flex", flexDirection: "column" }}
                   >
                     <SummaryTableWrapper
-                      domainObjects={filteredObjects} // why are we using filteredObjects here
+                      domainObjects={domainObjects} // why are we using filteredObjects here
                       totalObjects={totalObjects}
                       onSelect={handleSetSelectedObject}
                       selectedDataSet={selectedDataSet}
@@ -147,6 +150,9 @@ function App() {
                       rowsPerPage={rowsPerPage}
                       onPageChange={handleChangePage}
                       onRowsPerPageChange={handleChangeRowsPerPage}
+                      sortBy={sortBy}
+                      setSortBy={setSortBy}
+                      sortOrder={sortOrder}
                     />
                   </Box>
                 )}
@@ -184,7 +190,7 @@ function App() {
               <RightPane>
                 <Suspense fallback={<div>Loading map...</div>}>
                   <MapView
-                    domainObjects={filteredObjects}
+                    domainObjects={domainObjects}
                     totalObjects={totalObjects}
                     selectedObject={selectedObject}
                     selectedObjectLoaded={selectedObjectLoaded}

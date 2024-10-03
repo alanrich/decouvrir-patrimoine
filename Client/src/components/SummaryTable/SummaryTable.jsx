@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useTable, useSortBy } from "react-table";
 import {
   Table as MuiTable,
   TableBody,
@@ -7,8 +8,10 @@ import {
   Paper,
   TablePagination,
   Box,
+  TableRow,
+  TableCell,
+  TableSortLabel,
 } from "@mui/material";
-import SummaryTableRow from "./SummaryTableRow";
 
 const SummaryTable = ({
   domainObjects,
@@ -19,7 +22,42 @@ const SummaryTable = ({
   onRowsPerPageChange,
   onSelect,
   columns,
+  sortBy,
+  setSortBy,
+  sortOrder,
 }) => {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    state: { sortBy: tableSortBy },
+  } = useTable(
+    {
+      columns,
+      data: domainObjects,
+      manualPagination: true,
+      manualSortBy: true,
+      pageCount: Math.ceil(totalObjects / rowsPerPage),
+      initialState: {
+        pageIndex: page,
+        pageSize: rowsPerPage,
+        sortBy: [{ id: sortBy, desc: sortOrder === "desc" }],
+      },
+      disableMultiSort: true,
+      autoResetSortBy: false,
+    },
+    useSortBy
+  );
+
+  // Update sortBy state when sorting changes
+  useEffect(() => {
+    if (JSON.stringify(tableSortBy) !== JSON.stringify(sortBy)) {
+      setSortBy(tableSortBy);
+    }
+  }, [tableSortBy, setSortBy, sortBy]);
+
   return (
     <Box
       sx={{
@@ -42,7 +80,7 @@ const SummaryTable = ({
           height: "100%",
         }}
       >
-        <MuiTable stickyHeader>
+        <MuiTable stickyHeader {...getTableProps()}>
           <TableHead
             sx={{
               "& .MuiTableCell-root": {
@@ -51,17 +89,50 @@ const SummaryTable = ({
               },
             }}
           >
-            <SummaryTableRow headerRow={true} columns={columns} />
-          </TableHead>
-          <TableBody>
-            {domainObjects.map((object, index) => (
-              <SummaryTableRow
-                key={index}
-                object={object}
-                columns={columns}
-                onSelect={onSelect}
-              />
+            {headerGroups.map((headerGroup) => (
+              <TableRow {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <TableCell
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    sx={{ cursor: "pointer" }}
+                  >
+                    <TableSortLabel
+                      active={column.isSorted}
+                      direction={column.isSortedDesc ? "desc" : "asc"}
+                    >
+                      {column.render("Header")}
+                    </TableSortLabel>
+                  </TableCell>
+                ))}
+              </TableRow>
             ))}
+          </TableHead>
+
+          <TableBody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <TableRow
+                  {...row.getRowProps()}
+                  hover
+                  onClick={() => onSelect(row.original)}
+                  sx={{
+                    cursor: "pointer",
+                    "&:hover": { backgroundColor: "#e3f2fd" },
+                    "& .MuiTableCell-root": {
+                      paddingTop: "10px",
+                      paddingBottom: "10px",
+                    },
+                  }}
+                >
+                  {row.cells.map((cell) => (
+                    <TableCell {...cell.getCellProps()}>
+                      {cell.render("Cell")}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              );
+            })}
           </TableBody>
         </MuiTable>
       </TableContainer>

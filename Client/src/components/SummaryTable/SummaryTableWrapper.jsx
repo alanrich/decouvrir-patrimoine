@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import SummaryTable from "./SummaryTable";
 import { Box } from "@mui/material";
 
@@ -11,6 +11,9 @@ const SummaryTableWrapper = ({
   rowsPerPage,
   onPageChange,
   onRowsPerPageChange,
+  sortBy,
+  setSortBy,
+  sortOrder,
 }) => {
   let columns = [];
 
@@ -42,6 +45,9 @@ const SummaryTableWrapper = ({
         onPageChange={onPageChange}
         onRowsPerPageChange={onRowsPerPageChange}
         onSelect={onSelect}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        sortOrder={sortOrder}
       />
     </Box>
   );
