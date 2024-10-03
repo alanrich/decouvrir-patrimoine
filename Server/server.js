@@ -1,132 +1,132 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const mongoose = require("mongoose");
+const Museum = require("./models/museum");
+const Festival = require("./models/festival");
 
-const festivalsData = require("./api/festivals.json");
-const museumsData = require("./api/museums.json");
+// MongoDB connection
+const mongoURI = process.env.MONGODB_URI;
 
-// allow FE requests from a different port no.
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.once("open", () => {
+  console.log("Connected to MongoDB Atlas");
+
+  // Start the server
+  app.listen(3001, () => console.log("Server running on port 3001"));
+});
+
+// Middleware
 app.use(cors());
 
-// Festival data endpoint
-app.get("/api/festivals", (req, res) => {
-  const page = parseInt(req.query.page) || 0;
-  const rowsPerPage = parseInt(req.query.rowsPerPage) || 10;
-  const sortByParam = req.query.sortBy;
-  const sortOrder = req.query.sortOrder || "asc";
-  const searchTerm = req.query.searchTerm
-    ? req.query.searchTerm.toLowerCase()
-    : "";
+// Field Maps
+const museumFieldMap = {
+  name: "nom_officiel",
+  city: "ville",
+  // Add other mappings when we decide how else to sort
+};
 
-  // Map the client-side sortBy parameter to the raw data fields from JSON Obj
-  const fieldMap = {
-    name: "nom_du_festival",
-    city: "commune_principale_de_deroulement",
-    genre: "discipline_dominante",
-  };
+const festivalFieldMap = {
+  name: "nom_du_festival",
+  city: "commune_principale_de_deroulement",
+  genre: "discipline_dominante",
+};
 
-  let data = festivalsData; // Create a copy of the data array rather than mutating original
+// Museums Endpoint
+app.get("/api/museums", async (req, res) => {
+  const {
+    page = 0,
+    rowsPerPage = 10,
+    sortBy,
+    sortOrder = "asc",
+    searchTerm,
+  } = req.query;
 
-  // Apply Filtering
-  if (searchTerm) {
-    data = data.filter((item) => {
-      const name = item.nom_du_festival
-        ? item.nom_du_festival.toLowerCase()
-        : "";
-      const city = item.commune_principale_de_deroulement
-        ? item.commune_principale_de_deroulement.toLowerCase()
-        : "";
-
-      return name.includes(searchTerm) || city.includes(searchTerm);
-    });
-  }
-
-  // Apply Sorting
-  if (sortByParam) {
-    const sortBy = fieldMap[sortByParam];
-
-    if (sortBy) {
-      data.sort((a, b) => {
-        const aValue = a[sortBy] ? a[sortBy].toString().toLowerCase() : "";
-        const bValue = b[sortBy] ? b[sortBy].toString().toLowerCase() : "";
-
-        if (aValue < bValue) {
-          return sortOrder === "desc" ? 1 : -1;
-        }
-        if (aValue > bValue) {
-          return sortOrder === "desc" ? -1 : 1;
-        }
-        return 0;
-      });
-    }
-  }
-
-  // Apply Pagination
-  const startIndex = page * rowsPerPage;
-  // const endIndex = startIndex + rowsPerPage;
-  const paginatedData = data.slice(startIndex + rowsPerPage);
-
-  res.json({
-    total: data.length,
-    data: paginatedData,
-  });
-});
-
-// Museum data endpoint
-app.get("/api/museums", (req, res) => {
-  const page = parseInt(req.query.page) || 0;
-  const rowsPerPage = parseInt(req.query.rowsPerPage) || 10;
-  const sortByParam = req.query.sortBy;
-  const sortOrder = req.query.sortOrder || "asc";
-  const searchTerm = req.query.searchTerm
-    ? req.query.searchTerm.toLowerCase()
-    : "";
-
-  const fieldMap = {
-    name: "nom_officiel",
-    city: "ville",
-  };
-
-  let data = museumsData;
+  const query = {};
 
   // Apply Filtering
   if (searchTerm) {
-    data = data.filter((item) => {
-      const name = item.nom_officiel ? item.nom_officiel.toLowerCase() : "";
-      const city = item.ville ? item.ville.toLowerCase() : "";
-
-      return name.includes(searchTerm) || city.includes(searchTerm);
-    });
+    const regex = new RegExp(searchTerm, "i");
+    query.$or = [{ nom_officiel: regex }, { ville: regex }];
   }
 
   // Apply Sorting
-  if (sortByParam) {
-    const sortBy = fieldMap[sortByParam];
-    if (sortBy) {
-      data.sort((a, b) => {
-        const aValue = a[sortBy] ? a[sortBy].toString().toLowerCase() : "";
-        const bValue = b[sortBy] ? b[sortBy].toString().toLowerCase() : "";
-
-        if (aValue < bValue) {
-          return sortOrder === "desc" ? 1 : -1;
-        }
-        if (aValue > bValue) {
-          return sortOrder === "desc" ? -1 : 1;
-        }
-        return 0;
-      });
+  const sort = {};
+  if (sortBy) {
+    const dbField = museumFieldMap[sortBy];
+    if (dbField) {
+      sort[dbField] = sortOrder === "asc" ? 1 : -1;
+    } else {
+      console.error(`Invalid sort field: ${sortBy}`);
+      return res.status(400).json({ error: "Invalid sort field" }); // validation to handle invalid sortBy fields
     }
   }
 
-  // Apply Pagination
-  const startIndex = page * rowsPerPage;
-  // const endIndex = startIndex + rowsPerPage;
-  const paginatedData = data.slice(startIndex + rowsPerPage);
+  try {
+    const total = await Museum.countDocuments(query);
+    const data = await Museum.find(query)
+      .sort(sort)
+      .skip(page * rowsPerPage)
+      .limit(parseInt(rowsPerPage));
 
-  res.json({
-    total: data.length,
-    data: paginatedData,
-  });
+    res.json({ total, data });
+  } catch (error) {
+    console.error("Error fetching museums:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
-app.listen(3001, () => console.log("Server running on port 3001"));
+// Festivals Endpoint
+app.get("/api/festivals", async (req, res) => {
+  const {
+    page = 0,
+    rowsPerPage = 10,
+    sortBy,
+    sortOrder = "asc",
+    searchTerm,
+  } = req.query;
+
+  const query = {};
+
+  // Apply Filtering
+  if (searchTerm) {
+    const regex = new RegExp(searchTerm, "i");
+    query.$or = [
+      { nom_du_festival: regex },
+      { commune_principale_de_deroulement: regex },
+    ];
+  }
+
+  // Apply Sorting
+  const sort = {};
+  if (sortBy) {
+    const dbField = festivalFieldMap[sortBy];
+    if (dbField) {
+      sort[dbField] = sortOrder === "asc" ? 1 : -1;
+    } else {
+      console.error(`Invalid sort field: ${sortBy}`);
+      return res.status(400).json({ error: "Invalid sort field" });
+    }
+  }
+
+  try {
+    const total = await Festival.countDocuments(query);
+    const data = await Festival.find(query)
+      .sort(sort)
+      .skip(page * rowsPerPage)
+      .limit(parseInt(rowsPerPage));
+
+    res.json({ total, data });
+  } catch (error) {
+    console.error("Error fetching festivals:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
