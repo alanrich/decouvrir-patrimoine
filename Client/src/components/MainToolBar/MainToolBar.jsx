@@ -125,7 +125,7 @@ const MainToolBar = ({
               {sortOptions.map((option) => (
                 <MenuItem
                   key={option.value}
-                  selected={option.value === sortBy}
+                  selected={option.value === localSortBy}
                   onClick={() => {
                     setLocalSortBy(option.value);
                   }}

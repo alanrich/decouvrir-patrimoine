@@ -25,38 +25,26 @@ const SummaryTable = ({
   sortBy,
   setSortBy,
   sortOrder,
+  setSortOrder,
 }) => {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    state: { sortBy: tableSortBy },
-  } = useTable(
-    {
-      columns,
-      data: domainObjects,
-      manualPagination: true,
-      manualSortBy: true,
-      pageCount: Math.ceil(totalObjects / rowsPerPage),
-      initialState: {
-        pageIndex: page,
-        pageSize: rowsPerPage,
-        sortBy: [{ id: sortBy, desc: sortOrder === "desc" }],
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(
+      {
+        columns,
+        data: domainObjects,
+        manualPagination: true,
+        manualSortBy: true,
+        pageCount: Math.ceil(totalObjects / rowsPerPage),
+        initialState: {
+          pageIndex: page,
+          pageSize: rowsPerPage,
+          sortBy: [{ id: sortBy, desc: sortOrder === "desc" }],
+        },
+        disableMultiSort: true,
+        autoResetSortBy: false,
       },
-      disableMultiSort: true,
-      autoResetSortBy: false,
-    },
-    useSortBy
-  );
-
-  // Update sortBy state when sorting changes
-  useEffect(() => {
-    if (JSON.stringify(tableSortBy) !== JSON.stringify(sortBy)) {
-      setSortBy(tableSortBy);
-    }
-  }, [tableSortBy, setSortBy, sortBy]);
+      useSortBy
+    );
 
   return (
     <Box

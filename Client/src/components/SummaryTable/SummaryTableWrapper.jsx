@@ -14,6 +14,7 @@ const SummaryTableWrapper = ({
   sortBy,
   setSortBy,
   sortOrder,
+  setSortOrder,
 }) => {
   let columns = [];
 
@@ -48,6 +49,7 @@ const SummaryTableWrapper = ({
         sortBy={sortBy}
         setSortBy={setSortBy}
         sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
       />
     </Box>
   );

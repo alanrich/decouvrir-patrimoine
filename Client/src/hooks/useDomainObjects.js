@@ -5,7 +5,8 @@ export const useDomainObjects = (
   selectedDataSet,
   page,
   rowsPerPage,
-  sortBy
+  sortBy,
+  sortOrder
 ) => {
   const [domainObjects, setDomainObjects] = useState([]);
   const [totalObjects, setTotalObjects] = useState(0);
@@ -19,10 +20,7 @@ export const useDomainObjects = (
         let sortParam = "";
 
         if (sortBy && sortBy.length > 0) {
-          const sort = sortBy[0];
-          sortParam = `&sortBy=${sort.id}&sortOrder=${
-            sort.desc ? "desc" : "asc"
-          }`;
+          sortParam = `&sortBy=${sortBy}&sortOrder=${sortOrder}`;
         }
 
         const searchParam = searchTerm
@@ -103,7 +101,7 @@ export const useDomainObjects = (
     };
 
     fetchData();
-  }, [searchTerm, selectedDataSet, page, rowsPerPage, sortBy]);
+  }, [searchTerm, selectedDataSet, page, rowsPerPage, sortBy, sortOrder]);
 
   return { domainObjects, totalObjects, loading };
 };

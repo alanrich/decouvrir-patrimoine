@@ -1,4 +1,4 @@
-import React, { useState, useCallback, Suspense, lazy } from "react";
+import React, { useState, useCallback, useEffect, Suspense, lazy } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, Box, Button, CircularProgress } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -78,7 +78,8 @@ function App() {
     selectedDataSet,
     page,
     rowsPerPage,
-    [{ id: sortBy, desc: sortOrder === "desc" }] // Pass sortBy as an array
+    sortBy,
+    sortOrder
   );
 
   const {
@@ -111,6 +112,10 @@ function App() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   }, []);
+
+  useEffect(() => {
+    setPage(0);
+  }, [sortBy, sortOrder, debouncedSearchTerm]); // should we be resetting the page to 0 on debounced Search
 
   return (
     <ThemeProvider theme={theme}>
@@ -153,6 +158,7 @@ function App() {
                       sortBy={sortBy}
                       setSortBy={setSortBy}
                       sortOrder={sortOrder}
+                      setSortOrder={setSortOrder}
                     />
                   </Box>
                 )}
