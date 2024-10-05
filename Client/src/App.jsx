@@ -30,7 +30,7 @@ const AppContainer = styled("div")(({ theme }) => ({
   flexDirection: "row",
   height: "100vh",
   backgroundColor: theme.palette.background.default,
-  overflowX: "hidden",
+  // overflowX: "hidden",
 }));
 
 const WorkspaceContainer = styled("div")({
@@ -137,7 +137,7 @@ function App() {
               display: "flex",
               flexDirection: "column",
               flexGrow: 1,
-              overflowX: "hidden",
+              // overflowX: "hidden",
             }}
           >
             <MainAppBar />

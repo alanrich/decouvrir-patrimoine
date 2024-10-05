@@ -57,6 +57,8 @@ export const useDomainObjects = (
                   name: object.nom_officiel,
                   address: object.adresse || "No address provided",
                   city: object.ville,
+                  genre:
+                    object.domaine_thematique || "No information available",
                   latitude: object.coordonnees.lat,
                   longitude: object.coordonnees.lon,
                   rawData: object,

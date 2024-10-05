@@ -21,22 +21,31 @@ const SummaryTableWrapper = ({
   if (selectedDataSet === "museums") {
     columns = [
       { Header: "Name", accessor: "name" },
+      {
+        Header: "Genre",
+        accessor: "genre",
+        Cell: ({ value }) =>
+          Array.isArray(value) ? value.join(", ") : "Not available", // 46 out of 1226 entries in the data are not an array, TODO: investiage what they are
+      },
       { Header: "City", accessor: "city" },
-      { Header: "Latitude", accessor: "latitude" },
-      { Header: "Longitude", accessor: "longitude" },
     ];
   } else if (selectedDataSet === "festivals") {
     columns = [
       { Header: "Name", accessor: "name" },
       { Header: "Genre", accessor: "genre" },
       { Header: "City", accessor: "city" },
-      { Header: "Latitude", accessor: "latitude" },
-      { Header: "Longitude", accessor: "longitude" },
     ];
   }
 
   return (
-    <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+    <Box
+      sx={{
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <SummaryTable
         columns={columns}
         domainObjects={domainObjects}

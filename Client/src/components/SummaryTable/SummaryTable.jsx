@@ -23,9 +23,7 @@ const SummaryTable = ({
   onSelect,
   columns,
   sortBy,
-  setSortBy,
   sortOrder,
-  setSortOrder,
 }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
@@ -45,6 +43,7 @@ const SummaryTable = ({
       },
       useSortBy
     );
+  console.log("headerGroups " + JSON.stringify(headerGroups));
 
   return (
     <Box
@@ -62,6 +61,7 @@ const SummaryTable = ({
         component={Paper}
         sx={{
           flexGrow: 1,
+          overflowX: "scroll",
           overflowY: "auto",
           margin: 0,
           padding: 0,

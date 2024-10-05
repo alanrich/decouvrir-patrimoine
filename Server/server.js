@@ -39,6 +39,7 @@ app.use(cors());
 const museumFieldMap = {
   name: "nom_officiel",
   city: "ville",
+  genre: "domaine_thematique",
   // Add other mappings when we decide how else to sort
 };
 
