@@ -14,11 +14,11 @@ const ChromeTabs = styled(Tabs)({
   },
   "& .Mui-selected": {
     color: "#1976d2", // Blue color for active tab text
-    fontWeight: "bold",
   },
 });
 
 const ChromeTab = styled(Tab)(({ theme }) => ({
+  fontWeight: "bold",
   textTransform: "none",
   minWidth: 72,
   marginRight: theme.spacing(0.5),
@@ -37,7 +37,6 @@ const ChromeTab = styled(Tab)(({ theme }) => ({
   },
 }));
 
-// TODO: fix --> x overflow, detail view is expanding horizontally when some table items selected
 const DetailView = memo(
   ({ object, selectedDataSet, tabValue, handleTabChange }) => {
     const tabs = [
@@ -60,11 +59,13 @@ const DetailView = memo(
           borderRadius: "8px",
           border: "1px solid #ddd",
           overflow: "auto",
-          mb: "16px",
+          mb: "8px",
         }}
       >
         <Box
           sx={{
+            position: "sticky",
+            top: 0,
             backgroundColor: "primary.main",
             padding: "8px 8px",
             borderBottom: "1px solid #ddd",

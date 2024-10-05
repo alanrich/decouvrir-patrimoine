@@ -10,12 +10,13 @@ const FieldTitle = styled(Typography)(({ theme }) => ({
   borderRadius: "20px",
   marginBottom: "8px",
   fontWeight: "bold",
+  fontSize: ".8rem",
 }));
 
 const Field = ({ title, value }) => (
   <Grid item xs={12} sm={6}>
     <FieldTitle variant="subtitle1">{title}:</FieldTitle>
-    <Typography variant="body1" sx={{ marginLeft: 1 }}>
+    <Typography variant="body1" sx={{ marginLeft: 1, fontSize: ".8rem" }}>
       {value}
     </Typography>
   </Grid>
@@ -54,7 +55,17 @@ const GeneralTab = ({ object }) => {
       <Grid container spacing={2}>
         {/* General Info */}
         <Grid item xs={12}>
-          <Typography variant="h5" component="h2" gutterBottom>
+          <Typography
+            variant="h6"
+            component="h2"
+            gutterBottom
+            sx={{
+              fontWeight: "bold",
+              letterSpacing: "0.25px",
+              textTransform: "uppercase",
+              textShadow: "1px 1px 2px rgba(0, 0, 0, 0.2)",
+            }}
+          >
             {object.name}
           </Typography>
         </Grid>

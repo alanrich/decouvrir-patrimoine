@@ -25,7 +25,7 @@ const SummaryTableWrapper = ({
         Header: "Genre",
         accessor: "genre",
         Cell: ({ value }) =>
-          Array.isArray(value) ? value.join(", ") : "Not available", // 46 out of 1226 entries in the data are not an array, TODO: investiage what they are
+          Array.isArray(value) ? value.join(", ") : "Not available",
       },
       { Header: "City", accessor: "city" },
     ];

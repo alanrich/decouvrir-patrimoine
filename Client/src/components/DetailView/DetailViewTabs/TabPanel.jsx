@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Box } from "@mui/material";
 
 const TabPanel = ({ children, value, index }) => {
-  return value === index ? <Box sx={{ padding: 2 }}>{children}</Box> : null;
+  return value === index ? <Box sx={{ padding: 1 }}>{children}</Box> : null;
 };
 
 TabPanel.propTypes = {

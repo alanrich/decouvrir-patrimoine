@@ -46,8 +46,8 @@ const SummaryTable = ({
 }) => {
   const theme = useTheme();
   const [columnWidths, setColumnWidths] = useState({});
-  // Used to calculate table size when resizing columns
-  const tableRef = useRef(null);
+
+  const tableRef = useRef(null); // Used to calculate table size when resizing columns
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
       {
@@ -140,13 +140,18 @@ const SummaryTable = ({
             sx={{
               tableLayout: "fixed",
               "& .MuiTableCell-root": {
-                paddingTop: "10px",
-                paddingBottom: "10px",
+                paddingTop: "2px",
+                paddingBottom: "2px",
+                height: "36px",
+                minHeight: "36px",
               },
             }}
           >
             {headerGroups.map((headerGroup) => (
-              <TableRow {...headerGroup.getHeaderGroupProps()}>
+              <TableRow
+                {...headerGroup.getHeaderGroupProps()}
+                sx={{ height: "36px" }}
+              >
                 {headerGroup.headers.map((column, index) => {
                   const isLastColumn = index === headerGroup.headers.length - 1; // we dont want the resizer on the end of the last column
                   return (
@@ -159,6 +164,7 @@ const SummaryTable = ({
                         backgroundColor: theme.palette.primary.main,
                         color: column.isSorted ? "#D3D3D3" : "#fff",
                         fontWeight: "bold",
+                        fontSize: ".8125rem",
                         zIndex: 2,
                         whiteSpace: "nowrap",
                         overflow: "hidden",
@@ -184,7 +190,6 @@ const SummaryTable = ({
                       >
                         {column.render("Header")}
                       </TableSortLabel>
-                      {/* Conditionally render Resizer */}
                       {!isLastColumn && (
                         <Resizer onMouseDown={handleMouseDown(column.id)} />
                       )}
@@ -221,6 +226,7 @@ const SummaryTable = ({
                           whiteSpace: "nowrap",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
+                          fontSize: ".72rem",
                         }}
                       >
                         {cell.render("Cell")}
@@ -251,9 +257,13 @@ const SummaryTable = ({
           onRowsPerPageChange={onRowsPerPageChange}
           rowsPerPageOptions={[10, 25, 50, 100]}
           sx={{
-            minHeight: "42px",
+            height: "32px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            padding: 0,
             "& .MuiToolbar-root": {
-              minHeight: "42px",
+              height: "32px",
               color: "#fff",
               fontWeight: "bold",
             },
