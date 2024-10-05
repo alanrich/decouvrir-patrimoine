@@ -2,10 +2,7 @@ import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import MapController from "./MapController"; // Extracted to its own file
-import {
-  SelectedCameraIcon,
-  CameraIcon,
-} from "../../assets/MapIcons/SecurityCameraIcon";
+import { SelectedMapMarker, MapMarker } from "../../assets/MapIcons/mapMarker";
 
 const MapView = ({
   // Lets try loading all map markers and see how perf. is
@@ -43,7 +40,7 @@ const MapView = ({
             <Marker
               key={index}
               position={[object.latitude, object.longitude]}
-              icon={object === selectedObject ? SelectedCameraIcon : CameraIcon}
+              icon={object === selectedObject ? SelectedMapMarker : MapMarker}
               eventHandlers={{
                 click: () => {
                   onSelect(object);
