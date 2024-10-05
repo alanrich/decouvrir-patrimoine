@@ -36,6 +36,15 @@ const festivalSchema = new mongoose.Schema({
   },
 });
 
+festivalSchema.index({
+  nom_du_festival: "text",
+  commune_principale_de_deroulement: "text",
+  discipline_dominante: "text",
+});
+festivalSchema.index({ nom_du_festival: 1 });
+festivalSchema.index({ commune_principale_de_deroulement: 1 });
+festivalSchema.index({ discipline_dominante: 1 });
+
 const Festival = mongoose.model("Festival", festivalSchema);
 
 module.exports = Festival;

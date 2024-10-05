@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+// TODO: create a new variable that contains name and geocoords
+// this variable will set a state to populate the map with markers for all domainObjects in selectedDataSet
 export const useDomainObjects = (
   searchTerm,
   selectedDataSet,
@@ -53,7 +55,7 @@ export const useDomainObjects = (
                 return {
                   id: object.identifiant,
                   name: object.nom_officiel,
-                  address: object.adresse,
+                  address: object.adresse || "No address provided",
                   city: object.ville,
                   latitude: object.coordonnees.lat,
                   longitude: object.coordonnees.lon,
@@ -67,8 +69,6 @@ export const useDomainObjects = (
                 object.nom_du_festival &&
                 object.commune_principale_de_deroulement &&
                 object.geocodage_xy &&
-                // object.geocodage_xy.lat &&
-                // object.geocodage_xy.lon &&
                 typeof object.geocodage_xy.lat === "number" &&
                 typeof object.geocodage_xy.lon === "number"
               )

@@ -71,7 +71,7 @@ function App() {
   const [sortBy, setSortBy] = useState("name");
   const [sortOrder, setSortOrder] = useState("asc");
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const debouncedSearchTerm = useDebounce(searchTerm, 300); //TODO: Reassess deboounce time
 
   const { domainObjects, totalObjects, loading } = useDomainObjects(
     debouncedSearchTerm,

@@ -17,8 +17,16 @@ mongoose.connect(mongoURI, {
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.once("open", () => {
+db.once("open", async () => {
   console.log("Connected to MongoDB Atlas");
+
+  try {
+    await Museum.init();
+    await Festival.init();
+    console.log("Indexes exist");
+  } catch (error) {
+    console.error("Error: indexes were not found:", error);
+  }
 
   // Start the server
   app.listen(3001, () => console.log("Server running on port 3001"));
@@ -54,8 +62,7 @@ app.get("/api/museums", async (req, res) => {
 
   // Apply Filtering
   if (searchTerm) {
-    const regex = new RegExp(searchTerm, "i");
-    query.$or = [{ nom_officiel: regex }, { ville: regex }];
+    query.$text = { $search: searchTerm };
   }
 
   // Apply Sorting
@@ -72,10 +79,19 @@ app.get("/api/museums", async (req, res) => {
 
   try {
     const total = await Museum.countDocuments(query);
-    const data = await Museum.find(query)
+    const data = await Museum.find(query, {
+      // We specify the fields to return by adding a projection object
+      nom_officiel: 1,
+      adresse: 1,
+      ville: 1,
+      coordonnees: 1,
+      identifiant: 1,
+      domaine_thematique: 1,
+    })
       .sort(sort)
       .skip(page * rowsPerPage)
-      .limit(parseInt(rowsPerPage));
+      .limit(parseInt(rowsPerPage))
+      .lean(); // adding lean() to the query chain returns plain js obj instead of mongoose doc for better perf.
 
     res.json({ total, data });
   } catch (error) {
@@ -98,11 +114,7 @@ app.get("/api/festivals", async (req, res) => {
 
   // Apply Filtering
   if (searchTerm) {
-    const regex = new RegExp(searchTerm, "i");
-    query.$or = [
-      { nom_du_festival: regex },
-      { commune_principale_de_deroulement: regex },
-    ];
+    query.$text = { $search: searchTerm };
   }
 
   // Apply Sorting
@@ -119,10 +131,18 @@ app.get("/api/festivals", async (req, res) => {
 
   try {
     const total = await Festival.countDocuments(query);
-    const data = await Festival.find(query)
+    const data = await Festival.find(query, {
+      nom_du_festival: 1,
+      commune_principale_de_deroulement: 1,
+      discipline_dominante: 1,
+      geocodage_xy: 1,
+      identifiant: 1,
+      identifiant_cnm: 1,
+    })
       .sort(sort)
       .skip(page * rowsPerPage)
-      .limit(parseInt(rowsPerPage));
+      .limit(parseInt(rowsPerPage))
+      .lean();
 
     res.json({ total, data });
   } catch (error) {

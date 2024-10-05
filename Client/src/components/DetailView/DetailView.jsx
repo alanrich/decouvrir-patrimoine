@@ -37,6 +37,7 @@ const ChromeTab = styled(Tab)(({ theme }) => ({
   },
 }));
 
+// TODO: fix --> x overflow, detail view is expanding horizontally when some table items selected
 const DetailView = memo(
   ({ object, selectedDataSet, tabValue, handleTabChange }) => {
     const tabs = [
