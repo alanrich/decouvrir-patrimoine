@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useTable, useSortBy } from "react-table";
+import { useTheme } from "@mui/material/styles";
 import {
   Table as MuiTable,
   TableBody,
@@ -13,6 +14,24 @@ import {
   TableSortLabel,
 } from "@mui/material";
 
+const Resizer = ({ onMouseDown }) => {
+  return (
+    <div
+      onMouseDown={onMouseDown}
+      style={{
+        cursor: "col-resize",
+        position: "absolute",
+        top: 0,
+        right: "0px",
+        bottom: 0,
+        zIndex: 10,
+        width: "5px",
+        backgroundColor: "#808080",
+      }}
+    />
+  );
+};
+
 const SummaryTable = ({
   domainObjects,
   page,
@@ -25,6 +44,10 @@ const SummaryTable = ({
   sortBy,
   sortOrder,
 }) => {
+  const theme = useTheme();
+  const [columnWidths, setColumnWidths] = useState({});
+  // Used to calculate table size when resizing columns
+  const tableRef = useRef(null);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
       {
@@ -43,7 +66,46 @@ const SummaryTable = ({
       },
       useSortBy
     );
-  console.log("headerGroups " + JSON.stringify(headerGroups));
+
+  const handleMouseDown = (columnId) => (event) => {
+    event.preventDefault(); // prevents text selection when resizing columns
+    const startX = event.clientX;
+    const startWidth = columnWidths[columnId] || 150;
+    console.log("column ID >>>> " + columnId);
+
+    const handleMouseMove = (event) => {
+      const newWidth = startWidth + event.clientX - startX;
+      setColumnWidths((prevWidths) => ({
+        ...prevWidths,
+        [columnId]: newWidth > 50 ? newWidth : 50, // Set a minimum column width
+      }));
+    };
+
+    const handleMouseUp = () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+  };
+
+  useEffect(() => {
+    if (!tableRef.current) return;
+
+    const tableWidth = tableRef.current.clientWidth;
+    const initialColumnWidths = headerGroups[0]?.headers.reduce(
+      (acc, column) => {
+        console.log(`Setting initial width for column ${column.id}`);
+        acc[column.id] = columnWidths[column.id] || tableWidth / columns.length; // Ensure a default width is set for each column
+        return acc;
+      },
+      {}
+    );
+
+    setColumnWidths(initialColumnWidths);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // run once on mount
 
   return (
     <Box
@@ -68,9 +130,15 @@ const SummaryTable = ({
           height: "100%",
         }}
       >
-        <MuiTable stickyHeader {...getTableProps()}>
+        <MuiTable
+          stickyHeader
+          {...getTableProps()}
+          ref={tableRef}
+          sx={{ tableLayout: "fixed", width: "100%" }}
+        >
           <TableHead
             sx={{
+              tableLayout: "fixed",
               "& .MuiTableCell-root": {
                 paddingTop: "10px",
                 paddingBottom: "10px",
@@ -79,19 +147,50 @@ const SummaryTable = ({
           >
             {headerGroups.map((headerGroup) => (
               <TableRow {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <TableCell
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    sx={{ cursor: "pointer" }}
-                  >
-                    <TableSortLabel
-                      active={column.isSorted}
-                      direction={column.isSortedDesc ? "desc" : "asc"}
+                {headerGroup.headers.map((column, index) => {
+                  const isLastColumn = index === headerGroup.headers.length - 1; // we dont want the resizer on the end of the last column
+                  return (
+                    <TableCell
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      sx={{
+                        cursor: "pointer",
+                        position: "sticky",
+                        top: 0,
+                        backgroundColor: theme.palette.primary.main,
+                        color: column.isSorted ? "#D3D3D3" : "#fff",
+                        fontWeight: "bold",
+                        zIndex: 2,
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        width: columnWidths[column.id]
+                          ? `${columnWidths[column.id]}px`
+                          : "150px",
+                        minWidth: `${columnWidths[column.id]}px`,
+                      }}
                     >
-                      {column.render("Header")}
-                    </TableSortLabel>
-                  </TableCell>
-                ))}
+                      <TableSortLabel
+                        active={column.isSorted}
+                        direction={column.isSortedDesc ? "desc" : "asc"}
+                        sx={{
+                          color: "inherit", // Inherit color from TableCell
+                          "& .MuiTableSortLabel-icon": {
+                            color: column.isSorted ? "#D3D3D3" : "#fff", // Change arrow color when sorted
+                          },
+                          "&:hover": {
+                            color: "#D3D3D3", // Maintain hover color
+                          },
+                        }}
+                      >
+                        {column.render("Header")}
+                      </TableSortLabel>
+                      {/* Conditionally render Resizer */}
+                      {!isLastColumn && (
+                        <Resizer onMouseDown={handleMouseDown(column.id)} />
+                      )}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             ))}
           </TableHead>
@@ -113,11 +212,21 @@ const SummaryTable = ({
                     },
                   }}
                 >
-                  {row.cells.map((cell) => (
-                    <TableCell {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </TableCell>
-                  ))}
+                  {row.cells.map((cell) => {
+                    //console.log("cell.column.id >>>>> " + cell.column.id);
+                    return (
+                      <TableCell
+                        {...cell.getCellProps()}
+                        sx={{
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {cell.render("Cell")}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               );
             })}
@@ -130,7 +239,7 @@ const SummaryTable = ({
           flexShrink: 0,
           borderTop: "1px solid #ddd",
           padding: "0px 16px",
-          backgroundColor: "#f9f9f9",
+          backgroundColor: "#808080",
         }}
       >
         <TablePagination
@@ -140,15 +249,19 @@ const SummaryTable = ({
           onPageChange={onPageChange}
           rowsPerPage={rowsPerPage}
           onRowsPerPageChange={onRowsPerPageChange}
-          rowsPerPageOptions={[5, 10, 25, 50]}
+          rowsPerPageOptions={[10, 25, 50, 100]}
           sx={{
             minHeight: "42px",
             "& .MuiToolbar-root": {
               minHeight: "42px",
+              color: "#fff",
+              fontWeight: "bold",
             },
             "& .MuiTablePagination-displayedRows, & .MuiTablePagination-actions":
               {
                 fontSize: "0.8125rem",
+                color: "#fff",
+                fontWeight: "bold",
               },
           }}
         />

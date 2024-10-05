@@ -48,6 +48,7 @@ const LeftPane = styled("div")({
   padding: "1rem",
   paddingTop: "2rem",
   height: "100%",
+  width: "50%",
   overflow: "hidden",
   justifyContent: "center",
   alignItems: "center",
@@ -62,6 +63,7 @@ const LeftPane = styled("div")({
 const RightPane = styled("div")({
   display: "flex",
   flex: "1",
+  width: "50%",
   padding: "1rem",
   backgroundColor: "#e0e0e0",
 });

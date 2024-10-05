@@ -65,7 +65,7 @@ const DetailView = memo(
       >
         <Box
           sx={{
-            backgroundColor: "#f4f6f8",
+            backgroundColor: "primary.main",
             padding: "8px 8px",
             borderBottom: "1px solid #ddd",
             borderTopLeftRadius: "8px",
