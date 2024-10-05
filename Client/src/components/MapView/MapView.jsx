@@ -15,7 +15,7 @@ const MapView = ({
   const initialPosition =
     domainObjects.length > 0
       ? [domainObjects[0].latitude, domainObjects[0].longitude]
-      : [48.8192, 2.2389];
+      : [46.603354, 1.888334];
 
   return (
     <MapContainer
