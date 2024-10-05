@@ -8,11 +8,16 @@ import {
   MenuItem,
   Divider,
   Typography,
+  IconButton,
+  InputBase,
   ToggleButtonGroup,
   ToggleButton,
 } from "@mui/material";
-import SearchBar from "../SearchBar";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import SearchIcon from "@mui/icons-material/Search";
+import SortIcon from "@mui/icons-material/Sort";
+import CloseIcon from "@mui/icons-material/Close";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 const MainToolBar = ({
   searchTerm,
@@ -36,8 +41,11 @@ const MainToolBar = ({
         ];
 
   // Sorting Menu State
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  // Search Bar State
+  const [searchActive, setSearchActive] = useState(false);
 
   // Local state for sorting selections
   const [localSortBy, setLocalSortBy] = useState(sortBy);
@@ -58,14 +66,24 @@ const MainToolBar = ({
     handleClose();
   };
 
+  // Handlers for search bar
+  const handleSearchClick = () => {
+    setSearchActive(true);
+  };
+
+  const handleSearchClose = () => {
+    setSearchTerm("");
+    setSearchActive(false);
+  };
+
   return (
     <AppBar
       position="fixed"
       sx={{
         backgroundColor: "#808080",
-        height: "3rem",
+        height: "64px",
         top: "4rem",
-        left: "60px", // leave in px
+        left: "0",
         right: "0",
         boxShadow: "none",
       }}
@@ -76,112 +94,133 @@ const MainToolBar = ({
           justifyContent: "flex-end",
           alignItems: "center",
           height: "100%",
-          paddingRight: "80px", // padding to align with search bar
+          paddingLeft: "16px",
+          paddingRight: "64px",
+          minHeight: "64px",
         }}
       >
-        {/* Container for Sort Control and Search Bar */}
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
-            position: "relative",
+            gap: "8px",
+            maxWidth: "calc(100% - 64px)",
           }}
         >
-          {/* Sort Control */}
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              marginRight: "16px", // Position Sort Control 16px left of Search Bar
-            }}
-          >
-            <Button
-              variant="outlined"
-              size="small"
-              onClick={handleClick}
-              endIcon={<ArrowDropDownIcon />}
+          {!searchActive ? (
+            <IconButton
+              onClick={handleSearchClick}
               sx={{
-                backgroundColor: "#fff",
-                textTransform: "none",
-                fontSize: "0.8rem",
-                minWidth: "100px",
-                height: "2rem",
+                padding: "6px",
+                height: "40px",
+                width: "40px",
+                color: "inherit",
               }}
             >
-              Sort By:{" "}
-              {sortOptions.find((option) => option.value === sortBy)?.label ||
-                "Select"}
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "sort-button",
+              <SearchIcon />
+            </IconButton>
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                backgroundColor: "#f1f3f4",
+                borderRadius: "24px",
+                padding: "0 8px",
+                height: "40px",
               }}
-              anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-              transformOrigin={{ horizontal: "left", vertical: "top" }}
             >
-              {sortOptions.map((option) => (
-                <MenuItem
-                  key={option.value}
-                  selected={option.value === localSortBy}
-                  onClick={() => {
-                    setLocalSortBy(option.value);
-                  }}
-                  sx={{ fontSize: "0.875rem" }}
-                >
-                  {option.label}
-                </MenuItem>
-              ))}
-              <Divider />
-              <Box sx={{ padding: "0.5rem 1.5rem" }}>
-                <Typography variant="body2" sx={{ marginBottom: "0.5rem" }}>
-                  Sort Order
-                </Typography>
-                <ToggleButtonGroup
-                  value={localSortOrder}
-                  exclusive
-                  onChange={(event, newOrder) => {
-                    if (newOrder !== null) {
-                      setLocalSortOrder(newOrder);
-                    }
-                  }}
-                  size="small"
-                  sx={{
-                    "& .MuiToggleButton-root": {
-                      fontSize: "0.75rem",
-                      padding: "0.25rem 0.5rem",
-                    },
-                  }}
-                >
-                  <ToggleButton value="asc">Asc</ToggleButton>
-                  <ToggleButton value="desc">Desc</ToggleButton>
-                </ToggleButtonGroup>
-              </Box>
-              <Divider />
-              <MenuItem
-                onClick={handleApplySort}
-                sx={{
-                  justifyContent: "center",
-                  fontWeight: "bold",
-                }}
-              >
-                Apply
-              </MenuItem>
-            </Menu>
-          </Box>
-          <Box
+              <InputBase
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search"
+                sx={{ flex: 1, marginLeft: "8px", height: "100%" }}
+              />
+              <IconButton onClick={handleSearchClose} sx={{ padding: "6px" }}>
+                <CloseIcon />
+              </IconButton>
+            </Box>
+          )}
+
+          <Button
+            variant="outlined"
+            onClick={handleClick}
+            startIcon={<SortIcon />}
             sx={{
-              marginRight: "80px",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
+              backgroundColor: "#fff",
+              textTransform: "none",
+              fontSize: "0.875rem",
+              minWidth: "80px",
+              height: "40px",
+              whiteSpace: "nowrap",
             }}
           >
-            <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-          </Box>
+            Sort
+          </Button>
         </Box>
+
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{ horizontal: "right", vertical: "top" }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+        >
+          {sortOptions.map((option) => (
+            <MenuItem
+              key={option.value}
+              selected={option.value === localSortBy}
+              onClick={() => setLocalSortBy(option.value)}
+              sx={{ fontSize: "0.875rem" }}
+            >
+              {option.label}
+            </MenuItem>
+          ))}
+          <Divider />
+          <Box sx={{ padding: "0.5rem 1.5rem" }}>
+            <Typography variant="body2" sx={{ marginBottom: "0.5rem" }}>
+              Sort Order
+            </Typography>
+            <ToggleButtonGroup
+              value={localSortOrder}
+              exclusive
+              onChange={(event, newOrder) => {
+                if (newOrder !== null) {
+                  setLocalSortOrder(newOrder);
+                }
+              }}
+              size="small"
+              sx={{
+                "& .MuiToggleButton-root": {
+                  fontSize: "0.75rem",
+                  padding: "0.25rem 0.5rem",
+                },
+              }}
+            >
+              <ToggleButton value="asc">
+                <ArrowUpwardIcon fontSize="small" sx={{ marginRight: "4px" }} />
+                Asc
+              </ToggleButton>
+              <ToggleButton value="desc">
+                <ArrowDownwardIcon
+                  fontSize="small"
+                  sx={{ marginRight: "4px" }}
+                />
+                Desc
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Box>
+          <Divider />
+          <MenuItem
+            onClick={handleApplySort}
+            sx={{
+              justifyContent: "center",
+              fontWeight: "bold",
+            }}
+          >
+            Apply
+          </MenuItem>
+        </Menu>
       </Toolbar>
     </AppBar>
   );

@@ -30,6 +30,7 @@ const AppContainer = styled("div")(({ theme }) => ({
   flexDirection: "row",
   height: "100vh",
   backgroundColor: theme.palette.background.default,
+  overflowX: "hidden",
 }));
 
 const WorkspaceContainer = styled("div")({
@@ -71,7 +72,7 @@ function App() {
   const [sortBy, setSortBy] = useState("name");
   const [sortOrder, setSortOrder] = useState("asc");
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 300); //TODO: Reassess deboounce time
+  const debouncedSearchTerm = useDebounce(searchTerm, 500); //TODO: Reassess deboounce time
 
   const { domainObjects, totalObjects, loading } = useDomainObjects(
     debouncedSearchTerm,
@@ -125,7 +126,13 @@ function App() {
           <MainDrawer setSelectedDataSet={setSelectedDataSet} />
 
           <div
-            style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: 1,
+              marginLeft: "60px", // Account for the drawer's width
+              overflowX: "hidden", // prevent scrolling
+            }}
           >
             <MainAppBar />
             <MainToolBar

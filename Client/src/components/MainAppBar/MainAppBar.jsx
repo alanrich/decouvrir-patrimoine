@@ -54,7 +54,7 @@ const MainAppBar = () => {
             color: "#D3D3D3",
           }}
         >
-          FRANCE HAUTE CULTURE
+          FRANCE CULTURE
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
         <IconButton color="inherit" onClick={handleMenuOpen} sx={{ p: 0 }}>
