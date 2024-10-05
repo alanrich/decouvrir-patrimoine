@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, Suspense, lazy } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { CssBaseline, Box, Button, CircularProgress } from "@mui/material";
+import { CssBaseline, Box, CircularProgress } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import MainAppBar from "./components/MainAppBar/MainAppBar";
 import MainToolBar from "./components/MainToolBar/MainToolBar";
@@ -37,7 +37,7 @@ const WorkspaceContainer = styled("div")({
   display: "flex",
   flexDirection: "row",
   flexGrow: 1,
-  marginTop: "7rem", // Account for MainAppBar and MainToolBar height
+  marginTop: "8rem", // Account for MainAppBar and MainToolBar height
   overflow: "auto",
 });
 
@@ -46,11 +46,15 @@ const LeftPane = styled("div")({
   flexDirection: "column",
   flex: 1,
   padding: "1rem",
+  paddingTop: "2rem",
   height: "100%",
   overflow: "hidden",
+  justifyContent: "center",
+  alignItems: "center",
   // Makes sure that each component takes up 50% of the height
   "& > div": {
-    flex: "0 0 50%", // fix the height at 50%, prevent any expansion/shrinking on zoom
+    width: "100%",
+    flex: "0 0 50%", // prevent any expansion/shrinking on zoom
     overflow: "hidden",
   },
 });
@@ -100,11 +104,14 @@ function App() {
     },
     [setSelectedObject]
   );
-
+  /*
+*
+*  We Need to implement the clear button in a better fashion, it was too prominent
+*
   const handleClearSelectedObject = useCallback(() => {
     clearSelectedObject();
   }, [clearSelectedObject]);
-
+*/
   const handleChangePage = useCallback((event, newPage) => {
     setPage(newPage);
   }, []);
@@ -116,7 +123,7 @@ function App() {
 
   useEffect(() => {
     setPage(0);
-  }, [sortBy, sortOrder, debouncedSearchTerm]); // should we be resetting the page to 0 on debounced Search
+  }, [sortBy, sortOrder, debouncedSearchTerm]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -130,8 +137,7 @@ function App() {
               display: "flex",
               flexDirection: "column",
               flexGrow: 1,
-              marginLeft: "60px", // Account for the drawer's width
-              overflowX: "hidden", // prevent scrolling
+              overflowX: "hidden",
             }}
           >
             <MainAppBar />
@@ -151,10 +157,17 @@ function App() {
                   <CircularProgress />
                 ) : (
                   <Box
-                    sx={{ flex: 1, display: "flex", flexDirection: "column" }}
+                    sx={{
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "100%",
+                    }}
                   >
                     <SummaryTableWrapper
-                      domainObjects={domainObjects} // why are we using filteredObjects here
+                      domainObjects={domainObjects}
                       totalObjects={totalObjects}
                       onSelect={handleSetSelectedObject}
                       selectedDataSet={selectedDataSet}
@@ -175,7 +188,10 @@ function App() {
                     flex: 1,
                     display: "flex",
                     flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
                     mt: "1rem",
+                    width: "100%",
                   }}
                 >
                   <DetailViewWrapper
@@ -183,27 +199,11 @@ function App() {
                     selectedDataSet={selectedDataSet}
                   />
                 </Box>
-
-                {selectedObject && (
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={handleClearSelectedObject}
-                    sx={{
-                      mt: "1rem",
-                      padding: "0.625rem 1.25rem",
-                      textTransform: "none",
-                      "&:hover": { backgroundColor: "#d32f2f" },
-                    }}
-                  >
-                    Clear Selection
-                  </Button>
-                )}
               </LeftPane>
               <RightPane>
                 <Suspense fallback={<div>Loading map...</div>}>
                   <MapView
-                    domainObjects={domainObjects}
+                    domainObjects={domainObjects} // TODO: modify useDomainObjects to return an object with all markers
                     totalObjects={totalObjects}
                     selectedObject={selectedObject}
                     selectedObjectLoaded={selectedObjectLoaded}
