@@ -34,10 +34,12 @@ museumSchema.index({
   nom_officiel: "text",
   ville: "text",
   domaine_thematique: "text",
+  artiste: "text",
 });
 museumSchema.index({ domaine_thematique: 1 });
 museumSchema.index({ nom_officiel: 1 });
 museumSchema.index({ ville: 1 });
+museumSchema.index({ artiste: 1 });
 
 const Museum = mongoose.model("Museum", museumSchema);
 

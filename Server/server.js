@@ -82,12 +82,21 @@ app.get("/api/museums", async (req, res) => {
     const total = await Museum.countDocuments(query);
     const data = await Museum.find(query, {
       // We specify the fields to return by adding a projection object
+      identifiant: 1,
       nom_officiel: 1,
       adresse: 1,
       ville: 1,
+      region: 1,
       coordonnees: 1,
-      identifiant: 1,
+      url: 1,
+      telephone: 1,
+      categorie: 1,
+      histoire: 1,
+      personnage_phare: 1,
+      interet: 1,
+      annee_creation: 1,
       domaine_thematique: 1,
+      artiste: 1,
     })
       .sort(sort)
       .skip(page * rowsPerPage)
@@ -133,12 +142,21 @@ app.get("/api/festivals", async (req, res) => {
   try {
     const total = await Festival.countDocuments(query);
     const data = await Festival.find(query, {
-      nom_du_festival: 1,
-      commune_principale_de_deroulement: 1,
-      discipline_dominante: 1,
-      geocodage_xy: 1,
       identifiant: 1,
-      identifiant_cnm: 1,
+      nom_du_festival: 1,
+      discipline_dominante: 1,
+      commune_principale_de_deroulement: 1,
+      annee_de_creation_du_festival: 1,
+      site_internet_du_festival: 1,
+      envergure_territoriale: 1,
+      adresse_postale: 1,
+      adresse_e_mail: 1,
+      sous_categorie_spectacle_vivant: 1,
+      sous_categorie_musique: 1,
+      sous_categorie_cinema_et_audiovisuel: 1,
+      sous_categorie_arts_visuels_et_arts_numeriques: 1,
+      sous_categorie_livre_et_litterature: 1,
+      geocodage_xy: 1,
     })
       .sort(sort)
       .skip(page * rowsPerPage)

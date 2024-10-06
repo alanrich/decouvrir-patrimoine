@@ -50,6 +50,7 @@ const DetailView = memo(
       // TODO: Add more tabs later, think what tabs should be called
     ];
     return (
+      // TODO: Try replace with <> </>, something is messing up the styling of the TabsBar
       <Card
         sx={{
           display: "flex",
