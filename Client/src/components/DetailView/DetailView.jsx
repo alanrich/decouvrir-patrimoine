@@ -1,41 +1,45 @@
 import React, { memo } from "react";
-import { Card, CardContent, Typography, Box, Tabs, Tab } from "@mui/material";
+import { CardContent, Typography, Box } from "@mui/material";
 import PropTypes from "prop-types";
-import { styled } from "@mui/system";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 import GeneralTab from "./DetailViewTabs/GeneralTab";
 import HistoryTab from "./DetailViewTabs/HistoryTab";
 import VisitorInfoTab from "./DetailViewTabs/VisitorInfoTab";
 import ArtworksTab from "./DetailViewTabs/ArtworksTab";
-import TabPanel from "./DetailViewTabs/TabPanel";
 
-const ChromeTabs = styled(Tabs)({
-  "& .MuiTabs-indicator": {
-    display: "none", // Hide the default MUI tab indicator
+const tabStyles = {
+  tabList: {
+    display: "flex",
+    backgroundColor: "#1976d2",
+    borderBottom: "1px solid #ddd",
+    height: "36px",
+    margin: 0,
+    padding: 0,
   },
-  "& .Mui-selected": {
-    color: "#1976d2", // Blue color for active tab text
+  tab: {
+    flex: 1,
+    padding: "8px 16px",
+    textAlign: "center",
+    cursor: "pointer",
+    backgroundColor: "#1976d2",
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontSize: ".8125rem",
+    border: "none",
+    outline: "none",
+    height: "36px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
-});
-
-const ChromeTab = styled(Tab)(({ theme }) => ({
-  fontWeight: "bold",
-  textTransform: "none",
-  minWidth: 72,
-  marginRight: theme.spacing(0.5),
-  padding: "0.5rem 1rem", // Padding for spacing between tabs
-  borderRadius: "0.75rem 0.75rem 0 0",
-  backgroundColor: "#e0e0e0",
-  transition: "background-color 0.3s ease-in-out",
-
-  "&.Mui-selected": {
-    backgroundColor: "#ADD8E6",
-    boxShadow: "0 2px 5px rgba(0,0,0,0.15)", // Slight shadow to elevate active tab
+  selectedTab: {
+    backgroundColor: "#FFFFFF",
+    color: "#000000",
+    fontWeight: "bold",
+    fontSize: ".8125rem",
   },
-
-  "&:hover": {
-    backgroundColor: "#ADD8E6", // Hover effect for inactive tabs
-  },
-}));
+};
 
 const DetailView = memo(
   ({ object, selectedDataSet, tabValue, handleTabChange }) => {
@@ -47,11 +51,10 @@ const DetailView = memo(
         label: "Infos Visiteur",
         component: <VisitorInfoTab object={object} />,
       },
-      // TODO: Add more tabs later, think what tabs should be called
     ];
+
     return (
-      // TODO: Try replace with <> </>, something is messing up the styling of the TabsBar
-      <Card
+      <Box
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -63,37 +66,36 @@ const DetailView = memo(
           mb: "8px",
         }}
       >
-        <Box
-          sx={{
-            position: "sticky",
-            top: 0,
-            backgroundColor: "primary.main",
-            padding: "8px 8px",
-            borderBottom: "1px solid #ddd",
-            borderTopLeftRadius: "8px",
-            borderTopRightRadius: "8px",
-            height: "3.5rem",
-          }}
+        <Tabs
+          selectedIndex={tabValue}
+          onSelect={(index) => handleTabChange(null, index)}
         >
-          <ChromeTabs value={tabValue} onChange={handleTabChange}>
+          <TabList style={tabStyles.tabList}>
             {tabs.map((tab, index) => (
-              <ChromeTab key={index} label={tab.label} />
+              <Tab
+                key={index}
+                style={{
+                  ...tabStyles.tab,
+                  ...(tabValue === index ? tabStyles.selectedTab : {}),
+                }}
+              >
+                {tab.label}
+              </Tab>
             ))}
-          </ChromeTabs>
-        </Box>
+          </TabList>
 
+          {tabs.map((tab, index) => (
+            <TabPanel key={index}>{tab.component}</TabPanel>
+          ))}
+        </Tabs>
+
+        {/* Removed duplicated TabPanel rendering */}
         <CardContent sx={{ padding: "16px", flex: 1 }}>
-          {object ? (
-            tabs.map((tab, index) => (
-              <TabPanel key={index} value={tabValue} index={index}>
-                {tab.component}
-              </TabPanel>
-            ))
-          ) : (
+          {!object && (
             <Typography color="textSecondary">No item selected.</Typography>
           )}
         </CardContent>
-      </Card>
+      </Box>
     );
   }
 );
