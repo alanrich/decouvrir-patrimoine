@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 
 const FieldTitle = styled(Typography)(({ theme }) => ({
   display: "inline-block",
-  backgroundColor: "#e0f7fa", // Light blue color
+  backgroundColor: "#e0f7fa",
   color: theme.palette.text.primary,
   padding: "6px 12px",
   borderRadius: "20px",
@@ -54,9 +54,22 @@ const TabPanelContent = ({ fields }) => {
   return (
     <Paper
       elevation={3}
-      sx={{ padding: 2, border: "2px solid #FF0000", height: "100%" }}
+      sx={{
+        padding: 2,
+        border: "2px solid #FF0000",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
     >
-      <Grid container spacing={2}>
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          flex: 1,
+          overflowY: "auto",
+        }}
+      >
         {fields.map((field) => (
           <Field key={field.title} {...field} />
         ))}

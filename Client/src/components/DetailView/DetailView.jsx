@@ -3,7 +3,7 @@ import { Typography, Box } from "@mui/material";
 import PropTypes from "prop-types";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import TabPanelContent from "./TabPanelContent"; // Import the generic component
+import TabPanelContent from "./TabPanelContent";
 
 const tabStyles = {
   tabList: {
@@ -13,6 +13,9 @@ const tabStyles = {
     height: "36px",
     margin: 0,
     padding: 0,
+    position: "sticky",
+    top: 0,
+    zIndex: 2,
   },
   tab: {
     flex: 1,
@@ -50,16 +53,16 @@ const DetailView = memo(
             boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
             borderRadius: "8px",
             border: "2px solid #ddd",
-            overflow: "auto",
+            overflow: "hidden", // overflow: "auto",
             mb: "8px",
             padding: "16px",
+            height: "100%",
           }}
         >
           <Typography color="textSecondary">No item selected.</Typography>
         </Box>
       );
     }
-    // Define tab configurations
     const tabConfigs = [
       {
         label: "Overview",
@@ -67,7 +70,7 @@ const DetailView = memo(
           { title: "Name", value: object.name },
           { title: "Adresse", value: object.address },
           { title: "Ville", value: object.city },
-          // Add more fields as needed
+          // Add more fields later after refactor complete
         ],
       },
       {
@@ -102,12 +105,15 @@ const DetailView = memo(
           borderRadius: "8px",
           border: "1px solid #ddd",
           overflow: "auto",
+          height: "100%",
+          overflow: "hidden",
           mb: "8px",
         }}
       >
         <Tabs
           selectedIndex={tabValue}
           onSelect={(index) => handleTabChange(null, index)}
+          style={{ display: "flex", flexDirection: "column", height: "100%" }}
         >
           <TabList style={tabStyles.tabList}>
             {tabConfigs.map((tab, index) => (
@@ -124,7 +130,7 @@ const DetailView = memo(
           </TabList>
 
           {tabConfigs.map((tab, index) => (
-            <TabPanel key={index}>
+            <TabPanel key={index} style={{ flex: 1, overflow: "hidden" }}>
               <TabPanelContent fields={tab.fields} />
             </TabPanel>
           ))}
