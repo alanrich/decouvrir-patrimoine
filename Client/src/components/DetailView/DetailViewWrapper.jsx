@@ -4,10 +4,19 @@ import { Box } from "@mui/material";
 
 const DetailViewWrapper = ({ object, selectedDataSet }) => {
   const [tabValue, setTabValue] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleTabChange = useCallback((event, newValue) => {
     setTabValue(newValue);
   }, []);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <Box
@@ -23,6 +32,9 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
         selectedDataSet={selectedDataSet}
         tabValue={tabValue}
         handleTabChange={handleTabChange}
+        handleModalOpen={handleModalOpen}
+        handleModalClose={handleModalClose}
+        isModalOpen={isModalOpen}
       />
     </Box>
   );

@@ -56,7 +56,6 @@ const TabPanelContent = ({ fields }) => {
       elevation={3}
       sx={{
         padding: 2,
-        border: "2px solid #FF0000",
         height: "100%",
         display: "flex",
         flexDirection: "column",
