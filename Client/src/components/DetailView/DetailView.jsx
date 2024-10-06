@@ -1,12 +1,9 @@
 import React, { memo } from "react";
-import { CardContent, Typography, Box } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import PropTypes from "prop-types";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import GeneralTab from "./DetailViewTabs/GeneralTab";
-import HistoryTab from "./DetailViewTabs/HistoryTab";
-import VisitorInfoTab from "./DetailViewTabs/VisitorInfoTab";
-import ArtworksTab from "./DetailViewTabs/ArtworksTab";
+import TabPanelContent from "./TabPanelContent"; // Import the generic component
 
 const tabStyles = {
   tabList: {
@@ -43,13 +40,55 @@ const tabStyles = {
 
 const DetailView = memo(
   ({ object, selectedDataSet, tabValue, handleTabChange }) => {
-    const tabs = [
-      { label: "Overview", component: <GeneralTab object={object} /> },
-      { label: "Histoire", component: <HistoryTab object={object} /> },
-      { label: "Œuvres", component: <ArtworksTab object={object} /> },
+    if (!object) {
+      return (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            flex: 1,
+            boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+            borderRadius: "8px",
+            border: "2px solid #ddd",
+            overflow: "auto",
+            mb: "8px",
+            padding: "16px",
+          }}
+        >
+          <Typography color="textSecondary">No item selected.</Typography>
+        </Box>
+      );
+    }
+    // Define tab configurations
+    const tabConfigs = [
       {
-        label: "Infos Visiteur",
-        component: <VisitorInfoTab object={object} />,
+        label: "Overview",
+        fields: [
+          { title: "Name", value: object.name },
+          { title: "Adresse", value: object.address },
+          { title: "Ville", value: object.city },
+          // Add more fields as needed
+        ],
+      },
+      {
+        label: "Histoire",
+        fields: [{ title: "Histoire", value: object.rawData.histoire }],
+      },
+      {
+        label: "Œuvres",
+        fields: [
+          { title: "Artistes", value: object.rawData.artiste },
+          { title: "Thèmes", value: object.rawData.themes },
+        ],
+      },
+      {
+        label: "Info",
+        fields: [
+          { title: "Adresse", value: object.rawData.adresse },
+          { title: "Ville", value: object.rawData.ville },
+          { title: "Téléphone", value: object.rawData.telephone },
+          { title: "Site Web", value: object.rawData.url, type: "link" },
+        ],
       },
     ];
 
@@ -71,7 +110,7 @@ const DetailView = memo(
           onSelect={(index) => handleTabChange(null, index)}
         >
           <TabList style={tabStyles.tabList}>
-            {tabs.map((tab, index) => (
+            {tabConfigs.map((tab, index) => (
               <Tab
                 key={index}
                 style={{
@@ -84,17 +123,12 @@ const DetailView = memo(
             ))}
           </TabList>
 
-          {tabs.map((tab, index) => (
-            <TabPanel key={index}>{tab.component}</TabPanel>
+          {tabConfigs.map((tab, index) => (
+            <TabPanel key={index}>
+              <TabPanelContent fields={tab.fields} />
+            </TabPanel>
           ))}
         </Tabs>
-
-        {/* Removed duplicated TabPanel rendering */}
-        <CardContent sx={{ padding: "16px", flex: 1 }}>
-          {!object && (
-            <Typography color="textSecondary">No item selected.</Typography>
-          )}
-        </CardContent>
       </Box>
     );
   }
