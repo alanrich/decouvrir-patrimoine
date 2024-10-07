@@ -22,7 +22,7 @@ const SummaryTableWrapper = ({
     columns = [
       { Header: "Name", accessor: "name" },
       {
-        Header: "Genre",
+        Header: "Genres",
         accessor: "genre",
         Cell: ({ value }) =>
           Array.isArray(value) ? value.join(", ") : "Not available",

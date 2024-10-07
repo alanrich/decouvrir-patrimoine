@@ -88,6 +88,14 @@ const DetailView = memo(
           { title: "Name", value: object.name },
           { title: "Adresse", value: object.address },
           { title: "Ville", value: object.city },
+          { title: "Notable Artists", value: object.rawData.personnage_phare },
+          { title: "Museum Category", value: object.rawData.categorie },
+          {
+            title: "Genres",
+            value: Array.isArray(object.genre)
+              ? object.genre.join(", ")
+              : "Not available",
+          },
           // Add more fields later after refactor complete
         ],
       },
