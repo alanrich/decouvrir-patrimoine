@@ -7,8 +7,8 @@ const mongoose = require("mongoose");
 const Museum = require("./models/museum");
 const Festival = require("./models/festival");
 
-// MongoDB connection
 const mongoURI = process.env.MONGODB_URI;
+const PORT = process.env.PORT || 3001;
 
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -29,11 +29,11 @@ db.once("open", async () => {
   }
 
   // Start the server
-  app.listen(3001, () => console.log("Server running on port 3001"));
+  app.listen(PORT, () => console.log("Server running on port 3001"));
 });
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: "https://alanrich.dev", optionsSuccessStatus: 200 }));
 
 // Field Maps
 const museumFieldMap = {

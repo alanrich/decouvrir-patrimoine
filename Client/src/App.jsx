@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, Suspense, lazy } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, Box, CircularProgress } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { BrowserRouter as Router } from "react-router-dom";
 import MainAppBar from "./components/MainAppBar/MainAppBar";
 import MainToolBar from "./components/MainToolBar/MainToolBar";
 import MainDrawer from "./components/MainDrawer/MainDrawer";
@@ -131,33 +132,61 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ErrorBoundary>
-        <AppContainer>
-          <MainDrawer setSelectedDataSet={setSelectedDataSet} />
+        <Router basename="/work-sample">
+          <AppContainer>
+            <MainDrawer setSelectedDataSet={setSelectedDataSet} />
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              flexGrow: 1,
-              // overflowX: "hidden",
-            }}
-          >
-            <MainAppBar />
-            <MainToolBar
-              searchTerm={searchTerm}
-              setSearchTerm={handleSetSearchTerm}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              sortOrder={sortOrder}
-              setSortOrder={setSortOrder}
-              selectedDataSet={selectedDataSet}
-            />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                flexGrow: 1,
+                // overflowX: "hidden",
+              }}
+            >
+              <MainAppBar />
+              <MainToolBar
+                searchTerm={searchTerm}
+                setSearchTerm={handleSetSearchTerm}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+                selectedDataSet={selectedDataSet}
+              />
 
-            <WorkspaceContainer>
-              <LeftPane>
-                {loading ? (
-                  <CircularProgress />
-                ) : (
+              <WorkspaceContainer>
+                <LeftPane>
+                  {loading ? (
+                    <CircularProgress />
+                  ) : (
+                    <Box
+                      sx={{
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "100%",
+                      }}
+                    >
+                      <SummaryTableWrapper
+                        domainObjects={domainObjects}
+                        totalObjects={totalObjects}
+                        onSelect={handleSetSelectedObject}
+                        selectedDataSet={selectedDataSet}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        sortBy={sortBy}
+                        setSortBy={setSortBy}
+                        sortOrder={sortOrder}
+                        setSortOrder={setSortOrder}
+                      />
+                    </Box>
+                  )}
+
                   <Box
                     sx={{
                       flex: 1,
@@ -165,57 +194,31 @@ function App() {
                       flexDirection: "column",
                       justifyContent: "center",
                       alignItems: "center",
+                      mt: "1rem",
                       width: "100%",
                     }}
                   >
-                    <SummaryTableWrapper
-                      domainObjects={domainObjects}
-                      totalObjects={totalObjects}
-                      onSelect={handleSetSelectedObject}
+                    <DetailViewWrapper
+                      object={selectedObject}
                       selectedDataSet={selectedDataSet}
-                      page={page}
-                      rowsPerPage={rowsPerPage}
-                      onPageChange={handleChangePage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                      sortBy={sortBy}
-                      setSortBy={setSortBy}
-                      sortOrder={sortOrder}
-                      setSortOrder={setSortOrder}
                     />
                   </Box>
-                )}
-
-                <Box
-                  sx={{
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    mt: "1rem",
-                    width: "100%",
-                  }}
-                >
-                  <DetailViewWrapper
-                    object={selectedObject}
-                    selectedDataSet={selectedDataSet}
-                  />
-                </Box>
-              </LeftPane>
-              <RightPane>
-                <Suspense fallback={<div>Loading map...</div>}>
-                  <MapView
-                    domainObjects={domainObjects} // TODO: modify useDomainObjects to return an object with all markers
-                    totalObjects={totalObjects}
-                    selectedObject={selectedObject}
-                    selectedObjectLoaded={selectedObjectLoaded}
-                    onSelect={setSelectedObject}
-                  />
-                </Suspense>
-              </RightPane>
-            </WorkspaceContainer>
-          </div>
-        </AppContainer>
+                </LeftPane>
+                <RightPane>
+                  <Suspense fallback={<div>Loading map...</div>}>
+                    <MapView
+                      domainObjects={domainObjects} // TODO: modify useDomainObjects to return an object with all markers
+                      totalObjects={totalObjects}
+                      selectedObject={selectedObject}
+                      selectedObjectLoaded={selectedObjectLoaded}
+                      onSelect={setSelectedObject}
+                    />
+                  </Suspense>
+                </RightPane>
+              </WorkspaceContainer>
+            </div>
+          </AppContainer>
+        </Router>
       </ErrorBoundary>
     </ThemeProvider>
   );

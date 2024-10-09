@@ -14,6 +14,8 @@ export const useDomainObjects = (
   const [totalObjects, setTotalObjects] = useState(0);
   const [loading, setLoading] = useState(true);
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     // fetch the data from the API
     const fetchData = async () => {
@@ -30,9 +32,9 @@ export const useDomainObjects = (
           : "";
 
         if (selectedDataSet === "museums") {
-          apiUrl = `http://localhost:3001/api/museums?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
+          apiUrl = `${API_BASE_URL}/api/museums?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         } else if (selectedDataSet === "festivals") {
-          apiUrl = `http://localhost:3001/api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
+          apiUrl = `${API_BASE_URL}api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         }
 
         const response = await fetch(apiUrl);
@@ -103,7 +105,15 @@ export const useDomainObjects = (
     };
 
     fetchData();
-  }, [searchTerm, selectedDataSet, page, rowsPerPage, sortBy, sortOrder]);
+  }, [
+    searchTerm,
+    selectedDataSet,
+    page,
+    rowsPerPage,
+    sortBy,
+    sortOrder,
+    API_BASE_URL,
+  ]);
 
   return { domainObjects, totalObjects, loading };
 };
