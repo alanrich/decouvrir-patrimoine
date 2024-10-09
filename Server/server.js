@@ -34,6 +34,7 @@ db.once("open", async () => {
 
 // Middleware
 app.use(cors({ origin: "https://alanrich.dev", optionsSuccessStatus: 200 }));
+app.options("*", cors()); // Support for all routes
 
 // Field Maps
 const museumFieldMap = {
