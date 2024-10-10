@@ -16,7 +16,7 @@ export const useDomainObjects = (
 
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   // TODO: Self host the proxy
-  const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+  const CORS_PROXY = "https://cors-anywhere.anabasis-backend.herokuapp.com/";
 
   useEffect(() => {
     // fetch the data from the API
