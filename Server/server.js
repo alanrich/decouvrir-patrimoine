@@ -10,7 +10,6 @@ const mongoURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 3001;
 const cors = require("cors");
 
-// Re-enable CORS with specific origin
 app.use(
   cors({
     origin: "https://alanrich.dev", // Allow only your domain
