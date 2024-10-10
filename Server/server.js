@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 const express = require("express");
-const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 const Museum = require("./models/museum");
@@ -9,10 +8,6 @@ const Festival = require("./models/festival");
 
 const mongoURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 3001;
-
-// Middleware
-app.use(cors({ origin: "https://alanrich.dev", optionsSuccessStatus: 200 }));
-app.options("*", cors()); // Support for all routes TODO: see if this fixes issue
 
 // Field Maps
 const museumFieldMap = {
