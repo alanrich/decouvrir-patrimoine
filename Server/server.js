@@ -8,6 +8,15 @@ const Festival = require("./models/festival");
 
 const mongoURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 3001;
+const cors = require("cors");
+
+// Re-enable CORS with specific origin
+app.use(
+  cors({
+    origin: "https://alanrich.dev", // Only allow this origin
+    optionsSuccessStatus: 200,
+  })
+);
 
 // Field Maps
 const museumFieldMap = {
@@ -161,25 +170,3 @@ mongoose
     }
   })
   .catch((err) => console.log("MongoDB connection error:", err));
-
-/*
-mongoose
-  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(async () => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
-
-const db = mongoose.connection;
-
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.once("open", async () => {
-  console.log("Connected to MongoDB Atlas");
-
-  try {
-    await Museum.init();
-    await Festival.init();
-    console.log("Indexes exist");
-  } catch (error) {
-    console.error("Error: indexes were not found:", error);
-  }
-});
-*/

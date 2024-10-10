@@ -15,6 +15,8 @@ export const useDomainObjects = (
   const [loading, setLoading] = useState(true);
 
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  // TODO: Self host the proxy
+  const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 
   useEffect(() => {
     // fetch the data from the API
@@ -32,16 +34,16 @@ export const useDomainObjects = (
           : "";
 
         if (selectedDataSet === "museums") {
-          apiUrl = `${API_BASE_URL}/api/museums?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
+          apiUrl = `${CORS_PROXY}${API_BASE_URL}/api/museums?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         } else if (selectedDataSet === "festivals") {
-          apiUrl = `${API_BASE_URL}api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
+          apiUrl = `${CORS_PROXY}${API_BASE_URL}api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         }
 
         const response = await fetch(apiUrl, {
           method: "GET",
           mode: "cors", // Add CORS mode
           headers: {
-            "Content-Type": "application/json", // Add appropriate headers
+            "Content-Type": "application/json",
           },
         });
         const result = await response.json();
