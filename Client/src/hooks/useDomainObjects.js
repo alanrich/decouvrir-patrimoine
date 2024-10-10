@@ -15,8 +15,9 @@ export const useDomainObjects = (
   const [loading, setLoading] = useState(true);
 
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-  // TODO: Self host the proxy
-  const CORS_PROXY = "https://cors-anywhere.anabasis-backend.herokuapp.com/";
+
+  // Prepend the CORS-Anywhere proxy URL to the API base URL
+  const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 
   useEffect(() => {
     // fetch the data from the API
@@ -36,18 +37,23 @@ export const useDomainObjects = (
         if (selectedDataSet === "museums") {
           apiUrl = `${CORS_PROXY}${API_BASE_URL}/api/museums?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         } else if (selectedDataSet === "festivals") {
-          apiUrl = `${CORS_PROXY}${API_BASE_URL}api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
+          apiUrl = `${CORS_PROXY}${API_BASE_URL}/api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         }
 
         const response = await fetch(apiUrl, {
           method: "GET",
-          mode: "cors", // Add CORS mode
+          mode: "cors",
           headers: {
             "Content-Type": "application/json",
+            "x-requested-with": "XMLHttpRequest", // Add this header
           },
         });
-        const result = await response.json();
 
+        if (!response.ok) {
+          throw new Error(`Error fetching data: ${response.statusText}`);
+        }
+
+        const result = await response.json();
         const data = result.data;
 
         // validate the data based on data set user selects
