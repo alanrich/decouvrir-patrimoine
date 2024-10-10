@@ -37,7 +37,13 @@ export const useDomainObjects = (
           apiUrl = `${API_BASE_URL}api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         }
 
-        const response = await fetch(apiUrl);
+        const response = await fetch(apiUrl, {
+          method: "GET",
+          mode: "cors", // Add CORS mode
+          headers: {
+            "Content-Type": "application/json", // Add appropriate headers
+          },
+        });
         const result = await response.json();
 
         const data = result.data;
