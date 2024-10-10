@@ -10,31 +10,9 @@ const Festival = require("./models/festival");
 const mongoURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 3001;
 
-mongoose
-  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.once("open", async () => {
-  console.log("Connected to MongoDB Atlas");
-
-  try {
-    await Museum.init();
-    await Festival.init();
-    console.log("Indexes exist");
-  } catch (error) {
-    console.error("Error: indexes were not found:", error);
-  }
-
-  // Start the server
-  app.listen(PORT, () => console.log("Server running on port 3001"));
-});
-
 // Middleware
 app.use(cors({ origin: "https://alanrich.dev", optionsSuccessStatus: 200 }));
-app.options("*", cors()); // Support for all routes
+app.options("*", cors()); // Support for all routes TODO: see if this fixes issue
 
 // Field Maps
 const museumFieldMap = {
@@ -170,3 +148,43 @@ app.get("/api/festivals", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// Start the server
+app.listen(PORT, () => console.log("Server running on port 3001"));
+// Connect to MongoDB
+mongoose
+  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(async () => {
+    console.log("MongoDB connected");
+
+    try {
+      await Museum.init();
+      await Festival.init();
+      console.log("Indexes exist");
+    } catch (error) {
+      console.error("Error initializing indexes:", error);
+    }
+  })
+  .catch((err) => console.log("MongoDB connection error:", err));
+
+/*
+mongoose
+  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(async () => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
+
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.once("open", async () => {
+  console.log("Connected to MongoDB Atlas");
+
+  try {
+    await Museum.init();
+    await Festival.init();
+    console.log("Indexes exist");
+  } catch (error) {
+    console.error("Error: indexes were not found:", error);
+  }
+});
+*/
