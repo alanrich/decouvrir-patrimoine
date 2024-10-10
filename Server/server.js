@@ -13,8 +13,9 @@ const cors = require("cors");
 // Re-enable CORS with specific origin
 app.use(
   cors({
-    origin: "https://alanrich.dev", // Only allow this origin
-    optionsSuccessStatus: 200,
+    origin: "https://alanrich.dev", // Allow only your domain
+    methods: ["GET", "POST", "OPTIONS"],
+    credentials: true,
   })
 );
 

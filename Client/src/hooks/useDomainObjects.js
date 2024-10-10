@@ -14,7 +14,7 @@ export const useDomainObjects = (
   const [totalObjects, setTotalObjects] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const API_BASE_URL = "https://anabasis-backend-7a4a9d927e48.herokuapp.com";
 
   // Prepend the CORS-Anywhere proxy URL to the API base URL
   const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
