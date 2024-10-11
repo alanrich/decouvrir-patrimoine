@@ -99,7 +99,7 @@ export const useDomainObjects = (
                     object.adresse_postale ||
                     object.nom_de_la_voie ||
                     "No address provided",
-                  city: object.commune_principale_de_deroulement,
+                  city: object.commune_principale_de_deroulement || "N/A",
                   latitude: object.geocodage_xy.lat,
                   longitude: object.geocodage_xy.lon,
                   rawData: object,
