@@ -1,8 +1,10 @@
-require("dotenv").config();
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import cors from "cors";
 
-const express = require("express");
+dotenv.config();
 const app = express();
-const mongoose = require("mongoose");
 const Museum = require("./models/museum");
 const Festival = require("./models/festival");
 
