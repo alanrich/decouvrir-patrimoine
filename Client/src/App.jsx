@@ -75,7 +75,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState(null);
   const [selectedDataSet, setSelectedDataSet] = useState("museums");
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(50);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [sortBy, setSortBy] = useState("name");
   const [sortOrder, setSortOrder] = useState("asc");
 

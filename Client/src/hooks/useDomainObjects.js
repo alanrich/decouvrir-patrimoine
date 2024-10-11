@@ -21,6 +21,7 @@ export const useDomainObjects = (
     const fetchData = async () => {
       try {
         let apiUrl = "";
+        // If issue persists, lets set a default value for the sortParam
         let sortParam = "";
 
         if (sortBy && sortBy.length > 0) {
