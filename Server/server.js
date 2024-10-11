@@ -199,7 +199,7 @@ const PORT = process.env.PORT || 3001;
 // Use CORS with specific settings
 app.use(
   cors({
-    origin: "https://alanrich.dev", // Allow only your domain
+    origin: true, // Allow only your domain
     methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
   })
