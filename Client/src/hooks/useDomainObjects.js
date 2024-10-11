@@ -57,7 +57,6 @@ export const useDomainObjects = (
             "Content-Type": "application/json",
             "x-requested-with": "XMLHttpRequest",
             Accept: "application/json",
-            "Access-Control-Allow-Origin": "*",
           },
         });
 
