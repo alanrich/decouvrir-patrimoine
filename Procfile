@@ -1,3 +1,4 @@
 web: node index.js
-web: node Server/server.js
+web: cd Server && npm install && node server.js
+
 
