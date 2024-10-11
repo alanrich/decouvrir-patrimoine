@@ -1,7 +1,7 @@
-import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import cors from "cors";
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const cors = require("cors");
 
 // Load environment variables
 dotenv.config();
@@ -9,8 +9,8 @@ dotenv.config();
 const app = express();
 
 // Import models
-import Museum from "./models/museum.js";
-import Festival from "./models/festival.js";
+const Museum = require("./models/museum");
+const Festival = require("./models/festival");
 
 // MongoDB URI and server port
 const mongoURI = process.env.MONGODB_URI;
