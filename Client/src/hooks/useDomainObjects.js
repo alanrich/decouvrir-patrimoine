@@ -37,10 +37,11 @@ export const useDomainObjects = (
           apiUrl = `${API_BASE_URL}/api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         }
 
+        // Problem probably lies here
         const response = await fetch(apiUrl, {
           method: "GET",
           mode: "cors",
-          credentials: "include", // include credentials like cookies, if required
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
             "x-requested-with": "XMLHttpRequest",
