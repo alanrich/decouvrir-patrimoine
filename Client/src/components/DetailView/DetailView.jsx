@@ -22,7 +22,7 @@ const tabStyles = {
   },
   tab: {
     flex: 1,
-    padding: "8px 16px",
+    padding: "0 16px",
     textAlign: "center",
     cursor: "pointer",
     backgroundColor: "#1976d2",
