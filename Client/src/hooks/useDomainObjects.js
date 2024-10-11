@@ -31,13 +31,23 @@ export const useDomainObjects = (
         const searchParam = searchTerm
           ? `&searchTerm=${encodeURIComponent(searchTerm)}`
           : "";
-
+        /*
         if (selectedDataSet === "museums") {
           apiUrl = `${API_BASE_URL}/api/museums?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         } else if (selectedDataSet === "festivals") {
           apiUrl = `${API_BASE_URL}/api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         }
+*/
 
+        const constructApiUrl = (endpoint) => {
+          return `${API_BASE_URL}/api/${endpoint}?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
+        };
+
+        if (selectedDataSet === "museums") {
+          apiUrl = constructApiUrl("museums");
+        } else if (selectedDataSet === "festivals") {
+          apiUrl = constructApiUrl("festivals");
+        }
         // Problem probably lies here
         const response = await fetch(apiUrl, {
           method: "GET",
@@ -128,7 +138,7 @@ export const useDomainObjects = (
     rowsPerPage,
     sortBy,
     sortOrder,
-    API_BASE_URL,
+    API_BASE_URL, // Why are we including this value in the dependency array
   ]);
 
   return { domainObjects, totalObjects, loading };
