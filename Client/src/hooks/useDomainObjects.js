@@ -16,9 +16,6 @@ export const useDomainObjects = (
 
   const API_BASE_URL = "https://anabasis-backend-7a4a9d927e48.herokuapp.com";
 
-  // Prepend the CORS-Anywhere proxy URL to the API base URL
-  const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
-
   useEffect(() => {
     // fetch the data from the API
     const fetchData = async () => {
@@ -35,9 +32,9 @@ export const useDomainObjects = (
           : "";
 
         if (selectedDataSet === "museums") {
-          apiUrl = `${CORS_PROXY}${API_BASE_URL}/api/museums?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
+          apiUrl = `${API_BASE_URL}/api/museums?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         } else if (selectedDataSet === "festivals") {
-          apiUrl = `${CORS_PROXY}${API_BASE_URL}/api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
+          apiUrl = `${API_BASE_URL}/api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
         }
 
         const response = await fetch(apiUrl, {
