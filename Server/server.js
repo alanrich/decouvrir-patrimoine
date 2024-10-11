@@ -3,15 +3,20 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
+// Load environment variables
 dotenv.config();
-const app = express();
-const Museum = require("./models/museum");
-const Festival = require("./models/festival");
 
+const app = express();
+
+// Import models
+import Museum from "./models/museum.js";
+import Festival from "./models/festival.js";
+
+// MongoDB URI and server port
 const mongoURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 3001;
-const cors = require("cors");
 
+// Use CORS with specific settings
 app.use(
   cors({
     origin: "https://alanrich.dev", // Allow only your domain
@@ -20,12 +25,12 @@ app.use(
   })
 );
 
-// Field Maps
+// Field Maps for Sorting
 const museumFieldMap = {
   name: "nom_officiel",
   city: "ville",
   genre: "domaine_thematique",
-  // Add other mappings when we decide how else to sort
+  // Add other mappings as needed
 };
 
 const festivalFieldMap = {
@@ -46,12 +51,12 @@ app.get("/api/museums", async (req, res) => {
 
   const query = {};
 
-  // Apply Filtering
+  // Apply filtering
   if (searchTerm) {
     query.$text = { $search: searchTerm };
   }
 
-  // Apply Sorting
+  // Apply sorting
   const sort = {};
   if (sortBy) {
     const dbField = museumFieldMap[sortBy];
@@ -59,14 +64,13 @@ app.get("/api/museums", async (req, res) => {
       sort[dbField] = sortOrder === "asc" ? 1 : -1;
     } else {
       console.error(`Invalid sort field: ${sortBy}`);
-      return res.status(400).json({ error: "Invalid sort field" }); // validation to handle invalid sortBy fields
+      return res.status(400).json({ error: "Invalid sort field" });
     }
   }
 
   try {
     const total = await Museum.countDocuments(query);
     const data = await Museum.find(query, {
-      // We specify the fields to return by adding a projection object
       identifiant: 1,
       nom_officiel: 1,
       adresse: 1,
@@ -86,7 +90,7 @@ app.get("/api/museums", async (req, res) => {
       .sort(sort)
       .skip(page * rowsPerPage)
       .limit(parseInt(rowsPerPage))
-      .lean(); // adding lean() to the query chain returns plain js obj instead of mongoose doc for better perf.
+      .lean();
 
     res.json({ total, data });
   } catch (error) {
@@ -107,12 +111,12 @@ app.get("/api/festivals", async (req, res) => {
 
   const query = {};
 
-  // Apply Filtering
+  // Apply filtering
   if (searchTerm) {
     query.$text = { $search: searchTerm };
   }
 
-  // Apply Sorting
+  // Apply sorting
   const sort = {};
   if (sortBy) {
     const dbField = festivalFieldMap[sortBy];
@@ -156,7 +160,8 @@ app.get("/api/festivals", async (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => console.log("Server running on port 3001"));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 // Connect to MongoDB
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
