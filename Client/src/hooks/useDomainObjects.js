@@ -86,7 +86,7 @@ export const useDomainObjects = (
             if (selectedDataSet === "festivals") {
               if (
                 object.nom_du_festival &&
-                object.commune_principale_de_deroulement &&
+                typeof object.commune_principale_de_deroulement === "string" &&
                 object.geocodage_xy &&
                 typeof object.geocodage_xy.lat === "number" &&
                 typeof object.geocodage_xy.lon === "number"
@@ -99,7 +99,7 @@ export const useDomainObjects = (
                     object.adresse_postale ||
                     object.nom_de_la_voie ||
                     "No address provided",
-                  city: object.commune_principale_de_deroulement || "N/A", // Check data for missing values
+                  city: object.commune_principale_de_deroulement || "N/A",
                   latitude: object.geocodage_xy.lat,
                   longitude: object.geocodage_xy.lon,
                   rawData: object,
