@@ -40,9 +40,12 @@ export const useDomainObjects = (
         const response = await fetch(apiUrl, {
           method: "GET",
           mode: "cors",
+          credentials: "include", // include credentials like cookies, if required
           headers: {
             "Content-Type": "application/json",
-            "x-requested-with": "XMLHttpRequest", // Add this header
+            "x-requested-with": "XMLHttpRequest",
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
           },
         });
 
