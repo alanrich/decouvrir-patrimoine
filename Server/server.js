@@ -196,7 +196,6 @@ const Festival = require("./models/festival");
 const mongoURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 3001;
 
-// Use CORS with specific settings
 app.use(
   cors({
     origin: true, // Allow only your domain
