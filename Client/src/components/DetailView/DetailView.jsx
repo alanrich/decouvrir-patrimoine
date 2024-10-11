@@ -22,8 +22,8 @@ const tabStyles = {
   },
   tab: {
     flex: 1,
-    height: "100%",
-    padding: "0 16px",
+    height: "100%", // added to address tab extending below tabslist
+    padding: "0 16px", // removed 8px vertical padding, looks like tabs are extending below tabslist
     textAlign: "center",
     cursor: "pointer",
     backgroundColor: "#1976d2",
