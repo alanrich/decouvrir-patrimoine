@@ -1,6 +1,9 @@
 {
   "name": "anabasis-root",
   "version": "1.0.0",
+  "engines": {
+    "node": "22.9.0"
+  },
   "scripts": {
     "start": "cd Server && node server.js",
     "heroku-postbuild": "cd Client && npm install && npm run build"
