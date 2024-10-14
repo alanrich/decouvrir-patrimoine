@@ -71,7 +71,6 @@ const SummaryTable = ({
     event.preventDefault(); // prevents text selection when resizing columns
     const startX = event.clientX;
     const startWidth = columnWidths[columnId] || 150;
-    console.log("column ID >>>> " + columnId);
 
     const handleMouseMove = (event) => {
       const newWidth = startWidth + event.clientX - startX;
@@ -96,7 +95,6 @@ const SummaryTable = ({
     const tableWidth = tableRef.current.clientWidth;
     const initialColumnWidths = headerGroups[0]?.headers.reduce(
       (acc, column) => {
-        console.log(`Setting initial width for column ${column.id}`);
         acc[column.id] = columnWidths[column.id] || tableWidth / columns.length; // Ensure a default width is set for each column
         return acc;
       },
@@ -218,7 +216,6 @@ const SummaryTable = ({
                   }}
                 >
                   {row.cells.map((cell) => {
-                    //console.log("cell.column.id >>>>> " + cell.column.id);
                     return (
                       <TableCell
                         {...cell.getCellProps()}
