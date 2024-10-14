@@ -1,23 +1,32 @@
 import { useState, useEffect } from "react";
 
-// Helper function to format names
+// Helper function to format French names
 const formatFrench = (name) => {
-  if (!name || typeof name !== "string") return name; // Ensure name is a string
+  if (!name || typeof name !== "string") return name;
 
-  return name
-    .split(" ")
-    .map((word) => {
-      // Keep lowercase all french words that stay lowercase in proper nouns
-      if (
-        ["de", "des", "du", "en", "aux", "dans"].includes(word.toLowerCase())
-      ) {
+  const lowerCaseWords = ["de", "des", "du", "en", "et", "aux", "dans"];
+
+  const words = name.split(" ");
+  return words
+    .map((word, index) => {
+      // Lowercase words unless it's the first word
+      if (lowerCaseWords.includes(word.toLowerCase()) && index !== 0) {
         return word.toLowerCase();
       }
-      // Do not capitalize if the second character is an apostrophe
-      if (word.length > 1 && word[1] === "'") {
-        return word;
+
+      // Handle words with apostrophes
+      const apostropheIndex = word.indexOf("'");
+      if (apostropheIndex === 1) {
+        // Lowercase letter before apostrophe
+        const beforeApostrophe = word.charAt(0).toLowerCase();
+        // Capitalize letter after apostrophe
+        const afterApostrophe =
+          word.charAt(apostropheIndex + 1).toUpperCase() +
+          word.slice(apostropheIndex + 2);
+        return beforeApostrophe + "'" + afterApostrophe;
       }
-      // Capitalize the first character
+
+      // Capitalize the first letter of all strings
       return word.charAt(0).toUpperCase() + word.slice(1);
     })
     .join(" ");
@@ -38,11 +47,10 @@ export const useDomainObjects = (
   const API_BASE_URL = "http://localhost:3001";
 
   useEffect(() => {
-    // fetch the data from the API
+    // Fetch the data from the API
     const fetchData = async () => {
       try {
         let apiUrl = "";
-        // If issue persists, lets set a default value for the sortParam
         let sortParam = "";
 
         if (sortBy && sortBy.length > 0) {
@@ -54,7 +62,10 @@ export const useDomainObjects = (
           : "";
 
         const constructApiUrl = (endpoint) => {
-          return `${API_BASE_URL}/api/${endpoint}?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
+          return (
+            `${API_BASE_URL}/api/${endpoint}?page=${page}` +
+            `&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`
+          );
         };
 
         if (selectedDataSet === "museums") {
@@ -81,7 +92,7 @@ export const useDomainObjects = (
         const result = await response.json();
         const data = result.data;
 
-        // validate the data based on data set user selects
+        // Validate the data based on the selected data set
         const validData = data
           .map((object) => {
             if (selectedDataSet === "museums") {
@@ -114,7 +125,7 @@ export const useDomainObjects = (
                 object.geocodage_xy &&
                 typeof object.geocodage_xy.lat === "number" &&
                 typeof object.geocodage_xy.lon === "number"
-              )
+              ) {
                 return {
                   id: object.identifiant || object.identifiant_cnm,
                   genre:
@@ -133,6 +144,7 @@ export const useDomainObjects = (
                   rawData: object,
                   dataSet: selectedDataSet,
                 };
+              }
             }
             return null; // Exclude any invalid data
           })
@@ -148,15 +160,7 @@ export const useDomainObjects = (
     };
 
     fetchData();
-  }, [
-    searchTerm,
-    selectedDataSet,
-    page,
-    rowsPerPage,
-    sortBy,
-    sortOrder,
-    API_BASE_URL, // Why are we including this value in the dependency array
-  ]);
+  }, [searchTerm, selectedDataSet, page, rowsPerPage, sortBy, sortOrder]);
 
   return { domainObjects, totalObjects, loading };
 };

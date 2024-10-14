@@ -82,10 +82,10 @@ app.get("/api/museums", async (req, res) => {
       artiste: 1,
     })
       .sort(sort)
-      .collation({ locale: "fr", strength: 2 }) // Added collation for proper French sorting
+      .collation({ locale: "fr", strength: 1 })
       .skip(page * rowsPerPage)
       .limit(parseInt(rowsPerPage))
-      .lean(); // adding lean() to the query chain returns plain js obj instead of mongoose doc for better perf.
+      .lean(); // returns plain js obj instead of mongoose doc for better perf.
 
     res.json({ total, data });
   } catch (error) {
@@ -143,7 +143,7 @@ app.get("/api/festivals", async (req, res) => {
       geocodage_xy: 1,
     })
       .sort(sort)
-      .collation({ locale: "fr", strength: 2 }) // Added collation for proper French sorting
+      .collation({ locale: "fr", strength: 2 }) // Modify collation for proper French sorting, sort then format
       .skip(page * rowsPerPage)
       .limit(parseInt(rowsPerPage))
       .lean();

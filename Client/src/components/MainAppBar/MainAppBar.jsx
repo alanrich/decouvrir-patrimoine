@@ -52,13 +52,14 @@ const MainAppBar = ({
   const sortOptions =
     selectedDataSet === "festivals"
       ? [
-          { value: "name", label: "Name" },
-          { value: "city", label: "City" },
+          { value: "name", label: "Nom" },
+          { value: "city", label: "Ville" },
           { value: "genre", label: "Genre" },
         ]
       : [
-          { value: "name", label: "Name" },
-          { value: "city", label: "City" },
+          { value: "name", label: "Nom" },
+          { value: "city", label: "Ville" },
+          { value: "genre", label: "Genre" },
         ];
 
   // Handlers for sorting menu
