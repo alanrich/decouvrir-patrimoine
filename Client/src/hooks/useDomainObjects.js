@@ -1,30 +1,18 @@
 import { useState, useEffect } from "react";
 
 // Helper function to format names
+// Helper function to format names
 const formatFrench = (name) => {
-  if (!name) return name;
+  if (!name || typeof name !== "string") return name; // Ensure name is a string
 
   return name
     .split(" ")
     .map((word) => {
       // Keep lowercase all french words that stay lowercase in proper nouns
-      if (word.toLowerCase() === "de") {
-        return "de";
-      }
-      if (word.toLowerCase() === "des") {
-        return "des";
-      }
-      if (word.toLowerCase() === "du") {
-        return "du";
-      }
-      if (word.toLowerCase() === "en") {
-        return "en";
-      }
-      if (word.toLowerCase() === "aux") {
-        return "aux";
-      }
-      if (word.toLowerCase() === "dans") {
-        return "dans";
+      if (
+        ["de", "des", "du", "en", "aux", "dans"].includes(word.toLowerCase())
+      ) {
+        return word.toLowerCase();
       }
       // Do not capitalize if the second character is an apostrophe
       if (word.length > 1 && word[1] === "'") {
