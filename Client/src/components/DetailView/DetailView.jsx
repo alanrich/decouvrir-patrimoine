@@ -206,6 +206,72 @@ const DetailView = memo(
               </Box>
             </Tabs>
           </Box>
+          {/* Modal Detail View */}
+          <Modal
+            open={isModalOpen}
+            onClose={handleModalClose}
+            aria-labelledby="detail-view-modal"
+            aria-describedby="expanded-detail-view"
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "90%",
+                height: "90%",
+                bgcolor: "background.paper",
+                boxShadow: 24,
+                p: 2, // Added padding for separation from top
+                borderRadius: "8px",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Tabs
+                selectedIndex={tabValue}
+                onSelect={(index) => handleTabChange(null, index)}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                }}
+                forceRenderTabPanel
+              >
+                <TabList style={tabStyles.tabList}>
+                  {tabConfigs.map((tab, index) => (
+                    <Tab
+                      key={index}
+                      style={{
+                        ...tabStyles.tab,
+                        ...(tabValue === index ? tabStyles.selectedTab : {}),
+                      }}
+                    >
+                      {tab.label}
+                    </Tab>
+                  ))}
+                  <IconButton
+                    aria-label="exit fullscreen"
+                    onClick={handleModalClose}
+                    sx={{
+                      ...tabStyles.fullscreenIcon,
+                      color: "#FFFFFF",
+                    }}
+                    size="small"
+                  >
+                    <FullscreenExitIcon fontSize="small" />
+                  </IconButton>
+                </TabList>
+                {tabConfigs.map((tab, index) => (
+                  <TabPanel key={index} style={{ flex: 1, overflow: "hidden" }}>
+                    <TabPanelContent fields={tab.fields} isModal={true} />
+                  </TabPanel>
+                ))}
+              </Tabs>
+            </Box>
+          </Modal>
 
           <Box
             sx={{
