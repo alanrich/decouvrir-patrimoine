@@ -8,15 +8,19 @@ export const useMuseumImage = (museumName) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Clear the previous image when the museumName changes -> previously old imges were displayed when
+    // new selection from summary table fetched no image from wiki api
+    setImageUrl(null);
+    setError(null);
+
     if (!museumName) return;
 
     const fetchImage = async () => {
       console.log("fetchImage fired");
       setLoading(true);
-      setError(null);
 
       try {
-        // Step 1: Target the museum's Wikipedia page by name
+        // Target the museum's Wikipedia page by name
         const searchUrl = `${WIKIPEDIA_API_BASE}?action=query&list=search&srsearch=${encodeURIComponent(
           museumName
         )}&format=json&origin=*`;
@@ -35,10 +39,10 @@ export const useMuseumImage = (museumName) => {
           if (page?.thumbnail?.source) {
             setImageUrl(page.thumbnail.source);
           } else {
-            setError("No image found for this museum.");
+            setError("Aucune image trouvée pour ce musée..");
           }
         } else {
-          setError("No Wikipedia page found for this museum.");
+          setError("Aucune page Wikipedia trouvée pour ce musée.");
         }
       } catch (error) {
         setError("Failed to fetch the museum image.");
