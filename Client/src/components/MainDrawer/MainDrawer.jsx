@@ -4,12 +4,9 @@ import {
   Drawer,
   List,
   ListItem,
-  IconButton,
   ListItemIcon,
   Toolbar,
   useMediaQuery,
-  Menu,
-  MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -17,9 +14,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useTheme } from "@mui/material/styles";
 
-const MainDrawer = ({ setSelectedDataSet }) => {
+const MainDrawer = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -27,24 +23,9 @@ const MainDrawer = ({ setSelectedDataSet }) => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget); // Open the menu
-  };
-
-  const handleMenuClose = (dataSet) => {
-    if (dataSet) {
-      setSelectedDataSet(dataSet);
-    }
-    setAnchorEl(null); // Close the menu
-  };
-
   const drawerItems = [
     {
-      icon: (
-        <IconButton onClick={handleMenuOpen}>
-          <DashboardIcon />
-        </IconButton>
-      ),
+      icon: <DashboardIcon />,
       label: "Dashboard",
     },
     { icon: <AccountCircleIcon />, label: "Profile" },
@@ -60,6 +41,10 @@ const MainDrawer = ({ setSelectedDataSet }) => {
           sx={{
             display: "flex",
             justifyContent: "center",
+            // Optionally disable hover effects to indicate disabled state
+            "&:hover": {
+              backgroundColor: "transparent",
+            },
           }}
         >
           <Tooltip title={item.label} placement="top-end">
@@ -68,6 +53,7 @@ const MainDrawer = ({ setSelectedDataSet }) => {
                 minWidth: "0", // Remove the default padding since we have such a narrow drawer
                 display: "flex",
                 justifyContent: "center",
+                color: "gray", // Make icons appear disabled
               }}
             >
               {item.icon}
@@ -82,15 +68,6 @@ const MainDrawer = ({ setSelectedDataSet }) => {
     <>
       {isMobile ? (
         <>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Drawer
             variant="temporary"
             open={mobileOpen}
@@ -102,6 +79,7 @@ const MainDrawer = ({ setSelectedDataSet }) => {
               "& .MuiDrawer-paper": { boxSizing: "border-box", width: 60 },
             }}
           >
+            <Toolbar />
             {drawerContent}
           </Drawer>
         </>
@@ -121,26 +99,6 @@ const MainDrawer = ({ setSelectedDataSet }) => {
           {drawerContent}
         </Drawer>
       )}
-
-      {/* Dashboard Menu */}
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-      >
-        <MenuItem onClick={() => handleMenuClose("festivals")}>
-          Festivals
-        </MenuItem>
-        <MenuItem onClick={() => handleMenuClose("museums")}>Museums</MenuItem>
-      </Menu>
     </>
   );
 };

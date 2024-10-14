@@ -61,7 +61,7 @@ const LeftPane = styled("div")({
 
 const RightPane = styled("div")({
   display: "flex",
-  flex: "1",
+  flex: 1,
   width: "50%",
   padding: "1rem",
   backgroundColor: "#e0e0e0",
@@ -125,7 +125,8 @@ function App() {
       <ErrorBoundary>
         <Router>
           <AppContainer>
-            <MainDrawer setSelectedDataSet={setSelectedDataSet} />
+            {/* Removed setSelectedDataSet prop */}
+            <MainDrawer />
 
             <div
               style={{
@@ -135,6 +136,7 @@ function App() {
               }}
             >
               <MainAppBar />
+              {/* Passed setSelectedDataSet to MainToolBar */}
               <MainToolBar
                 searchTerm={searchTerm}
                 setSearchTerm={handleSetSearchTerm}
@@ -143,6 +145,7 @@ function App() {
                 sortOrder={sortOrder}
                 setSortOrder={setSortOrder}
                 selectedDataSet={selectedDataSet}
+                setSelectedDataSet={setSelectedDataSet}
               />
 
               <WorkspaceContainer>
