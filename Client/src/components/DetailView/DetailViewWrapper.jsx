@@ -27,6 +27,46 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
     setIsModalOpen(false);
   };
 
+  // Define tabConfigs in DetailViewWrapper and pass them to DetailView
+  const tabConfigs = [
+    {
+      label: "Overview",
+      fields: [
+        { title: "Name", value: object?.name },
+        { title: "Adresse", value: object?.address },
+        { title: "Ville", value: object?.city },
+        { title: "Notable Artists", value: object?.rawData?.personnage_phare },
+        { title: "Museum Category", value: object?.rawData?.categorie },
+        {
+          title: "Genres",
+          value: Array.isArray(object?.genre)
+            ? object.genre.join(", ")
+            : "Not available",
+        },
+      ],
+    },
+    {
+      label: "Histoire",
+      fields: [{ title: "Histoire", value: object?.rawData?.histoire }],
+    },
+    {
+      label: "Œuvres",
+      fields: [
+        { title: "Artistes", value: object?.rawData?.artiste },
+        { title: "Thèmes", value: object?.rawData?.themes },
+      ],
+    },
+    {
+      label: "Info",
+      fields: [
+        { title: "Adresse", value: object?.rawData?.adresse },
+        { title: "Ville", value: object?.rawData?.ville },
+        { title: "Téléphone", value: object?.rawData?.telephone },
+        { title: "Site Web", value: object?.rawData?.url, type: "link" },
+      ],
+    },
+  ];
+
   return (
     <Box
       sx={{
@@ -47,6 +87,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
         imageUrl={imageUrl} // Pass the image URL to DetailView
         imageLoading={imageLoading}
         imageError={imageError}
+        tabConfigs={tabConfigs} // Pass tabConfigs to DetailView
       />
     </Box>
   );
