@@ -32,7 +32,6 @@ const tabStyles = {
     fontSize: ".8125rem",
     border: "none",
     outline: "none",
-    height: "36px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -123,6 +122,7 @@ const DetailView = memo(
 
     return (
       <>
+        {/* Non-Modal Detail View */}
         <Box
           sx={{
             display: "flex",
@@ -196,7 +196,7 @@ const DetailView = memo(
               borderBottomRightRadius: "8px",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center", // Center the text both vertically and horizontally
+              justifyContent: "center",
             }}
           >
             <Typography sx={{ color: "#fff", fontWeight: "bold" }}>
@@ -205,6 +205,7 @@ const DetailView = memo(
           </Box>
         </Box>
 
+        {/* Modal Detail View */}
         <Modal
           open={isModalOpen}
           onClose={handleModalClose}
@@ -221,61 +222,55 @@ const DetailView = memo(
               height: "90%",
               bgcolor: "background.paper",
               boxShadow: 24,
-              p: 0,
+              p: 2, // Added padding for separation from top
               borderRadius: "8px",
               overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            <Box
-              sx={{
+            <Tabs
+              selectedIndex={tabValue}
+              onSelect={(index) => handleTabChange(null, index)}
+              style={{
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",
               }}
+              forceRenderTabPanel
             >
-              <Tabs
-                selectedIndex={tabValue}
-                onSelect={(index) => handleTabChange(null, index)}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "100%",
-                }}
-                forceRenderTabPanel
-              >
-                <TabList style={tabStyles.tabList}>
-                  {tabConfigs.map((tab, index) => (
-                    <Tab
-                      key={index}
-                      style={{
-                        ...tabStyles.tab,
-                        ...(tabValue === index ? tabStyles.selectedTab : {}),
-                      }}
-                    >
-                      {tab.label}
-                    </Tab>
-                  ))}
-
-                  <IconButton
-                    aria-label="exit fullscreen"
-                    onClick={handleModalClose}
-                    sx={{
-                      ...tabStyles.fullscreenIcon,
-                      color: "#FFFFFF",
-                    }}
-                    size="small"
-                  >
-                    <FullscreenExitIcon fontSize="small" />{" "}
-                  </IconButton>
-                </TabList>
-
+              <TabList style={tabStyles.tabList}>
                 {tabConfigs.map((tab, index) => (
-                  <TabPanel key={index} style={{ flex: 1, overflow: "hidden" }}>
-                    <TabPanelContent fields={tab.fields} />
-                  </TabPanel>
+                  <Tab
+                    key={index}
+                    style={{
+                      ...tabStyles.tab,
+                      ...(tabValue === index ? tabStyles.selectedTab : {}),
+                    }}
+                  >
+                    {tab.label}
+                  </Tab>
                 ))}
-              </Tabs>
-            </Box>
+
+                <IconButton
+                  aria-label="exit fullscreen"
+                  onClick={handleModalClose}
+                  sx={{
+                    ...tabStyles.fullscreenIcon,
+                    color: "#FFFFFF",
+                  }}
+                  size="small"
+                >
+                  <FullscreenExitIcon fontSize="small" />
+                </IconButton>
+              </TabList>
+
+              {tabConfigs.map((tab, index) => (
+                <TabPanel key={index} style={{ flex: 1, overflow: "hidden" }}>
+                  <TabPanelContent fields={tab.fields} isModal={true} />
+                </TabPanel>
+              ))}
+            </Tabs>
           </Box>
         </Modal>
       </>

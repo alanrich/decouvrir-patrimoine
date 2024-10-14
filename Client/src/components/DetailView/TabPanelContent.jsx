@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Typography, Grid, Paper, Link } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-const FieldTitle = styled(Typography)(({ theme }) => ({
+const FieldTitle = styled(Typography)(({ theme, isModal }) => ({
   display: "inline-block",
   backgroundColor: "#e0f7fa",
   color: theme.palette.text.primary,
@@ -11,25 +11,49 @@ const FieldTitle = styled(Typography)(({ theme }) => ({
   borderRadius: "20px",
   marginBottom: "8px",
   fontWeight: "bold",
-  fontSize: ".8rem",
+  fontSize: isModal ? "1rem" : ".8rem",
 }));
 
-const Field = ({ title, value, type }) => {
+const Field = ({ title, value, type, isModal }) => {
+  const isHistoire = title.toLowerCase() === "histoire";
+
+  const titleVariant = isModal ? "h6" : "subtitle1";
+  const valueFontSize = isModal ? (isHistoire ? ".8rem" : "1rem") : ".8rem";
+
   if (type === "link" && value) {
     return (
       <Grid item xs={12} sm={6}>
-        <FieldTitle variant="subtitle1">{title}:</FieldTitle>
-        <Link href={`http://${value}`} target="_blank" rel="noopener">
-          {value}
-        </Link>
+        <FieldTitle variant={titleVariant} isModal={isModal}>
+          {title}:
+        </FieldTitle>
+        <Typography
+          variant="body2"
+          sx={{
+            marginLeft: 1,
+            fontSize: isModal ? ".75rem" : ".8rem",
+            marginTop: isModal ? "4px" : "0px",
+          }}
+        >
+          <Link href={`http://${value}`} target="_blank" rel="noopener">
+            {value}
+          </Link>
+        </Typography>
       </Grid>
     );
   }
 
   return (
     <Grid item xs={12} sm={6}>
-      <FieldTitle variant="subtitle1">{title}:</FieldTitle>
-      <Typography variant="body1" sx={{ marginLeft: 1, fontSize: ".8rem" }}>
+      <FieldTitle variant={titleVariant} isModal={isModal}>
+        {title}:
+      </FieldTitle>
+      <Typography
+        variant="body1"
+        sx={{
+          marginLeft: 1,
+          fontSize: valueFontSize,
+        }}
+      >
         {value || "N/A"}
       </Typography>
     </Grid>
@@ -44,13 +68,15 @@ Field.propTypes = {
     PropTypes.array,
   ]),
   type: PropTypes.string,
+  isModal: PropTypes.bool,
 };
 
 Field.defaultProps = {
   type: "text",
+  isModal: false,
 };
 
-const TabPanelContent = ({ fields }) => {
+const TabPanelContent = ({ fields, isModal }) => {
   return (
     <Paper
       elevation={3}
@@ -70,7 +96,7 @@ const TabPanelContent = ({ fields }) => {
         }}
       >
         {fields.map((field) => (
-          <Field key={field.title} {...field} />
+          <Field key={field.title} {...field} isModal={isModal} />
         ))}
       </Grid>
     </Paper>
@@ -89,6 +115,11 @@ TabPanelContent.propTypes = {
       type: PropTypes.string,
     })
   ).isRequired,
+  isModal: PropTypes.bool,
+};
+
+TabPanelContent.defaultProps = {
+  isModal: false,
 };
 
 export default TabPanelContent;
