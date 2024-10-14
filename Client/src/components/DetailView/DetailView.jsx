@@ -150,7 +150,9 @@ const DetailView = memo(
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        mt: 2,
+                        overflowY: "auto", // Make photo tab scrollable
+                        height: "100%", // Full height available
+                        padding: "16px",
                       }}
                     >
                       {imageLoading && (
