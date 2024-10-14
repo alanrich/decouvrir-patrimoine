@@ -59,6 +59,8 @@ const DetailViewModal = ({
   imageLoading,
   imageError,
 }) => {
+  const filteredTabConfigs = tabConfigs.filter((tab) => tab.label !== "Photo");
+
   return (
     <Modal
       open={isModalOpen}
@@ -94,7 +96,7 @@ const DetailViewModal = ({
           forceRenderTabPanel
         >
           <TabList style={tabStyles.tabList}>
-            {tabConfigs.map((tab, index) => (
+            {filteredTabConfigs.map((tab, index) => (
               <Tab
                 key={index}
                 style={{
@@ -118,7 +120,7 @@ const DetailViewModal = ({
             </IconButton>
           </TabList>
 
-          {tabConfigs.map((tab, index) => (
+          {filteredTabConfigs.map((tab, index) => (
             <TabPanel key={index} style={{ flex: 1, overflow: "hidden" }}>
               <TabPanelContent fields={tab.fields} isModal={true} />
             </TabPanel>
