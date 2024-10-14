@@ -139,7 +139,7 @@ const MainToolBar = ({
               whiteSpace: "nowrap",
             }}
           >
-            sélectionner un lieu culturel
+            Sélectionner un Lieu Culturel
           </Button>
           <Menu
             anchorEl={anchorElCultural}
