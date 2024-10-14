@@ -18,12 +18,12 @@ const tabStyles = {
     position: "sticky",
     top: 0,
     zIndex: 2,
-    alignItems: "center", // for the icon button
+    alignItems: "center",
   },
   tab: {
     flex: 1,
-    height: "100%", // added to address tab extending below tabslist
-    padding: "0 16px", // removed 8px vertical padding, looks like tabs are extending below tabslist
+    height: "100%",
+    padding: "0 16px",
     textAlign: "center",
     cursor: "pointer",
     backgroundColor: "#1976d2",
@@ -97,7 +97,6 @@ const DetailView = memo(
               ? object.genre.join(", ")
               : "Not available",
           },
-          // Add more fields later after refactor complete
         ],
       },
       {
@@ -132,53 +131,80 @@ const DetailView = memo(
             boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
             borderRadius: "8px",
             border: "1px solid #ddd",
-            overflow: "auto",
-            height: "100%",
             overflow: "hidden",
+            height: "100%",
             mb: "8px",
+            justifyContent: "space-between",
           }}
         >
-          <Tabs
-            selectedIndex={tabValue}
-            onSelect={(index) => handleTabChange(null, index)}
-            style={{ display: "flex", flexDirection: "column", height: "100%" }}
-          >
-            <TabList style={tabStyles.tabList}>
-              {tabConfigs.map((tab, index) => (
-                <Tab
-                  key={index}
-                  style={{
-                    ...tabStyles.tab,
-                    ...(tabValue === index ? tabStyles.selectedTab : {}),
+          <Box sx={{ flex: 1, overflow: "auto" }}>
+            <Tabs
+              selectedIndex={tabValue}
+              onSelect={(index) => handleTabChange(null, index)}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
+              <TabList style={tabStyles.tabList}>
+                {tabConfigs.map((tab, index) => (
+                  <Tab
+                    key={index}
+                    style={{
+                      ...tabStyles.tab,
+                      ...(tabValue === index ? tabStyles.selectedTab : {}),
+                    }}
+                  >
+                    {tab.label}
+                  </Tab>
+                ))}
+                <IconButton
+                  aria-label="fullscreen"
+                  onClick={isModalOpen ? handleModalClose : handleModalOpen}
+                  sx={{
+                    ...tabStyles.fullscreenIcon,
+                    color: "#FFFFFF",
                   }}
+                  size="small"
                 >
-                  {tab.label}
-                </Tab>
-              ))}
-              <IconButton
-                aria-label="fullscreen"
-                onClick={isModalOpen ? handleModalClose : handleModalOpen}
-                sx={{
-                  ...tabStyles.fullscreenIcon,
-                  color: "#FFFFFF",
-                }}
-                size="small"
-              >
-                {isModalOpen ? (
-                  <FullscreenExitIcon fontSize="small" />
-                ) : (
-                  <FullscreenIcon fontSize="small" />
-                )}
-              </IconButton>
-            </TabList>
+                  {isModalOpen ? (
+                    <FullscreenExitIcon fontSize="small" />
+                  ) : (
+                    <FullscreenIcon fontSize="small" />
+                  )}
+                </IconButton>
+              </TabList>
 
-            {tabConfigs.map((tab, index) => (
-              <TabPanel key={index} style={{ flex: 1, overflow: "hidden" }}>
-                <TabPanelContent fields={tab.fields} />
-              </TabPanel>
-            ))}
-          </Tabs>
+              {tabConfigs.map((tab, index) => (
+                <TabPanel key={index} style={{ flex: 1, overflow: "hidden" }}>
+                  <TabPanelContent fields={tab.fields} />
+                </TabPanel>
+              ))}
+            </Tabs>
+          </Box>
+
+          {/* Box at the bottom displaying object.name */}
+          <Box
+            sx={{
+              flexShrink: 0,
+              borderTop: "1px solid #ddd",
+              padding: "0px 16px",
+              backgroundColor: "#808080",
+              height: "32px",
+              borderBottomLeftRadius: "8px",
+              borderBottomRightRadius: "8px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center", // Center the text both vertically and horizontally
+            }}
+          >
+            <Typography sx={{ color: "#fff", fontWeight: "bold" }}>
+              {object.name || "No Name Available"}
+            </Typography>
+          </Box>
         </Box>
+
         <Modal
           open={isModalOpen}
           onClose={handleModalClose}
