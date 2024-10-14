@@ -1,13 +1,11 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import MapController from "./MapController"; // Extracted to its own file
+import MapController from "./MapController";
 import { SelectedMapMarker, MapMarker } from "../../assets/MapIcons/mapMarker";
 
 const MapView = ({
-  // Lets try loading all map markers and see how perf. is
   domainObjects,
-  totalObjects,
   selectedObject,
   onSelect,
   selectedObjectLoaded,
@@ -32,7 +30,6 @@ const MapView = ({
         selectedObject={selectedObject}
         selectedObjectLoaded={selectedObjectLoaded}
       />
-      {/* Return all domain object in the useDomainObjects hook and populate the map with all markers*/}
       {domainObjects
         .filter((object) => object.latitude != null && object.longitude != null)
         .map((object, index) => {

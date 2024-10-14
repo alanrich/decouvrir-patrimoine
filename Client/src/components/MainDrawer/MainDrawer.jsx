@@ -8,7 +8,6 @@ import {
   Toolbar,
   useMediaQuery,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -41,7 +40,6 @@ const MainDrawer = () => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            // Optionally disable hover effects to indicate disabled state
             "&:hover": {
               backgroundColor: "transparent",
             },
@@ -50,10 +48,10 @@ const MainDrawer = () => {
           <Tooltip title={item.label} placement="top-end">
             <ListItemIcon
               sx={{
-                minWidth: "0", // Remove the default padding since we have such a narrow drawer
+                minWidth: "0",
                 display: "flex",
                 justifyContent: "center",
-                color: "gray", // Make icons appear disabled
+                color: "#fff",
               }}
             >
               {item.icon}
@@ -73,10 +71,14 @@ const MainDrawer = () => {
             open={mobileOpen}
             onClose={handleDrawerToggle}
             ModalProps={{
-              keepMounted: true, // Better mobile performance on mobile ==> KEEP
+              keepMounted: true,
             }}
             sx={{
-              "& .MuiDrawer-paper": { boxSizing: "border-box", width: 60 },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: 60,
+                backgroundColor: "#808080",
+              },
             }}
           >
             <Toolbar />
@@ -92,6 +94,7 @@ const MainDrawer = () => {
             "& .MuiDrawer-paper": {
               width: 60,
               boxSizing: "border-box",
+              backgroundColor: "#808080",
             },
           }}
         >
