@@ -31,14 +31,13 @@ const AppContainer = styled("div")(({ theme }) => ({
   flexDirection: "row",
   height: "100vh",
   backgroundColor: theme.palette.background.default,
-  // overflowX: "hidden",
 }));
 
 const WorkspaceContainer = styled("div")({
   display: "flex",
   flexDirection: "row",
   flexGrow: 1,
-  marginTop: "8rem", // Account for MainAppBar and MainToolBar height
+  marginTop: "8rem",
   overflow: "auto",
 });
 
@@ -53,10 +52,9 @@ const LeftPane = styled("div")({
   overflow: "hidden",
   justifyContent: "center",
   alignItems: "center",
-  // Makes sure that each component takes up 50% of the height
   "& > div": {
     width: "100%",
-    flex: "0 0 50%", // prevent any expansion/shrinking on zoom
+    flex: "0 0 50%",
     overflow: "hidden",
   },
 });
@@ -79,7 +77,7 @@ function App() {
   const [sortBy, setSortBy] = useState("name");
   const [sortOrder, setSortOrder] = useState("asc");
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 500); //TODO: Reassess deboounce time
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const { domainObjects, totalObjects, loading } = useDomainObjects(
     debouncedSearchTerm,
@@ -107,14 +105,7 @@ function App() {
     },
     [setSelectedObject]
   );
-  /*
-*
-*  We Need to implement the clear button in a better fashion, it was too prominent
-*
-  const handleClearSelectedObject = useCallback(() => {
-    clearSelectedObject();
-  }, [clearSelectedObject]);
-*/
+
   const handleChangePage = useCallback((event, newPage) => {
     setPage(newPage);
   }, []);
@@ -132,7 +123,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ErrorBoundary>
-        <Router basename="/work-sample">
+        <Router>
           <AppContainer>
             <MainDrawer setSelectedDataSet={setSelectedDataSet} />
 
@@ -141,7 +132,6 @@ function App() {
                 display: "flex",
                 flexDirection: "column",
                 flexGrow: 1,
-                // overflowX: "hidden",
               }}
             >
               <MainAppBar />
@@ -207,7 +197,7 @@ function App() {
                 <RightPane>
                   <Suspense fallback={<div>Loading map...</div>}>
                     <MapView
-                      domainObjects={domainObjects} // TODO: modify useDomainObjects to return an object with all markers
+                      domainObjects={domainObjects}
                       totalObjects={totalObjects}
                       selectedObject={selectedObject}
                       selectedObjectLoaded={selectedObjectLoaded}

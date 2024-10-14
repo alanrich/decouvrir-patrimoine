@@ -14,7 +14,7 @@ export const useDomainObjects = (
   const [totalObjects, setTotalObjects] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const API_BASE_URL = "https://anabasis-backend-7a4a9d927e48.herokuapp.com";
+  const API_BASE_URL = "http://localhost:3001";
 
   useEffect(() => {
     // fetch the data from the API

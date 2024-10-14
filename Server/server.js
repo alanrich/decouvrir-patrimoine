@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use(
   cors({
-    origin: "https://alanrich.dev", // Ensure your domain is correct
+    origin: "http://localhost:3000", // Ensure your domain is correct
     methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization", "x-requested-with"],
