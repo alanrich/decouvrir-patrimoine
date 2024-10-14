@@ -13,7 +13,7 @@ const cors = require("cors");
 // Re-enable CORS with specific origin
 app.use(
   cors({
-    origin: "https://alanrich.dev", // Allow only your domain
+    origin: "http://localhost:3000", // Allow only your domain
     methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
   })
@@ -58,14 +58,13 @@ app.get("/api/museums", async (req, res) => {
       sort[dbField] = sortOrder === "asc" ? 1 : -1;
     } else {
       console.error(`Invalid sort field: ${sortBy}`);
-      return res.status(400).json({ error: "Invalid sort field" }); // validation to handle invalid sortBy fields
+      return res.status(400).json({ error: "Invalid sort field" });
     }
   }
 
   try {
     const total = await Museum.countDocuments(query);
     const data = await Museum.find(query, {
-      // We specify the fields to return by adding a projection object
       identifiant: 1,
       nom_officiel: 1,
       adresse: 1,
@@ -83,6 +82,7 @@ app.get("/api/museums", async (req, res) => {
       artiste: 1,
     })
       .sort(sort)
+      .collation({ locale: "fr", strength: 2 }) // Added collation for proper French sorting
       .skip(page * rowsPerPage)
       .limit(parseInt(rowsPerPage))
       .lean(); // adding lean() to the query chain returns plain js obj instead of mongoose doc for better perf.
@@ -143,6 +143,7 @@ app.get("/api/festivals", async (req, res) => {
       geocodage_xy: 1,
     })
       .sort(sort)
+      .collation({ locale: "fr", strength: 2 }) // Added collation for proper French sorting
       .skip(page * rowsPerPage)
       .limit(parseInt(rowsPerPage))
       .lean();
@@ -156,6 +157,7 @@ app.get("/api/festivals", async (req, res) => {
 
 // Start the server
 app.listen(PORT, () => console.log("Server running on port 3001"));
+
 // Connect to MongoDB
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
