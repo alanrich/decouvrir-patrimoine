@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 // Helper function to format names
-// Helper function to format names
 const formatFrench = (name) => {
   if (!name || typeof name !== "string") return name; // Ensure name is a string
 

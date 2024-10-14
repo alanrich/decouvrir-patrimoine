@@ -60,6 +60,9 @@ const DetailView = memo(
     handleModalOpen,
     handleModalClose,
     isModalOpen,
+    imageUrl,
+    imageLoading,
+    imageError,
   }) => {
     if (!object) {
       return (
@@ -81,6 +84,7 @@ const DetailView = memo(
         </Box>
       );
     }
+
     const tabConfigs = [
       {
         label: "Overview",
@@ -122,7 +126,6 @@ const DetailView = memo(
 
     return (
       <>
-        {/* Non-Modal Detail View */}
         <Box
           sx={{
             display: "flex",
@@ -181,10 +184,29 @@ const DetailView = memo(
                   <TabPanelContent fields={tab.fields} />
                 </TabPanel>
               ))}
+
+              {/* Display museum image */}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mt: 2,
+                }}
+              >
+                {imageLoading && <Typography>Loading image...</Typography>}
+                {imageError && <Typography>Error: {imageError}</Typography>}
+                {imageUrl && (
+                  <img
+                    src={imageUrl}
+                    alt={`${object.name} Image`}
+                    style={{ maxWidth: "100%", maxHeight: "400px" }}
+                  />
+                )}
+              </Box>
             </Tabs>
           </Box>
 
-          {/* Box at the bottom displaying object.name */}
           <Box
             sx={{
               flexShrink: 0,
@@ -204,75 +226,6 @@ const DetailView = memo(
             </Typography>
           </Box>
         </Box>
-
-        {/* Modal Detail View */}
-        <Modal
-          open={isModalOpen}
-          onClose={handleModalClose}
-          aria-labelledby="detail-view-modal"
-          aria-describedby="expanded-detail-view"
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "90%",
-              height: "90%",
-              bgcolor: "background.paper",
-              boxShadow: 24,
-              p: 2, // Added padding for separation from top
-              borderRadius: "8px",
-              overflow: "hidden",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Tabs
-              selectedIndex={tabValue}
-              onSelect={(index) => handleTabChange(null, index)}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-              }}
-              forceRenderTabPanel
-            >
-              <TabList style={tabStyles.tabList}>
-                {tabConfigs.map((tab, index) => (
-                  <Tab
-                    key={index}
-                    style={{
-                      ...tabStyles.tab,
-                      ...(tabValue === index ? tabStyles.selectedTab : {}),
-                    }}
-                  >
-                    {tab.label}
-                  </Tab>
-                ))}
-
-                <IconButton
-                  aria-label="exit fullscreen"
-                  onClick={handleModalClose}
-                  sx={{
-                    ...tabStyles.fullscreenIcon,
-                    color: "#FFFFFF",
-                  }}
-                  size="small"
-                >
-                  <FullscreenExitIcon fontSize="small" />
-                </IconButton>
-              </TabList>
-
-              {tabConfigs.map((tab, index) => (
-                <TabPanel key={index} style={{ flex: 1, overflow: "hidden" }}>
-                  <TabPanelContent fields={tab.fields} isModal={true} />
-                </TabPanel>
-              ))}
-            </Tabs>
-          </Box>
-        </Modal>
       </>
     );
   }
@@ -286,6 +239,9 @@ DetailView.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   handleModalOpen: PropTypes.func.isRequired,
   handleModalClose: PropTypes.func.isRequired,
+  imageUrl: PropTypes.string,
+  imageLoading: PropTypes.bool,
+  imageError: PropTypes.string,
 };
 
 export default DetailView;

@@ -1,10 +1,19 @@
 import React, { useState, useCallback } from "react";
 import DetailView from "./DetailView";
 import { Box } from "@mui/material";
+import { useMuseumImage } from "../../hooks/useMuseumImage"; // Import the new hook
 
 const DetailViewWrapper = ({ object, selectedDataSet }) => {
   const [tabValue, setTabValue] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Use the museum name to fetch the Wikipedia image
+  const museumName = object?.name;
+  const {
+    imageUrl,
+    loading: imageLoading,
+    error: imageError,
+  } = useMuseumImage(museumName);
 
   const handleTabChange = useCallback((event, newValue) => {
     setTabValue(newValue);
@@ -35,6 +44,9 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
         handleModalOpen={handleModalOpen}
         handleModalClose={handleModalClose}
         isModalOpen={isModalOpen}
+        imageUrl={imageUrl} // Pass the image URL to DetailView
+        imageLoading={imageLoading}
+        imageError={imageError}
       />
     </Box>
   );
