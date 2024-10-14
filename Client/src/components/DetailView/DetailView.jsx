@@ -143,29 +143,35 @@ const DetailView = memo(
 
               {tabConfigs.map((tab, index) => (
                 <TabPanel key={index} style={{ flex: 1, overflow: "hidden" }}>
-                  <TabPanelContent fields={tab.fields} />
+                  {tab.label === "Photo" ? (
+                    // Special handling for the Photo tab
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        mt: 2,
+                      }}
+                    >
+                      {imageLoading && (
+                        <Typography>Loading image...</Typography>
+                      )}
+                      {imageError && (
+                        <Typography>Error: {imageError}</Typography>
+                      )}
+                      {imageUrl && (
+                        <img
+                          src={imageUrl}
+                          alt={`${object.name} Image`}
+                          style={{ maxWidth: "100%", maxHeight: "400px" }}
+                        />
+                      )}
+                    </Box>
+                  ) : (
+                    <TabPanelContent fields={tab.fields} />
+                  )}
                 </TabPanel>
               ))}
-
-              {/* Display museum image */}
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  mt: 2,
-                }}
-              >
-                {imageLoading && <Typography>Loading image...</Typography>}
-                {imageError && <Typography>Error: {imageError}</Typography>}
-                {imageUrl && (
-                  <img
-                    src={imageUrl}
-                    alt={`${object.name} Image`}
-                    style={{ maxWidth: "100%", maxHeight: "400px" }}
-                  />
-                )}
-              </Box>
             </Tabs>
           </Box>
 

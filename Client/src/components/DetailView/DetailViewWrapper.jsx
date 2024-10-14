@@ -30,6 +30,10 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
   // Define tabConfigs in DetailViewWrapper and pass them to DetailView
   const tabConfigs = [
     {
+      label: "Photo",
+      fields: [],
+    },
+    {
       label: "Overview",
       fields: [
         { title: "Name", value: object?.name },
