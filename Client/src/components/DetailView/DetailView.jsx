@@ -191,7 +191,15 @@ const DetailView = memo(
               justifyContent: "center",
             }}
           >
-            <Typography sx={{ color: "#fff", fontWeight: "bold" }}>
+            <Typography
+              sx={{
+                color: "#fff",
+                fontWeight: "bold",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
               {object.name || "No Name Available"}
             </Typography>
           </Box>
