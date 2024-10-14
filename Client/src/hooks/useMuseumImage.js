@@ -16,7 +16,6 @@ export const useMuseumImage = (museumName) => {
     if (!museumName) return;
 
     const fetchImage = async () => {
-      console.log("fetchImage fired");
       setLoading(true);
 
       try {

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import louvre from "../assets/louvre.json";
 
 export const usePersistentSelectedObject = () => {
   const [selectedObject, setSelectedObject] = useState(null);
+  console.log(JSON.stringify(selectedObject));
   // flag for the Map to open with center placed upon geoLocation of selectedObject held in localStorage
   const [selectedObjectLoaded, setSelectedObjectLoaded] = useState(false);
 
@@ -17,6 +19,10 @@ export const usePersistentSelectedObject = () => {
         localStorage.removeItem("selectedObject"); // Handle invalid JSON if it is found in localStorage
         setSelectedObject(null);
       }
+    } else {
+      // If no object is stored, set the Louvre as the initial object
+      setSelectedObject(louvre);
+      setSelectedObjectLoaded(true);
     }
   }, []);
 

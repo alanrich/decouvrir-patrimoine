@@ -1,0 +1,40 @@
+{
+  "id": "M5031",
+  "name": "Musée du Louvre",
+  "address": "Musée du Louvre",
+  "city": "Paris",
+  "genre": [
+    "Archéologie",
+    "Arts décoratifs",
+    "Beaux-arts",
+    "Histoire",
+    "Arts de l'Islam"
+  ],
+  "latitude": 48.86079459806906,
+  "longitude": 2.3378156596817785,
+  "rawData": {
+    "_id": "66ff17ff6e18e0aa15ff30db",
+    "identifiant": "M5031",
+    "nom_officiel": "musée du Louvre",
+    "adresse": "musée du Louvre",
+    "ville": "Paris",
+    "region": "Ile-de-France",
+    "url": "www.louvre.fr/",
+    "telephone": "01 40 20 50 50",
+    "categorie": "Domaine national. Jardin remarquable.",
+    "domaine_thematique": [
+      "Archéologie",
+      "Arts décoratifs",
+      "Beaux-arts",
+      "Histoire",
+      "Arts de l'Islam"
+    ],
+    "histoire": "Héritier des collections royales constituées dans les différentes résidences et au Louvre même dans la salle des antiques et le cabinet des tableaux du Roi. Sous Louis XV, le projet de présenter au public les tableaux du Roi fît naître l'idée de muséum. Le musée ouvre ses portes le 18 novembre 1793. Les collections composées des saisies révolutionnaires (émigrés, églises, Académie) s'agrandissent des oeuvres séquestrées dans les pays conquis et restituées en 1815. Aux tableaux, dessins, et antiques du premier musée s'ajoutèrent, à partir de 1820, de nouvelles collections : sculptures, antiquités égyptiennes réunies par Champollion, puis à partir de 1847 des produits des fouilles françaises dans le bassin méditerranéen et au Moyen-Orient. Les collections s’enrichissent tous les ans de nouvelles acquisitions, dons et donations.",
+    "artiste": "Barye, Bosch, Boulle, Jean Bologne,  Canova, Chardin, Couston, Coysevox, David, Delacroix, Donatello, Durer,  Falconet, Fouquet, Goujon,  Goya, Géricault, Fragonard, Houdon,  Ingres, La Tour, Le Brun,  Limosin,  Michel-Ange,  Palissy, Pisanello, Poussin, Pilon, Puget, Raphael, Rembrandt, Rubens, Léonard de Vinci, Titien, Tintoret, Van Eyck, Vermeer, Véronèse, Watteau.",
+    "personnage_phare": null,
+    "interet": "Forteresse et siège du pouvoir pendant plusieurs siècles, « musée des musées » depuis la fin du 18e siècle, le Louvre est un lieu à tout point de vue singulier, à la croisée de l’histoire des arts, de l’histoire du patrimoine et de l’histoire de France. Il est nécessaire de considérer les huit siècles écoulés depuis la construction de la première forteresse pour identifier un certain nombre de spécificités qui offrent des clefs indispensables pour comprendre le Louvre d’aujourd’hui et envisager celui de demain. Depuis la fin du XVIIIe siècle, le musée du Louvre a progressivement pris possession de l’ancien palais royal. Sous le Second Empire et par son épilogue tragique de la Commune, la métamorphose a été achevée et le Louvre est aujourd’hui, dans son enveloppe extérieure, ce que la IIIe République a fait du Palais voulu par Napoléon III, amputé du palais des Tuileries incendié en 1871 : palais immense, s’étirant sur les quais de la Seine, nullement compact, contrairement à la plupart des grands musées qui se développent organiquement en quelque sorte autour d’un noyau central ; mais aussi palais dont la fonction de résidence royale a été effacée, que ce soit par les aménagements du musée lui-même ou par la destruction de la résidence (le palais des Tuileries) des derniers souverains à avoir régné sur la France. Au Palais du Louvre, il faut ajouter le Jardin des Tuileries et le Musée national Eugène Delacroix situé dans son appartement, sis 4 rue de Furstenberg, 75005 Paris",
+    "annee_creation": null,
+    "coordonnees": { "lon": 2.3378156596817785, "lat": 48.86079459806906 }
+  },
+  "dataSet": "museums"
+}
