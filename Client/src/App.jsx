@@ -4,7 +4,6 @@ import { CssBaseline, Box, CircularProgress } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { BrowserRouter as Router } from "react-router-dom";
 import MainAppBar from "./components/MainAppBar/MainAppBar";
-import MainToolBar from "./components/MainToolBar/MainToolBar";
 import MainDrawer from "./components/MainDrawer/MainDrawer";
 import SummaryTableWrapper from "./components/SummaryTable/SummaryTableWrapper";
 import DetailViewWrapper from "./components/DetailView/DetailViewWrapper";
@@ -135,9 +134,7 @@ function App() {
                 flexGrow: 1,
               }}
             >
-              <MainAppBar />
-              {/* Passed setSelectedDataSet to MainToolBar */}
-              <MainToolBar
+              <MainAppBar
                 searchTerm={searchTerm}
                 setSearchTerm={handleSetSearchTerm}
                 sortBy={sortBy}
