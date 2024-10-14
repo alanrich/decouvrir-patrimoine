@@ -4,7 +4,7 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import PropTypes from "prop-types";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
+import "react-tabs/style/react-tabs.css"; // the default styles are creating the inconsistency in tabpanel height
 import TabPanelContent from "./TabPanelContent";
 import DetailViewModal from "./DetailViewModal";
 
@@ -112,13 +112,33 @@ const DetailView = memo(
                 height: "100%",
               }}
             >
-              <TabList style={tabStyles.tabList}>
+              <TabList
+                style={{
+                  ...tabStyles.tabList,
+                  padding: "0",
+                  margin: "0",
+                  height: "36px",
+                  display: "flex",
+                  alignItems: "center",
+                  backgroundColor: "#1976d2",
+                  borderBottom: "1px solid #ddd",
+                }}
+              >
                 {tabConfigs.map((tab, index) => (
                   <Tab
                     key={index}
                     style={{
                       ...tabStyles.tab,
                       ...(tabValue === index ? tabStyles.selectedTab : {}),
+                      padding: "0", // Override default padding
+                      margin: "0", // Override default margin
+                      height: "100%", // Ensure full height to create a uniform tablist unaffected by FullscreenIcon
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      border: "none",
+                      position: "static",
+                      bottom: "auto",
                     }}
                   >
                     {tab.label}
@@ -129,7 +149,10 @@ const DetailView = memo(
                   onClick={isModalOpen ? handleModalClose : handleModalOpen}
                   sx={{
                     ...tabStyles.fullscreenIcon,
-                    color: "#FFFFFF",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "0 16px", // Match the Tabs' horizontal padding
                   }}
                   size="small"
                 >

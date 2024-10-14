@@ -4,6 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import PropTypes from "prop-types";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import TabPanelContent from "./TabPanelContent";
+import "react-tabs/style/react-tabs.css"; // the default styles are creating the inconsistency in tabpanel height
 
 const tabStyles = {
   tabList: {
@@ -12,8 +13,8 @@ const tabStyles = {
     height: "36px",
     margin: 0,
     padding: 0,
-    borderTopLeftRadius: "8px", // Conform to card's border radius
-    borderTopRightRadius: "8px", // Conform to card's border radius
+    borderTopLeftRadius: "8px",
+    borderTopRightRadius: "8px",
     alignItems: "center",
   },
   tab: {
@@ -106,14 +107,14 @@ const DetailViewModal = ({
         >
           <Box
             sx={{
-              width: "100%", // Ensure full width
+              width: "100%",
               height: "90%",
               boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Elevated shadow
-              borderRadius: "8px", // Rounded corners
-              backgroundColor: "#fff", // White background for the card
+              borderRadius: "8px",
+              backgroundColor: "#fff",
               display: "flex",
               flexDirection: "column",
-              overflow: "hidden", // Ensure no overflow beyond border radius
+              overflow: "hidden",
             }}
           >
             <Tabs
@@ -126,13 +127,33 @@ const DetailViewModal = ({
               }}
               forceRenderTabPanel
             >
-              <TabList style={tabStyles.tabList}>
+              <TabList
+                style={{
+                  ...tabStyles.tabList,
+                  padding: "0",
+                  margin: "0",
+                  height: "36px",
+                  display: "flex",
+                  alignItems: "center",
+                  backgroundColor: "#1976d2",
+                  borderBottom: "none",
+                }}
+              >
                 {filteredTabConfigs.map((tab, index) => (
                   <Tab
                     key={index}
                     style={{
                       ...tabStyles.tab,
                       ...(tabValue === index ? tabStyles.selectedTab : {}),
+                      padding: "0", // Override default padding
+                      margin: "0", // Override default margin
+                      height: "100%", // Ensure full height
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      border: "none",
+                      position: "static",
+                      bottom: "auto",
                     }}
                   >
                     {tab.label}
