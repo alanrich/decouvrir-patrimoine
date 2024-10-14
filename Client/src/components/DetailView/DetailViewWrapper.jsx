@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import DetailView from "./DetailView";
 import { Box } from "@mui/material";
-import { useMuseumImage } from "../../hooks/useMuseumImage"; // Import the new hook
+import { useMuseumImage } from "../../hooks/useMuseumImage";
 
 const DetailViewWrapper = ({ object, selectedDataSet }) => {
   const [tabValue, setTabValue] = useState(0);
@@ -27,7 +27,6 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
     setIsModalOpen(false);
   };
 
-  // Define tabConfigs in DetailViewWrapper and pass them to DetailView
   const tabConfigs = [
     {
       label: "Photo",
@@ -88,10 +87,10 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
         handleModalOpen={handleModalOpen}
         handleModalClose={handleModalClose}
         isModalOpen={isModalOpen}
-        imageUrl={imageUrl} // Pass the image URL to DetailView
+        imageUrl={imageUrl}
         imageLoading={imageLoading}
         imageError={imageError}
-        tabConfigs={tabConfigs} // Pass tabConfigs to DetailView
+        tabConfigs={tabConfigs}
       />
     </Box>
   );

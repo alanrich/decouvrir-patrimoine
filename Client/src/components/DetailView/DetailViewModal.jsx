@@ -9,13 +9,11 @@ const tabStyles = {
   tabList: {
     display: "flex",
     backgroundColor: "#1976d2",
-    borderBottom: "1px solid #ddd",
     height: "36px",
     margin: 0,
     padding: 0,
-    position: "sticky",
-    top: 0,
-    zIndex: 2,
+    borderTopLeftRadius: "8px", // Conform to card's border radius
+    borderTopRightRadius: "8px", // Conform to card's border radius
     alignItems: "center",
   },
   tab: {
@@ -51,6 +49,7 @@ const DetailViewModal = ({
   imageUrl,
   imageLoading,
   imageError,
+  object, // Add object prop to access the museum name
 }) => {
   const filteredTabConfigs = tabConfigs.filter((tab) => tab.label !== "Photo");
 
@@ -111,8 +110,10 @@ const DetailViewModal = ({
               height: "90%",
               boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Elevated shadow
               borderRadius: "8px", // Rounded corners
-              backgroundColor: "#fff",
-              padding: "16px", // Internal padding for the card content
+              backgroundColor: "#fff", // White background for the card
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden", // Ensure no overflow beyond border radius
             }}
           >
             <Tabs
@@ -151,7 +152,11 @@ const DetailViewModal = ({
                     }),
                   }}
                 >
-                  <TabPanelContent fields={tab.fields} isModal={true} />
+                  <TabPanelContent
+                    fields={tab.fields}
+                    isModal={true}
+                    fontSize="0.875rem"
+                  />
                 </TabPanel>
               ))}
             </Tabs>
@@ -163,6 +168,7 @@ const DetailViewModal = ({
           sx={{
             flex: "1", // Right panel takes up half of the modal
             display: "flex",
+            flexDirection: "column", // Stack image and name vertically
             justifyContent: "center",
             alignItems: "center",
             padding: "16px", // Equal padding for spacing
@@ -171,16 +177,31 @@ const DetailViewModal = ({
           {imageLoading && <Typography>Loading image...</Typography>}
           {imageError && <Typography>Error: {imageError}</Typography>}
           {imageUrl && (
-            <img
-              src={imageUrl}
-              alt="Museum Image"
-              style={{
-                maxWidth: "100%",
-                maxHeight: "100%",
-                objectFit: "cover",
-                borderRadius: "8px",
-              }}
-            />
+            <>
+              <img
+                src={imageUrl}
+                alt="Museum Image"
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                }}
+              />
+              {/* Display the museum name under the photo */}
+              {object?.name && (
+                <Typography
+                  variant="h6"
+                  sx={{
+                    mt: 2, // Add margin to separate from the image
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  {object.name}
+                </Typography>
+              )}
+            </>
           )}
         </Box>
       </Box>
@@ -197,6 +218,7 @@ DetailViewModal.propTypes = {
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
+  object: PropTypes.object.isRequired, // Ensure object is passed in with name
 };
 
 export default DetailViewModal;

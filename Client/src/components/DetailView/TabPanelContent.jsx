@@ -14,11 +14,12 @@ const FieldTitle = styled(Typography)(({ theme, isModal }) => ({
   fontSize: isModal ? "1rem" : ".8rem",
 }));
 
-const Field = ({ title, value, type, isModal }) => {
+const Field = ({ title, value, type, isModal, fontSize }) => {
   const isHistoire = title.toLowerCase() === "histoire";
 
   const titleVariant = isModal ? "h6" : "subtitle1";
-  const valueFontSize = isModal ? (isHistoire ? ".8rem" : "1rem") : ".8rem";
+  const valueFontSize =
+    fontSize || (isModal ? (isHistoire ? ".8rem" : "1rem") : ".8rem");
 
   if (type === "link" && value) {
     return (
@@ -55,7 +56,7 @@ const Field = ({ title, value, type, isModal }) => {
         variant="body1"
         sx={{
           marginLeft: 1,
-          fontSize: valueFontSize,
+          fontSize: valueFontSize, // Using font size passed down
         }}
       >
         {value || "N/A"}
@@ -73,6 +74,7 @@ Field.propTypes = {
   ]),
   type: PropTypes.string,
   isModal: PropTypes.bool,
+  fontSize: PropTypes.string, // Add fontSize as prop to adjust content size
 };
 
 Field.defaultProps = {
@@ -80,7 +82,7 @@ Field.defaultProps = {
   isModal: false,
 };
 
-const TabPanelContent = ({ fields, isModal }) => {
+const TabPanelContent = ({ fields, isModal, fontSize }) => {
   return (
     <div
       style={{
@@ -95,13 +97,18 @@ const TabPanelContent = ({ fields, isModal }) => {
         sx={{
           flex: 1,
           overflowY: "auto",
-          border: "none", // ATTENTION: This controls that nasty visible border
-          padding: "0", // ATTENTION: This controls that annowing padding around the text body
-          paddingTop: "16px",
+          border: "none",
+          paddingLeft: "16px",
+          paddingTop: "32px",
         }}
       >
         {fields.map((field) => (
-          <Field key={field.title} {...field} isModal={isModal} />
+          <Field
+            key={field.title}
+            {...field}
+            isModal={isModal}
+            fontSize={fontSize}
+          />
         ))}
       </Grid>
     </div>
@@ -121,10 +128,12 @@ TabPanelContent.propTypes = {
     })
   ).isRequired,
   isModal: PropTypes.bool,
+  fontSize: PropTypes.string, // Add fontSize prop
 };
 
 TabPanelContent.defaultProps = {
   isModal: false,
+  fontSize: "1rem", // Default size
 };
 
 export default TabPanelContent;

@@ -168,7 +168,7 @@ const DetailView = memo(
                       )}
                     </Box>
                   ) : (
-                    <TabPanelContent fields={tab.fields} /> // ATTENTION: Pass fields directly
+                    <TabPanelContent fields={tab.fields} fontSize="0.875rem" />
                   )}
                 </TabPanel>
               ))}
@@ -204,6 +204,7 @@ const DetailView = memo(
           imageUrl={imageUrl}
           imageLoading={imageLoading}
           imageError={imageError}
+          object={object}
         />
       </>
     );
