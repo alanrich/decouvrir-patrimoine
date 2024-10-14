@@ -1,7 +1,41 @@
 import { useState, useEffect } from "react";
 
-// TODO: create a new variable that contains name and geocoords
-// this variable will set a state to populate the map with markers for all domainObjects in selectedDataSet
+// Helper function to format names
+const formatFrench = (name) => {
+  if (!name) return name;
+
+  return name
+    .split(" ")
+    .map((word) => {
+      // Keep lowercase all french words that stay lowercase in proper nouns
+      if (word.toLowerCase() === "de") {
+        return "de";
+      }
+      if (word.toLowerCase() === "des") {
+        return "des";
+      }
+      if (word.toLowerCase() === "du") {
+        return "du";
+      }
+      if (word.toLowerCase() === "en") {
+        return "en";
+      }
+      if (word.toLowerCase() === "aux") {
+        return "aux";
+      }
+      if (word.toLowerCase() === "dans") {
+        return "dans";
+      }
+      // Do not capitalize if the second character is an apostrophe
+      if (word.length > 1 && word[1] === "'") {
+        return word;
+      }
+      // Capitalize the first character
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(" ");
+};
+
 export const useDomainObjects = (
   searchTerm,
   selectedDataSet,
@@ -31,13 +65,6 @@ export const useDomainObjects = (
         const searchParam = searchTerm
           ? `&searchTerm=${encodeURIComponent(searchTerm)}`
           : "";
-        /*
-        if (selectedDataSet === "museums") {
-          apiUrl = `${API_BASE_URL}/api/museums?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
-        } else if (selectedDataSet === "festivals") {
-          apiUrl = `${API_BASE_URL}/api/festivals?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
-        }
-*/
 
         const constructApiUrl = (endpoint) => {
           return `${API_BASE_URL}/api/${endpoint}?page=${page}&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`;
@@ -48,7 +75,7 @@ export const useDomainObjects = (
         } else if (selectedDataSet === "festivals") {
           apiUrl = constructApiUrl("festivals");
         }
-        // Problem probably lies here
+
         const response = await fetch(apiUrl, {
           method: "GET",
           mode: "cors",
@@ -81,11 +108,11 @@ export const useDomainObjects = (
               ) {
                 return {
                   id: object.identifiant,
-                  name: object.nom_officiel,
-                  address: object.adresse || "No address provided",
-                  city: object.ville,
+                  name: formatFrench(object.nom_officiel),
+                  address: formatFrench(object.adresse) || "Non disponible",
+                  city: formatFrench(object.ville),
                   genre:
-                    object.domaine_thematique || "No information available",
+                    formatFrench(object.domaine_thematique) || "Non disponible",
                   latitude: object.coordonnees.lat,
                   longitude: object.coordonnees.lon,
                   rawData: object,
@@ -103,13 +130,17 @@ export const useDomainObjects = (
               )
                 return {
                   id: object.identifiant || object.identifiant_cnm,
-                  genre: object.discipline_dominante || "N/A",
-                  name: object.nom_du_festival,
+                  genre:
+                    formatFrench(object.discipline_dominante) ||
+                    "Non disponible",
+                  name: formatFrench(object.nom_du_festival),
                   address:
-                    object.adresse_postale ||
-                    object.nom_de_la_voie ||
-                    "No address provided",
-                  city: object.commune_principale_de_deroulement || "N/A",
+                    formatFrench(object.adresse_postale) ||
+                    formatFrench(object.nom_de_la_voie) ||
+                    "Non disponible",
+                  city:
+                    formatFrench(object.commune_principale_de_deroulement) ||
+                    "Non disponible",
                   latitude: object.geocodage_xy.lat,
                   longitude: object.geocodage_xy.lon,
                   rawData: object,
