@@ -108,10 +108,10 @@ const DetailViewModal = ({
           <Box
             sx={{
               width: "100%", // Ensure full width
-              height: "90%", // Increased height to 90%
+              height: "90%",
               boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Elevated shadow
               borderRadius: "8px", // Rounded corners
-              backgroundColor: "#fff", // White card background
+              backgroundColor: "#fff",
               padding: "16px", // Internal padding for the card content
             }}
           >
@@ -146,7 +146,7 @@ const DetailViewModal = ({
                     flex: 1,
                     overflow: "hidden",
                     ...(tab.label === "Histoire" && {
-                      maxWidth: "85%", // Extend text width for Histoire
+                      maxWidth: "85%",
                       margin: "0 auto", // Center the text
                     }),
                   }}

@@ -63,7 +63,7 @@ const DetailView = memo(
     imageUrl,
     imageLoading,
     imageError,
-    tabConfigs, // tabConfigs passed as a prop
+    tabConfigs,
   }) => {
     if (!object) {
       return (
@@ -168,7 +168,7 @@ const DetailView = memo(
                       )}
                     </Box>
                   ) : (
-                    <TabPanelContent fields={tab.fields} />
+                    <TabPanelContent fields={tab.fields} /> // ATTENTION: Pass fields directly
                   )}
                 </TabPanel>
               ))}
@@ -220,7 +220,7 @@ DetailView.propTypes = {
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
-  tabConfigs: PropTypes.array.isRequired, // New prop for tabConfigs
+  tabConfigs: PropTypes.array.isRequired,
 };
 
 export default DetailView;

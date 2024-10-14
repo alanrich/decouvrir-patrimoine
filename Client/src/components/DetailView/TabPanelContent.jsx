@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Typography, Grid, Paper, Link } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const FieldTitle = styled(Typography)(({ theme, isModal }) => ({
@@ -34,16 +34,20 @@ const Field = ({ title, value, type, isModal }) => {
             marginTop: isModal ? "4px" : "0px",
           }}
         >
-          <Link href={`http://${value}`} target="_blank" rel="noopener">
+          <a href={`http://${value}`} target="_blank" rel="noopener noreferrer">
             {value}
-          </Link>
+          </a>
         </Typography>
       </Grid>
     );
   }
 
   return (
-    <Grid item xs={12} sm={6}>
+    <Grid
+      item
+      xs={12}
+      sx={isHistoire ? { width: "100%" } : {}} // Full width for "Histoire"
+    >
       <FieldTitle variant={titleVariant} isModal={isModal}>
         {title}:
       </FieldTitle>
@@ -78,10 +82,8 @@ Field.defaultProps = {
 
 const TabPanelContent = ({ fields, isModal }) => {
   return (
-    <Paper
-      elevation={3}
-      sx={{
-        padding: 2,
+    <div
+      style={{
         height: "100%",
         display: "flex",
         flexDirection: "column",
@@ -93,13 +95,16 @@ const TabPanelContent = ({ fields, isModal }) => {
         sx={{
           flex: 1,
           overflowY: "auto",
+          border: "none", // ATTENTION: This controls that nasty visible border
+          padding: "0", // ATTENTION: This controls that annowing padding around the text body
+          paddingTop: "16px",
         }}
       >
         {fields.map((field) => (
           <Field key={field.title} {...field} isModal={isModal} />
         ))}
       </Grid>
-    </Paper>
+    </div>
   );
 };
 
