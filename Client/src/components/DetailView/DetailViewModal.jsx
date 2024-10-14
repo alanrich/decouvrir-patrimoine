@@ -40,13 +40,6 @@ const tabStyles = {
     fontWeight: "bold",
     fontSize: ".8125rem",
   },
-  fullscreenIcon: {
-    marginLeft: "auto",
-    padding: "4px",
-    color: "#FFFFFF",
-    border: "none",
-    outline: "none",
-  },
 };
 
 const DetailViewModal = ({
@@ -86,6 +79,20 @@ const DetailViewModal = ({
           flexDirection: "row",
         }}
       >
+        {/* Close button in the top right corner */}
+        <IconButton
+          aria-label="close modal"
+          onClick={handleModalClose}
+          sx={{
+            position: "absolute",
+            top: 16,
+            right: 16,
+            color: "#000000",
+          }}
+        >
+          <FullscreenExitIcon fontSize="small" />
+        </IconButton>
+
         {/* Left Panel for Tabs and Content with Card-like styling */}
         <Box
           sx={{
@@ -130,17 +137,6 @@ const DetailViewModal = ({
                     {tab.label}
                   </Tab>
                 ))}
-                <IconButton
-                  aria-label="exit fullscreen"
-                  onClick={handleModalClose}
-                  sx={{
-                    ...tabStyles.fullscreenIcon,
-                    color: "#FFFFFF",
-                  }}
-                  size="small"
-                >
-                  <FullscreenExitIcon fontSize="small" />
-                </IconButton>
               </TabList>
 
               {filteredTabConfigs.map((tab, index) => (
