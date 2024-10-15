@@ -92,7 +92,12 @@ app.get("/api/festivals", async (req, res) => {
     searchTerm,
   } = req.query;
 
-  const query = {};
+  // Update the query to include only valid festivals
+  const query = {
+    commune_principale_de_deroulement: { $exists: true, $ne: null },
+    "geocodage_xy.lat": { $type: "number" },
+    "geocodage_xy.lon": { $type: "number" },
+  };
 
   if (searchTerm) {
     query.$text = { $search: searchTerm };

@@ -60,7 +60,6 @@ const MainAppBar = ({
     museums: [
       { value: "name", label: "Nom" },
       { value: "city", label: "Ville" },
-      { value: "collection", label: "Collection" },
     ],
     jardins: [
       { value: "name", label: "Nom" },
