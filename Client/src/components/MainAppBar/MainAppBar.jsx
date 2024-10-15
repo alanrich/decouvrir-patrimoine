@@ -51,18 +51,25 @@ const MainAppBar = ({
   const [localSortBy, setLocalSortBy] = useState(sortBy);
   const [localSortOrder, setLocalSortOrder] = useState(sortOrder);
 
-  const sortOptions =
-    selectedDataSet === "festivals"
-      ? [
-          { value: "name", label: "Nom" },
-          { value: "city", label: "Ville" },
-          { value: "genre", label: "Genre" },
-        ]
-      : [
-          { value: "name", label: "Nom" },
-          { value: "city", label: "Ville" },
-          { value: "genre", label: "Genre" },
-        ];
+  const sortOptionsMap = {
+    festivals: [
+      { value: "name", label: "Nom" },
+      { value: "city", label: "Ville" },
+      { value: "genre", label: "Genre" },
+    ],
+    museums: [
+      { value: "name", label: "Nom" },
+      { value: "city", label: "Ville" },
+      { value: "collection", label: "Collection" },
+    ],
+    jardins: [
+      { value: "name", label: "Nom" },
+      { value: "city", label: "Ville" },
+      { value: "type", label: "Type de jardin" },
+    ],
+  };
+
+  const sortOptions = sortOptionsMap[selectedDataSet] || sortOptionsMap.museums;
 
   // Handlers for sorting menu
   const handleSortMenuOpen = (event) => {
@@ -146,7 +153,7 @@ const MainAppBar = ({
               color: theme.palette.grey[300],
             }}
           >
-            Anabasis
+            Découvrir Patrimoine
           </Typography>
         </Box>
 
@@ -211,7 +218,7 @@ const MainAppBar = ({
               borderRadius: theme.shape.borderRadiusMedium,
             }}
           >
-            Sort
+            Tier
           </Button>
           <Menu
             anchorEl={anchorElSort}
@@ -236,7 +243,7 @@ const MainAppBar = ({
                 variant="body2"
                 sx={{ marginBottom: "0.5rem", fontSize: "0.8125rem" }}
               >
-                Sort Order
+                Ordre de tri
               </Typography>
               <ToggleButtonGroup
                 value={localSortOrder}
@@ -259,14 +266,14 @@ const MainAppBar = ({
                     fontSize="small"
                     sx={{ marginRight: "4px" }}
                   />
-                  Asc
+                  croissant
                 </ToggleButton>
                 <ToggleButton value="desc">
                   <ArrowDownwardIcon
                     fontSize="small"
                     sx={{ marginRight: "4px" }}
                   />
-                  Desc
+                  décroissant
                 </ToggleButton>
               </ToggleButtonGroup>
             </Box>
@@ -278,7 +285,7 @@ const MainAppBar = ({
                 fontWeight: "bold",
               }}
             >
-              Apply
+              Appliquer
             </MenuItem>
           </Menu>
 
@@ -310,11 +317,14 @@ const MainAppBar = ({
               horizontal: "left",
             }}
           >
+            <MenuItem onClick={() => handleCulturalSelection("museums")}>
+              Musées
+            </MenuItem>
+            <MenuItem onClick={() => handleCulturalSelection("jardins")}>
+              Jardins Remarquables
+            </MenuItem>
             <MenuItem onClick={() => handleCulturalSelection("festivals")}>
               Festivals
-            </MenuItem>
-            <MenuItem onClick={() => handleCulturalSelection("museums")}>
-              Museums
             </MenuItem>
           </Menu>
 
