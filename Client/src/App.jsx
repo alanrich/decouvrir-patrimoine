@@ -12,7 +12,7 @@ import WorkspaceContainer from "./components/WorkspaceContainer/WorkspaceContain
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 
-console.warn = () => {};
+//console.warn = () => {};
 
 const AppContainer = styled("div")(({ theme }) => ({
   display: "flex",

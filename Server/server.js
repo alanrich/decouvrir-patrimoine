@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require("mongoose");
 const Museum = require("./models/museum");
 const Festival = require("./models/festival");
+const Jardin = require("./models/jardin");
 
 const mongoURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 3001;
@@ -24,13 +25,19 @@ const museumFieldMap = {
   name: "nom_officiel",
   city: "ville",
   genre: "domaine_thematique",
-  // Add other mappings when we decide how else to sort
 };
 
 const festivalFieldMap = {
   name: "nom_du_festival",
   city: "commune_principale_de_deroulement",
   genre: "discipline_dominante",
+};
+
+const jardinFieldMap = {
+  name: "nom_du_jardin",
+  city: "commune",
+  genre: "types",
+  type: "types", // Added this line to map 'type' to 'types'
 };
 
 // Museums Endpoint
@@ -45,47 +52,28 @@ app.get("/api/museums", async (req, res) => {
 
   const query = {};
 
-  // Apply Filtering
   if (searchTerm) {
     query.$text = { $search: searchTerm };
   }
 
-  // Apply Sorting
   const sort = {};
   if (sortBy) {
     const dbField = museumFieldMap[sortBy];
     if (dbField) {
       sort[dbField] = sortOrder === "asc" ? 1 : -1;
     } else {
-      console.error(`Invalid sort field: ${sortBy}`);
       return res.status(400).json({ error: "Invalid sort field" });
     }
   }
 
   try {
     const total = await Museum.countDocuments(query);
-    const data = await Museum.find(query, {
-      identifiant: 1,
-      nom_officiel: 1,
-      adresse: 1,
-      ville: 1,
-      region: 1,
-      coordonnees: 1,
-      url: 1,
-      telephone: 1,
-      categorie: 1,
-      histoire: 1,
-      personnage_phare: 1,
-      interet: 1,
-      annee_creation: 1,
-      domaine_thematique: 1,
-      artiste: 1,
-    })
+    const data = await Museum.find(query)
       .sort(sort)
       .collation({ locale: "fr", strength: 1 })
       .skip(page * rowsPerPage)
       .limit(parseInt(rowsPerPage))
-      .lean(); // returns plain js obj instead of mongoose doc for better perf.
+      .lean();
 
     res.json({ total, data });
   } catch (error) {
@@ -94,7 +82,6 @@ app.get("/api/museums", async (req, res) => {
   }
 });
 
-// Festivals Endpoint
 // Festivals Endpoint
 app.get("/api/festivals", async (req, res) => {
   const {
@@ -107,44 +94,25 @@ app.get("/api/festivals", async (req, res) => {
 
   const query = {};
 
-  // Apply Filtering
   if (searchTerm) {
     query.$text = { $search: searchTerm };
   }
 
-  // Apply Sorting
   const sort = {};
   if (sortBy) {
     const dbField = festivalFieldMap[sortBy];
     if (dbField) {
       sort[dbField] = sortOrder === "asc" ? 1 : -1;
     } else {
-      console.error(`Invalid sort field: ${sortBy}`);
       return res.status(400).json({ error: "Invalid sort field" });
     }
   }
 
   try {
     const total = await Festival.countDocuments(query);
-    const data = await Festival.find(query, {
-      identifiant: 1,
-      nom_du_festival: 1,
-      discipline_dominante: 1,
-      commune_principale_de_deroulement: 1,
-      annee_de_creation_du_festival: 1,
-      site_internet_du_festival: 1,
-      envergure_territoriale: 1,
-      adresse_postale: 1,
-      adresse_e_mail: 1,
-      sous_categorie_spectacle_vivant: 1,
-      sous_categorie_musique: 1,
-      sous_categorie_cinema_et_audiovisuel: 1,
-      sous_categorie_arts_visuels_et_arts_numeriques: 1,
-      sous_categorie_livre_et_litterature: 1,
-      geocodage_xy: 1,
-    })
+    const data = await Festival.find(query)
       .sort(sort)
-      .collation({ locale: "fr", strength: 1 }) // Lower strength to ignore diacritics
+      .collation({ locale: "fr", strength: 1 })
       .skip(page * rowsPerPage)
       .limit(parseInt(rowsPerPage))
       .lean();
@@ -156,8 +124,50 @@ app.get("/api/festivals", async (req, res) => {
   }
 });
 
+// Jardins Endpoint
+app.get("/api/jardins", async (req, res) => {
+  const {
+    page = 0,
+    rowsPerPage = 10,
+    sortBy,
+    sortOrder = "asc",
+    searchTerm,
+  } = req.query;
+
+  const query = {};
+
+  if (searchTerm) {
+    query.$text = { $search: searchTerm };
+  }
+
+  const sort = {};
+  if (sortBy) {
+    const dbField = jardinFieldMap[sortBy];
+    if (dbField) {
+      sort[dbField] = sortOrder === "asc" ? 1 : -1;
+    } else {
+      return res.status(400).json({ error: "Invalid sort field" });
+    }
+  }
+
+  try {
+    const total = await Jardin.countDocuments(query);
+    const data = await Jardin.find(query)
+      .sort(sort)
+      .collation({ locale: "fr", strength: 1 })
+      .skip(page * rowsPerPage)
+      .limit(parseInt(rowsPerPage))
+      .lean();
+
+    res.json({ total, data });
+  } catch (error) {
+    console.error("Error fetching jardins:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // Start the server
-app.listen(PORT, () => console.log("Server running on port 3001"));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 // Connect to MongoDB
 mongoose
@@ -168,6 +178,7 @@ mongoose
     try {
       await Museum.init();
       await Festival.init();
+      await Jardin.init();
       console.log("Indexes exist");
     } catch (error) {
       console.error("Error initializing indexes:", error);

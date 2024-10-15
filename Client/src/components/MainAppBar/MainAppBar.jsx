@@ -148,10 +148,7 @@ const MainAppBar = ({
             variant="h6"
             noWrap
             component="div"
-            sx={{
-              fontWeight: "bold",
-              color: theme.palette.grey[300],
-            }}
+            sx={theme.typography.fancyText}
           >
             Découvrir Patrimoine
           </Typography>
@@ -321,7 +318,7 @@ const MainAppBar = ({
               Musées
             </MenuItem>
             <MenuItem onClick={() => handleCulturalSelection("jardins")}>
-              Jardins Remarquables
+              Jardins
             </MenuItem>
             <MenuItem onClick={() => handleCulturalSelection("festivals")}>
               Festivals

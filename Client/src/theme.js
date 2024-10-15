@@ -30,6 +30,11 @@ const theme = createTheme({
     body1: { fontSize: "0.875rem" },
     body2: { fontSize: "0.8125rem" },
     subtitle1: { fontSize: "0.8rem", fontWeight: "bold" },
+    fancyText: {
+      fontWeight: "bold",
+      color: "#ddd",
+      textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)",
+    },
   },
   shape: {
     borderRadius: 3, // default border radius

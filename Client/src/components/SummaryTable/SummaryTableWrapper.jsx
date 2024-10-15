@@ -25,11 +25,17 @@ const SummaryTableWrapper = ({
         Header: "Genres",
         accessor: "genre",
         Cell: ({ value }) =>
-          Array.isArray(value) ? value.join(", ") : "Not available",
+          Array.isArray(value) ? value.join(", ") : "Non disponible",
       },
       { Header: "City", accessor: "city" },
     ];
   } else if (selectedDataSet === "festivals") {
+    columns = [
+      { Header: "Name", accessor: "name" },
+      { Header: "Genre", accessor: "genre" },
+      { Header: "City", accessor: "city" },
+    ];
+  } else if (selectedDataSet === "jardins") {
     columns = [
       { Header: "Name", accessor: "name" },
       { Header: "Genre", accessor: "genre" },

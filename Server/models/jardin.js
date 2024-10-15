@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const jardinsSchema = new mongoose.Schema({
+const jardinSchema = new mongoose.Schema({
   nom_du_jardin: String,
   code_postal: String,
   region: String,
@@ -33,15 +33,16 @@ const jardinsSchema = new mongoose.Schema({
   },
 });
 
-jardinsSchema.index({
+// Corrected the typo from 'tpes' to 'types'
+jardinSchema.index({
   nom_du_jardin: "text",
   commune: "text",
   types: "text",
 });
-jardinsSchema.index({ nom_du_jardin: 1 });
-jardinsSchema.index({ commune: 1 });
-jardinsSchema.index({ tpes: 1 });
+jardinSchema.index({ nom_du_jardin: 1 });
+jardinSchema.index({ commune: 1 });
+jardinSchema.index({ types: 1 }); // Corrected from 'tpes' to 'types'
 
-const Jardins = mongoose.model("Jardins", jardinsSchema);
+const Jardin = mongoose.model("Jardins", jardinSchema);
 
-module.exports = Jardins;
+module.exports = Jardin;
