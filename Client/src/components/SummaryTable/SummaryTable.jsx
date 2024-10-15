@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 
 const Resizer = ({ onMouseDown }) => {
+  const theme = useTheme();
   return (
     <div
       onMouseDown={onMouseDown}
@@ -26,7 +27,7 @@ const Resizer = ({ onMouseDown }) => {
         bottom: 0,
         zIndex: 10,
         width: "5px",
-        backgroundColor: "#808080",
+        backgroundColor: theme.palette.grey[500],
       }}
     />
   );
@@ -47,7 +48,7 @@ const SummaryTable = ({
   const theme = useTheme();
   const [columnWidths, setColumnWidths] = useState({});
 
-  const tableRef = useRef(null); // Used to calculate table size when resizing columns
+  const tableRef = useRef(null);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
       {
@@ -68,7 +69,7 @@ const SummaryTable = ({
     );
 
   const handleMouseDown = (columnId) => (event) => {
-    event.preventDefault(); // prevents text selection when resizing columns
+    event.preventDefault();
     const startX = event.clientX;
     const startWidth = columnWidths[columnId] || 150;
 
@@ -76,7 +77,7 @@ const SummaryTable = ({
       const newWidth = startWidth + event.clientX - startX;
       setColumnWidths((prevWidths) => ({
         ...prevWidths,
-        [columnId]: newWidth > 50 ? newWidth : 50, // Set a minimum column width
+        [columnId]: newWidth > 50 ? newWidth : 50,
       }));
     };
 
@@ -95,15 +96,14 @@ const SummaryTable = ({
     const tableWidth = tableRef.current.clientWidth;
     const initialColumnWidths = headerGroups[0]?.headers.reduce(
       (acc, column) => {
-        acc[column.id] = columnWidths[column.id] || tableWidth / columns.length; // Ensure a default width is set for each column
+        acc[column.id] = columnWidths[column.id] || tableWidth / columns.length;
         return acc;
       },
       {}
     );
 
     setColumnWidths(initialColumnWidths);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // run once on mount
+  }, []);
 
   return (
     <Box
@@ -111,9 +111,9 @@ const SummaryTable = ({
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        border: "1px solid #ddd",
-        borderRadius: "8px",
-        boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+        border: `1px solid ${theme.palette.grey[300]}`,
+        borderRadius: theme.shape.borderRadius,
+        boxShadow: theme.shadows[1],
         overflow: "hidden",
       }}
     >
@@ -148,10 +148,12 @@ const SummaryTable = ({
             {headerGroups.map((headerGroup) => (
               <TableRow
                 {...headerGroup.getHeaderGroupProps()}
-                sx={{ height: "36px" }}
+                sx={{
+                  height: "36px",
+                }}
               >
                 {headerGroup.headers.map((column, index) => {
-                  const isLastColumn = index === headerGroup.headers.length - 1; // we dont want the resizer on the end of the last column
+                  const isLastColumn = index === headerGroup.headers.length - 1;
                   return (
                     <TableCell
                       {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -160,9 +162,11 @@ const SummaryTable = ({
                         position: "sticky",
                         top: 0,
                         backgroundColor: theme.palette.primary.main,
-                        color: column.isSorted ? "#D3D3D3" : "#fff",
+                        color: column.isSorted
+                          ? theme.palette.grey[300]
+                          : theme.palette.common.white,
                         fontWeight: "bold",
-                        fontSize: ".8125rem",
+                        fontSize: theme.typography.body2.fontSize,
                         zIndex: 2,
                         whiteSpace: "nowrap",
                         overflow: "hidden",
@@ -177,12 +181,14 @@ const SummaryTable = ({
                         active={column.isSorted}
                         direction={column.isSortedDesc ? "desc" : "asc"}
                         sx={{
-                          color: "inherit", // Inherit color from TableCell
+                          color: "inherit",
                           "& .MuiTableSortLabel-icon": {
-                            color: column.isSorted ? "#D3D3D3" : "#fff", // Change arrow color when sorted
+                            color: column.isSorted
+                              ? theme.palette.grey[300]
+                              : theme.palette.common.white,
                           },
                           "&:hover": {
-                            color: "#D3D3D3", // Maintain hover color
+                            color: theme.palette.grey[300],
                           },
                         }}
                       >
@@ -208,7 +214,7 @@ const SummaryTable = ({
                   onClick={() => onSelect(row.original)}
                   sx={{
                     cursor: "pointer",
-                    "&:hover": { backgroundColor: "#e3f2fd" },
+                    "&:hover": { backgroundColor: theme.palette.primary.light },
                     "& .MuiTableCell-root": {
                       paddingTop: "10px",
                       paddingBottom: "10px",
@@ -223,7 +229,7 @@ const SummaryTable = ({
                           whiteSpace: "nowrap",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
-                          fontSize: ".72rem",
+                          fontSize: theme.typography.body2.fontSize,
                         }}
                       >
                         {cell.render("Cell")}
@@ -240,9 +246,9 @@ const SummaryTable = ({
       <Box
         sx={{
           flexShrink: 0,
-          borderTop: "1px solid #ddd",
+          borderTop: `1px solid ${theme.palette.grey[300]}`,
           padding: "0px 16px",
-          backgroundColor: "#808080",
+          backgroundColor: theme.palette.grey[500],
         }}
       >
         <TablePagination
@@ -261,13 +267,13 @@ const SummaryTable = ({
             padding: 0,
             "& .MuiToolbar-root": {
               height: "32px",
-              color: "#fff",
+              color: theme.palette.common.white,
               fontWeight: "bold",
             },
             "& .MuiTablePagination-displayedRows, & .MuiTablePagination-actions":
               {
-                fontSize: "0.8125rem",
-                color: "#fff",
+                fontSize: theme.typography.body2.fontSize,
+                color: theme.palette.common.white,
                 fontWeight: "bold",
               },
           }}

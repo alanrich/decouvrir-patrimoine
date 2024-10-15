@@ -4,42 +4,8 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import PropTypes from "prop-types";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import TabPanelContent from "./TabPanelContent";
-import "react-tabs/style/react-tabs.css"; // the default styles are creating the inconsistency in tabpanel height
-
-const tabStyles = {
-  tabList: {
-    display: "flex",
-    backgroundColor: "#1976d2",
-    height: "36px",
-    margin: 0,
-    padding: 0,
-    borderTopLeftRadius: "8px",
-    borderTopRightRadius: "8px",
-    alignItems: "center",
-  },
-  tab: {
-    flex: 1,
-    height: "100%",
-    padding: "0 16px",
-    textAlign: "center",
-    cursor: "pointer",
-    backgroundColor: "#1976d2",
-    color: "#FFFFFF",
-    fontWeight: "bold",
-    fontSize: ".8125rem",
-    border: "none",
-    outline: "none",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  selectedTab: {
-    backgroundColor: "#FFFFFF",
-    color: "#000000",
-    fontWeight: "bold",
-    fontSize: ".8125rem",
-  },
-};
+import { useTheme } from "@mui/material/styles";
+import "react-tabs/style/react-tabs.css";
 
 const DetailViewModal = ({
   isModalOpen,
@@ -50,8 +16,45 @@ const DetailViewModal = ({
   imageUrl,
   imageLoading,
   imageError,
-  object, // Add object prop to access the museum name
+  object,
 }) => {
+  const theme = useTheme();
+
+  const tabStyles = {
+    tabList: {
+      display: "flex",
+      backgroundColor: theme.palette.primary.main,
+      height: "36px",
+      margin: 0,
+      padding: 0,
+      borderTopLeftRadius: theme.shape.borderRadius,
+      borderTopRightRadius: theme.shape.borderRadius,
+      alignItems: "center",
+    },
+    tab: {
+      flex: 1,
+      height: "100%",
+      padding: "0 16px",
+      textAlign: "center",
+      cursor: "pointer",
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.common.white,
+      fontWeight: "bold",
+      fontSize: ".8125rem",
+      border: "none",
+      outline: "none",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    selectedTab: {
+      backgroundColor: theme.palette.common.white,
+      color: theme.palette.common.black,
+      fontWeight: "bold",
+      fontSize: ".8125rem",
+    },
+  };
+
   const filteredTabConfigs = tabConfigs.filter((tab) => tab.label !== "Photo");
 
   return (
@@ -70,10 +73,10 @@ const DetailViewModal = ({
           transform: "translate(-50%, -50%)",
           width: "90%",
           height: "90%",
-          bgcolor: "#e0e0e0", // Light grey background for the modal
+          bgcolor: theme.palette.grey[400],
           boxShadow: 24,
           p: 2,
-          borderRadius: "8px",
+          borderRadius: theme.shape.borderRadius,
           overflow: "hidden",
           display: "flex",
           flexDirection: "row",
@@ -87,7 +90,7 @@ const DetailViewModal = ({
             position: "absolute",
             top: 16,
             right: 16,
-            color: "#000000",
+            color: theme.palette.common.black,
           }}
         >
           <FullscreenExitIcon fontSize="small" />
@@ -96,22 +99,22 @@ const DetailViewModal = ({
         {/* Left Panel for Tabs and Content with Card-like styling */}
         <Box
           sx={{
-            flex: "1", // Left panel takes up half of the modal
+            flex: "1",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center", // Center vertically
-            alignItems: "center", // Center horizontally
-            height: "100%", // Full height of the panel
-            padding: "16px", // Equal padding on left and right
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+            padding: theme.spacing(2),
           }}
         >
           <Box
             sx={{
               width: "100%",
               height: "90%",
-              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Elevated shadow
-              borderRadius: "8px",
-              backgroundColor: "#fff",
+              boxShadow: theme.shadows[1],
+              borderRadius: theme.shape.borderRadius,
+              backgroundColor: theme.palette.background.paper,
               display: "flex",
               flexDirection: "column",
               overflow: "hidden",
@@ -135,7 +138,7 @@ const DetailViewModal = ({
                   height: "36px",
                   display: "flex",
                   alignItems: "center",
-                  backgroundColor: "#1976d2",
+                  backgroundColor: theme.palette.primary.main,
                   borderBottom: "none",
                 }}
               >
@@ -145,9 +148,9 @@ const DetailViewModal = ({
                     style={{
                       ...tabStyles.tab,
                       ...(tabValue === index ? tabStyles.selectedTab : {}),
-                      padding: "0", // Override default padding
-                      margin: "0", // Override default margin
-                      height: "100%", // Ensure full height
+                      padding: "0",
+                      margin: "0",
+                      height: "100%",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -167,16 +170,16 @@ const DetailViewModal = ({
                   style={{
                     flex: 1,
                     overflow: "hidden",
-                    ...(tab.label === "Histoire" && {
+                    ...(["Histoire", "Œuvres"].includes(tab.label) && {
                       maxWidth: "85%",
-                      margin: "0 auto", // Center the text
+                      margin: "0 auto",
                     }),
                   }}
                 >
                   <TabPanelContent
                     fields={tab.fields}
                     isModal={true}
-                    fontSize="0.875rem"
+                    fontSize={theme.typography.body1.fontSize}
                   />
                 </TabPanel>
               ))}
@@ -187,12 +190,12 @@ const DetailViewModal = ({
         {/* Right Panel for the Image */}
         <Box
           sx={{
-            flex: "1", // Right panel takes up half of the modal
+            flex: "1",
             display: "flex",
-            flexDirection: "column", // Stack image and name vertically
+            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            padding: "16px", // Equal padding for spacing
+            padding: theme.spacing(2),
           }}
         >
           {imageLoading && <Typography>Loading image...</Typography>}
@@ -206,7 +209,7 @@ const DetailViewModal = ({
                   maxWidth: "100%",
                   maxHeight: "100%",
                   objectFit: "cover",
-                  borderRadius: "8px",
+                  borderRadius: theme.shape.borderRadius,
                 }}
               />
               {/* Display the museum name under the photo */}
@@ -214,7 +217,7 @@ const DetailViewModal = ({
                 <Typography
                   variant="h6"
                   sx={{
-                    mt: 2, // Add margin to separate from the image
+                    mt: 2,
                     fontWeight: "bold",
                     textAlign: "center",
                   }}
@@ -239,7 +242,7 @@ DetailViewModal.propTypes = {
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
-  object: PropTypes.object.isRequired, // Ensure object is passed in with name
+  object: PropTypes.object.isRequired,
 };
 
 export default DetailViewModal;

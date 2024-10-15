@@ -1,21 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Typography, Grid } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 
 const FieldTitle = styled(Typography)(({ theme, isModal }) => ({
   display: "inline-block",
-  backgroundColor: "#e0f7fa",
+  backgroundColor: theme.palette.grey[400],
   color: theme.palette.text.primary,
   padding: "6px 12px",
-  borderRadius: "20px",
-  marginBottom: "8px",
+  borderRadius: theme.shape.borderRadiusLarge,
+  marginBottom: theme.spacing(1),
   fontWeight: "bold",
-  fontSize: isModal ? "1rem" : ".8rem",
+  fontSize: isModal ? "1rem" : theme.typography.subtitle1.fontSize,
 }));
 
 const Field = ({ title, value, type, isModal, fontSize }) => {
   const isHistoire = title.toLowerCase() === "histoire";
+  const theme = useTheme();
 
   const titleVariant = isModal ? "h6" : "subtitle1";
   const valueFontSize =
@@ -30,9 +31,9 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
         <Typography
           variant="body2"
           sx={{
-            marginLeft: 1,
+            marginLeft: theme.spacing(1),
             fontSize: isModal ? ".75rem" : ".8rem",
-            marginTop: isModal ? "4px" : "0px",
+            marginTop: isModal ? theme.spacing(0.5) : "0px",
           }}
         >
           <a href={`http://${value}`} target="_blank" rel="noopener noreferrer">
@@ -44,19 +45,15 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
   }
 
   return (
-    <Grid
-      item
-      xs={12}
-      sx={isHistoire ? { width: "100%" } : {}} // Full width for "Histoire"
-    >
+    <Grid item xs={12} sx={isHistoire ? { width: "100%" } : {}}>
       <FieldTitle variant={titleVariant} isModal={isModal}>
         {title}:
       </FieldTitle>
       <Typography
         variant="body1"
         sx={{
-          marginLeft: 1,
-          fontSize: valueFontSize, // Using font size passed down
+          marginLeft: theme.spacing(1),
+          fontSize: valueFontSize,
         }}
       >
         {value || "N/A"}
@@ -74,7 +71,7 @@ Field.propTypes = {
   ]),
   type: PropTypes.string,
   isModal: PropTypes.bool,
-  fontSize: PropTypes.string, // Add fontSize as prop to adjust content size
+  fontSize: PropTypes.string,
 };
 
 Field.defaultProps = {
@@ -83,6 +80,7 @@ Field.defaultProps = {
 };
 
 const TabPanelContent = ({ fields, isModal, fontSize }) => {
+  const theme = useTheme();
   return (
     <div
       style={{
@@ -98,8 +96,8 @@ const TabPanelContent = ({ fields, isModal, fontSize }) => {
           flex: 1,
           overflowY: "auto",
           border: "none",
-          paddingLeft: "16px",
-          paddingTop: "32px",
+          paddingLeft: theme.spacing(2),
+          paddingTop: theme.spacing(4),
         }}
       >
         {fields.map((field) => (
@@ -128,12 +126,12 @@ TabPanelContent.propTypes = {
     })
   ).isRequired,
   isModal: PropTypes.bool,
-  fontSize: PropTypes.string, // Add fontSize prop
+  fontSize: PropTypes.string,
 };
 
 TabPanelContent.defaultProps = {
   isModal: false,
-  fontSize: "1rem", // Default size
+  fontSize: "1rem",
 };
 
 export default TabPanelContent;

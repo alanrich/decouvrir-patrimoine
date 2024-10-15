@@ -19,6 +19,7 @@ import SortIcon from "@mui/icons-material/Sort";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { useTheme } from "@mui/material/styles";
 
 const MainAppBar = ({
   searchTerm,
@@ -30,6 +31,7 @@ const MainAppBar = ({
   selectedDataSet,
   setSelectedDataSet,
 }) => {
+  const theme = useTheme();
   // Sorting Menu State
   const [anchorElSort, setAnchorElSort] = useState(null);
   const openSort = Boolean(anchorElSort);
@@ -126,20 +128,22 @@ const MainAppBar = ({
           justifyContent: "space-between",
           alignItems: "center",
           height: "100%",
-          paddingLeft: "16px",
-          paddingRight: "16px",
-          minHeight: "64px", // Ensure height doesn't change
+          paddingLeft: theme.spacing(2),
+          paddingRight: theme.spacing(2),
+          minHeight: "64px",
         }}
       >
         {/* Left: App name */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        <Box
+          sx={{ display: "flex", alignItems: "center", gap: theme.spacing(1) }}
+        >
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{
               fontWeight: "bold",
-              color: "#D3D3D3",
+              color: theme.palette.grey[300],
             }}
           >
             Anabasis
@@ -151,7 +155,7 @@ const MainAppBar = ({
           sx={{
             display: "flex",
             alignItems: "center",
-            gap: "16px",
+            gap: theme.spacing(2),
             flexGrow: 1,
             justifyContent: "flex-end",
           }}
@@ -174,7 +178,7 @@ const MainAppBar = ({
               sx={{
                 display: "flex",
                 alignItems: "center",
-                backgroundColor: "#f1f3f4",
+                backgroundColor: theme.palette.grey[200],
                 borderRadius: "24px",
                 padding: "0 8px",
                 height: "40px",
@@ -199,11 +203,12 @@ const MainAppBar = ({
             onClick={handleSortMenuOpen}
             startIcon={<SortIcon />}
             sx={{
-              backgroundColor: "#fff",
+              backgroundColor: theme.palette.background.paper,
               textTransform: "none",
-              fontSize: "0.875rem",
+              fontSize: theme.typography.body1.fontSize,
               minWidth: "80px",
               height: "40px",
+              borderRadius: theme.shape.borderRadiusMedium,
             }}
           >
             Sort
@@ -220,14 +225,17 @@ const MainAppBar = ({
                 key={option.value}
                 selected={option.value === localSortBy}
                 onClick={() => setLocalSortBy(option.value)}
-                sx={{ fontSize: "0.875rem" }}
+                sx={{ fontSize: theme.typography.body2.fontSize }}
               >
                 {option.label}
               </MenuItem>
             ))}
             <Divider />
             <Box sx={{ padding: "0.5rem 1.5rem" }}>
-              <Typography variant="body2" sx={{ marginBottom: "0.5rem" }}>
+              <Typography
+                variant="body2"
+                sx={{ marginBottom: "0.5rem", fontSize: "0.8125rem" }}
+              >
                 Sort Order
               </Typography>
               <ToggleButtonGroup
@@ -279,11 +287,12 @@ const MainAppBar = ({
             variant="outlined"
             onClick={handleCulturalMenuOpen}
             sx={{
-              backgroundColor: "#fff",
+              backgroundColor: theme.palette.background.paper,
               textTransform: "none",
-              fontSize: "0.875rem",
+              fontSize: theme.typography.body1.fontSize,
               minWidth: "200px",
               height: "40px",
+              borderRadius: theme.shape.borderRadiusMedium,
             }}
           >
             Sélectionner un Lieu Culturel

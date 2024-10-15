@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -10,19 +9,8 @@ import { useDomainObjects } from "./hooks/useDomainObjects";
 import { usePersistentSelectedObject } from "./hooks/usePersistentSelectedObject";
 import ErrorBoundary from "./components/ErrorBoundary";
 import WorkspaceContainer from "./components/WorkspaceContainer/WorkspaceContainer";
-
-const theme = createTheme({
-  palette: {
-    primary: { main: "#1976d2" },
-    secondary: { main: "#f50057" },
-    background: { default: "#f4f6f8", paper: "#fff" },
-    text: { primary: "#333", secondary: "#555" },
-  },
-  typography: {
-    fontFamily: "Roboto, Arial, sans-serif",
-    h5: { fontWeight: 500, letterSpacing: "0.02em" },
-  },
-});
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
 
 const AppContainer = styled("div")(({ theme }) => ({
   display: "flex",
@@ -87,7 +75,6 @@ function App() {
       <ErrorBoundary>
         <Router>
           <AppContainer>
-            {/* Removed setSelectedDataSet prop */}
             <MainDrawer />
 
             <div

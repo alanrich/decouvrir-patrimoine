@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import { Box, CircularProgress } from "@mui/material";
 import SummaryTableWrapper from "../SummaryTable/SummaryTableWrapper";
 import DetailViewWrapper from "../DetailView/DetailViewWrapper";
+import { useTheme } from "@mui/material/styles";
 
 const MapView = lazy(() => import("../MapView/MapView"));
 
@@ -14,11 +15,11 @@ const StyledWorkspaceContainer = styled("div")({
   overflow: "auto",
 });
 
-const LeftPane = styled("div")({
+const LeftPane = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   flex: 1,
-  padding: "1rem",
+  padding: theme.spacing(2),
   height: "100%",
   width: "50%",
   overflow: "hidden",
@@ -29,15 +30,15 @@ const LeftPane = styled("div")({
     flex: "0 0 50%",
     overflow: "hidden",
   },
-});
+}));
 
-const RightPane = styled("div")({
+const RightPane = styled("div")(({ theme }) => ({
   display: "flex",
   flex: 1,
   width: "50%",
-  padding: "1rem",
-  backgroundColor: "#e0e0e0",
-});
+  padding: theme.spacing(2),
+  backgroundColor: theme.palette.grey[400],
+}));
 
 const WorkspaceContainer = ({
   loading,
@@ -57,6 +58,7 @@ const WorkspaceContainer = ({
   selectedObjectLoaded,
   setSelectedObject,
 }) => {
+  const theme = useTheme();
   return (
     <StyledWorkspaceContainer>
       <LeftPane>
@@ -97,7 +99,7 @@ const WorkspaceContainer = ({
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            mt: "1rem",
+            mt: theme.spacing(2),
             width: "100%",
           }}
         >

@@ -4,53 +4,10 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import PropTypes from "prop-types";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css"; // the default styles are creating the inconsistency in tabpanel height
+import "react-tabs/style/react-tabs.css";
 import TabPanelContent from "./TabPanelContent";
 import DetailViewModal from "./DetailViewModal";
-
-const tabStyles = {
-  tabList: {
-    display: "flex",
-    backgroundColor: "#1976d2",
-    borderBottom: "1px solid #ddd",
-    height: "36px",
-    margin: 0,
-    padding: 0,
-    position: "sticky",
-    top: 0,
-    zIndex: 2,
-    alignItems: "center",
-  },
-  tab: {
-    flex: 1,
-    height: "100%",
-    padding: "0 16px",
-    textAlign: "center",
-    cursor: "pointer",
-    backgroundColor: "#1976d2",
-    color: "#FFFFFF",
-    fontWeight: "bold",
-    fontSize: ".8125rem",
-    border: "none",
-    outline: "none",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  selectedTab: {
-    backgroundColor: "#FFFFFF",
-    color: "#000000",
-    fontWeight: "bold",
-    fontSize: ".8125rem",
-  },
-  fullscreenIcon: {
-    marginLeft: "auto",
-    padding: "4px",
-    color: "#FFFFFF",
-    border: "none",
-    outline: "none",
-  },
-};
+import { useTheme } from "@mui/material/styles";
 
 const DetailView = memo(
   ({
@@ -65,6 +22,52 @@ const DetailView = memo(
     imageError,
     tabConfigs,
   }) => {
+    const theme = useTheme();
+
+    const tabStyles = {
+      tabList: {
+        display: "flex",
+        backgroundColor: theme.palette.primary.main,
+        borderBottom: `1px solid ${theme.palette.grey[300]}`,
+        height: "36px",
+        margin: 0,
+        padding: 0,
+        position: "sticky",
+        top: 0,
+        zIndex: 2,
+        alignItems: "center",
+      },
+      tab: {
+        flex: 1,
+        height: "100%",
+        padding: "0 16px",
+        textAlign: "center",
+        cursor: "pointer",
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.common.white,
+        fontWeight: "bold",
+        fontSize: ".8125rem",
+        border: "none",
+        outline: "none",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      },
+      selectedTab: {
+        backgroundColor: theme.palette.common.white,
+        color: theme.palette.common.black,
+        fontWeight: "bold",
+        fontSize: ".8125rem",
+      },
+      fullscreenIcon: {
+        marginLeft: "auto",
+        padding: "4px",
+        color: theme.palette.common.white,
+        border: "none",
+        outline: "none",
+      },
+    };
+
     if (!object) {
       return (
         <Box
@@ -72,12 +75,12 @@ const DetailView = memo(
             display: "flex",
             flexDirection: "column",
             flex: 1,
-            boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
-            borderRadius: "8px",
-            border: "2px solid #ddd",
+            boxShadow: theme.shadows[1],
+            borderRadius: theme.shape.borderRadius,
+            border: `2px solid ${theme.palette.grey[300]}`,
             overflow: "hidden",
             mb: "8px",
-            padding: "16px",
+            padding: theme.spacing(2),
             height: "100%",
           }}
         >
@@ -93,9 +96,9 @@ const DetailView = memo(
             display: "flex",
             flexDirection: "column",
             flex: 1,
-            boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
-            borderRadius: "8px",
-            border: "1px solid #ddd",
+            boxShadow: theme.shadows[1],
+            borderRadius: theme.shape.borderRadius,
+            border: `1px solid ${theme.palette.grey[300]}`,
             overflow: "hidden",
             height: "100%",
             mb: "8px",
@@ -120,8 +123,7 @@ const DetailView = memo(
                   height: "36px",
                   display: "flex",
                   alignItems: "center",
-                  backgroundColor: "#1976d2",
-                  borderBottom: "1px solid #ddd",
+                  backgroundColor: theme.palette.primary.main,
                 }}
               >
                 {tabConfigs.map((tab, index) => (
@@ -130,9 +132,9 @@ const DetailView = memo(
                     style={{
                       ...tabStyles.tab,
                       ...(tabValue === index ? tabStyles.selectedTab : {}),
-                      padding: "0", // Override default padding
-                      margin: "0", // Override default margin
-                      height: "100%", // Ensure full height to create a uniform tablist unaffected by FullscreenIcon
+                      padding: "0",
+                      margin: "0",
+                      height: "100%",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -152,7 +154,7 @@ const DetailView = memo(
                     height: "100%",
                     display: "flex",
                     alignItems: "center",
-                    padding: "0 16px", // Match the Tabs' horizontal padding
+                    padding: "0 16px",
                   }}
                   size="small"
                 >
@@ -165,7 +167,18 @@ const DetailView = memo(
               </TabList>
 
               {tabConfigs.map((tab, index) => (
-                <TabPanel key={index} style={{ flex: 1, overflow: "hidden" }}>
+                <TabPanel
+                  key={index}
+                  style={{
+                    flex: 1,
+                    overflow: "hidden",
+                    // This modificaatoin needs some help fron ChatGPT
+                    ...(["Histoire", "Œuvres"].includes(tab.label) && {
+                      maxWidth: "85%",
+                      margin: "0 auto",
+                    }),
+                  }}
+                >
                   {tab.label === "Photo" ? (
                     // Special handling for the Photo tab
                     <Box
@@ -173,9 +186,9 @@ const DetailView = memo(
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        overflowY: "auto", // Make photo tab scrollable
-                        height: "100%", // Full height available
-                        padding: "16px",
+                        overflowY: "auto",
+                        height: "100%",
+                        padding: theme.spacing(2),
                       }}
                     >
                       {imageLoading && (
@@ -193,7 +206,10 @@ const DetailView = memo(
                       )}
                     </Box>
                   ) : (
-                    <TabPanelContent fields={tab.fields} fontSize="0.875rem" />
+                    <TabPanelContent
+                      fields={tab.fields}
+                      fontSize={theme.typography.body1.fontSize}
+                    />
                   )}
                 </TabPanel>
               ))}
@@ -203,12 +219,12 @@ const DetailView = memo(
           <Box
             sx={{
               flexShrink: 0,
-              borderTop: "1px solid #ddd",
+              borderTop: `1px solid ${theme.palette.grey[300]}`,
               padding: "0px 16px",
-              backgroundColor: "#808080",
+              backgroundColor: theme.palette.grey[500],
               height: "32px",
-              borderBottomLeftRadius: "8px",
-              borderBottomRightRadius: "8px",
+              borderBottomLeftRadius: theme.shape.borderRadius,
+              borderBottomRightRadius: theme.shape.borderRadius,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -216,7 +232,7 @@ const DetailView = memo(
           >
             <Typography
               sx={{
-                color: "#fff",
+                color: theme.palette.common.white,
                 fontWeight: "bold",
                 whiteSpace: "nowrap",
                 overflow: "hidden",

@@ -51,7 +51,7 @@ const MainDrawer = () => {
                 minWidth: "0",
                 display: "flex",
                 justifyContent: "center",
-                color: "#fff",
+                color: theme.palette.common.white,
               }}
             >
               {item.icon}
@@ -77,7 +77,7 @@ const MainDrawer = () => {
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
                 width: 60,
-                backgroundColor: "#808080",
+                backgroundColor: theme.palette.grey[500],
               },
             }}
           >
@@ -94,7 +94,7 @@ const MainDrawer = () => {
             "& .MuiDrawer-paper": {
               width: 60,
               boxSizing: "border-box",
-              backgroundColor: "#808080",
+              backgroundColor: theme.palette.grey[500],
             },
           }}
         >
