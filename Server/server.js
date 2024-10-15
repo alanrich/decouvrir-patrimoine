@@ -95,6 +95,7 @@ app.get("/api/museums", async (req, res) => {
 });
 
 // Festivals Endpoint
+// Festivals Endpoint
 app.get("/api/festivals", async (req, res) => {
   const {
     page = 0,
@@ -143,7 +144,7 @@ app.get("/api/festivals", async (req, res) => {
       geocodage_xy: 1,
     })
       .sort(sort)
-      .collation({ locale: "fr", strength: 2 }) // Modify collation for proper French sorting, sort then format
+      .collation({ locale: "fr", strength: 1 }) // Lower strength to ignore diacritics
       .skip(page * rowsPerPage)
       .limit(parseInt(rowsPerPage))
       .lean();

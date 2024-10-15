@@ -3,7 +3,6 @@ import louvre from "../assets/louvre.json";
 
 export const usePersistentSelectedObject = () => {
   const [selectedObject, setSelectedObject] = useState(null);
-  console.log(JSON.stringify(selectedObject));
   // flag for the Map to open with center placed upon geoLocation of selectedObject held in localStorage
   const [selectedObjectLoaded, setSelectedObjectLoaded] = useState(false);
 
