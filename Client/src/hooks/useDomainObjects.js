@@ -14,8 +14,6 @@ export const useDomainObjects = (
   const [totalObjects, setTotalObjects] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const API_BASE_URL = "http://localhost:3001";
-
   useEffect(() => {
     // Fetch the data from the API
     const fetchData = async () => {
@@ -33,7 +31,7 @@ export const useDomainObjects = (
 
         const constructApiUrl = (endpoint) => {
           return (
-            `${API_BASE_URL}/api/${endpoint}?page=${page}` +
+            `/api/${endpoint}?page=${page}` +
             `&rowsPerPage=${rowsPerPage}${sortParam}${searchParam}`
           );
         };
@@ -52,12 +50,8 @@ export const useDomainObjects = (
 
         const response = await fetch(apiUrl, {
           method: "GET",
-          mode: "cors",
-          credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "x-requested-with": "XMLHttpRequest",
-            Accept: "application/json",
           },
         });
 
