@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    primary: { main: "#1976d2" }, // primary blue
+    primary: { main: "#003366" }, //   marine blue = #2B517A     navy = #001f3d       medium-navy = #002952    light-navy = #003366
     secondary: { main: "#f50057" },
     background: {
       default: "#f4f6f8",
@@ -13,14 +13,37 @@ const theme = createTheme({
       secondary: "#555",
     },
     grey: {
-      300: "#ddd",
-      400: "#e0e0e0",
-      500: "#808080",
+      100: "#8da9bf",
+      200: "#7e96aa",
+      300: "#6e8494",
+      400: "#5e717f",
+      500: "#4f5e6a",
+      600: "#3f4b55",
+      700: "#2f3840",
     },
     black: {
       300: "#1A1A1A",
       400: "#333333",
       500: "#000000",
+    },
+    bordeaux: {
+      100: "#56001f",
+      200: "#4a001a",
+      300: "#3e0016",
+      400: "#310012",
+      500: "#25000d",
+      600: "#190009",
+    },
+    marine: {
+      100: "#023562",
+      200: "#012647",
+      300: "#01223f",
+      400: "#011e37",
+      500: "#001527",
+    },
+    blue: {
+      100: "#0059b3",
+      200: "#0066CC",
     },
   },
   typography: {
