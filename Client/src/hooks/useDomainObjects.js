@@ -43,6 +43,8 @@ export const useDomainObjects = (
           apiUrl = constructApiUrl("festivals");
         } else if (selectedDataSet === "jardins") {
           apiUrl = constructApiUrl("jardins");
+        } else if (selectedDataSet === "maisonsDesIllustres") {
+          apiUrl = constructApiUrl("maisons-des-illustres");
         }
 
         const response = await fetch(apiUrl, {
@@ -128,6 +130,27 @@ export const useDomainObjects = (
                 return {
                   id: object.identifiant_deps || object.identifiant_origine,
                   name: formatFrench(object.nom_du_jardin),
+                  city: formatFrench(object.commune),
+                  genre:
+                    formatFrench(object.types.join(", ")) || "Non disponible",
+                  latitude: object.coordonnees_geographiques.lat,
+                  longitude: object.coordonnees_geographiques.lon,
+                  rawData: object,
+                  dataSet: selectedDataSet,
+                };
+              }
+            }
+            if (selectedDataSet === "maisonsDesIllustres") {
+              if (
+                object.nom &&
+                object.commune &&
+                object.coordonnees_geographiques &&
+                typeof object.coordonnees_geographiques.lat === "number" &&
+                typeof object.coordonnees_geographiques.lon === "number"
+              ) {
+                return {
+                  id: object.identifiant_deps || object.identifiant_origine,
+                  name: formatFrench(object.nom),
                   city: formatFrench(object.commune),
                   genre:
                     formatFrench(object.types.join(", ")) || "Non disponible",

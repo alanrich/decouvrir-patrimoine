@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const Museum = require("./models/museum");
 const Festival = require("./models/festival");
 const Jardin = require("./models/jardin");
+const MaisonsDesIllustres = require("./models/maisonsDesIllustres");
 
 const mongoURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 3001;
@@ -37,7 +38,13 @@ const jardinFieldMap = {
   name: "nom_du_jardin",
   city: "commune",
   genre: "types",
-  type: "types", // Added this line to map 'type' to 'types'
+  type: "types",
+};
+
+const maisonsDesIllustresFieldMap = {
+  name: "nom",
+  city: "commune",
+  genre: "types",
 };
 
 // Museums Endpoint
@@ -92,7 +99,6 @@ app.get("/api/festivals", async (req, res) => {
     searchTerm,
   } = req.query;
 
-  // Update the query to include only valid festivals
   const query = {
     commune_principale_de_deroulement: { $exists: true, $ne: null },
     "geocodage_xy.lat": { $type: "number" },
@@ -171,6 +177,48 @@ app.get("/api/jardins", async (req, res) => {
   }
 });
 
+// Maisons des Illustres Endpoint
+app.get("/api/maisons-des-illustres", async (req, res) => {
+  const {
+    page = 0,
+    rowsPerPage = 10,
+    sortBy,
+    sortOrder = "asc",
+    searchTerm,
+  } = req.query;
+
+  const query = {};
+
+  if (searchTerm) {
+    query.$text = { $search: searchTerm };
+  }
+
+  const sort = {};
+  if (sortBy) {
+    const dbField = maisonsDesIllustresFieldMap[sortBy];
+    if (dbField) {
+      sort[dbField] = sortOrder === "asc" ? 1 : -1;
+    } else {
+      return res.status(400).json({ error: "Invalid sort field" });
+    }
+  }
+
+  try {
+    const total = await MaisonsDesIllustres.countDocuments(query);
+    const data = await MaisonsDesIllustres.find(query)
+      .sort(sort)
+      .collation({ locale: "fr", strength: 1 })
+      .skip(page * rowsPerPage)
+      .limit(parseInt(rowsPerPage))
+      .lean();
+
+    res.json({ total, data });
+  } catch (error) {
+    console.error("Error fetching maisons des illustres:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
@@ -184,6 +232,7 @@ mongoose
       await Museum.init();
       await Festival.init();
       await Jardin.init();
+      await MaisonsDesIllustres.init();
       console.log("Indexes exist");
     } catch (error) {
       console.error("Error initializing indexes:", error);

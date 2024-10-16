@@ -41,6 +41,17 @@ const SummaryTableWrapper = ({
       { Header: "Genre", accessor: "genre" },
       { Header: "City", accessor: "city" },
     ];
+  } else if (selectedDataSet === "maisonsDesIllustres") {
+    columns = [
+      { Header: "Name", accessor: "name" },
+      {
+        Header: "Genre",
+        accessor: "genre",
+        Cell: ({ value }) =>
+          Array.isArray(value) ? value.join(", ") : "Non disponible",
+      },
+      { Header: "City", accessor: "city" },
+    ];
   }
 
   return (
