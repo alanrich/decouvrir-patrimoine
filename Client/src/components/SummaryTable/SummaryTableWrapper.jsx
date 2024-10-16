@@ -52,6 +52,17 @@ const SummaryTableWrapper = ({
       },
       { Header: "City", accessor: "city" },
     ];
+  } else if (selectedDataSet === "architectureContemporaines") {
+    columns = [
+      { Header: "Name", accessor: "name" },
+      {
+        Header: "Genre",
+        accessor: "genre",
+        Cell: ({ value }) =>
+          Array.isArray(value) ? value.join(", ") : "Non disponible",
+      },
+      { Header: "City", accessor: "city" },
+    ];
   }
 
   return (

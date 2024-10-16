@@ -45,6 +45,8 @@ export const useDomainObjects = (
           apiUrl = constructApiUrl("jardins");
         } else if (selectedDataSet === "maisonsDesIllustres") {
           apiUrl = constructApiUrl("maisons-des-illustres");
+        } else if (selectedDataSet === "architectureContemporaines") {
+          apiUrl = constructApiUrl("architecture-contemporaines");
         }
 
         const response = await fetch(apiUrl, {
@@ -156,6 +158,28 @@ export const useDomainObjects = (
                     formatFrench(object.types.join(", ")) || "Non disponible",
                   latitude: object.coordonnees_geographiques.lat,
                   longitude: object.coordonnees_geographiques.lon,
+                  rawData: object,
+                  dataSet: selectedDataSet,
+                };
+              }
+            }
+            if (selectedDataSet === "architectureContemporaines") {
+              if (
+                object.titre_courant &&
+                object.commune &&
+                object.coordonnees_geographiques &&
+                typeof object.coordonnees_geographiques.lat === "number" &&
+                typeof object.coordonnees_geographiques.lon === "number"
+              ) {
+                return {
+                  id: object.reference_de_la_notice,
+                  name: formatFrench(object.titre_courant),
+                  city: formatFrench(object.commune),
+                  genre:
+                    formatFrench(object.denominations.join(", ")) ||
+                    "Non disponible",
+                  latitude: object.coordonnees.lat,
+                  longitude: object.coordonnees.lon,
                   rawData: object,
                   dataSet: selectedDataSet,
                 };

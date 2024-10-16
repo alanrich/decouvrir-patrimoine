@@ -71,6 +71,11 @@ const MainAppBar = ({
       { value: "city", label: "Ville" },
       { value: "genre", label: "Genre" },
     ],
+    architectureContemporaines: [
+      { value: "name", label: "Nom" },
+      { value: "city", label: "Ville" },
+      { value: "genre", label: "Genre" },
+    ],
   };
 
   const sortOptions = sortOptionsMap[selectedDataSet] || sortOptionsMap.museums;
@@ -331,6 +336,13 @@ const MainAppBar = ({
               onClick={() => handleCulturalSelection("maisonsDesIllustres")}
             >
               Maisons des Illustres
+            </MenuItem>
+            <MenuItem
+              onClick={() =>
+                handleCulturalSelection("architectureContemporaines")
+              }
+            >
+              Architecture Contemporaine
             </MenuItem>
           </Menu>
 
