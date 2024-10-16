@@ -43,40 +43,43 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             fields: [],
           },
           {
-            label: "Overview",
+            label: "Aperçu",
             fields: [
-              { title: "Name", value: object?.name },
-              { title: "Address", value: object?.address },
-              { title: "City", value: object?.city },
+              { title: "Nom", value: object?.name },
+              { title: "Adresse", value: object?.address },
+              { title: "Ville", value: object?.city },
               {
-                title: "Notable Artists",
+                title: "Artistes Notables",
                 value: object?.rawData?.personnage_phare,
               },
               { title: "Category", value: object?.rawData?.categorie },
               {
-                title: "Themes",
+                title: "Thèmes",
                 value: Array.isArray(object?.rawData?.domaine_thematique)
                   ? object.rawData.domaine_thematique.join(", ")
-                  : "Not available",
+                  : "Non Disponible",
               },
             ],
           },
           {
-            label: "History",
-            fields: [{ title: "History", value: object?.rawData?.histoire }],
+            label: "Histoire",
+            fields: [{ title: "Histoire", value: object?.rawData?.histoire }],
           },
           {
-            label: "Works",
+            label: "Œuvres",
             fields: [
-              { title: "Artists", value: object?.rawData?.artiste },
-              { title: "Themes", value: object?.rawData?.themes },
+              { title: "Artistes", value: object?.rawData?.artiste },
+              { title: "Thèmes", value: object?.rawData?.themes },
             ],
           },
           {
             label: "Info",
             fields: [
-              { title: "Phone", value: object?.rawData?.telephone },
-              { title: "Website", value: object?.rawData?.url, type: "link" },
+              {
+                title: "Numéro de Téléphone",
+                value: object?.rawData?.telephone,
+              },
+              { title: "Site Web", value: object?.rawData?.url, type: "URL" },
             ],
           },
         ];
@@ -87,29 +90,29 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             fields: [],
           },
           {
-            label: "Overview",
+            label: "Aperçu",
             fields: [
-              { title: "Name", value: object?.name },
-              { title: "Address", value: object?.address },
-              { title: "City", value: object?.city },
+              { title: "Nom", value: object?.name },
+              { title: "Adresse", value: object?.address },
+              { title: "Ville", value: object?.city },
               { title: "Genre", value: object?.genre },
               {
-                title: "Website",
+                title: "Site Web",
                 value: object?.rawData?.site_internet_du_festival,
-                type: "link",
+                type: "URL",
               },
               { title: "Email", value: object?.rawData?.adresse_e_mail },
             ],
           },
           {
-            label: "Details",
+            label: "Détails",
             fields: [
               {
                 title: "Discipline",
                 value: object?.rawData?.discipline_dominante,
               },
               {
-                title: "Scale",
+                title: "Échelle",
                 value: object?.rawData?.envergure_territoriale,
               },
             ],
@@ -122,16 +125,16 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             fields: [],
           },
           {
-            label: "Overview",
+            label: "Aperçu",
             fields: [
-              { title: "Name", value: object?.name },
-              { title: "Address", value: object?.rawData?.adresse_complete },
-              { title: "City", value: object?.city },
+              { title: "Nom", value: object?.name },
+              { title: "Adresse", value: object?.rawData?.adresse_complete },
+              { title: "Ville", value: object?.city },
               {
                 title: "Types",
                 value: Array.isArray(object?.rawData?.types)
                   ? object.rawData.types.join(", ")
-                  : "Not available",
+                  : "Non disponible",
               },
               { title: "Description", value: object?.rawData?.description },
             ],
@@ -140,15 +143,15 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             label: "Info",
             fields: [
               {
-                title: "Website",
+                title: "Site Web",
                 value: object?.rawData?.site_internet_et_autres_liens?.[0],
-                type: "link",
+                type: "URL",
               },
               {
-                title: "Accessible to Public",
+                title: "Accessible au Public",
                 value: Array.isArray(object?.rawData?.accessible_au_public)
                   ? object.rawData.accessible_au_public.join(", ")
-                  : "Not available",
+                  : "Non disponible",
               },
             ],
           },
@@ -160,11 +163,11 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             fields: [],
           },
           {
-            label: "Overview",
+            label: "Aperçu",
             fields: [
-              { title: "Name", value: object?.name },
-              { title: "Address", value: object?.rawData?.adresse_complete },
-              { title: "City", value: object?.city },
+              { title: "Nom", value: object?.name },
+              { title: "Adresse", value: object?.rawData?.adresse_complete },
+              { title: "Ville", value: object?.city },
               {
                 title: "Famous Person",
                 value: object?.rawData?.auteur_nom_de_l_illustre,
@@ -173,7 +176,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
                 title: "Types",
                 value: Array.isArray(object?.rawData?.types)
                   ? object.rawData.types.join(", ")
-                  : "Not available",
+                  : "Non disponible",
               },
               { title: "Description", value: object?.rawData?.description },
             ],
@@ -182,15 +185,15 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             label: "Info",
             fields: [
               {
-                title: "Website",
+                title: "Site Web",
                 value: object?.rawData?.site_internet_et_autres_liens,
-                type: "link",
+                type: "URL",
               },
               {
                 title: "Accessible to Public",
                 value: Array.isArray(object?.rawData?.accessible_au_public)
                   ? object.rawData.accessible_au_public.join(", ")
-                  : "Not available",
+                  : "Non disponible",
               },
             ],
           },
@@ -202,26 +205,29 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             fields: [],
           },
           {
-            label: "Overview",
+            label: "Aperçu",
             fields: [
-              { title: "Name", value: object?.name },
-              { title: "Address", value: object?.rawData?.adresse_normalisee },
-              { title: "City", value: object?.city },
+              { title: "Nom", value: object?.name },
+              { title: "Adresse", value: object?.rawData?.adresse_normalisee },
+              { title: "Ville", value: object?.city },
               {
-                title: "Denominations",
+                title: "Dénominations",
                 value: Array.isArray(object?.rawData?.denominations)
                   ? object.rawData.denominations.join(", ")
-                  : "Not available",
+                  : "Non disponible",
               },
               {
-                title: "Architect",
+                title: "Architecte",
                 value: object?.rawData?.auteur_de_l_edifice,
               },
-              { title: "Label Date", value: object?.rawData?.date_de_label },
+              {
+                title: "Date de l'Étiquette",
+                value: object?.rawData?.date_de_label,
+              },
             ],
           },
           {
-            label: "Historical Description",
+            label: "Description Historique",
             fields: [
               {
                 title: "Description",
