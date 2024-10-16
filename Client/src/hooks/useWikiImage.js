@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const WIKIPEDIA_API_BASE = "https://fr.wikipedia.org/w/api.php";
 
-export const useMuseumImage = (museumName) => {
+export const useWikiImage = (museumName) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

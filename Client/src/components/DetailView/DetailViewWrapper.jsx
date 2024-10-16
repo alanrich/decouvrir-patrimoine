@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import DetailView from "./DetailView";
 import { Box } from "@mui/material";
-import { useMuseumImage } from "../../hooks/useMuseumImage";
+import { useWikiImage } from "../../hooks/useWikiImage";
 
 const DetailViewWrapper = ({ object, selectedDataSet }) => {
   const [tabValue, setTabValue] = useState(0);
@@ -13,7 +13,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
     imageUrl,
     loading: imageLoading,
     error: imageError,
-  } = useMuseumImage(museumName);
+  } = useWikiImage(museumName);
 
   const handleTabChange = useCallback((event, newValue) => {
     setTabValue(newValue);
