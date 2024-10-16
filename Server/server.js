@@ -64,27 +64,216 @@ const architectureContemporainesFieldMap = {
 
 // Museums Endpoint
 app.get("/api/museums", async (req, res) => {
-  // ... your existing code ...
+  const {
+    page = 0,
+    rowsPerPage = 10,
+    sortBy,
+    sortOrder = "asc",
+    searchTerm,
+  } = req.query;
+
+  const query = {};
+
+  if (searchTerm) {
+    query.$text = { $search: searchTerm };
+  }
+
+  const sort = {};
+  if (sortBy) {
+    const dbField = museumFieldMap[sortBy];
+    if (dbField) {
+      sort[dbField] = sortOrder === "asc" ? 1 : -1;
+    } else {
+      return res.status(400).json({ error: "Invalid sort field" });
+    }
+  }
+
+  try {
+    const total = await Museum.countDocuments(query);
+    const data = await Museum.find(query)
+      .sort(sort)
+      .collation({ locale: "fr", strength: 1 })
+      .skip(page * rowsPerPage)
+      .limit(parseInt(rowsPerPage))
+      .lean();
+
+    res.json({ total, data });
+  } catch (error) {
+    console.error("Error fetching museums:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 // Festivals Endpoint
 app.get("/api/festivals", async (req, res) => {
-  // ... your existing code ...
+  const {
+    page = 0,
+    rowsPerPage = 10,
+    sortBy,
+    sortOrder = "asc",
+    searchTerm,
+  } = req.query;
+
+  const query = {
+    commune_principale_de_deroulement: { $exists: true, $ne: null },
+    "geocodage_xy.lat": { $type: "number" },
+    "geocodage_xy.lon": { $type: "number" },
+  };
+
+  if (searchTerm) {
+    query.$text = { $search: searchTerm };
+  }
+
+  const sort = {};
+  if (sortBy) {
+    const dbField = festivalFieldMap[sortBy];
+    if (dbField) {
+      sort[dbField] = sortOrder === "asc" ? 1 : -1;
+    } else {
+      return res.status(400).json({ error: "Invalid sort field" });
+    }
+  }
+
+  try {
+    const total = await Festival.countDocuments(query);
+    const data = await Festival.find(query)
+      .sort(sort)
+      .collation({ locale: "fr", strength: 1 })
+      .skip(page * rowsPerPage)
+      .limit(parseInt(rowsPerPage))
+      .lean();
+
+    res.json({ total, data });
+  } catch (error) {
+    console.error("Error fetching festivals:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 // Jardins Endpoint
 app.get("/api/jardins", async (req, res) => {
-  // ... your existing code ...
+  const {
+    page = 0,
+    rowsPerPage = 10,
+    sortBy,
+    sortOrder = "asc",
+    searchTerm,
+  } = req.query;
+
+  const query = {};
+
+  if (searchTerm) {
+    query.$text = { $search: searchTerm };
+  }
+
+  const sort = {};
+  if (sortBy) {
+    const dbField = jardinFieldMap[sortBy];
+    if (dbField) {
+      sort[dbField] = sortOrder === "asc" ? 1 : -1;
+    } else {
+      return res.status(400).json({ error: "Invalid sort field" });
+    }
+  }
+
+  try {
+    const total = await Jardin.countDocuments(query);
+    const data = await Jardin.find(query)
+      .sort(sort)
+      .collation({ locale: "fr", strength: 1 })
+      .skip(page * rowsPerPage)
+      .limit(parseInt(rowsPerPage))
+      .lean();
+
+    res.json({ total, data });
+  } catch (error) {
+    console.error("Error fetching jardins:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 // Maisons des Illustres Endpoint
 app.get("/api/maisons-des-illustres", async (req, res) => {
-  // ... your existing code ...
+  const {
+    page = 0,
+    rowsPerPage = 10,
+    sortBy,
+    sortOrder = "asc",
+    searchTerm,
+  } = req.query;
+
+  const query = {};
+
+  if (searchTerm) {
+    query.$text = { $search: searchTerm };
+  }
+
+  const sort = {};
+  if (sortBy) {
+    const dbField = maisonsDesIllustresFieldMap[sortBy];
+    if (dbField) {
+      sort[dbField] = sortOrder === "asc" ? 1 : -1;
+    } else {
+      return res.status(400).json({ error: "Invalid sort field" });
+    }
+  }
+
+  try {
+    const total = await MaisonsDesIllustres.countDocuments(query);
+    const data = await MaisonsDesIllustres.find(query)
+      .sort(sort)
+      .collation({ locale: "fr", strength: 1 })
+      .skip(page * rowsPerPage)
+      .limit(parseInt(rowsPerPage))
+      .lean();
+
+    res.json({ total, data });
+  } catch (error) {
+    console.error("Error fetching maisons des illustres:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 // Architecture Contemporaine Endpoint
 app.get("/api/architecture-contemporaines", async (req, res) => {
-  // ... your existing code ...
+  const {
+    page = 0,
+    rowsPerPage = 10,
+    sortBy,
+    sortOrder = "asc",
+    searchTerm,
+  } = req.query;
+
+  const query = {};
+
+  if (searchTerm) {
+    query.$text = { $search: searchTerm };
+  }
+
+  const sort = {};
+  if (sortBy) {
+    const dbField = architectureContemporainesFieldMap[sortBy];
+    if (dbField) {
+      sort[dbField] = sortOrder === "asc" ? 1 : -1;
+    } else {
+      return res.status(400).json({ error: "Invalid sort field" });
+    }
+  }
+
+  try {
+    const total = await ArchitectureContemporaines.countDocuments(query);
+    const data = await ArchitectureContemporaines.find(query)
+      .sort(sort)
+      .collation({ locale: "fr", strength: 1 })
+      .skip(page * rowsPerPage)
+      .limit(parseInt(rowsPerPage))
+      .lean();
+
+    res.json({ total, data });
+  } catch (error) {
+    console.error("Error fetching architecture contemporaine:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 // ========================
