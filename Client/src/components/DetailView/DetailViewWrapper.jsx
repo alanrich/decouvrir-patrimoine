@@ -7,13 +7,13 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
   const [tabValue, setTabValue] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Use the museum name to fetch the Wikipedia image
-  const museumName = object?.name;
+  // Fetch image based on the object's name
+  const objectName = object?.name;
   const {
     imageUrl,
     loading: imageLoading,
     error: imageError,
-  } = useWikiImage(museumName);
+  } = useWikiImage(objectName);
 
   const handleTabChange = useCallback((event, newValue) => {
     setTabValue(newValue);
@@ -27,48 +27,220 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
     setIsModalOpen(false);
   };
 
-  const tabConfigs = [
-    {
-      label: "Photo",
-      fields: [],
-    },
-    {
-      label: "Overview",
-      fields: [
-        { title: "Name", value: object?.name },
-        { title: "Adresse", value: object?.address },
-        { title: "Ville", value: object?.city },
-        { title: "Notable Artists", value: object?.rawData?.personnage_phare },
-        { title: "Museum Category", value: object?.rawData?.categorie },
-        {
-          title: "Genres",
-          value: Array.isArray(object?.genre)
-            ? object.genre.join(", ")
-            : "Not available",
-        },
-      ],
-    },
-    {
-      label: "Histoire",
-      fields: [{ title: "Histoire", value: object?.rawData?.histoire }],
-    },
-    {
-      label: "Œuvres",
-      fields: [
-        { title: "Artistes", value: object?.rawData?.artiste },
-        { title: "Thèmes", value: object?.rawData?.themes },
-      ],
-    },
-    {
-      label: "Info",
-      fields: [
-        { title: "Adresse", value: object?.rawData?.adresse },
-        { title: "Ville", value: object?.rawData?.ville },
-        { title: "Téléphone", value: object?.rawData?.telephone },
-        { title: "Site Web", value: object?.rawData?.url, type: "link" },
-      ],
-    },
-  ];
+  const getTabConfigsForDataset = (object, selectedDataSet) => {
+    switch (selectedDataSet) {
+      case "museums":
+        return [
+          {
+            label: "Photo",
+            fields: [],
+          },
+          {
+            label: "Overview",
+            fields: [
+              { title: "Name", value: object?.name },
+              { title: "Address", value: object?.address },
+              { title: "City", value: object?.city },
+              {
+                title: "Notable Artists",
+                value: object?.rawData?.personnage_phare,
+              },
+              { title: "Category", value: object?.rawData?.categorie },
+              {
+                title: "Themes",
+                value: Array.isArray(object?.rawData?.domaine_thematique)
+                  ? object.rawData.domaine_thematique.join(", ")
+                  : "Not available",
+              },
+            ],
+          },
+          {
+            label: "History",
+            fields: [{ title: "History", value: object?.rawData?.histoire }],
+          },
+          {
+            label: "Works",
+            fields: [
+              { title: "Artists", value: object?.rawData?.artiste },
+              { title: "Themes", value: object?.rawData?.themes },
+            ],
+          },
+          {
+            label: "Info",
+            fields: [
+              { title: "Phone", value: object?.rawData?.telephone },
+              { title: "Website", value: object?.rawData?.url, type: "link" },
+            ],
+          },
+        ];
+      case "festivals":
+        return [
+          {
+            label: "Photo",
+            fields: [],
+          },
+          {
+            label: "Overview",
+            fields: [
+              { title: "Name", value: object?.name },
+              { title: "Address", value: object?.address },
+              { title: "City", value: object?.city },
+              { title: "Genre", value: object?.genre },
+              {
+                title: "Website",
+                value: object?.rawData?.site_internet_du_festival,
+                type: "link",
+              },
+              { title: "Email", value: object?.rawData?.adresse_e_mail },
+            ],
+          },
+          {
+            label: "Details",
+            fields: [
+              {
+                title: "Discipline",
+                value: object?.rawData?.discipline_dominante,
+              },
+              {
+                title: "Scale",
+                value: object?.rawData?.envergure_territoriale,
+              },
+            ],
+          },
+        ];
+      case "jardins":
+        return [
+          {
+            label: "Photo",
+            fields: [],
+          },
+          {
+            label: "Overview",
+            fields: [
+              { title: "Name", value: object?.name },
+              { title: "Address", value: object?.rawData?.adresse_complete },
+              { title: "City", value: object?.city },
+              {
+                title: "Types",
+                value: Array.isArray(object?.rawData?.types)
+                  ? object.rawData.types.join(", ")
+                  : "Not available",
+              },
+              { title: "Description", value: object?.rawData?.description },
+            ],
+          },
+          {
+            label: "Info",
+            fields: [
+              {
+                title: "Website",
+                value: object?.rawData?.site_internet_et_autres_liens?.[0],
+                type: "link",
+              },
+              {
+                title: "Accessible to Public",
+                value: Array.isArray(object?.rawData?.accessible_au_public)
+                  ? object.rawData.accessible_au_public.join(", ")
+                  : "Not available",
+              },
+              {
+                title: "Opening Conditions",
+                value: Array.isArray(object?.rawData?.conditions_d_ouverture)
+                  ? object.rawData.conditions_d_ouverture.join(", ")
+                  : "Not available",
+              },
+            ],
+          },
+        ];
+      case "maisonsDesIllustres":
+        return [
+          {
+            label: "Photo",
+            fields: [],
+          },
+          {
+            label: "Overview",
+            fields: [
+              { title: "Name", value: object?.name },
+              { title: "Address", value: object?.rawData?.adresse_complete },
+              { title: "City", value: object?.city },
+              {
+                title: "Famous Person",
+                value: object?.rawData?.auteur_nom_de_l_illustre,
+              },
+              {
+                title: "Types",
+                value: Array.isArray(object?.rawData?.types)
+                  ? object.rawData.types.join(", ")
+                  : "Not available",
+              },
+              { title: "Description", value: object?.rawData?.description },
+            ],
+          },
+          {
+            label: "Info",
+            fields: [
+              {
+                title: "Website",
+                value: object?.rawData?.site_internet_et_autres_liens?.[0],
+                type: "link",
+              },
+              {
+                title: "Accessible to Public",
+                value: Array.isArray(object?.rawData?.accessible_au_public)
+                  ? object.rawData.accessible_au_public.join(", ")
+                  : "Not available",
+              },
+              {
+                title: "Opening Conditions",
+                value: Array.isArray(object?.rawData?.conditions_d_ouverture)
+                  ? object.rawData.conditions_d_ouverture.join(", ")
+                  : "Not available",
+              },
+            ],
+          },
+        ];
+      case "architectureContemporaines":
+        return [
+          {
+            label: "Photo",
+            fields: [],
+          },
+          {
+            label: "Overview",
+            fields: [
+              { title: "Name", value: object?.name },
+              { title: "Address", value: object?.rawData?.adresse_normalisee },
+              { title: "City", value: object?.city },
+              {
+                title: "Denominations",
+                value: Array.isArray(object?.rawData?.denominations)
+                  ? object.rawData.denominations.join(", ")
+                  : "Not available",
+              },
+              {
+                title: "Architect",
+                value: object?.rawData?.auteur_de_l_edifice,
+              },
+              { title: "Label Date", value: object?.rawData?.date_de_label },
+            ],
+          },
+          {
+            label: "Historical Description",
+            fields: [
+              {
+                title: "Description",
+                value: object?.rawData?.description_historique,
+              },
+            ],
+          },
+        ];
+      default:
+        return [];
+    }
+  };
+
+  const tabConfigs = getTabConfigsForDataset(object, selectedDataSet);
 
   return (
     <Box
