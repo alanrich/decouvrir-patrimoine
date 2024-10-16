@@ -8,19 +8,27 @@ const Festival = require("./models/festival");
 const Jardin = require("./models/jardin");
 const MaisonsDesIllustres = require("./models/maisonsDesIllustres");
 const ArchitectureContemporaines = require("./models/architectureContemporaines");
+const path = require("path"); // Added to handle file paths
 
 const mongoURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 3001;
 const cors = require("cors");
 
-// Re-enable CORS with specific origin
+// Enable CORS for development (you might disable this in production)
 app.use(
   cors({
-    origin: "http://localhost:3000", // Allow only your domain
+    origin: "http://localhost:3000", // Adjust this for your production domain
     methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
   })
 );
+
+// Middleware to parse JSON bodies (optional but recommended)
+app.use(express.json());
+
+// ========================
+// Your API Endpoints Below
+// ========================
 
 // Field Maps
 const museumFieldMap = {
@@ -56,219 +64,46 @@ const architectureContemporainesFieldMap = {
 
 // Museums Endpoint
 app.get("/api/museums", async (req, res) => {
-  const {
-    page = 0,
-    rowsPerPage = 10,
-    sortBy,
-    sortOrder = "asc",
-    searchTerm,
-  } = req.query;
-
-  const query = {};
-
-  if (searchTerm) {
-    query.$text = { $search: searchTerm };
-  }
-
-  const sort = {};
-  if (sortBy) {
-    const dbField = museumFieldMap[sortBy];
-    if (dbField) {
-      sort[dbField] = sortOrder === "asc" ? 1 : -1;
-    } else {
-      return res.status(400).json({ error: "Invalid sort field" });
-    }
-  }
-
-  try {
-    const total = await Museum.countDocuments(query);
-    const data = await Museum.find(query)
-      .sort(sort)
-      .collation({ locale: "fr", strength: 1 })
-      .skip(page * rowsPerPage)
-      .limit(parseInt(rowsPerPage))
-      .lean();
-
-    res.json({ total, data });
-  } catch (error) {
-    console.error("Error fetching museums:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
+  // ... your existing code ...
 });
 
 // Festivals Endpoint
 app.get("/api/festivals", async (req, res) => {
-  const {
-    page = 0,
-    rowsPerPage = 10,
-    sortBy,
-    sortOrder = "asc",
-    searchTerm,
-  } = req.query;
-
-  const query = {
-    commune_principale_de_deroulement: { $exists: true, $ne: null },
-    "geocodage_xy.lat": { $type: "number" },
-    "geocodage_xy.lon": { $type: "number" },
-  };
-
-  if (searchTerm) {
-    query.$text = { $search: searchTerm };
-  }
-
-  const sort = {};
-  if (sortBy) {
-    const dbField = festivalFieldMap[sortBy];
-    if (dbField) {
-      sort[dbField] = sortOrder === "asc" ? 1 : -1;
-    } else {
-      return res.status(400).json({ error: "Invalid sort field" });
-    }
-  }
-
-  try {
-    const total = await Festival.countDocuments(query);
-    const data = await Festival.find(query)
-      .sort(sort)
-      .collation({ locale: "fr", strength: 1 })
-      .skip(page * rowsPerPage)
-      .limit(parseInt(rowsPerPage))
-      .lean();
-
-    res.json({ total, data });
-  } catch (error) {
-    console.error("Error fetching festivals:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
+  // ... your existing code ...
 });
 
 // Jardins Endpoint
 app.get("/api/jardins", async (req, res) => {
-  const {
-    page = 0,
-    rowsPerPage = 10,
-    sortBy,
-    sortOrder = "asc",
-    searchTerm,
-  } = req.query;
-
-  const query = {};
-
-  if (searchTerm) {
-    query.$text = { $search: searchTerm };
-  }
-
-  const sort = {};
-  if (sortBy) {
-    const dbField = jardinFieldMap[sortBy];
-    if (dbField) {
-      sort[dbField] = sortOrder === "asc" ? 1 : -1;
-    } else {
-      return res.status(400).json({ error: "Invalid sort field" });
-    }
-  }
-
-  try {
-    const total = await Jardin.countDocuments(query);
-    const data = await Jardin.find(query)
-      .sort(sort)
-      .collation({ locale: "fr", strength: 1 })
-      .skip(page * rowsPerPage)
-      .limit(parseInt(rowsPerPage))
-      .lean();
-
-    res.json({ total, data });
-  } catch (error) {
-    console.error("Error fetching jardins:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
+  // ... your existing code ...
 });
 
 // Maisons des Illustres Endpoint
 app.get("/api/maisons-des-illustres", async (req, res) => {
-  const {
-    page = 0,
-    rowsPerPage = 10,
-    sortBy,
-    sortOrder = "asc",
-    searchTerm,
-  } = req.query;
-
-  const query = {};
-
-  if (searchTerm) {
-    query.$text = { $search: searchTerm };
-  }
-
-  const sort = {};
-  if (sortBy) {
-    const dbField = maisonsDesIllustresFieldMap[sortBy];
-    if (dbField) {
-      sort[dbField] = sortOrder === "asc" ? 1 : -1;
-    } else {
-      return res.status(400).json({ error: "Invalid sort field" });
-    }
-  }
-
-  try {
-    const total = await MaisonsDesIllustres.countDocuments(query);
-    const data = await MaisonsDesIllustres.find(query)
-      .sort(sort)
-      .collation({ locale: "fr", strength: 1 })
-      .skip(page * rowsPerPage)
-      .limit(parseInt(rowsPerPage))
-      .lean();
-
-    res.json({ total, data });
-  } catch (error) {
-    console.error("Error fetching maisons des illustres:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
+  // ... your existing code ...
 });
 
 // Architecture Contemporaine Endpoint
 app.get("/api/architecture-contemporaines", async (req, res) => {
-  const {
-    page = 0,
-    rowsPerPage = 10,
-    sortBy,
-    sortOrder = "asc",
-    searchTerm,
-  } = req.query;
-
-  const query = {};
-
-  if (searchTerm) {
-    query.$text = { $search: searchTerm };
-  }
-
-  const sort = {};
-  if (sortBy) {
-    const dbField = architectureContemporainesFieldMap[sortBy];
-    if (dbField) {
-      sort[dbField] = sortOrder === "asc" ? 1 : -1;
-    } else {
-      return res.status(400).json({ error: "Invalid sort field" });
-    }
-  }
-
-  try {
-    const total = await ArchitectureContemporaines.countDocuments(query);
-    const data = await ArchitectureContemporaines.find(query)
-      .sort(sort)
-      .collation({ locale: "fr", strength: 1 })
-      .skip(page * rowsPerPage)
-      .limit(parseInt(rowsPerPage))
-      .lean();
-
-    res.json({ total, data });
-  } catch (error) {
-    console.error("Error fetching architecture contemporaine:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
+  // ... your existing code ...
 });
 
-// Start the server
+// ========================
+// Serve React Frontend
+// ========================
+
+// Serve static files from the React app's build folder
+app.use(express.static(path.join(__dirname, "..", "Client", "build")));
+
+// The "catchall" handler: for any request that doesn't match one above,
+// send back React's index.html file.
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "Client", "build", "index.html"));
+});
+
+// ========================
+// Start the Server
+// ========================
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 // Connect to MongoDB
