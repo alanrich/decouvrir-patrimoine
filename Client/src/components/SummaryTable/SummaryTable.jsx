@@ -44,22 +44,21 @@ const SummaryTable = ({
   columns,
   sortBy,
   sortOrder,
+  setSortBy,
+  setSortOrder,
 }) => {
   const theme = useTheme();
   const [columnWidths, setColumnWidths] = useState({});
 
   const tableRef = useRef(null);
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
       {
         columns,
         data: domainObjects,
-        manualPagination: true,
         manualSortBy: true,
-        pageCount: Math.ceil(totalObjects / rowsPerPage),
         initialState: {
-          pageIndex: page,
-          pageSize: rowsPerPage,
           sortBy: [{ id: sortBy, desc: sortOrder === "desc" }],
         },
         disableMultiSort: true,
@@ -105,6 +104,12 @@ const SummaryTable = ({
     setColumnWidths(initialColumnWidths);
   }, []);
 
+  const handleSort = (column) => {
+    const isDesc = sortBy === column.id && sortOrder === "desc";
+    setSortBy(column.id);
+    setSortOrder(isDesc ? "asc" : "desc");
+  };
+
   return (
     <Box
       sx={{
@@ -115,17 +120,18 @@ const SummaryTable = ({
         borderRadius: theme.shape.borderRadius,
         boxShadow: theme.shadows[1],
         overflow: "hidden",
+        minHeight: 0,
       }}
     >
       <TableContainer
         component={Paper}
         sx={{
           flexGrow: 1,
-          overflowX: "scroll",
+          overflowX: "auto",
           overflowY: "auto",
           margin: 0,
           padding: 0,
-          height: "100%",
+          minHeight: 0,
         }}
       >
         <MuiTable
@@ -156,7 +162,7 @@ const SummaryTable = ({
                   const isLastColumn = index === headerGroup.headers.length - 1;
                   return (
                     <TableCell
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      {...column.getHeaderProps()}
                       sx={{
                         cursor: "pointer",
                         position: "sticky",
@@ -176,16 +182,18 @@ const SummaryTable = ({
                           : "150px",
                         minWidth: `${columnWidths[column.id]}px`,
                       }}
+                      onClick={() => handleSort(column)}
                     >
                       <TableSortLabel
-                        active={column.isSorted}
-                        direction={column.isSortedDesc ? "desc" : "asc"}
+                        active={sortBy === column.id}
+                        direction={sortOrder === "desc" ? "desc" : "asc"}
                         sx={{
                           color: "inherit",
                           "& .MuiTableSortLabel-icon": {
-                            color: column.isSorted
-                              ? theme.palette.grey[300]
-                              : theme.palette.common.white,
+                            color:
+                              sortBy === column.id
+                                ? theme.palette.grey[300]
+                                : theme.palette.common.white,
                           },
                           "&:hover": {
                             color: theme.palette.grey[300],
@@ -245,10 +253,10 @@ const SummaryTable = ({
 
       <Box
         sx={{
-          flexShrink: 0,
           borderTop: `1px solid ${theme.palette.grey[300]}`,
-          padding: "0px 16px",
           backgroundColor: theme.palette.grey[500],
+          height: "32px",
+          flexShrink: 0,
         }}
       >
         <TablePagination
@@ -264,11 +272,13 @@ const SummaryTable = ({
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
-            padding: 0,
+            padding: "0 16px",
             "& .MuiToolbar-root": {
               height: "32px",
               color: theme.palette.common.white,
               fontWeight: "bold",
+              minHeight: "32px",
+              padding: 0,
             },
             "& .MuiTablePagination-displayedRows, & .MuiTablePagination-actions":
               {
