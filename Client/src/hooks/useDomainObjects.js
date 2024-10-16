@@ -167,17 +167,19 @@ export const useDomainObjects = (
               if (
                 object.titre_courant &&
                 object.commune &&
-                object.coordonnees_geographiques &&
-                typeof object.coordonnees_geographiques.lat === "number" &&
-                typeof object.coordonnees_geographiques.lon === "number"
+                object.coordonnees &&
+                typeof object.coordonnees.lat === "number" &&
+                typeof object.coordonnees.lon === "number"
               ) {
                 return {
                   id: object.reference_de_la_notice,
                   name: formatFrench(object.titre_courant),
+                  address:
+                    formatFrench(object.adresse_normalisee) || "Non disponible",
                   city: formatFrench(object.commune),
-                  genre:
-                    formatFrench(object.denominations.join(", ")) ||
-                    "Non disponible",
+                  genre: Array.isArray(object.denominations)
+                    ? formatFrench(object.denominations.join(", "))
+                    : "Non disponible",
                   latitude: object.coordonnees.lat,
                   longitude: object.coordonnees.lon,
                   rawData: object,
