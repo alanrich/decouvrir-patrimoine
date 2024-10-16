@@ -22,7 +22,15 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
   const valueFontSize =
     fontSize || (isModal ? (isHistoire ? ".8rem" : "1rem") : ".8rem");
 
-  if (type === "link" && value) {
+  if (!value) {
+    value = "Non disponible";
+  }
+
+  if (Array.isArray(value)) {
+    value = value.join(", ");
+  }
+
+  if (type === "link" && value && value !== "Non disponible") {
     return (
       <Grid item xs={12} sm={6}>
         <FieldTitle variant={titleVariant} isModal={isModal}>
@@ -32,11 +40,15 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
           variant="body2"
           sx={{
             marginLeft: theme.spacing(1),
-            fontSize: isModal ? ".75rem" : ".8rem",
+            fontSize: valueFontSize,
             marginTop: isModal ? theme.spacing(0.5) : "0px",
           }}
         >
-          <a href={`http://${value}`} target="_blank" rel="noopener noreferrer">
+          <a
+            href={value.startsWith("http") ? value : `http://${value}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {value}
           </a>
         </Typography>
@@ -56,7 +68,7 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
           fontSize: valueFontSize,
         }}
       >
-        {value || "N/A"}
+        {value}
       </Typography>
     </Grid>
   );
@@ -64,11 +76,7 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
 
 Field.propTypes = {
   title: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.array,
-  ]),
+  value: PropTypes.any,
   type: PropTypes.string,
   isModal: PropTypes.bool,
   fontSize: PropTypes.string,
@@ -82,13 +90,7 @@ Field.defaultProps = {
 const TabPanelContent = ({ fields, isModal, fontSize }) => {
   const theme = useTheme();
   return (
-    <div
-      style={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <Grid
         container
         spacing={2}
@@ -117,11 +119,7 @@ TabPanelContent.propTypes = {
   fields: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.array,
-      ]),
+      value: PropTypes.any,
       type: PropTypes.string,
     })
   ).isRequired,
