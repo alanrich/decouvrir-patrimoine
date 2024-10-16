@@ -32,7 +32,7 @@ const theme = createTheme({
     subtitle1: { fontSize: "0.8rem", fontWeight: "bold" },
     fancyText: {
       fontWeight: "bold",
-      color: "#ddd",
+      color: "#FFFFFF",
       textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)",
     },
   },

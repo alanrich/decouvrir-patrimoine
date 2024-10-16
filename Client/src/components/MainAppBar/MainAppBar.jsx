@@ -230,8 +230,17 @@ const MainAppBar = ({
             anchorEl={anchorElSort}
             open={openSort}
             onClose={handleSortMenuClose}
-            anchorOrigin={{ horizontal: "right", vertical: "top" }}
-            transformOrigin={{ horizontal: "right", vertical: "top" }}
+            anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
+            transformOrigin={{ horizontal: "center", vertical: "top" }}
+            PaperProps={{
+              sx: {
+                borderRadius: theme.shape.borderRadiusSmall,
+                boxShadow: theme.shadows[2],
+              },
+            }}
+            sx={{
+              mt: 1,
+            }}
           >
             {sortOptions.map((option) => (
               <MenuItem
@@ -284,15 +293,29 @@ const MainAppBar = ({
               </ToggleButtonGroup>
             </Box>
             <Divider />
-            <MenuItem
-              onClick={handleApplySort}
+            <Box
               sx={{
+                backgroundColor: theme.palette.primary.main,
+                padding: "4px 12px", // Smaller padding to avoid too much extra space
+                display: "flex",
                 justifyContent: "center",
-                fontWeight: "bold",
+                alignItems: "center",
+                borderRadius: theme.shape.borderRadiusMedium,
+                width: "fit-content", // Box should only be as wide as its content
+                margin: "8px auto", // Add space around the box and center it horizontally
               }}
             >
-              Appliquer
-            </MenuItem>
+              <MenuItem
+                onClick={handleApplySort}
+                sx={{
+                  ...theme.typography.fancyText,
+                  justifyContent: "center",
+                  width: "fit-content",
+                }}
+              >
+                Appliquer
+              </MenuItem>
+            </Box>
           </Menu>
 
           {/* Cultural selection */}
@@ -316,11 +339,20 @@ const MainAppBar = ({
             onClose={handleCulturalMenuClose}
             anchorOrigin={{
               vertical: "bottom",
-              horizontal: "left",
+              horizontal: "center",
             }}
             transformOrigin={{
               vertical: "top",
-              horizontal: "left",
+              horizontal: "center",
+            }}
+            PaperProps={{
+              sx: {
+                borderRadius: theme.shape.borderRadiusSmall,
+                boxShadow: theme.shadows[2],
+              },
+            }}
+            sx={{
+              mt: 1,
             }}
           >
             <MenuItem onClick={() => handleCulturalSelection("museums")}>
@@ -337,6 +369,11 @@ const MainAppBar = ({
             >
               Maisons des Illustres
             </MenuItem>
+            {/*
+            *
+            * TODO: Broken, data not populating table
+            * 
+            * 
             <MenuItem
               onClick={() =>
                 handleCulturalSelection("architectureContemporaines")
@@ -344,6 +381,7 @@ const MainAppBar = ({
             >
               Architecture Contemporaine
             </MenuItem>
+            */}
           </Menu>
 
           {/* Profile */}
