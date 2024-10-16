@@ -11,8 +11,8 @@ const DetailViewModal = ({
   isModalOpen,
   handleModalClose,
   tabConfigs,
-  tabValue,
-  handleTabChange,
+  modalTabValue,
+  handleModalTabChange,
   imageUrl,
   imageLoading,
   imageError,
@@ -121,8 +121,8 @@ const DetailViewModal = ({
             }}
           >
             <Tabs
-              selectedIndex={tabValue}
-              onSelect={(index) => handleTabChange(null, index)}
+              selectedIndex={modalTabValue}
+              onSelect={(index) => handleModalTabChange(null, index)}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -147,7 +147,7 @@ const DetailViewModal = ({
                     key={index}
                     style={{
                       ...tabStyles.tab,
-                      ...(tabValue === index ? tabStyles.selectedTab : {}),
+                      ...(modalTabValue === index ? tabStyles.selectedTab : {}),
                       padding: "0",
                       margin: "0",
                       height: "100%",
@@ -237,8 +237,8 @@ DetailViewModal.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   handleModalClose: PropTypes.func.isRequired,
   tabConfigs: PropTypes.array.isRequired,
-  tabValue: PropTypes.number.isRequired,
-  handleTabChange: PropTypes.func.isRequired,
+  modalTabValue: PropTypes.number.isRequired,
+  handleModalTabChange: PropTypes.func.isRequired,
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,

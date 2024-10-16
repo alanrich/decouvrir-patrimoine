@@ -5,6 +5,8 @@ import { useWikiImage } from "../../hooks/useWikiImage";
 
 const DetailViewWrapper = ({ object, selectedDataSet }) => {
   const [tabValue, setTabValue] = useState(0);
+  // fixes error where modal was opening with blank tabpanelcontent because we removed the image tab in the modal view
+  const [modalTabValue, setModalTabValue] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Fetch image based on the object's name
@@ -21,11 +23,16 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
+    setModalTabValue(0);
   };
 
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
+
+  const handleModalTabChange = useCallback((event, newValue) => {
+    setModalTabValue(newValue);
+  }, []);
 
   const getTabConfigsForDataset = (object, selectedDataSet) => {
     switch (selectedDataSet) {
@@ -247,6 +254,8 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
         handleModalOpen={handleModalOpen}
         handleModalClose={handleModalClose}
         isModalOpen={isModalOpen}
+        modalTabValue={modalTabValue}
+        handleModalTabChange={handleModalTabChange}
         imageUrl={imageUrl}
         imageLoading={imageLoading}
         imageError={imageError}

@@ -16,6 +16,8 @@ const DetailView = memo(
     handleTabChange,
     handleModalOpen,
     handleModalClose,
+    modalTabValue,
+    handleModalTabChange,
     isModalOpen,
     imageUrl,
     imageLoading,
@@ -246,10 +248,10 @@ const DetailView = memo(
 
         <DetailViewModal
           tabConfigs={tabConfigs}
-          tabValue={tabValue}
-          handleTabChange={handleTabChange}
           isModalOpen={isModalOpen}
           handleModalClose={handleModalClose}
+          modalTabValue={modalTabValue}
+          handleModalTabChange={handleModalTabChange}
           imageUrl={imageUrl}
           imageLoading={imageLoading}
           imageError={imageError}
@@ -267,6 +269,8 @@ DetailView.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   handleModalOpen: PropTypes.func.isRequired,
   handleModalClose: PropTypes.func.isRequired,
+  modalTabValue: PropTypes.number.isRequired,
+  handleModalTabChange: PropTypes.func.isRequired,
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
