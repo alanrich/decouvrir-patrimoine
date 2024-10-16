@@ -143,12 +143,6 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
                   ? object.rawData.accessible_au_public.join(", ")
                   : "Not available",
               },
-              {
-                title: "Opening Conditions",
-                value: Array.isArray(object?.rawData?.conditions_d_ouverture)
-                  ? object.rawData.conditions_d_ouverture.join(", ")
-                  : "Not available",
-              },
             ],
           },
         ];
@@ -182,19 +176,13 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             fields: [
               {
                 title: "Website",
-                value: object?.rawData?.site_internet_et_autres_liens?.[0],
+                value: object?.rawData?.site_internet_et_autres_liens,
                 type: "link",
               },
               {
                 title: "Accessible to Public",
                 value: Array.isArray(object?.rawData?.accessible_au_public)
                   ? object.rawData.accessible_au_public.join(", ")
-                  : "Not available",
-              },
-              {
-                title: "Opening Conditions",
-                value: Array.isArray(object?.rawData?.conditions_d_ouverture)
-                  ? object.rawData.conditions_d_ouverture.join(", ")
                   : "Not available",
               },
             ],

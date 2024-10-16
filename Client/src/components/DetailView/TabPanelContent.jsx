@@ -27,7 +27,38 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
   }
 
   if (Array.isArray(value)) {
-    value = value.join(", ");
+    if (type === "link") {
+      // Handle array of links
+      return (
+        <Grid item xs={12} sm={6}>
+          <FieldTitle variant={titleVariant} isModal={isModal}>
+            {title}:
+          </FieldTitle>
+          {value.map((link, index) => (
+            <Typography
+              key={index}
+              variant="body2"
+              sx={{
+                marginLeft: theme.spacing(1),
+                fontSize: valueFontSize,
+                marginTop: isModal ? theme.spacing(0.5) : "0px",
+              }}
+            >
+              <a
+                href={link.startsWith("http") ? link : `http://${link}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {link}
+              </a>
+            </Typography>
+          ))}
+        </Grid>
+      );
+    } else {
+      // For other types, join the array into a string
+      value = value.join(", ");
+    }
   }
 
   if (type === "link" && value && value !== "Non disponible") {

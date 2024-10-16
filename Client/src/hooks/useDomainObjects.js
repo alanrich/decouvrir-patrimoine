@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import formatFrench from "../utils/formatFrench";
+import { parseJsonField } from "../utils/parseJsonField";
 
 export const useDomainObjects = (
   searchTerm,
@@ -150,6 +151,14 @@ export const useDomainObjects = (
                 typeof object.coordonnees_geographiques.lat === "number" &&
                 typeof object.coordonnees_geographiques.lon === "number"
               ) {
+                const siteInternet = parseJsonField(
+                  object.site_internet_et_autres_liens
+                );
+                const accessibleAuPublic = parseJsonField(
+                  object.accessible_au_public
+                );
+                const types = parseJsonField(object.types);
+
                 return {
                   id: object.identifiant_deps || object.identifiant_origine,
                   name: formatFrench(object.nom),
@@ -158,7 +167,12 @@ export const useDomainObjects = (
                     formatFrench(object.types.join(", ")) || "Non disponible",
                   latitude: object.coordonnees_geographiques.lat,
                   longitude: object.coordonnees_geographiques.lon,
-                  rawData: object,
+                  rawData: {
+                    ...object,
+                    site_internet_et_autres_liens: siteInternet,
+                    accessible_au_public: accessibleAuPublic,
+                    types: types,
+                  },
                   dataSet: selectedDataSet,
                 };
               }
