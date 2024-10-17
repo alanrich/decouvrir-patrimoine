@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Typography, Grid } from "@mui/material";
+import { Typography, Grid, Divider } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import { shouldForwardProp } from "@mui/system";
 
@@ -40,6 +40,7 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
         <FieldTitle variant={titleVariant} isModal={isModal}>
           {title}:
         </FieldTitle>
+        <Divider sx={{ marginBottom: theme.spacing(1) }} />
         {artistNames.map((artistName, index) => (
           <Typography
             key={index}
@@ -51,7 +52,6 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
             }}
           >
             <a
-              // TODO: satisfy curiosity, deep dive encodeURIComponent documentation, see how it works
               href={`https://fr.wikipedia.org/wiki/${encodeURIComponent(
                 artistName.trim()
               )}`}
@@ -73,12 +73,12 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
 
   if (Array.isArray(value)) {
     if (type === "link") {
-      // Handle array of links
       return (
         <Grid item xs={12} sm={6}>
           <FieldTitle variant={titleVariant} isModal={isModal}>
             {title}:
           </FieldTitle>
+          <Divider sx={{ marginBottom: theme.spacing(1) }} />
           {value.map((link, index) => (
             <Typography
               key={index}
@@ -101,7 +101,6 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
         </Grid>
       );
     } else {
-      // For other types, join the array into a string
       value = value.join(", ");
     }
   }
@@ -112,6 +111,7 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
         <FieldTitle variant={titleVariant} isModal={isModal}>
           {title}:
         </FieldTitle>
+        <Divider sx={{ marginBottom: theme.spacing(1) }} />
         <Typography
           variant="body2"
           sx={{
@@ -137,6 +137,7 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
       <FieldTitle variant={titleVariant} isModal={isModal}>
         {title}:
       </FieldTitle>
+      <Divider sx={{ marginBottom: theme.spacing(1) }} />
       <Typography
         variant="body1"
         sx={{
