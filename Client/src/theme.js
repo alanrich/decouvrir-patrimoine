@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    primary: { main: "#003366" }, //   marine blue = #2B517A     navy = #001f3d       medium-navy = #002952    light-navy = #003366
+    primary: { main: "#2B517A " }, //  marine blue = #2B517A     navy = #001f3d       medium-navy = #002952    light-navy = #003366
     secondary: { main: "#f50057" },
     background: {
       default: "#f4f6f8",
@@ -27,12 +27,9 @@ const theme = createTheme({
       500: "#000000",
     },
     bordeaux: {
-      100: "#56001f",
-      200: "#4a001a",
-      300: "#3e0016",
-      400: "#310012",
-      500: "#25000d",
-      600: "#190009",
+      100: "#4a001a",
+      200: "#3e0016",
+      300: "#310012",
     },
     marine: {
       100: "#023562",

@@ -221,9 +221,9 @@ const DetailView = memo(
           <Box
             sx={{
               flexShrink: 0,
-              borderTop: `1px solid ${theme.palette.grey[300]}`,
+              borderTop: `1px solid ${theme.palette.grey[100]}`,
               padding: "0px 16px",
-              backgroundColor: theme.palette.grey[500],
+              backgroundColor: theme.palette.primary.main,
               height: "32px",
               borderBottomLeftRadius: theme.shape.borderRadius,
               borderBottomRightRadius: theme.shape.borderRadius,

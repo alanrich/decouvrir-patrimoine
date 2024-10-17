@@ -6,7 +6,7 @@ import { styled, useTheme } from "@mui/material/styles";
 const FieldTitle = styled(Typography)(({ theme, isModal }) => ({
   display: "inline-block",
   backgroundColor: theme.palette.grey[400],
-  color: theme.palette.text.primary,
+  color: "white",
   padding: "6px 12px",
   borderRadius: theme.shape.borderRadiusLarge,
   marginBottom: theme.spacing(1),

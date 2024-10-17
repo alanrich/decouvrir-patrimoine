@@ -169,7 +169,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
               { title: "Adresse", value: object?.rawData?.adresse_complete },
               { title: "Ville", value: object?.city },
               {
-                title: "Famous Person",
+                title: "Personne Célèbre",
                 value: object?.rawData?.auteur_nom_de_l_illustre,
               },
               {
@@ -190,7 +190,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
                 type: "URL",
               },
               {
-                title: "Accessible to Public",
+                title: "Accessible au Public",
                 value: Array.isArray(object?.rawData?.accessible_au_public)
                   ? object.rawData.accessible_au_public.join(", ")
                   : "Non disponible",
