@@ -1,5 +1,3 @@
-// DetailViewModal.jsx
-
 import React from "react";
 import { Box, IconButton, Modal, Typography } from "@mui/material";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -8,6 +6,7 @@ import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import TabPanelContent from "./TabPanelContent";
 import { useTheme } from "@mui/material/styles";
 import "react-tabs/style/react-tabs.css";
+import ArtistImage from "./ArtistImage";
 
 const DetailViewModal = ({
   isModalOpen,
@@ -19,6 +18,7 @@ const DetailViewModal = ({
   imageUrl,
   imageLoading,
   imageError,
+  artistNames,
 }) => {
   const theme = useTheme();
 
@@ -152,8 +152,8 @@ const DetailViewModal = ({
                 padding: theme.spacing(2),
               }}
             >
-              {tab.label === "Aperçu" ? (
-                // Render the two-panel layout for Aperçu tab
+              {tab.label === "Aperçu" || tab.label === "Œuvres" ? (
+                // Render the two-panel layout for Aperçu and Œuvres tabs
                 <Box
                   sx={{
                     display: "flex",
@@ -178,26 +178,51 @@ const DetailViewModal = ({
                   {/* Right Panel */}
                   <Box
                     sx={{
-                      width: { xs: "100%", sm: "40%" },
+                      width: { xs: "100%", sm: "50%" },
                       marginTop: { xs: theme.spacing(2), sm: 0 },
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
                       overflowY: "auto",
+                      flexWrap: "wrap",
                     }}
                   >
-                    {imageLoading && <Typography>Loading image...</Typography>}
-                    {imageError && <Typography>Error: {imageError}</Typography>}
-                    {imageUrl && (
-                      <img
-                        src={imageUrl}
-                        alt={`${object.name} Image`}
-                        style={{
-                          maxWidth: "100%",
-                          maxHeight: "100%",
-                          objectFit: "contain",
-                        }}
-                      />
+                    {/* For Aperçu tab, show the main image */}
+                    {tab.label === "Aperçu" && (
+                      <>
+                        {imageLoading && (
+                          <Typography>Loading image...</Typography>
+                        )}
+                        {imageError && (
+                          <Typography>Error: {imageError}</Typography>
+                        )}
+                        {imageUrl && (
+                          <img
+                            src={imageUrl}
+                            alt={`${object.name} Image`}
+                            style={{
+                              maxWidth: "100%",
+                              maxHeight: "100%",
+                              objectFit: "contain",
+                            }}
+                          />
+                        )}
+                      </>
+                    )}
+                    {/* For Œuvres tab, show artist images */}
+                    {tab.label === "Œuvres" && (
+                      <>
+                        {artistNames && artistNames.length > 0 ? (
+                          artistNames.map((artistName) => (
+                            <ArtistImage
+                              key={artistName}
+                              artistName={artistName}
+                            />
+                          ))
+                        ) : (
+                          <Typography>No artist images available.</Typography>
+                        )}
+                      </>
                     )}
                   </Box>
                 </Box>
@@ -227,6 +252,7 @@ DetailViewModal.propTypes = {
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
+  artistNames: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default DetailViewModal;

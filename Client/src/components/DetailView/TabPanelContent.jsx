@@ -2,8 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Typography, Grid } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
+import { shouldForwardProp } from "@mui/system";
 
-const FieldTitle = styled(Typography)(({ theme, isModal }) => ({
+const FieldTitle = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== "isModal" && shouldForwardProp(prop),
+})(({ theme, isModal }) => ({
   display: "inline-block",
   backgroundColor: theme.palette.grey[400],
   color: "white",
@@ -24,6 +27,48 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
 
   if (!value) {
     value = "Non disponible";
+  }
+
+  // Handle 'wikiLink' type
+  if (type === "wikiLink" && value && value !== "Non disponible") {
+    const artistNames = Array.isArray(value)
+      ? value
+      : value.split(",").map((name) => name.trim());
+
+    return (
+      <Grid item xs={12} sm={6}>
+        <FieldTitle variant={titleVariant} isModal={isModal}>
+          {title}:
+        </FieldTitle>
+        {artistNames.map((artistName, index) => (
+          <Typography
+            key={index}
+            variant="body2"
+            sx={{
+              marginLeft: theme.spacing(1),
+              fontSize: valueFontSize,
+              marginTop: isModal ? theme.spacing(0.5) : "0px",
+            }}
+          >
+            <a
+              // TODO: satisfy curiosity, deep dive encodeURIComponent documentation, see how it works
+              href={`https://fr.wikipedia.org/wiki/${encodeURIComponent(
+                artistName.trim()
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: theme.palette.primary.main,
+                textDecoration: "underline",
+                cursor: "pointer",
+              }}
+            >
+              {artistName}
+            </a>
+          </Typography>
+        ))}
+      </Grid>
+    );
   }
 
   if (Array.isArray(value)) {

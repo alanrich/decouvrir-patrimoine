@@ -5,17 +5,36 @@ import { useWikiImage } from "../../hooks/useWikiImage";
 
 const DetailViewWrapper = ({ object, selectedDataSet }) => {
   const [tabValue, setTabValue] = useState(0);
-  // fixes error where modal was opening with blank tabpanelcontent because we removed the image tab in the modal view
   const [modalTabValue, setModalTabValue] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Fetch image based on the object's name
+  // Fetch wiki image based on the object's name
   const objectName = object?.name;
   const {
     imageUrl,
     loading: imageLoading,
     error: imageError,
   } = useWikiImage(objectName);
+
+  // Fetch wiki images for artists (for the Œuvres tab)
+  // DetailViewWrapper.jsx
+
+  const artistNames = React.useMemo(() => {
+    if (!object?.rawData?.artiste) return [];
+
+    if (Array.isArray(object.rawData.artiste)) {
+      return object.rawData.artiste;
+    }
+
+    if (typeof object.rawData.artiste === "string") {
+      return object.rawData.artiste
+        .split(",")
+        .map((name) => name.trim())
+        .filter((name) => name !== "");
+    }
+
+    return [];
+  }, [object?.rawData?.artiste]);
 
   const handleTabChange = useCallback((event, newValue) => {
     setTabValue(newValue);
@@ -68,12 +87,16 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
           {
             label: "Œuvres",
             fields: [
-              { title: "Artistes", value: object?.rawData?.artiste },
+              {
+                title: "Artistes",
+                value: object?.rawData?.artiste,
+                type: "wikiLink",
+              },
               { title: "Thèmes", value: object?.rawData?.themes },
             ],
           },
           {
-            label: "Info",
+            label: "Coordonnées",
             fields: [
               {
                 title: "Numéro de Téléphone",
@@ -140,7 +163,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             ],
           },
           {
-            label: "Info",
+            label: "Coordonnées",
             fields: [
               {
                 title: "Site Web",
@@ -182,7 +205,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             ],
           },
           {
-            label: "Info",
+            label: "Coordonnées",
             fields: [
               {
                 title: "Site Web",
@@ -265,6 +288,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
         imageUrl={imageUrl}
         imageLoading={imageLoading}
         imageError={imageError}
+        artistNames={artistNames}
         tabConfigs={tabConfigs}
       />
     </Box>

@@ -22,6 +22,7 @@ const DetailView = memo(
     imageUrl,
     imageLoading,
     imageError,
+    artistNames,
     tabConfigs,
   }) => {
     const theme = useTheme();
@@ -255,6 +256,7 @@ const DetailView = memo(
           imageUrl={imageUrl}
           imageLoading={imageLoading}
           imageError={imageError}
+          artistNames={artistNames}
           object={object}
         />
       </>
@@ -274,6 +276,7 @@ DetailView.propTypes = {
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
+  artistNames: PropTypes.arrayOf(PropTypes.string),
   tabConfigs: PropTypes.array.isRequired,
 };
 
