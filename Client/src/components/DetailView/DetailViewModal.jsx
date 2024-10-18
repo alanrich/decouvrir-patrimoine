@@ -152,88 +152,78 @@ const DetailViewModal = ({
                 padding: theme.spacing(2),
               }}
             >
-              {tab.label === "Aperçu" || tab.label === "Œuvres" ? (
-                // Render the two-panel layout for Aperçu and Œuvres tabs
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", sm: "row" },
+                  height: "100%",
+                }}
+              >
+                {/* Left Panel */}
                 <Box
                   sx={{
-                    display: "flex",
-                    flexDirection: { xs: "column", sm: "row" },
-                    height: "100%",
+                    flex: 1,
+                    overflowY: "auto",
+                    marginRight: { xs: 0, sm: theme.spacing(2) },
                   }}
                 >
-                  {/* Left Panel */}
-                  <Box
-                    sx={{
-                      flex: 1,
-                      overflowY: "auto",
-                      marginRight: { xs: 0, sm: theme.spacing(2) },
-                    }}
-                  >
-                    <TabPanelContent
-                      fields={tab.fields}
-                      isModal={true}
-                      fontSize={theme.typography.body1.fontSize}
-                    />
-                  </Box>
-                  {/* Right Panel */}
-                  <Box
-                    sx={{
-                      width: { xs: "100%", sm: "50%" },
-                      marginTop: { xs: theme.spacing(2), sm: 0 },
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      overflowY: "auto",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    {/* For Aperçu tab, show the main image */}
-                    {tab.label === "Aperçu" && (
-                      <>
-                        {imageLoading && (
-                          <Typography>Loading image...</Typography>
-                        )}
-                        {imageError && (
-                          <Typography>Error: {imageError}</Typography>
-                        )}
-                        {imageUrl && (
-                          <img
-                            src={imageUrl}
-                            alt={`${object.name} Image`}
-                            style={{
-                              maxWidth: "100%",
-                              maxHeight: "100%",
-                              objectFit: "contain",
-                            }}
-                          />
-                        )}
-                      </>
-                    )}
-                    {/* For Œuvres tab, show artist images */}
-                    {tab.label === "Œuvres" && (
-                      <>
-                        {artistNames && artistNames.length > 0 ? (
-                          artistNames.map((artistName) => (
-                            <ArtistImage
-                              key={artistName}
-                              artistName={artistName}
-                            />
-                          ))
-                        ) : (
-                          <Typography>No artist images available.</Typography>
-                        )}
-                      </>
-                    )}
-                  </Box>
+                  <TabPanelContent
+                    fields={tab.fields}
+                    isModal={true}
+                    fontSize={theme.typography.body1.fontSize}
+                  />
                 </Box>
-              ) : (
-                // For other tabs, render the usual content
-                <TabPanelContent
-                  fields={tab.fields}
-                  isModal={true}
-                  fontSize={theme.typography.body1.fontSize}
-                />
-              )}
+                {/* Right Panel */}
+                <Box
+                  sx={{
+                    width: { xs: "100%", sm: "50%" },
+                    marginTop: { xs: theme.spacing(2), sm: 0 },
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    overflowY: "auto",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {/* For Aperçu tab, show the main image */}
+                  {tab.label === "Aperçu" && (
+                    <>
+                      {imageLoading && (
+                        <Typography>Loading image...</Typography>
+                      )}
+                      {imageError && (
+                        <Typography>Error: {imageError}</Typography>
+                      )}
+                      {imageUrl && (
+                        <img
+                          src={imageUrl}
+                          alt={`${object.name} Image`}
+                          style={{
+                            maxWidth: "100%",
+                            maxHeight: "100%",
+                            objectFit: "contain",
+                          }}
+                        />
+                      )}
+                    </>
+                  )}
+                  {/* For Œuvres tab, show artist images */}
+                  {tab.label === "Œuvres" && (
+                    <>
+                      {artistNames && artistNames.length > 0 ? (
+                        artistNames.map((artistName) => (
+                          <ArtistImage
+                            key={artistName}
+                            artistName={artistName}
+                          />
+                        ))
+                      ) : (
+                        <Typography>No artist images available.</Typography>
+                      )}
+                    </>
+                  )}
+                </Box>
+              </Box>
             </TabPanel>
           ))}
         </Tabs>
