@@ -85,6 +85,7 @@ const DetailView = memo(
             flex: 1,
             boxShadow: theme.shadows[1],
             borderRadius: theme.shape.borderRadius,
+            backgroundColor: theme.palette.common.white,
             border: `2px solid ${theme.palette.grey[300]}`,
             overflow: "hidden",
             mb: "8px",
@@ -105,6 +106,7 @@ const DetailView = memo(
             flexDirection: "column",
             flex: 1,
             boxShadow: theme.shadows[1],
+            backgroundColor: theme.palette.common.white,
             borderRadius: theme.shape.borderRadius,
             border: `1px solid ${theme.palette.grey[300]}`,
             overflow: "hidden",
@@ -291,6 +293,7 @@ const DetailView = memo(
                           display: "flex",
                           flexDirection: "column",
                           alignItems: "center",
+                          justifyContent: "center",
                           overflowY: "auto",
                           padding: theme.spacing(2),
                         }}
