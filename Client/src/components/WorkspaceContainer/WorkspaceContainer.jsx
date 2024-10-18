@@ -38,6 +38,7 @@ const RightPane = styled("div")(({ theme }) => ({
   width: "50%",
   padding: theme.spacing(2),
   backgroundColor: theme.palette.grey[400],
+  //backgroundColor: theme.palette.background.white,
 }));
 
 const WorkspaceContainer = ({

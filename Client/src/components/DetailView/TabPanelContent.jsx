@@ -19,7 +19,7 @@ const FieldTitle = styled(Typography, {
     : theme.typography.subtitle2.fontSize,
 }));
 
-const Field = ({ title, value, isModal, fontSize, isWikiContent }) => {
+const Field = ({ title, value, type, isModal, fontSize, isWikiContent }) => {
   const theme = useTheme();
   const isHistoire = title.toLowerCase().includes("histoire");
 
@@ -85,6 +85,75 @@ const Field = ({ title, value, isModal, fontSize, isWikiContent }) => {
     }
   }, [value]);
 
+  // Handle URLs when type is 'URL'
+  if (type === "URL") {
+    let urls = [];
+    if (typeof value === "string") {
+      // Check if the string is a JSON array
+      if (value.startsWith("[") && value.endsWith("]")) {
+        try {
+          urls = JSON.parse(value);
+        } catch (e) {
+          // If parsing fails, treat as a single URL
+          urls = [value];
+        }
+      } else {
+        urls = [value];
+      }
+    } else if (Array.isArray(value)) {
+      urls = value;
+    } else {
+      urls = ["Non disponible"];
+    }
+
+    // Ensure each URL starts with 'http://' or 'https://' only if it's a valid URL
+    const formattedUrls = urls.map((url) => {
+      if (typeof url !== "string") return "Non disponible"; // Handle non-string values
+
+      const trimmedUrl = url.trim(); // Remove any leading/trailing whitespace
+
+      if (trimmedUrl.toLowerCase() === "non disponible") {
+        return "Non disponible";
+      }
+      if (!/^https?:\/\//i.test(trimmedUrl)) {
+        return "http://" + trimmedUrl; // Default to http:// if no protocol is present
+      }
+      return trimmedUrl;
+    });
+
+    return (
+      <Box sx={commonStyles}>
+        {title && (
+          <>
+            <FieldTitle variant={titleVariant} isModal={isModal}>
+              {title}:
+            </FieldTitle>
+            <Divider sx={{ marginBottom: theme.spacing(1) }} />
+          </>
+        )}
+        {formattedUrls.map((url, index) => (
+          <Typography
+            key={index}
+            variant="body1"
+            sx={{
+              marginLeft: theme.spacing(1),
+              fontSize: valueFontSize,
+              marginBottom: theme.spacing(1),
+            }}
+          >
+            {url.toLowerCase() === "non disponible" ? (
+              "Non disponible"
+            ) : (
+              <a href={url} target="_blank" rel="noopener noreferrer">
+                {url}
+              </a>
+            )}
+          </Typography>
+        ))}
+      </Box>
+    );
+  }
+
   return (
     <Box sx={commonStyles}>
       {title && (
@@ -149,7 +218,13 @@ Field.defaultProps = {
 const TabPanelContent = ({ fields, isModal, fontSize }) => {
   const theme = useTheme();
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+    <div
+      style={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Grid
         container
         spacing={2}
