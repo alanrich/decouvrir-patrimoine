@@ -11,10 +11,11 @@ const FieldTitle = styled(Typography, {
   backgroundColor: theme.palette.grey[400],
   color: "white",
   padding: "6px 12px",
-  borderRadius: theme.shape.borderRadiusMedium, // use medium border radius
+  borderRadius: theme.shape.borderRadiusLarge,
   marginBottom: theme.spacing(1),
-  fontWeight: "bold",
-  fontSize: isModal ? "1rem" : theme.typography.subtitle1.fontSize,
+  fontSize: isModal
+    ? theme.typography.subtitle1.fontSize
+    : theme.typography.subtitle2.fontSize,
 }));
 
 const Field = ({ title, value, type, isModal, fontSize }) => {
@@ -31,7 +32,6 @@ const Field = ({ title, value, type, isModal, fontSize }) => {
 
   const commonStyles = {
     border: `1px solid ${theme.palette.grey[300]}`,
-    borderRadius: theme.shape.borderRadiusSmall, // use small border radius for field blocks
     boxShadow: theme.shadows[1],
     padding: theme.spacing(2),
     backgroundColor: theme.palette.common.white,
@@ -82,8 +82,6 @@ const TabPanelContent = ({ fields, isModal, fontSize }) => {
           flex: 1,
           overflowY: "auto",
           border: "none",
-          paddingLeft: theme.spacing(2),
-          paddingTop: theme.spacing(4),
         }}
       >
         {fields.map((field) => (

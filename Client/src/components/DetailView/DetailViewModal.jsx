@@ -70,7 +70,6 @@ const DetailViewModal = ({
       <Box
         sx={{
           position: "absolute",
-          padding: 0,
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
@@ -164,7 +163,16 @@ const DetailViewModal = ({
                   sx={{
                     flex: 1,
                     overflowY: "auto",
-                    marginRight: { xs: 0, sm: theme.spacing(2) },
+                    marginRight: { xs: 0, sm: theme.spacing(4) },
+                    marginTop: {
+                      xs: theme.spacing(2),
+                      sm: theme.spacing(0),
+                      md: theme.spacing(2),
+                      lg: theme.spacing(2),
+                    },
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start", // Ensure content starts at the top
                   }}
                 >
                   <TabPanelContent
@@ -173,20 +181,26 @@ const DetailViewModal = ({
                     fontSize={theme.typography.body1.fontSize}
                   />
                 </Box>
-                {/* Right Panel */}
-                <Box
-                  sx={{
-                    width: { xs: "100%", sm: "50%" },
-                    marginTop: { xs: theme.spacing(2), sm: 0 },
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    overflowY: "auto",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  {/* For Aperçu tab, show the main image */}
-                  {tab.label === "Aperçu" && (
+
+                {/* Right Panel, Display selected object's Main Image */}
+                {tab.label !== "Œuvres" && (
+                  <Box
+                    sx={{
+                      width: { xs: "100%", sm: "50%" },
+                      marginTop: {
+                        xs: theme.spacing(2),
+                        sm: theme.spacing(0),
+                        md: theme.spacing(2),
+                        lg: theme.spacing(2),
+                      },
+                      display: "flex",
+                      flexDirection: "column", // Arrange items vertically
+                      justifyContent: "flex-start", // Ensure image and text are centered
+                      alignItems: "center", // Align content horizontally
+                      overflowY: "auto",
+                      gap: theme.spacing(1), // Add spacing between the image and Typography
+                    }}
+                  >
                     <>
                       {imageLoading && (
                         <Typography>Loading image...</Typography>
@@ -205,24 +219,43 @@ const DetailViewModal = ({
                           }}
                         />
                       )}
+                      <Typography>{object?.name}</Typography>
                     </>
-                  )}
-                  {/* For Œuvres tab, show artist images */}
-                  {tab.label === "Œuvres" && (
-                    <>
-                      {artistNames && artistNames.length > 0 ? (
-                        artistNames.map((artistName) => (
-                          <ArtistImage
-                            key={artistName}
-                            artistName={artistName}
-                          />
-                        ))
-                      ) : (
-                        <Typography>No artist images available.</Typography>
-                      )}
-                    </>
-                  )}
-                </Box>
+                  </Box>
+                )}
+
+                {/* For Œuvres tab, show artist images */}
+                {tab.label === "Œuvres" && (
+                  <Box
+                    sx={{
+                      width: { xs: "100%", sm: "50%" },
+                      marginTop: {
+                        xs: theme.spacing(2),
+                        sm: theme.spacing(0),
+                        md: theme.spacing(2),
+                        lg: theme.spacing(2),
+                      },
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "flex-start", // Ensure image aligns at the top
+                      overflowY: "auto",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    {artistNames && artistNames.length > 0 ? (
+                      artistNames.map((artistName) => (
+                        <ArtistImage key={artistName} artistName={artistName} />
+                      ))
+                    ) : (
+                      <Typography
+                        variant="subtitle1"
+                        sx={theme.typography.subtitle1}
+                      >
+                        {object?.name}
+                      </Typography>
+                    )}
+                  </Box>
+                )}
               </Box>
             </TabPanel>
           ))}

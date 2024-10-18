@@ -50,6 +50,7 @@ const theme = createTheme({
     body1: { fontSize: "0.875rem" },
     body2: { fontSize: "0.8125rem" },
     subtitle1: { fontSize: "0.8rem", fontWeight: "bold" },
+    subtitle2: { fontSize: "0.6rem", fontWeight: "bold" },
     fancyText: {
       fontWeight: "bold",
       color: "#FFFFFF",
@@ -75,6 +76,19 @@ const theme = createTheme({
     "0px 4px 16px rgba(0, 0, 0, 0.2)",
     "0px 4px 16px rgba(0, 0, 0, 0.2)",
   ],
+  /*
+  spacing: {
+    0: "0px",
+    1: "8px",
+    2: "16px",
+    3: "24px",
+    4: "32px",
+    5: "40px",
+    6: "48px",
+    7: "56px",
+    8: "64px",
+  },
+  */
 });
 
 export default theme;

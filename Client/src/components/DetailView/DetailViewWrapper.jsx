@@ -69,9 +69,9 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
               { title: "Ville", value: object?.city },
               {
                 title: "Artistes Notables",
-                value: object?.rawData?.personnage_phare,
+                value: object?.rawData?.artiste,
               },
-              { title: "Category", value: object?.rawData?.categorie },
+              { title: "Catégorie", value: object?.rawData?.categorie },
               {
                 title: "Thèmes",
                 value: Array.isArray(object?.rawData?.domaine_thematique)
@@ -88,7 +88,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             label: "Œuvres",
             fields: [
               {
-                title: "Artistes",
+                title: "Artistes Notables",
                 value: object?.rawData?.artiste,
                 type: "wikiLink",
               },
