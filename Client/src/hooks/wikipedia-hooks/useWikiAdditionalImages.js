@@ -13,6 +13,7 @@ export const useWikiAdditionalImages = (title) => {
       setError(null);
 
       try {
+        // First, fetch the image titles (this is what your current hook does)
         const response = await fetch(
           `https://fr.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(
             title
@@ -21,7 +22,20 @@ export const useWikiAdditionalImages = (title) => {
         const data = await response.json();
         const pageId = Object.keys(data.query.pages)[0];
         const pageImages = data.query.pages[pageId]?.images || [];
-        setImages(pageImages);
+
+        // Next, resolve the URLs for these images
+        const imageTitles = pageImages.map((img) => img.title).join("|");
+        const urlResponse = await fetch(
+          `https://fr.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(
+            imageTitles
+          )}&prop=imageinfo&iiprop=url&format=json&origin=*`
+        );
+        const urlData = await urlResponse.json();
+        const imageUrls = Object.values(urlData.query.pages).map(
+          (img) => img.imageinfo?.[0]?.url
+        );
+
+        setImages(imageUrls);
       } catch (err) {
         setError("Failed to fetch images.");
       } finally {

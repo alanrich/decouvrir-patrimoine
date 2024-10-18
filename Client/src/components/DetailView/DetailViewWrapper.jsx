@@ -2,6 +2,10 @@ import React, { useState, useCallback } from "react";
 import DetailView from "./DetailView";
 import { Box } from "@mui/material";
 import { useWikiImage } from "../../hooks/wikipedia-hooks/useWikiImage";
+import { useWikiAdditionalImages } from "../../hooks/wikipedia-hooks/useWikiAdditionalImages";
+import { useWikiMainSection } from "../../hooks/wikipedia-hooks/useWikiMainSection";
+import { useWikiHistorySection } from "../../hooks/wikipedia-hooks/useWikiHistorySection";
+import { useWikiCollectionSection } from "../../hooks/wikipedia-hooks/useWikiCollectionSection";
 
 const DetailViewWrapper = ({ object, selectedDataSet }) => {
   const [tabValue, setTabValue] = useState(0);
@@ -10,14 +14,34 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
 
   // Fetch wiki image based on the object's name
   const objectName = object?.name;
+
   const {
     imageUrl,
     loading: imageLoading,
     error: imageError,
   } = useWikiImage(objectName);
+  const {
+    wikiImages,
+    loading: imagesLoading,
+    error: imagesError,
+  } = useWikiAdditionalImages(objectName);
+  const {
+    wikiMainSection,
+    loading: mainLoading,
+    error: mainError,
+  } = useWikiMainSection(objectName);
+  const {
+    historyData,
+    loading: historyLoading,
+    error: historyError,
+  } = useWikiHistorySection(objectName);
+  const {
+    wikiCollectionSection,
+    loading: collectionLoading,
+    error: collectionError,
+  } = useWikiCollectionSection(objectName);
 
   // Fetch wiki images for artists (for the Œuvres tab)
-  // DetailViewWrapper.jsx
 
   const artistNames = React.useMemo(() => {
     if (!object?.rawData?.artiste) return [];
@@ -82,7 +106,16 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
           },
           {
             label: "Histoire",
-            fields: [{ title: "Histoire", value: object?.rawData?.histoire }],
+            fields: [
+              { title: "Histoire", value: object?.rawData?.histoire },
+              {
+                title: "Histoire Wikipedia",
+                value:
+                  historyData && historyData.content
+                    ? historyData.content
+                    : "Non disponible",
+              },
+            ],
           },
           {
             label: "Œuvres",
@@ -256,6 +289,13 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
                 title: "Description",
                 value: object?.rawData?.description_historique,
               },
+              {
+                title: "Histoire Wikipedia",
+                value:
+                  historyData && historyData.content
+                    ? historyData.content
+                    : "Non disponible",
+              },
             ],
           },
         ];
@@ -288,6 +328,10 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
         imageUrl={imageUrl}
         imageLoading={imageLoading}
         imageError={imageError}
+        wikiImages={wikiImages}
+        wikiMainSection={wikiMainSection}
+        historyData={historyData}
+        wikiCollectionSection={wikiCollectionSection}
         artistNames={artistNames}
         tabConfigs={tabConfigs}
       />

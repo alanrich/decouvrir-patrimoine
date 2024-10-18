@@ -18,6 +18,10 @@ const DetailViewModal = ({
   imageUrl,
   imageLoading,
   imageError,
+  wikiImages,
+  wikiMainSection,
+  historyData,
+  wikiCollectionSection,
   artistNames,
 }) => {
   const theme = useTheme();
@@ -275,6 +279,10 @@ DetailViewModal.propTypes = {
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
+  wikiImages: PropTypes.arrayOf(PropTypes.string),
+  wikiMainSection: PropTypes.string,
+  historyData: PropTypes.object,
+  wikiCollectionSection: PropTypes.string,
   artistNames: PropTypes.arrayOf(PropTypes.string),
 };
 

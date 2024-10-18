@@ -22,6 +22,10 @@ const DetailView = memo(
     imageUrl,
     imageLoading,
     imageError,
+    wikiImages,
+    wikiMainSection,
+    historyData,
+    wikiCollectionSection,
     artistNames,
     tabConfigs,
   }) => {
@@ -175,11 +179,6 @@ const DetailView = memo(
                   style={{
                     flex: 1,
                     overflow: "hidden",
-                    // This modificaatoin needs some help fron ChatGPT
-                    ...(["Histoire", "Œuvres"].includes(tab.label) && {
-                      maxWidth: "85%",
-                      margin: "0 auto",
-                    }),
                   }}
                 >
                   {tab.label === "Photo" ? (
@@ -257,6 +256,10 @@ const DetailView = memo(
           imageLoading={imageLoading}
           imageError={imageError}
           artistNames={artistNames}
+          wikiImages={wikiImages}
+          wikiMainSection={wikiMainSection}
+          historyData={historyData}
+          wikiCollectionSection={wikiCollectionSection}
           object={object}
         />
       </>
@@ -276,6 +279,10 @@ DetailView.propTypes = {
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
+  wikiImages: PropTypes.arrayOf(PropTypes.string),
+  wikiMainSection: PropTypes.string,
+  historyData: PropTypes.object,
+  wikiCollectionSection: PropTypes.string,
   artistNames: PropTypes.arrayOf(PropTypes.string),
   tabConfigs: PropTypes.array.isRequired,
 };
