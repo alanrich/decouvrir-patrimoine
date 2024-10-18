@@ -4,6 +4,8 @@ import { Typography, Grid, Divider, Box, Button } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import { shouldForwardProp } from "@mui/system";
 import DOMPurify from "dompurify";
+import { formatUrls } from "../../utils/formatUrls";
+import { cleanHtmlContent } from "../../utils/cleanHtmlContent";
 
 const FieldTitle = styled(Typography, {
   shouldForwardProp: (prop) => prop !== "isModal" && shouldForwardProp(prop),
@@ -37,32 +39,7 @@ const Field = ({ title, value, type, isModal, fontSize, isWikiContent }) => {
     padding: theme.spacing(2),
     backgroundColor: theme.palette.common.white,
     marginBottom: theme.spacing(2),
-    width: "100%", // Make field block consume entire horizontal width
-  };
-
-  // Function to clean up the content
-  const cleanContent = (htmlContent) => {
-    // Remove unwanted elements
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlContent, "text/html");
-
-    // Remove edit sections
-    const editSections = doc.querySelectorAll(".mw-editsection");
-    editSections.forEach((el) => el.remove());
-
-    // Remove the first heading
-    const firstHeading = doc.querySelector("h2, h3, h4, h5, h6");
-    if (firstHeading) {
-      firstHeading.remove();
-    }
-
-    // Remove "Article détaillé" links
-    const articleDetailLinks = doc.querySelectorAll(
-      "div.mainarticle, div.hatnote"
-    );
-    articleDetailLinks.forEach((el) => el.remove());
-
-    return doc.body.innerHTML;
+    width: "100%",
   };
 
   const [displayedContent, setDisplayedContent] = useState("");
@@ -70,7 +47,7 @@ const Field = ({ title, value, type, isModal, fontSize, isWikiContent }) => {
   const chunkSize = 5000; // Adjust as needed
 
   const handleToggleExpand = () => {
-    const cleanHtml = cleanContent(value);
+    const cleanHtml = cleanHtmlContent(value);
     const totalLength = cleanHtml.length;
     const nextIndex = Math.min(currentIndex + chunkSize, totalLength);
 
@@ -87,39 +64,7 @@ const Field = ({ title, value, type, isModal, fontSize, isWikiContent }) => {
 
   // Handle URLs when type is 'URL'
   if (type === "URL") {
-    let urls = [];
-    if (typeof value === "string") {
-      // Check if the string is a JSON array
-      if (value.startsWith("[") && value.endsWith("]")) {
-        try {
-          urls = JSON.parse(value);
-        } catch (e) {
-          // If parsing fails, treat as a single URL
-          urls = [value];
-        }
-      } else {
-        urls = [value];
-      }
-    } else if (Array.isArray(value)) {
-      urls = value;
-    } else {
-      urls = ["Non disponible"];
-    }
-
-    // Ensure each URL starts with 'http://' or 'https://' only if it's a valid URL
-    const formattedUrls = urls.map((url) => {
-      if (typeof url !== "string") return "Non disponible"; // Handle non-string values
-
-      const trimmedUrl = url.trim(); // Remove any leading/trailing whitespace
-
-      if (trimmedUrl.toLowerCase() === "non disponible") {
-        return "Non disponible";
-      }
-      if (!/^https?:\/\//i.test(trimmedUrl)) {
-        return "http://" + trimmedUrl; // Default to http:// if no protocol is present
-      }
-      return trimmedUrl;
-    });
+    const formattedUrls = formatUrls(value); // Use the helper function
 
     return (
       <Box sx={commonStyles}>
@@ -176,8 +121,7 @@ const Field = ({ title, value, type, isModal, fontSize, isWikiContent }) => {
               __html: DOMPurify.sanitize(displayedContent),
             }}
           ></Typography>
-          {/* Show "Voir Plus" button if not all content is displayed */}
-          {currentIndex < cleanContent(value).length && (
+          {currentIndex < cleanHtmlContent(value).length && (
             <Button onClick={handleToggleExpand} size="small">
               Voir plus
             </Button>
