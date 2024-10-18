@@ -1,3 +1,5 @@
+// TODO --> refine the fetch, Couston is fetching the wiki page for grapes, this is probably happening in a lot of places
+
 import { useState, useEffect } from "react";
 
 const WIKIPEDIA_API_BASE = "https://fr.wikipedia.org/w/api.php";

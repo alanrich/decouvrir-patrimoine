@@ -86,7 +86,9 @@ const TabPanelContent = ({ fields, isModal, fontSize }) => {
       >
         {fields.map((field) => (
           <Grid item xs={12} key={field.title}>
-            <Field {...field} isModal={isModal} fontSize={fontSize} />
+            {field.value && (
+              <Field {...field} isModal={isModal} fontSize={fontSize} />
+            )}
           </Grid>
         ))}
       </Grid>
