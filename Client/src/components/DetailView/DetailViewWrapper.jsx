@@ -12,8 +12,12 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
   const [modalTabValue, setModalTabValue] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Fetch wiki image based on the object's name
-  const objectName = object?.name;
+  // Adjust objectName based on dataset
+  const objectName =
+    object?.name ||
+    object?.rawData?.nom ||
+    object?.rawData?.nom_du_jardin ||
+    object?.rawData?.nom_du_festival;
 
   const {
     imageUrl,
@@ -108,7 +112,13 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             label: "Histoire",
             fields: [
               { title: "Histoire", value: object?.rawData?.histoire },
-              // Removed the "Histoire Wikipedia" field from here
+              {
+                title: "Histoire Wikipedia",
+                value:
+                  historyData && historyData.content
+                    ? historyData.content
+                    : "Non disponible",
+              },
             ],
           },
           {
@@ -133,9 +143,108 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             ],
           },
         ];
-      // Include other cases as needed
+      case "festivals":
+      case "jardins":
+      case "maisons_des_illustres":
+        return [
+          {
+            label: "Photo",
+            fields: [],
+          },
+          {
+            label: "Aperçu",
+            fields: [
+              {
+                title: "Nom",
+                value:
+                  object?.rawData?.nom ||
+                  object?.rawData?.nom_du_jardin ||
+                  object?.rawData?.nom_du_festival,
+              },
+              {
+                title: "Adresse",
+                value:
+                  object?.rawData?.adresse_complete ||
+                  object?.rawData?.adresse_postale,
+              },
+              {
+                title: "Ville",
+                value:
+                  object?.rawData?.commune ||
+                  object?.rawData?.commune_principale_de_deroulement,
+              },
+              {
+                title: "Région",
+                value:
+                  object?.rawData?.region ||
+                  object?.rawData?.region_principale_de_deroulement,
+              },
+              {
+                title: "Catégorie",
+                value: Array.isArray(object?.rawData?.types)
+                  ? object.rawData.types.join(", ")
+                  : object?.rawData?.types ||
+                    object?.rawData?.discipline_dominante,
+              },
+            ],
+          },
+          {
+            label: "Histoire",
+            fields: [
+              { title: "Description", value: object?.rawData?.description },
+              {
+                title: "Année de Création",
+                value:
+                  object?.rawData?.annee_de_creation_du_festival ||
+                  object?.rawData?.annee_d_obtention,
+              },
+            ],
+          },
+          {
+            label: "Coordonnées",
+            fields: [
+              {
+                title: "Site Web",
+                value:
+                  object?.rawData?.site_internet_et_autres_liens ||
+                  object?.rawData?.site_internet_du_festival,
+                type: "URL",
+              },
+              { title: "Email", value: object?.rawData?.adresse_e_mail },
+            ],
+          },
+        ];
       default:
-        return [];
+        return [
+          {
+            label: "Photo",
+            fields: [],
+          },
+          {
+            label: "Aperçu",
+            fields: [
+              { title: "Nom", value: objectName },
+              { title: "Adresse", value: object?.address },
+              { title: "Ville", value: object?.city },
+            ],
+          },
+          {
+            label: "Histoire",
+            fields: [
+              { title: "Description", value: object?.rawData?.description },
+            ],
+          },
+          {
+            label: "Coordonnées",
+            fields: [
+              {
+                title: "Site Web",
+                value: object?.rawData?.site_internet_et_autres_liens,
+                type: "URL",
+              },
+            ],
+          },
+        ];
     }
   };
 

@@ -32,6 +32,12 @@ const DetailView = memo(
   }) => {
     const theme = useTheme();
 
+    const objectName =
+      object?.name ||
+      object?.rawData?.nom ||
+      object?.rawData?.nom_du_jardin ||
+      object?.rawData?.nom_du_festival;
+
     const tabStyles = {
       tabList: {
         display: "flex",
@@ -205,7 +211,7 @@ const DetailView = memo(
                       {imageUrl && (
                         <img
                           src={imageUrl}
-                          alt={`${object.name} Image`}
+                          alt={`${objectName} Image`}
                           style={{ maxWidth: "100%", maxHeight: "400px" }}
                         />
                       )}
@@ -257,7 +263,7 @@ const DetailView = memo(
                             variant="subtitle1"
                             sx={theme.typography.subtitle1}
                           >
-                            {object?.name}
+                            {objectName}
                           </Typography>
                         )}
                       </Box>
@@ -307,7 +313,7 @@ const DetailView = memo(
                         {imageUrl && (
                           <img
                             src={imageUrl}
-                            alt={`${object.name} Image`}
+                            alt={`${objectName} Image`}
                             style={{
                               width: "100%",
                               height: "auto",
@@ -315,7 +321,7 @@ const DetailView = memo(
                             }}
                           />
                         )}
-                        <Typography>{object?.name}</Typography>
+                        <Typography>{objectName}</Typography>
                       </Box>
                     </Box>
                   )}
@@ -347,7 +353,7 @@ const DetailView = memo(
                 textOverflow: "ellipsis",
               }}
             >
-              {object.name || "No Name Available"}
+              {objectName || "Non disponible"}
             </Typography>
           </Box>
         </Box>

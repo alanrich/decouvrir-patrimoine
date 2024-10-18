@@ -64,6 +64,12 @@ const DetailViewModal = ({
   // Remove the Photo tab from tabConfigs
   const filteredTabConfigs = tabConfigs.filter((tab) => tab.label !== "Photo");
 
+  const objectName =
+    object?.name ||
+    object?.rawData?.nom ||
+    object?.rawData?.nom_du_jardin ||
+    object?.rawData?.nom_du_festival;
+
   return (
     <Modal
       open={isModalOpen}
@@ -211,7 +217,7 @@ const DetailViewModal = ({
                     {imageUrl && (
                       <img
                         src={imageUrl}
-                        alt={`${object.name} Image`}
+                        alt={`${objectName} Image`}
                         style={{
                           maxWidth: "100%",
                           maxHeight: "100%",
@@ -219,14 +225,13 @@ const DetailViewModal = ({
                         }}
                       />
                     )}
-                    <Typography>{object?.name}</Typography>
+                    <Typography>{objectName}</Typography>
 
                     {/* Histoire Wikipedia */}
                     {historyData && historyData.content && (
                       <Box
                         sx={{
                           width: "100%",
-                          // overflowY: "auto",
                           padding: theme.spacing(2),
                         }}
                       >
@@ -273,7 +278,7 @@ const DetailViewModal = ({
                         variant="subtitle1"
                         sx={theme.typography.subtitle1}
                       >
-                        {object?.name}
+                        {objectName}
                       </Typography>
                     )}
                   </Box>

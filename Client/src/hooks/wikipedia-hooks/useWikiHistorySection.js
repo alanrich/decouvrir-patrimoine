@@ -20,7 +20,6 @@ export const useWikiHistorySection = (title) => {
           )}&prop=sections&format=json&origin=*`
         );
         const data = await response.json();
-        console.log("data >>>>>> ", JSON.stringify(data));
 
         if (!data.parse) {
           setError("No content found for the given title.");
@@ -50,7 +49,6 @@ export const useWikiHistorySection = (title) => {
             new RegExp(`\\b${keyword}\\b`, "i").test(section.line)
           )
         );
-        console.log("historySections >>>>>> ", JSON.stringify(historySections));
 
         if (historySections.length === 0) {
           setError("No history section found.");
@@ -67,7 +65,6 @@ export const useWikiHistorySection = (title) => {
           )}&section=${section.index}&prop=text&format=json&origin=*`
         );
         const sectionData = await sectionResponse.json();
-        console.log("sectionData >>>> ", JSON.stringify(sectionData));
 
         const content = sectionData.parse?.text?.["*"];
 
