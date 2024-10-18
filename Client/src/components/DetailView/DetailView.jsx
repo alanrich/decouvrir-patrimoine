@@ -8,6 +8,7 @@ import "react-tabs/style/react-tabs.css";
 import TabPanelContent from "./TabPanelContent";
 import DetailViewModal from "./DetailViewModal";
 import { useTheme } from "@mui/material/styles";
+import ArtistImage from "./ArtistImage";
 
 const DetailView = memo(
   ({
@@ -182,7 +183,7 @@ const DetailView = memo(
                   }}
                 >
                   {tab.label === "Photo" ? (
-                    // Special handling for the Photo tab
+                    // Only display the image
                     <Box
                       sx={{
                         display: "flex",
@@ -207,11 +208,113 @@ const DetailView = memo(
                         />
                       )}
                     </Box>
+                  ) : tab.label === "Œuvres" ? (
+                    // For Œuvres tab, display artist images
+                    <Box
+                      sx={{
+                        display: "flex",
+                        height: "100%",
+                        overflow: "hidden",
+                        padding: theme.spacing(2),
+                      }}
+                    >
+                      {/* Left Panel */}
+                      <Box
+                        sx={{
+                          flex: 1,
+                          overflowY: "auto",
+                          marginRight: theme.spacing(2),
+                        }}
+                      >
+                        <TabPanelContent
+                          fields={tab.fields}
+                          fontSize={theme.typography.body1.fontSize}
+                        />
+                      </Box>
+
+                      {/* Right Panel */}
+                      <Box
+                        sx={{
+                          width: "40%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "flex-start",
+                          overflowY: "auto",
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        {artistNames && artistNames.length > 0 ? (
+                          artistNames.map((artistName) => (
+                            <ArtistImage
+                              key={artistName}
+                              artistName={artistName}
+                            />
+                          ))
+                        ) : (
+                          <Typography
+                            variant="subtitle1"
+                            sx={theme.typography.subtitle1}
+                          >
+                            {object?.name}
+                          </Typography>
+                        )}
+                      </Box>
+                    </Box>
                   ) : (
-                    <TabPanelContent
-                      fields={tab.fields}
-                      fontSize={theme.typography.body1.fontSize}
-                    />
+                    // For other tabs, display left and right panels
+                    <Box
+                      sx={{
+                        display: "flex",
+                        height: "100%",
+                        overflow: "hidden",
+                        padding: theme.spacing(2),
+                      }}
+                    >
+                      {/* Left Panel */}
+                      <Box
+                        sx={{
+                          flex: 1,
+                          overflowY: "auto",
+                          marginRight: theme.spacing(2),
+                        }}
+                      >
+                        <TabPanelContent
+                          fields={tab.fields}
+                          fontSize={theme.typography.body1.fontSize}
+                        />
+                      </Box>
+
+                      {/* Right Panel */}
+                      <Box
+                        sx={{
+                          width: "40%",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          overflowY: "auto",
+                          padding: theme.spacing(2),
+                        }}
+                      >
+                        {imageLoading && (
+                          <Typography>Loading image...</Typography>
+                        )}
+                        {imageError && (
+                          <Typography>Error: {imageError}</Typography>
+                        )}
+                        {imageUrl && (
+                          <img
+                            src={imageUrl}
+                            alt={`${object.name} Image`}
+                            style={{
+                              width: "100%",
+                              height: "auto",
+                              objectFit: "contain",
+                            }}
+                          />
+                        )}
+                        <Typography>{object?.name}</Typography>
+                      </Box>
+                    </Box>
                   )}
                 </TabPanel>
               ))}

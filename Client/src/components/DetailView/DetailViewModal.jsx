@@ -61,7 +61,7 @@ const DetailViewModal = ({
     },
   };
 
-  // Filter out tabs that you don't want
+  // Remove the Photo tab from tabConfigs
   const filteredTabConfigs = tabConfigs.filter((tab) => tab.label !== "Photo");
 
   return (
@@ -176,7 +176,7 @@ const DetailViewModal = ({
                     },
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "flex-start", // Ensure content starts at the top
+                    justifyContent: "flex-start",
                   }}
                 >
                   <TabPanelContent
@@ -186,7 +186,7 @@ const DetailViewModal = ({
                   />
                 </Box>
 
-                {/* Right Panel, Display selected object's Main Image */}
+                {/* Right Panel */}
                 {tab.label !== "Œuvres" && (
                   <Box
                     sx={{
@@ -198,33 +198,51 @@ const DetailViewModal = ({
                         lg: theme.spacing(2),
                       },
                       display: "flex",
-                      flexDirection: "column", // Arrange items vertically
-                      justifyContent: "flex-start", // Ensure image and text are centered
-                      alignItems: "center", // Align content horizontally
+                      flexDirection: "column",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
                       overflowY: "auto",
-                      gap: theme.spacing(1), // Add spacing between the image and Typography
+                      gap: theme.spacing(1),
                     }}
                   >
-                    <>
-                      {imageLoading && (
-                        <Typography>Loading image...</Typography>
-                      )}
-                      {imageError && (
-                        <Typography>Error: {imageError}</Typography>
-                      )}
-                      {imageUrl && (
-                        <img
-                          src={imageUrl}
-                          alt={`${object.name} Image`}
-                          style={{
-                            maxWidth: "100%",
-                            maxHeight: "100%",
-                            objectFit: "contain",
-                          }}
+                    {/* Image */}
+                    {imageLoading && <Typography>Loading image...</Typography>}
+                    {imageError && <Typography>Error: {imageError}</Typography>}
+                    {imageUrl && (
+                      <img
+                        src={imageUrl}
+                        alt={`${object.name} Image`}
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "100%",
+                          objectFit: "contain",
+                        }}
+                      />
+                    )}
+                    <Typography>{object?.name}</Typography>
+
+                    {/* Histoire Wikipedia */}
+                    {historyData && historyData.content && (
+                      <Box
+                        sx={{
+                          width: "100%",
+                          // overflowY: "auto",
+                          padding: theme.spacing(2),
+                        }}
+                      >
+                        <Typography variant="h6">Histoire Wikipedia</Typography>
+                        <TabPanelContent
+                          fields={[
+                            {
+                              title: "",
+                              value: historyData.content,
+                              isWikiContent: true,
+                            },
+                          ]}
+                          fontSize={theme.typography.body1.fontSize}
                         />
-                      )}
-                      <Typography>{object?.name}</Typography>
-                    </>
+                      </Box>
+                    )}
                   </Box>
                 )}
 
@@ -241,7 +259,7 @@ const DetailViewModal = ({
                       },
                       display: "flex",
                       justifyContent: "center",
-                      alignItems: "flex-start", // Ensure image aligns at the top
+                      alignItems: "flex-start",
                       overflowY: "auto",
                       flexWrap: "wrap",
                     }}

@@ -19,7 +19,7 @@ const FieldTitle = styled(Typography, {
     : theme.typography.subtitle2.fontSize,
 }));
 
-const Field = ({ title, value, isModal, fontSize }) => {
+const Field = ({ title, value, isModal, fontSize, isWikiContent }) => {
   const theme = useTheme();
   const isHistoire = title.toLowerCase().includes("histoire");
 
@@ -42,7 +42,7 @@ const Field = ({ title, value, isModal, fontSize }) => {
 
   // Function to clean up the content
   const cleanContent = (htmlContent) => {
-    // Remove [modifier | modifier le code] and the first heading tag
+    // Remove unwanted elements
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, "text/html");
 
@@ -56,38 +56,65 @@ const Field = ({ title, value, isModal, fontSize }) => {
       firstHeading.remove();
     }
 
+    // Remove "Article détaillé" links
+    const articleDetailLinks = doc.querySelectorAll(
+      "div.mainarticle, div.hatnote"
+    );
+    articleDetailLinks.forEach((el) => el.remove());
+
     return doc.body.innerHTML;
   };
 
-  const [expanded, setExpanded] = useState(false);
-  const maxTextLength = 500; // Adjust as needed
+  const [displayedContent, setDisplayedContent] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const chunkSize = 5000; // Adjust as needed
 
   const handleToggleExpand = () => {
-    setExpanded(!expanded);
+    const cleanHtml = cleanContent(value);
+    const totalLength = cleanHtml.length;
+    const nextIndex = Math.min(currentIndex + chunkSize, totalLength);
+
+    setDisplayedContent(cleanHtml.slice(0, nextIndex));
+    setCurrentIndex(nextIndex);
   };
+
+  // Initialize displayed content
+  React.useEffect(() => {
+    if (isWikiContent) {
+      handleToggleExpand();
+    }
+  }, [value]);
 
   return (
     <Box sx={commonStyles}>
-      <FieldTitle variant={titleVariant} isModal={isModal}>
-        {title}:
-      </FieldTitle>
-      <Divider sx={{ marginBottom: theme.spacing(1) }} />
-      {typeof value === "string" ? (
-        <Typography
-          variant="body1"
-          sx={{
-            marginLeft: theme.spacing(1),
-            fontSize: valueFontSize,
-          }}
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(
-              expanded
-                ? cleanContent(value)
-                : cleanContent(value).slice(0, maxTextLength) + "..."
-            ),
-          }}
-        ></Typography>
-      ) : (
+      {title && (
+        <>
+          <FieldTitle variant={titleVariant} isModal={isModal}>
+            {title}:
+          </FieldTitle>
+          <Divider sx={{ marginBottom: theme.spacing(1) }} />
+        </>
+      )}
+      {isWikiContent ? (
+        <>
+          <Typography
+            variant="body1"
+            sx={{
+              marginLeft: theme.spacing(1),
+              fontSize: valueFontSize,
+            }}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(displayedContent),
+            }}
+          ></Typography>
+          {/* Show "Voir Plus" button if not all content is displayed */}
+          {currentIndex < cleanContent(value).length && (
+            <Button onClick={handleToggleExpand} size="small">
+              Voir plus
+            </Button>
+          )}
+        </>
+      ) : typeof value === "string" ? (
         <Typography
           variant="body1"
           sx={{
@@ -97,29 +124,26 @@ const Field = ({ title, value, isModal, fontSize }) => {
         >
           {value}
         </Typography>
+      ) : (
+        value
       )}
-      {/* Show "View More" button if content is longer than maxTextLength */}
-      {typeof value === "string" &&
-        cleanContent(value).length > maxTextLength && (
-          <Button onClick={handleToggleExpand} size="small">
-            {expanded ? "Voir moins" : "Voir plus"}
-          </Button>
-        )}
     </Box>
   );
 };
 
 Field.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   value: PropTypes.any,
   type: PropTypes.string,
   isModal: PropTypes.bool,
   fontSize: PropTypes.string,
+  isWikiContent: PropTypes.bool,
 };
 
 Field.defaultProps = {
   type: "text",
   isModal: false,
+  isWikiContent: false,
 };
 
 const TabPanelContent = ({ fields, isModal, fontSize }) => {
@@ -135,10 +159,15 @@ const TabPanelContent = ({ fields, isModal, fontSize }) => {
           border: "none",
         }}
       >
-        {fields.map((field) => (
-          <Grid item xs={12} key={field.title}>
+        {fields.map((field, index) => (
+          <Grid item xs={12} key={index}>
             {field.value && (
-              <Field {...field} isModal={isModal} fontSize={fontSize} />
+              <Field
+                {...field}
+                isModal={isModal}
+                fontSize={fontSize}
+                isWikiContent={field.isWikiContent}
+              />
             )}
           </Grid>
         ))}
@@ -150,9 +179,10 @@ const TabPanelContent = ({ fields, isModal, fontSize }) => {
 TabPanelContent.propTypes = {
   fields: PropTypes.arrayOf(
     PropTypes.shape({
-      title: PropTypes.string.isRequired,
+      title: PropTypes.string,
       value: PropTypes.any,
       type: PropTypes.string,
+      isWikiContent: PropTypes.bool,
     })
   ).isRequired,
   isModal: PropTypes.bool,
