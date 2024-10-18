@@ -64,13 +64,10 @@ const theme = createTheme({
     borderRadiusRounded: 50,
   },
   shadows: [
+    // some MUI components use a shadows[8] value and omitting this value from my theme is throwing annoying console warnings I dont want to see
     "none",
     "0px 2px 10px rgba(0, 0, 0, 0.1)",
     "0px 2px 4px rgba(0, 0, 0, 0.15)",
-    "0px 4px 16px rgba(0, 0, 0, 0.2)",
-    "0px 4px 16px rgba(0, 0, 0, 0.2)",
-    "0px 4px 16px rgba(0, 0, 0, 0.2)",
-    "0px 4px 16px rgba(0, 0, 0, 0.2)",
     "0px 4px 16px rgba(0, 0, 0, 0.2)",
     "0px 4px 16px rgba(0, 0, 0, 0.2)",
     "0px 4px 16px rgba(0, 0, 0, 0.2)",
