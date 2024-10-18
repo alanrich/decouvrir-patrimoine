@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import DetailView from "./DetailView";
 import { Box } from "@mui/material";
-import { useWikiImage } from "../../hooks/useWikiImage";
+import { useWikiImage } from "../../hooks/wikipedia-hooks/useWikiImage";
 
 const DetailViewWrapper = ({ object, selectedDataSet }) => {
   const [tabValue, setTabValue] = useState(0);

@@ -3,7 +3,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Box, Typography } from "@mui/material";
-import { useWikiImage } from "../../hooks/useWikiImage";
+import { useWikiImage } from "../../hooks/wikipedia-hooks/useWikiImage";
 import { useTheme } from "@mui/material/styles";
 
 const ArtistImage = ({ artistName }) => {
