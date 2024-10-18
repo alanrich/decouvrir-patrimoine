@@ -48,12 +48,17 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
   // Fetch wiki images for artists (for the Œuvres tab)
 
   const artistNames = React.useMemo(() => {
-    if (!object?.rawData?.artiste) return [];
+    // If 'artiste' is null or undefined, return the fallback message
+    if (!object?.rawData?.artiste) {
+      return ["Aucune information sur des artistes notables n'est disponible."];
+    }
 
+    // If 'artiste' is an array, return it as is (even if it's empty)
     if (Array.isArray(object.rawData.artiste)) {
       return object.rawData.artiste;
     }
 
+    // If 'artiste' is a string, split by comma and clean up the names
     if (typeof object.rawData.artiste === "string") {
       return object.rawData.artiste
         .split(",")
@@ -61,6 +66,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
         .filter((name) => name !== "");
     }
 
+    // Default to an empty array if none of the conditions are met
     return [];
   }, [object?.rawData?.artiste]);
 
@@ -110,16 +116,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
           },
           {
             label: "Histoire",
-            fields: [
-              { title: "Histoire", value: object?.rawData?.histoire },
-              {
-                title: "Histoire Wikipedia",
-                value:
-                  historyData && historyData.content
-                    ? historyData.content
-                    : "Non disponible",
-              },
-            ],
+            fields: [{ title: "Histoire", value: object?.rawData?.histoire }],
           },
           {
             label: "Œuvres",
