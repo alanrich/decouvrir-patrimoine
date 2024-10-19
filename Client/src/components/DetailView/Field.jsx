@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Typography, Divider, Box, Button } from "@mui/material";
+import { Typography, Divider, Box } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import { shouldForwardProp } from "@mui/system";
 import DOMPurify from "dompurify";

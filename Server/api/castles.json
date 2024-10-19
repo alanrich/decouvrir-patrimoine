@@ -377,19 +377,6 @@
     }
   },
   {
-    "id": 27,
-    "name": "Arcs",
-    "url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_des_Arcs",
-    "commune": "Cachan",
-    "type": null,
-    "periode_ou_style": "Renaissance",
-    "region": "Île-de-France",
-    "region_historique": null,
-    "department": "Val-de-Marne",
-    "proprietaire_actuel": "commune de Cachan",
-    "coordonnes": null
-  },
-  {
     "id": 28,
     "name": "Arlay",
     "url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_d%27Arlay",
@@ -430,35 +417,6 @@
     "department": null,
     "proprietaire_actuel": null,
     "coordonnes": null
-  },
-  {
-    "id": 31,
-    "name": "Ars",
-    "url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_d%27Ars_(Charente)",
-    "commune": "Ars",
-    "type": null,
-    "periode_ou_style": null,
-    "region": "Nouvelle-Aquitaine",
-    "region_historique": null,
-    "department": "Charente",
-    "proprietaire_actuel": "propriétaire privé",
-    "coordonnes": null
-  },
-  {
-    "id": 32,
-    "name": "Ars",
-    "url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_d%27Ars_(Indre)",
-    "commune": "Lourouer-Saint-Laurent",
-    "type": null,
-    "periode_ou_style": "Renaissance",
-    "region": "Centre-Val de Loire",
-    "region_historique": "Berry",
-    "department": "Indre",
-    "proprietaire_actuel": "commune de La Châtre",
-    "coordonnes": {
-      "latitude": 46.6025,
-      "longitude": 2.0044444444444443
-    }
   },
   {
     "id": 33,
@@ -654,22 +612,6 @@
     "coordonnes": {
       "latitude": 48.43805555555555,
       "longitude": 6.2775
-    }
-  },
-  {
-    "id": 46,
-    "name": "Balzac",
-    "url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Balzac",
-    "commune": "Balzac",
-    "type": "Manoir",
-    "periode_ou_style": null,
-    "region": "Nouvelle-Aquitaine",
-    "region_historique": "Angoumois",
-    "department": "Charente",
-    "proprietaire_actuel": null,
-    "coordonnes": {
-      "latitude": 45.70777777777778,
-      "longitude": 0.10916666666666668
     }
   },
   {
