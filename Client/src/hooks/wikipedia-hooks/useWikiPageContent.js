@@ -15,21 +15,19 @@ export const useWikiPageContent = (title) => {
       setError(null);
 
       try {
-        // Search for the Wikipedia page using the title (more flexible approach, generally works pretty well)
+        // Search for the Wikipedia page using the title
         const searchUrl = `${WIKIPEDIA_API_BASE}?action=query&list=search&srsearch=${encodeURIComponent(
           title
         )}&format=json&origin=*`;
         const searchResponse = await fetch(searchUrl);
         const searchData = await searchResponse.json();
 
-        // Handle case where no search results are found
         if (!searchData.query || searchData.query.search.length === 0) {
           setError("Aucune page Wikipedia trouvée pour ce titre.");
           setLoading(false);
           return;
         }
 
-        // Get the page ID of the first search result
         const pageId = searchData.query.search[0].pageid;
 
         // Fetch the entire content of the page using the page ID
@@ -37,12 +35,23 @@ export const useWikiPageContent = (title) => {
         const contentResponse = await fetch(contentUrl);
         const contentData = await contentResponse.json();
 
-        // Extract and set the entire article content
-        const content = contentData.parse?.text?.["*"];
+        let content = contentData.parse?.text?.["*"];
         if (content) {
+          // Parse the HTML string into a DOM object
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(content, "text/html");
+
+          // Remove all divs with a class containing the word "bandeau"
+          const unwantedDivs = doc.querySelectorAll("div[class*='bandeau']");
+          unwantedDivs.forEach((div) => div.remove());
+
+          // Serialize the cleaned DOM object back into an HTML string
+          const cleanedContent = new XMLSerializer().serializeToString(doc);
+
+          // Update the state with the cleaned content
           setWikiPageContentData({
             title: searchData.query.search[0].title, // Use the title from search results
-            content, // Full article content
+            content: cleanedContent, // Cleaned full article content
           });
         } else {
           setError("Contenu de l'article introuvable.");
