@@ -383,7 +383,7 @@ const MainAppBar = ({
               Cathédrals
             </MenuItem>
             <MenuItem onClick={() => handleCulturalSelection("operaHouses")}>
-              Salles d'opéra
+              Salles d'Opéra
             </MenuItem>
             <MenuItem
               onClick={() => handleCulturalSelection("maisonsDesIllustres")}
