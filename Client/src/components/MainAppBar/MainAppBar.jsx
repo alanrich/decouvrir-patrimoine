@@ -76,6 +76,21 @@ const MainAppBar = ({
       { value: "city", label: "Ville" },
       { value: "genre", label: "Genre" },
     ],
+    chateaux: [
+      { value: "name", label: "Nom" },
+      { value: "city", label: "Commune" },
+      { value: "genre", label: "Période ou Style" },
+    ],
+    operaHouses: [
+      { value: "name", label: "Nom" },
+      { value: "city", label: "Lieu" },
+      { value: "genre", label: "Type" },
+    ],
+    cathedrals: [
+      { value: "name", label: "Nom" },
+      { value: "city", label: "Ville" },
+      { value: "genre", label: "Style" },
+    ],
   };
 
   const sortOptions = sortOptionsMap[selectedDataSet] || sortOptionsMap.museums;
@@ -361,16 +376,20 @@ const MainAppBar = ({
             <MenuItem onClick={() => handleCulturalSelection("jardins")}>
               Jardins
             </MenuItem>
+            <MenuItem onClick={() => handleCulturalSelection("chateaux")}>
+              Châteaux
+            </MenuItem>
+            <MenuItem onClick={() => handleCulturalSelection("cathedrals")}>
+              Cathédrals
+            </MenuItem>
+            <MenuItem onClick={() => handleCulturalSelection("operaHouses")}>
+              Salles d'opéra
+            </MenuItem>
             <MenuItem
               onClick={() => handleCulturalSelection("maisonsDesIllustres")}
             >
               Maisons des Illustres
             </MenuItem>
-            {/*
-            *
-            * TODO: Broken, data not populating table
-            * 
-            * 
             <MenuItem
               onClick={() =>
                 handleCulturalSelection("architectureContemporaines")
@@ -378,7 +397,6 @@ const MainAppBar = ({
             >
               Architecture Contemporaine
             </MenuItem>
-            */}
           </Menu>
 
           {/* Profile */}

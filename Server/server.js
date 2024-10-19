@@ -3,20 +3,25 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require("cors");
+
+// Import models
 const Museum = require("./models/museum");
 const Festival = require("./models/festival");
 const Jardin = require("./models/jardin");
 const MaisonsDesIllustres = require("./models/maisonsDesIllustres");
 const ArchitectureContemporaines = require("./models/architectureContemporaines");
+const Cathedral = require("./models/cathedral");
+const Chateau = require("./models/chateau");
+const OperaHouse = require("./models/operaHouse");
 
 const mongoURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 3001;
-const cors = require("cors");
 
 // Re-enable CORS with specific origin
 app.use(
   cors({
-    origin: "http://localhost:3000", // Allow only your domain
+    origin: "http://localhost:3000",
     methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
   })
@@ -39,7 +44,6 @@ const jardinFieldMap = {
   name: "nom_du_jardin",
   city: "commune",
   genre: "types",
-  type: "types",
 };
 
 const maisonsDesIllustresFieldMap = {
@@ -54,8 +58,26 @@ const architectureContemporainesFieldMap = {
   genre: "denominations",
 };
 
-// Museums Endpoint
-app.get("/api/museums", async (req, res) => {
+const chateauFieldMap = {
+  name: "name",
+  city: "commune",
+  genre: "periode_ou_style",
+};
+
+const operaFieldMap = {
+  name: "name",
+  city: "lieu",
+  genre: "type",
+};
+
+const cathedralFieldMap = {
+  name: "name",
+  city: "ville",
+  genre: "style_dominant",
+};
+
+// Create a reusable API handler for all datasets
+const createApiEndpoint = (Model, fieldMap) => async (req, res) => {
   const {
     page = 0,
     rowsPerPage = 10,
@@ -72,7 +94,7 @@ app.get("/api/museums", async (req, res) => {
 
   const sort = {};
   if (sortBy) {
-    const dbField = museumFieldMap[sortBy];
+    const dbField = fieldMap[sortBy];
     if (dbField) {
       sort[dbField] = sortOrder === "asc" ? 1 : -1;
     } else {
@@ -81,8 +103,8 @@ app.get("/api/museums", async (req, res) => {
   }
 
   try {
-    const total = await Museum.countDocuments(query);
-    const data = await Museum.find(query)
+    const total = await Model.countDocuments(query);
+    const data = await Model.find(query)
       .sort(sort)
       .collation({ locale: "fr", strength: 1 })
       .skip(page * rowsPerPage)
@@ -91,182 +113,31 @@ app.get("/api/museums", async (req, res) => {
 
     res.json({ total, data });
   } catch (error) {
-    console.error("Error fetching museums:", error);
+    console.error(`Error fetching data:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
-});
+};
 
-// Festivals Endpoint
-app.get("/api/festivals", async (req, res) => {
-  const {
-    page = 0,
-    rowsPerPage = 10,
-    sortBy,
-    sortOrder = "asc",
-    searchTerm,
-  } = req.query;
+// API Endpoints
+app.get("/api/museums", createApiEndpoint(Museum, museumFieldMap));
+app.get("/api/festivals", createApiEndpoint(Festival, festivalFieldMap));
+app.get("/api/jardins", createApiEndpoint(Jardin, jardinFieldMap));
+app.get(
+  "/api/maisons-des-illustres",
+  createApiEndpoint(MaisonsDesIllustres, maisonsDesIllustresFieldMap)
+);
+app.get(
+  "/api/architecture-contemporaines",
+  createApiEndpoint(
+    ArchitectureContemporaines,
+    architectureContemporainesFieldMap
+  )
+);
 
-  const query = {
-    commune_principale_de_deroulement: { $exists: true, $ne: null },
-    "geocodage_xy.lat": { $type: "number" },
-    "geocodage_xy.lon": { $type: "number" },
-  };
-
-  if (searchTerm) {
-    query.$text = { $search: searchTerm };
-  }
-
-  const sort = {};
-  if (sortBy) {
-    const dbField = festivalFieldMap[sortBy];
-    if (dbField) {
-      sort[dbField] = sortOrder === "asc" ? 1 : -1;
-    } else {
-      return res.status(400).json({ error: "Invalid sort field" });
-    }
-  }
-
-  try {
-    const total = await Festival.countDocuments(query);
-    const data = await Festival.find(query)
-      .sort(sort)
-      .collation({ locale: "fr", strength: 1 })
-      .skip(page * rowsPerPage)
-      .limit(parseInt(rowsPerPage))
-      .lean();
-
-    res.json({ total, data });
-  } catch (error) {
-    console.error("Error fetching festivals:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-// Jardins Endpoint
-app.get("/api/jardins", async (req, res) => {
-  const {
-    page = 0,
-    rowsPerPage = 10,
-    sortBy,
-    sortOrder = "asc",
-    searchTerm,
-  } = req.query;
-
-  const query = {};
-
-  if (searchTerm) {
-    query.$text = { $search: searchTerm };
-  }
-
-  const sort = {};
-  if (sortBy) {
-    const dbField = jardinFieldMap[sortBy];
-    if (dbField) {
-      sort[dbField] = sortOrder === "asc" ? 1 : -1;
-    } else {
-      return res.status(400).json({ error: "Invalid sort field" });
-    }
-  }
-
-  try {
-    const total = await Jardin.countDocuments(query);
-    const data = await Jardin.find(query)
-      .sort(sort)
-      .collation({ locale: "fr", strength: 1 })
-      .skip(page * rowsPerPage)
-      .limit(parseInt(rowsPerPage))
-      .lean();
-
-    res.json({ total, data });
-  } catch (error) {
-    console.error("Error fetching jardins:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-// Maisons des Illustres Endpoint
-app.get("/api/maisons-des-illustres", async (req, res) => {
-  const {
-    page = 0,
-    rowsPerPage = 10,
-    sortBy,
-    sortOrder = "asc",
-    searchTerm,
-  } = req.query;
-
-  const query = {};
-
-  if (searchTerm) {
-    query.$text = { $search: searchTerm };
-  }
-
-  const sort = {};
-  if (sortBy) {
-    const dbField = maisonsDesIllustresFieldMap[sortBy];
-    if (dbField) {
-      sort[dbField] = sortOrder === "asc" ? 1 : -1;
-    } else {
-      return res.status(400).json({ error: "Invalid sort field" });
-    }
-  }
-
-  try {
-    const total = await MaisonsDesIllustres.countDocuments(query);
-    const data = await MaisonsDesIllustres.find(query)
-      .sort(sort)
-      .collation({ locale: "fr", strength: 1 })
-      .skip(page * rowsPerPage)
-      .limit(parseInt(rowsPerPage))
-      .lean();
-
-    res.json({ total, data });
-  } catch (error) {
-    console.error("Error fetching maisons des illustres:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-// Architecture Contemporaine Endpoint
-app.get("/api/architecture-contemporaines", async (req, res) => {
-  const {
-    page = 0,
-    rowsPerPage = 10,
-    sortBy,
-    sortOrder = "asc",
-    searchTerm,
-  } = req.query;
-
-  const query = {};
-
-  if (searchTerm) {
-    query.$text = { $search: searchTerm };
-  }
-
-  const sort = {};
-  if (sortBy) {
-    const dbField = architectureContemporainesFieldMap[sortBy];
-    if (dbField) {
-      sort[dbField] = sortOrder === "asc" ? 1 : -1;
-    } else {
-      return res.status(400).json({ error: "Invalid sort field" });
-    }
-  }
-
-  try {
-    const total = await ArchitectureContemporaines.countDocuments(query);
-    const data = await ArchitectureContemporaines.find(query)
-      .sort(sort)
-      .collation({ locale: "fr", strength: 1 })
-      .skip(page * rowsPerPage)
-      .limit(parseInt(rowsPerPage))
-      .lean();
-
-    res.json({ total, data });
-  } catch (error) {
-    console.error("Error fetching architecture contemporaine:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
+// New Endpoints for Cathedrals, Châteaux, and Opera Houses
+app.get("/api/cathedrals", createApiEndpoint(Cathedral, cathedralFieldMap));
+app.get("/api/chateaux", createApiEndpoint(Chateau, chateauFieldMap));
+app.get("/api/opera-houses", createApiEndpoint(OperaHouse, operaFieldMap));
 
 // Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
@@ -283,6 +154,9 @@ mongoose
       await Jardin.init();
       await MaisonsDesIllustres.init();
       await ArchitectureContemporaines.init();
+      await Cathedral.init();
+      await Chateau.init();
+      await OperaHouse.init();
       console.log("Indexes exist");
     } catch (error) {
       console.error("Error initializing indexes:", error);

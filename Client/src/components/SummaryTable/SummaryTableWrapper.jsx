@@ -63,6 +63,24 @@ const SummaryTableWrapper = ({
       },
       { Header: "City", accessor: "city" },
     ];
+  } else if (selectedDataSet === "cathedrals") {
+    columns = [
+      { Header: "Nom", accessor: "name" },
+      { Header: "Style", accessor: "genre" },
+      { Header: "Ville", accessor: "city" },
+    ];
+  } else if (selectedDataSet === "chateaux") {
+    columns = [
+      { Header: "Nom", accessor: "name" },
+      { Header: "Période ou Style", accessor: "genre" },
+      { Header: "Commune", accessor: "city" },
+    ];
+  } else if (selectedDataSet === "operaHouses") {
+    columns = [
+      { Header: "Nom", accessor: "name" },
+      { Header: "Type", accessor: "genre" },
+      { Header: "Lieu", accessor: "city" },
+    ];
   }
 
   return (

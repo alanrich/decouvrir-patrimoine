@@ -2,7 +2,6 @@ import React, { useState, useCallback } from "react";
 import DetailView from "./DetailView";
 import { Box } from "@mui/material";
 import { useWikiImage } from "../../hooks/wikipedia-hooks/useWikiImage";
-import { useWikiAdditionalImages } from "../../hooks/wikipedia-hooks/useWikiAdditionalImages";
 import { useWikiPageContent } from "../../hooks/wikipedia-hooks/useWikiPageContent";
 import { useWikiCollectionSection } from "../../hooks/wikipedia-hooks/useWikiCollectionSection";
 
@@ -135,7 +134,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
               { title: "Ville", value: object?.city || "Non disponible" },
               { title: "Adresse", value: object?.address || "Non disponible" },
               {
-                title: "Site Web",
+                title: "Site Web", // TODO --> fix to match data object
                 value: object?.rawData?.url || "Non Disponible",
                 type: "URL",
               },
@@ -161,6 +160,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
                   object?.rawData?.nom ||
                   object?.rawData?.nom_du_jardin ||
                   object?.rawData?.nom_du_festival ||
+                  object?.rawData?.name ||
                   "Non disponible",
               },
               {
@@ -169,6 +169,9 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
                   ? object.rawData.types.join(", ")
                   : object?.rawData?.types ||
                     object?.rawData?.discipline_dominante ||
+                    object?.rawData?.type ||
+                    object?.rawData?.style_dominant ||
+                    object?.rawData?.architecture ||
                     "Non disponible",
               },
               {
@@ -176,6 +179,8 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
                 value:
                   object?.rawData?.commune ||
                   object?.rawData?.commune_principale_de_deroulement ||
+                  object?.rawData?.lieu ||
+                  object?.rawData?.ville ||
                   "Non disponible",
               },
               {
@@ -199,10 +204,31 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
                 value: object?.rawData?.histoire || "Non disponible",
               },
               {
+                title: "Periode ou Style",
+                value: object?.rawData?.period_ou_style || "Non disponible",
+              },
+              {
+                title: "Architecte",
+                value: object?.rawData?.architecte || "Non disponible",
+              },
+              {
+                title: "Capacité",
+                value: object?.rawData?.capacite || "Non disponible",
+              },
+              {
+                title: "Proprietare",
+                value: object?.rawData?.proprietaire || "Non disponible",
+              },
+              {
+                title: "Région Historique",
+                value: object?.rawData?.region_historique || "Non disponible",
+              },
+              {
                 title: "Année de Création",
                 value:
                   object?.rawData?.annee_de_creation_du_festival ||
                   object?.rawData?.annee_d_obtention ||
+                  object?.rawData?.imauguration ||
                   "Non disponible",
               },
             ],
@@ -210,6 +236,10 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
           {
             label: "Coordonnées",
             fields: [
+              {
+                title: "Département",
+                value: object?.rawData?.department || "Non disponible",
+              },
               {
                 title: "Région",
                 value:
@@ -233,11 +263,10 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
               },
               {
                 title: "Site Web",
-                value:
-                  object?.rawData?.site_internet_et_autres_liens ||
-                  "Non Disponsible",
+                value: object?.rawData?.["Site web"] || "Non disponible",
                 type: "URL",
               },
+
               {
                 title: "Email",
                 value: object?.rawData?.adresse_e_mail || "Non disponible",

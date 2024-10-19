@@ -38,6 +38,7 @@ export const useDomainObjects = (
           );
         };
 
+        // Add API URLs for new datasets
         if (selectedDataSet === "museums") {
           apiUrl = constructApiUrl("museums");
         } else if (selectedDataSet === "festivals") {
@@ -48,6 +49,12 @@ export const useDomainObjects = (
           apiUrl = constructApiUrl("maisons-des-illustres");
         } else if (selectedDataSet === "architectureContemporaines") {
           apiUrl = constructApiUrl("architecture-contemporaines");
+        } else if (selectedDataSet === "cathedrals") {
+          apiUrl = constructApiUrl("cathedrals");
+        } else if (selectedDataSet === "chateaux") {
+          apiUrl = constructApiUrl("chateaux");
+        } else if (selectedDataSet === "operaHouses") {
+          apiUrl = constructApiUrl("opera-houses");
         }
 
         const response = await fetch(apiUrl, {
@@ -68,10 +75,10 @@ export const useDomainObjects = (
         const result = await response.json();
         const data = result.data;
 
-        // Validate the data based on the selected data set
         const validData = data
           .map((object) => {
             if (selectedDataSet === "museums") {
+              // Museums object mapping
               if (
                 object.nom_officiel &&
                 object.adresse &&
@@ -95,6 +102,7 @@ export const useDomainObjects = (
               }
             }
             if (selectedDataSet === "festivals") {
+              // Festivals object mapping
               if (
                 object.nom_du_festival &&
                 typeof object.commune_principale_de_deroulement === "string" &&
@@ -123,6 +131,7 @@ export const useDomainObjects = (
               }
             }
             if (selectedDataSet === "jardins") {
+              // Jardins object mapping
               if (
                 object.nom_du_jardin &&
                 object.commune &&
@@ -144,6 +153,7 @@ export const useDomainObjects = (
               }
             }
             if (selectedDataSet === "maisonsDesIllustres") {
+              // Maisons des Illustres object mapping
               if (
                 object.nom &&
                 object.commune &&
@@ -178,6 +188,7 @@ export const useDomainObjects = (
               }
             }
             if (selectedDataSet === "architectureContemporaines") {
+              // Architecture Contemporaine object mapping
               if (
                 object.titre_courant &&
                 object.commune &&
@@ -201,7 +212,56 @@ export const useDomainObjects = (
                 };
               }
             }
-            return null; // Exclude any invalid data
+            // New datasets: Cathedrals, Châteaux, Opera Houses
+            if (selectedDataSet === "cathedrals") {
+              if (object.name && object.ville) {
+                return {
+                  id: object.id,
+                  name: formatFrench(object.name),
+                  city: formatFrench(object.ville),
+                  genre: formatFrench(
+                    object.style_dominant || "Non disponible"
+                  ),
+                  latitude: object.coordonnees?.latitude || null,
+                  longitude: object.coordonnees?.longitude || null,
+                  rawData: object,
+                  dataSet: selectedDataSet,
+                };
+              }
+            }
+
+            if (selectedDataSet === "chateaux") {
+              if (object.name && object.commune) {
+                return {
+                  id: object.id,
+                  name: formatFrench(object.name),
+                  city: formatFrench(object.commune),
+                  genre: formatFrench(
+                    object.periode_ou_style || "Non disponible"
+                  ),
+                  latitude: object.coordonnees?.latitude || null,
+                  longitude: object.coordonnees?.longitude || null,
+                  rawData: object,
+                  dataSet: selectedDataSet,
+                };
+              }
+            }
+            if (selectedDataSet === "operaHouses") {
+              if (object.name && object.lieu) {
+                return {
+                  id: object.id,
+                  name: formatFrench(object.name),
+                  city: formatFrench(object.lieu.split(",")[0]),
+                  genre: formatFrench(object.type || "Non disponible"),
+                  latitude: object.coordonnees?.latitude || null,
+                  longitude: object.coordonnees?.longitude || null,
+                  rawData: object,
+                  dataSet: selectedDataSet,
+                };
+              }
+            }
+
+            return null;
           })
           .filter(Boolean); // Remove any null entries
 
