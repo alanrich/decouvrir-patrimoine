@@ -80,7 +80,7 @@ const cathedralFieldMap = {
 const createApiEndpoint = (Model, fieldMap) => async (req, res) => {
   const {
     page = 0,
-    rowsPerPage = 10,
+    rowsPerPage = 25,
     sortBy,
     sortOrder = "asc",
     searchTerm,
