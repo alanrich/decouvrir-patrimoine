@@ -6,6 +6,7 @@ import { shouldForwardProp } from "@mui/system";
 import DOMPurify from "dompurify";
 import { formatUrls } from "../../utils/formatUrls";
 import { cleanHtmlContent } from "../../utils/cleanHtmlContent";
+import StyledButton from "../StyledButton";
 
 const FieldTitle = styled(Typography, {
   shouldForwardProp: (prop) => prop !== "isModal" && shouldForwardProp(prop),
@@ -120,32 +121,12 @@ const Field = ({ title, value, type, isModal, fontSize, isWikiContent }) => {
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(displayedContent),
             }}
-          ></Typography>
+          />
           {currentIndex < cleanHtmlContent(value).length && (
-            <Box
-              sx={{
-                backgroundColor: theme.palette.primary.main,
-                padding: "4px 12px", // Smaller padding to avoid too much extra space
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: theme.shape.borderRadiusMedium,
-                width: "fit-content", // Box should only be as wide as its content
-                margin: "8px auto", // Add space around the box and center it horizontally
-              }}
-            >
-              <Button
-                onClick={handleToggleExpand}
-                size="small"
-                sx={{
-                  ...theme.typography.fancyText,
-                  justifyContent: "center",
-                  width: "fit-content",
-                }}
-              >
-                Voir plus
-              </Button>
-            </Box>
+            <StyledButton
+              text={"Voir Plus"}
+              handleAction={handleToggleExpand}
+            />
           )}
         </>
       ) : typeof value === "string" ? (
