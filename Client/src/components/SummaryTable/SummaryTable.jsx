@@ -270,6 +270,7 @@ const SummaryTable = ({
           sx={{
             height: "32px",
             display: "flex",
+            overflowY: "hidden",
             alignItems: "center",
             justifyContent: "flex-end",
             padding: "0 16px",
