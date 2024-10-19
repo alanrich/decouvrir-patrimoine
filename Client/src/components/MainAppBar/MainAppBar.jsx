@@ -206,7 +206,7 @@ const MainAppBar = ({
               sx={{
                 display: "flex",
                 alignItems: "center",
-                backgroundColor: theme.palette.grey[200],
+                backgroundColor: theme.palette.background.white,
                 borderRadius: "24px",
                 padding: "0 8px",
                 height: "40px",
