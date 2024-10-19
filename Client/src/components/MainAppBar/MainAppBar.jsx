@@ -361,9 +361,6 @@ const MainAppBar = ({
             <MenuItem onClick={() => handleCulturalSelection("jardins")}>
               Jardins
             </MenuItem>
-            <MenuItem onClick={() => handleCulturalSelection("festivals")}>
-              Festivals
-            </MenuItem>
             <MenuItem
               onClick={() => handleCulturalSelection("maisonsDesIllustres")}
             >
