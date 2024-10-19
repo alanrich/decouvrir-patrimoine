@@ -122,9 +122,30 @@ const Field = ({ title, value, type, isModal, fontSize, isWikiContent }) => {
             }}
           ></Typography>
           {currentIndex < cleanHtmlContent(value).length && (
-            <Button onClick={handleToggleExpand} size="small">
-              Voir plus
-            </Button>
+            <Box
+              sx={{
+                backgroundColor: theme.palette.primary.main,
+                padding: "4px 12px", // Smaller padding to avoid too much extra space
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: theme.shape.borderRadiusMedium,
+                width: "fit-content", // Box should only be as wide as its content
+                margin: "8px auto", // Add space around the box and center it horizontally
+              }}
+            >
+              <Button
+                onClick={handleToggleExpand}
+                size="small"
+                sx={{
+                  ...theme.typography.fancyText,
+                  justifyContent: "center",
+                  width: "fit-content",
+                }}
+              >
+                Voir plus
+              </Button>
+            </Box>
           )}
         </>
       ) : typeof value === "string" ? (
