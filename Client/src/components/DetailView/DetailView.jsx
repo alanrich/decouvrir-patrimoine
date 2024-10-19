@@ -23,9 +23,7 @@ const DetailView = memo(
     imageUrl,
     imageLoading,
     imageError,
-    wikiImages,
-    wikiMainSection,
-    historyData,
+    wikiPageContentData,
     wikiCollectionSection,
     artistNames,
     tabConfigs,
@@ -368,9 +366,7 @@ const DetailView = memo(
           imageLoading={imageLoading}
           imageError={imageError}
           artistNames={artistNames}
-          wikiImages={wikiImages}
-          wikiMainSection={wikiMainSection}
-          historyData={historyData}
+          wikiPageContentData={wikiPageContentData}
           wikiCollectionSection={wikiCollectionSection}
           object={object}
         />
@@ -391,9 +387,7 @@ DetailView.propTypes = {
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
-  wikiImages: PropTypes.arrayOf(PropTypes.string),
-  wikiMainSection: PropTypes.string,
-  historyData: PropTypes.object,
+  wikiPageContentData: PropTypes.object,
   wikiCollectionSection: PropTypes.string,
   artistNames: PropTypes.arrayOf(PropTypes.string),
   tabConfigs: PropTypes.array.isRequired,

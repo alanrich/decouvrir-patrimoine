@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 
 const WIKIPEDIA_API_BASE = "https://fr.wikipedia.org/w/api.php";
 
-export const useWikiHistorySection = (title) => {
-  const [historyData, setHistoryData] = useState(null);
+export const useWikiPageContent = (title) => {
+  const [wikiPageContentData, setWikiPageContentData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -15,14 +15,14 @@ export const useWikiHistorySection = (title) => {
       setError(null);
 
       try {
-        // Step 1: Search for the Wikipedia page using the title (flexible approach)
+        // Search for the Wikipedia page using the title (more flexible approach, generally works pretty well)
         const searchUrl = `${WIKIPEDIA_API_BASE}?action=query&list=search&srsearch=${encodeURIComponent(
           title
         )}&format=json&origin=*`;
         const searchResponse = await fetch(searchUrl);
         const searchData = await searchResponse.json();
 
-        // Step 2: Handle case where no search results are found
+        // Handle case where no search results are found
         if (!searchData.query || searchData.query.search.length === 0) {
           setError("Aucune page Wikipedia trouvée pour ce titre.");
           setLoading(false);
@@ -32,16 +32,15 @@ export const useWikiHistorySection = (title) => {
         // Get the page ID of the first search result
         const pageId = searchData.query.search[0].pageid;
 
-        // Step 3: Fetch the entire content of the page using the page ID
+        // Fetch the entire content of the page using the page ID
         const contentUrl = `${WIKIPEDIA_API_BASE}?action=parse&pageid=${pageId}&prop=text&format=json&origin=*`;
         const contentResponse = await fetch(contentUrl);
         const contentData = await contentResponse.json();
 
-        // Step 4: Extract and set the entire article content
+        // Extract and set the entire article content
         const content = contentData.parse?.text?.["*"];
         if (content) {
-          // Maintain the existing return structure
-          setHistoryData({
+          setWikiPageContentData({
             title: searchData.query.search[0].title, // Use the title from search results
             content, // Full article content
           });
@@ -59,5 +58,5 @@ export const useWikiHistorySection = (title) => {
     fetchWikiArticle();
   }, [title]);
 
-  return { historyData, loading, error };
+  return { wikiPageContentData, loading, error };
 };

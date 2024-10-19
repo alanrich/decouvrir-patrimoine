@@ -18,9 +18,7 @@ const DetailViewModal = ({
   imageUrl,
   imageLoading,
   imageError,
-  wikiImages,
-  wikiMainSection,
-  historyData,
+  wikiPageContentData,
   wikiCollectionSection,
   artistNames,
 }) => {
@@ -227,20 +225,20 @@ const DetailViewModal = ({
                     )}
                     <Typography>{objectName}</Typography>
 
-                    {/* Histoire Wikipedia */}
-                    {historyData && historyData.content && (
+                    {/* Wikipedia Content */}
+                    {wikiPageContentData && wikiPageContentData.content && (
                       <Box
                         sx={{
                           width: "100%",
                           padding: theme.spacing(2),
                         }}
                       >
-                        <Typography variant="h6">Histoire Wikipedia</Typography>
+                        <Typography variant="h6">Wikipedia</Typography>
                         <TabPanelContent
                           fields={[
                             {
                               title: "",
-                              value: historyData.content,
+                              value: wikiPageContentData.content,
                               isWikiContent: true,
                             },
                           ]}
@@ -302,9 +300,7 @@ DetailViewModal.propTypes = {
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
-  wikiImages: PropTypes.arrayOf(PropTypes.string),
-  wikiMainSection: PropTypes.string,
-  historyData: PropTypes.object,
+  wikiPageContentData: PropTypes.object,
   wikiCollectionSection: PropTypes.string,
   artistNames: PropTypes.arrayOf(PropTypes.string),
 };

@@ -3,8 +3,7 @@ import DetailView from "./DetailView";
 import { Box } from "@mui/material";
 import { useWikiImage } from "../../hooks/wikipedia-hooks/useWikiImage";
 import { useWikiAdditionalImages } from "../../hooks/wikipedia-hooks/useWikiAdditionalImages";
-import { useWikiMainSection } from "../../hooks/wikipedia-hooks/useWikiMainSection";
-import { useWikiHistorySection } from "../../hooks/wikipedia-hooks/useWikiHistorySection";
+import { useWikiPageContent } from "../../hooks/wikipedia-hooks/useWikiPageContent";
 import { useWikiCollectionSection } from "../../hooks/wikipedia-hooks/useWikiCollectionSection";
 
 const DetailViewWrapper = ({ object, selectedDataSet }) => {
@@ -25,20 +24,10 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
     error: imageError,
   } = useWikiImage(objectName);
   const {
-    wikiImages,
-    loading: imagesLoading,
-    error: imagesError,
-  } = useWikiAdditionalImages(objectName);
-  const {
-    wikiMainSection,
-    loading: mainLoading,
-    error: mainError,
-  } = useWikiMainSection(objectName);
-  const {
-    historyData,
-    loading: historyLoading,
-    error: historyError,
-  } = useWikiHistorySection(objectName);
+    wikiPageContentData,
+    loading: wikiPageContentLoading,
+    error: wikiPageContentError,
+  } = useWikiPageContent(objectName);
   const {
     wikiCollectionSection,
     loading: collectionLoading,
@@ -302,9 +291,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
         imageUrl={imageUrl}
         imageLoading={imageLoading}
         imageError={imageError}
-        wikiImages={wikiImages}
-        wikiMainSection={wikiMainSection}
-        historyData={historyData}
+        wikiPageContentData={wikiPageContentData}
         wikiCollectionSection={wikiCollectionSection}
         artistNames={artistNames}
         tabConfigs={tabConfigs}
