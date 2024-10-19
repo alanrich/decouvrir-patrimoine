@@ -26,6 +26,6 @@ operaSchema.index({ name: 1 });
 operaSchema.index({ commune: 1 });
 operaSchema.index({ periode_ou_style: 1 });
 
-const OperaHouse = mongoose.model("OperaHouses", operaSchema);
+const Opera = mongoose.model("Opera", operaSchema);
 
-module.exports = OperaHouse;
+module.exports = Opera;

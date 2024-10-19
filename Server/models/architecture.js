@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const architectureContemporainesSchema = new mongoose.Schema({
+const architectureSchema = new mongoose.Schema({
   reference_de_la_notice: String,
   ancienne_reference_de_la_notice_renv: String,
   cadre_de_l_etude: String,
@@ -50,19 +50,16 @@ const architectureContemporainesSchema = new mongoose.Schema({
   commune_forme_editoriale: String,
 });
 
-architectureContemporainesSchema.index({
+architectureSchema.index({
   titre_courant: "text",
   commune: "text",
   region: "text",
 });
-architectureContemporainesSchema.index({ denominations: 1 });
-architectureContemporainesSchema.index({ titre_courant: 1 });
-architectureContemporainesSchema.index({ commune: 1 });
-architectureContemporainesSchema.index({ region: 1 });
+architectureSchema.index({ denominations: 1 });
+architectureSchema.index({ titre_courant: 1 });
+architectureSchema.index({ commune: 1 });
+architectureSchema.index({ region: 1 });
 
-const ArchitectureContemporaines = mongoose.model(
-  "ArchitectureContemporaines",
-  architectureContemporainesSchema
-);
+const Architecture = mongoose.model("Architecture", architectureSchema);
 
-module.exports = ArchitectureContemporaines;
+module.exports = Architecture;

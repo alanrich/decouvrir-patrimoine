@@ -10,10 +10,10 @@ const Museum = require("./models/museum");
 const Festival = require("./models/festival");
 const Jardin = require("./models/jardin");
 const MaisonsDesIllustres = require("./models/maisonsDesIllustres");
-const ArchitectureContemporaines = require("./models/architectureContemporaines");
+const Architecture = require("./models/architecture");
 const Cathedral = require("./models/cathedral");
-const Chateau = require("./models/chateau");
-const OperaHouse = require("./models/operaHouse");
+const Castle = require("./models/castle");
+const Opera = require("./models/opera");
 
 const mongoURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 3001;
@@ -52,13 +52,13 @@ const maisonsDesIllustresFieldMap = {
   genre: "types",
 };
 
-const architectureContemporainesFieldMap = {
+const architectureFieldMap = {
   name: "titre_courant",
   city: "commune",
   genre: "denominations",
 };
 
-const chateauFieldMap = {
+const castleFieldMap = {
   name: "name",
   city: "commune",
   genre: "periode_ou_style",
@@ -127,17 +127,12 @@ app.get(
   createApiEndpoint(MaisonsDesIllustres, maisonsDesIllustresFieldMap)
 );
 app.get(
-  "/api/architecture-contemporaines",
-  createApiEndpoint(
-    ArchitectureContemporaines,
-    architectureContemporainesFieldMap
-  )
+  "/api/architectures",
+  createApiEndpoint(Architecture, architectureFieldMap)
 );
-
-// New Endpoints for Cathedrals, Châteaux, and Opera Houses
 app.get("/api/cathedrals", createApiEndpoint(Cathedral, cathedralFieldMap));
-app.get("/api/chateaux", createApiEndpoint(Chateau, chateauFieldMap));
-app.get("/api/opera-houses", createApiEndpoint(OperaHouse, operaFieldMap));
+app.get("/api/castles", createApiEndpoint(Castle, castleFieldMap));
+app.get("/api/operas", createApiEndpoint(Opera, operaFieldMap));
 
 // Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
@@ -153,10 +148,10 @@ mongoose
       await Festival.init();
       await Jardin.init();
       await MaisonsDesIllustres.init();
-      await ArchitectureContemporaines.init();
+      await Architecture.init();
       await Cathedral.init();
-      await Chateau.init();
-      await OperaHouse.init();
+      await Castle.init();
+      await Opera.init();
       console.log("Indexes exist");
     } catch (error) {
       console.error("Error initializing indexes:", error);

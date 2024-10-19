@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const chateauSchema = new mongoose.Schema({
+const castleSchema = new mongoose.Schema({
   id: Number,
   name: String,
   url: String,
@@ -11,22 +11,22 @@ const chateauSchema = new mongoose.Schema({
   region_historique: String,
   department: String,
   proprietaire_actuel: String,
-  coordonnees: {
+  coordonnes: {
     latitude: Number,
     longitude: Number,
   },
 });
 
-chateauSchema.index({
+castleSchema.index({
   name: "text",
   commune: "text",
   periode_ou_style: "text",
 });
 
-chateauSchema.index({ name: 1 });
-chateauSchema.index({ commune: 1 });
-chateauSchema.index({ periode_ou_style: 1 });
+castleSchema.index({ name: 1 });
+castleSchema.index({ commune: 1 });
+castleSchema.index({ periode_ou_style: 1 });
 
-const Chateau = mongoose.model("Chateaux", chateauSchema);
+const Castle = mongoose.model("Castle", castleSchema);
 
-module.exports = Chateau;
+module.exports = Castle;
