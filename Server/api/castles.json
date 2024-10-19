@@ -1,34 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "Abbadia",
-    "url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_d%27Abbadia",
-    "commune": "Hendaye",
-    "type": null,
-    "periode_ou_style": "éclectique",
-    "region": "Nouvelle-Aquitaine",
-    "region_historique": null,
-    "department": "Pyrénées-Atlantiques",
-    "proprietaire_actuel": "Académie des sciences",
-    "coordonnes": null
-  },
-  {
-    "id": 2,
-    "name": "Adhémar",
-    "url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_des_Adh%C3%A9mar",
-    "commune": "Montélimar",
-    "type": null,
-    "periode_ou_style": null,
-    "region": null,
-    "region_historique": "Dauphiné",
-    "department": null,
-    "proprietaire_actuel": "Département de la Drôme",
-    "coordonnes": {
-      "latitude": 44.55916666666666,
-      "longitude": 4.754444444444444
-    }
-  },
-  {
     "id": 3,
     "name": "Château d'Agnou",
     "url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_d%27Agnou",
