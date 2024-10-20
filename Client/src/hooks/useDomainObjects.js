@@ -96,6 +96,7 @@ export const useDomainObjects = (
                     formatFrench(object.domaine_thematique) || "Non disponible",
                   latitude: object.coordonnees.lat || null,
                   longitude: object.coordonnees.lon || null,
+                  rawData: object,
                   dataSet: selectedDataSet,
                 };
               }

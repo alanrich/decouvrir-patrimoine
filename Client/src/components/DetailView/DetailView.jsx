@@ -24,17 +24,11 @@ const DetailView = memo(
     imageLoading,
     imageError,
     wikiPageContentData,
-    wikiCollectionSection,
     artistNames,
     tabConfigs,
+    objectName,
   }) => {
     const theme = useTheme();
-
-    const objectName =
-      object?.name ||
-      object?.rawData?.nom ||
-      object?.rawData?.nom_du_jardin ||
-      object?.rawData?.nom_du_festival;
 
     const tabStyles = {
       tabList: {
@@ -367,8 +361,8 @@ const DetailView = memo(
           imageError={imageError}
           artistNames={artistNames}
           wikiPageContentData={wikiPageContentData}
-          wikiCollectionSection={wikiCollectionSection}
           object={object}
+          objectName={objectName}
         />
       </>
     );
@@ -388,9 +382,9 @@ DetailView.propTypes = {
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
   wikiPageContentData: PropTypes.object,
-  wikiCollectionSection: PropTypes.string,
   artistNames: PropTypes.arrayOf(PropTypes.string),
   tabConfigs: PropTypes.array.isRequired,
+  objectName: PropTypes.string.isRequired,
 };
 
 export default DetailView;

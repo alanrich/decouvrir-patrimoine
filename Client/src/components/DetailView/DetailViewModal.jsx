@@ -14,13 +14,12 @@ const DetailViewModal = ({
   tabConfigs,
   modalTabValue,
   handleModalTabChange,
-  object,
   imageUrl,
   imageLoading,
   imageError,
   wikiPageContentData,
-  wikiCollectionSection,
   artistNames,
+  objectName,
 }) => {
   const theme = useTheme();
 
@@ -61,12 +60,6 @@ const DetailViewModal = ({
 
   // Remove the Photo tab from tabConfigs
   const filteredTabConfigs = tabConfigs.filter((tab) => tab.label !== "Photo");
-
-  const objectName =
-    object?.name ||
-    object?.rawData?.nom ||
-    object?.rawData?.nom_du_jardin ||
-    object?.rawData?.nom_du_festival;
 
   return (
     <Modal
@@ -296,13 +289,12 @@ DetailViewModal.propTypes = {
   tabConfigs: PropTypes.array.isRequired,
   modalTabValue: PropTypes.number.isRequired,
   handleModalTabChange: PropTypes.func.isRequired,
-  object: PropTypes.object.isRequired,
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
   wikiPageContentData: PropTypes.object,
-  wikiCollectionSection: PropTypes.string,
   artistNames: PropTypes.arrayOf(PropTypes.string),
+  objectName: PropTypes.string.isRequired,
 };
 
 export default DetailViewModal;

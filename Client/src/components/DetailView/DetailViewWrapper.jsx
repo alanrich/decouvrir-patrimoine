@@ -479,6 +479,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
         wikiCollectionSection={wikiCollectionSection}
         artistNames={artistNames}
         tabConfigs={tabConfigs}
+        objectName={objectName}
       />
     </Box>
   );
