@@ -22,6 +22,8 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
     loading: imageLoading,
     error: imageError,
   } = useWikiImage(objectName);
+
+  // TODO: Pass loading and error values to DetailView
   const {
     wikiPageContentData,
     loading: wikiPageContentLoading,
@@ -134,13 +136,63 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
               { title: "Ville", value: object?.city || "Non disponible" },
               { title: "Adresse", value: object?.address || "Non disponible" },
               {
-                title: "Site Web", // TODO --> fix to match data object
+                title: "Site web",
                 value: object?.rawData?.url || "Non Disponible",
                 type: "URL",
               },
               {
-                title: "Numéro de Téléphone",
+                title: "Numéro de téléphone",
                 value: object?.rawData?.telephone || "Non disponible",
+              },
+            ],
+          },
+        ];
+
+      case "jardins":
+        return [
+          {
+            label: "Photo",
+            fields: [],
+          },
+          {
+            label: "Aperçu",
+            fields: [
+              { title: "Nom", value: object?.name || "Non disponible" },
+              { title: "Ville", value: object?.city || "Non disponible" },
+              {
+                title: "Genre de jardin",
+                value: object?.genre || "Non disponible",
+              },
+              {
+                title: "Description",
+                value: object?.description || "Non disponible",
+              },
+
+              { title: "Site Web", value: object?.website || "Non disponible" },
+              {
+                title: "Auteur nom de l'illustre",
+                value: object?.famousPerson || "Non disponible",
+              },
+              {
+                title: "Année d'obtenation",
+                value: object?.inauguralYear || "Non disponible",
+              },
+            ],
+          },
+          {
+            label: "Coordonnées",
+            fields: [
+              { title: "Adresse", value: object?.address || "Non disponible" },
+              { title: "Ville", value: object?.city || "Non disponible" },
+              { title: "Région", value: object?.region || "Non disponible" },
+              {
+                title: "Département",
+                value: object?.department || "Non disponible",
+              },
+              {
+                title: "Coordonnées géographiques",
+                value:
+                  [object?.latitutde, object?.longitude] || "Non disponible",
               },
             ],
           },
@@ -159,23 +211,23 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
               { title: "Ville", value: object?.city || "Non disponible" },
               { title: "Adresse", value: object?.address || "Non disponible" },
               {
-                title: "Description du Bâtiment",
+                title: "Description du bâtiment",
                 value: object?.description || "Non disponible",
               },
               {
-                title: "Précisions Sur L'Intérêt",
+                title: "Précisions Sur l'intérêt",
                 value: object?.interestingFacts || "Non disponible",
               },
               {
-                title: "Remarquables de L'Edifice",
+                title: "Remarquables de l'edifice",
                 value: object?.remarkableElements || "Non disponible",
               },
               {
-                title: "Materieux du Gros Œuvre",
+                title: "Materieux du gros œuvre",
                 value: object?.structuralMaterial || "Non disponible",
               },
               {
-                title: "Statut Juridique du Proprietaire",
+                title: "Statut juridique du proprietaire",
                 value: object?.publicOrPrivate || "Non disponible",
               },
             ],
@@ -184,11 +236,11 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             label: "Histoire",
             fields: [
               {
-                title: "Histoire du Bâtiment",
+                title: "Histoire du bâtiment",
                 value: object?.historicalDescription || "Non disponible",
               },
               {
-                title: "Date de Label",
+                title: "Date de label",
                 value: object?.designationDate || "Non disponible",
               },
               {
@@ -196,15 +248,15 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
                 value: object?.architect || "Non disponible",
               },
               {
-                title: "Siecle de la Campagne Principale de Construction",
+                title: "Siecle de la campagne principale de construction",
                 value: object?.constructionCentury || "Non disponible",
               },
               {
-                title: "Siecle de la Campagne Secondaire de Construction",
+                title: "Siecle de la campagne secondaire de construction",
                 value: object?.renovationCentury || "Non disponible",
               },
               {
-                title: "Datation de l'Edifice",
+                title: "Datation de l'edifice",
                 value: object?.yearCreated || "Non disponible",
               },
             ],
@@ -224,12 +276,13 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
                 value: object?.referencesCadastrales || "Non disponible",
               },
               {
-                title: "Coordonnées Géographiques",
+                title: "Coordonnées géographiques",
                 value: [object?.lat, object?.lon] || "Non disponible",
               },
             ],
           },
         ];
+
       case "chateaux":
         return [
           {
@@ -246,11 +299,11 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
                 value: object?.type || "Non disponible",
               },
               {
-                title: "Periode ou Style",
+                title: "Periode ou style",
                 value: object?.style || "Non disponible",
               },
               {
-                title: "Région Historique",
+                title: "Région historique",
                 value: object?.region_historique || "Non disponible",
               },
               {
@@ -269,7 +322,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
               },
               { title: "Ville", value: object?.city || "Non disponible" },
               {
-                title: "Coordonnées Géographiques",
+                title: "Coordonnées géographiques",
                 value:
                   [object?.latitude, object?.longitude] || "Non disponible",
               }, // TODO: Let's display a map in the right panel for coordonnées tab
@@ -277,12 +330,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
           },
         ];
 
-      // TODO: Cathedrals
-      // TODO: Jardins
-      // TODO: Operas
-      // TODO: Maisons Des Illustres
-
-      default:
+      case "cathedral":
         return [
           {
             label: "Photo",
@@ -291,122 +339,106 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
           {
             label: "Aperçu",
             fields: [
+              { title: "Nom", value: object?.name || "Non disponible" },
+              { title: "Ville", value: object?.city || "Non disponible" },
+              { title: "Région", value: object?.region || "Non disponible" },
               {
-                title: "Nom",
-                value:
-                  object?.rawData?.nom ||
-                  object?.rawData?.nom_du_jardin ||
-                  object?.rawData?.nom_du_festival ||
-                  object?.rawData?.name ||
-                  "Non disponible",
+                title: "Département",
+                value: object?.department || "Non disponible",
+              },
+
+              {
+                title: "Style dominant",
+                value: object?.genre || "Non disponible",
               },
               {
-                title: "Catégorie",
-                value: Array.isArray(object?.rawData?.types)
-                  ? object.rawData.types.join(", ")
-                  : object?.rawData?.types ||
-                    object?.rawData?.discipline_dominante ||
-                    object?.rawData?.type ||
-                    object?.rawData?.style_dominant ||
-                    object?.rawData?.architecture ||
-                    "Non disponible",
-              },
-              {
-                title: "Ville",
+                title: "Coordonnées géographiques",
                 value:
-                  object?.rawData?.commune ||
-                  object?.rawData?.commune_principale_de_deroulement ||
-                  object?.rawData?.lieu ||
-                  object?.rawData?.ville ||
-                  "Non disponible",
-              },
-              {
-                title: "Adresse",
-                value:
-                  object?.rawData?.adresse_complete ||
-                  object?.rawData?.adresse_postale ||
-                  "Non disponible",
+                  [object?.latitude, object?.longitude] || "Non disponible",
               },
             ],
           },
+        ];
+
+      case "operaHouses":
+        return [
           {
-            label: "Description",
+            label: "Photo",
+            fields: [],
+          },
+          {
+            label: "Aperçu",
             fields: [
+              { title: "Nom", value: object?.name || "Non disponible" },
+              { title: "Ville", value: object?.city || "Non disponible" },
               {
-                title: "Description",
-                value: object?.rawData?.description || "Non disponible",
-              },
-              {
-                title: "Histoire",
-                value: object?.rawData?.histoire || "Non disponible",
-              },
-              {
-                title: "Periode ou Style",
-                value: object?.rawData?.period_ou_style || "Non disponible",
+                title: "Type de bâtiment",
+                value: object?.genre || "Non disponible",
               },
               {
                 title: "Architecte",
-                value: object?.rawData?.architecte || "Non disponible",
+                value: object?.architect || "Non disponible",
               },
               {
                 title: "Capacité",
-                value: object?.rawData?.capacite || "Non disponible",
+                value: object?.capacity || "Non disponible",
               },
               {
-                title: "Proprietare",
-                value: object?.rawData?.proprietaire || "Non disponible",
+                title: "Site web",
+                value: object?.website || "Non disponible",
+                type: "URL",
+              },
+            ],
+          },
+        ];
+
+      case "maisonsDesIllustres":
+        return [
+          {
+            label: "Photo",
+            fields: [],
+          },
+          {
+            label: "Aperçu",
+            fields: [
+              { title: "Nom", value: object?.name || "Non disponible" },
+              { title: "Ville", value: object?.city || "Non disponible" },
+              {
+                title: "Auteur Nom de l'illustre",
+                value: object?.famousPerson || "Non disponible",
+              },
+
+              {
+                title: "Description",
+                value: object?.description || "Non Disponible",
               },
               {
-                title: "Région Historique",
-                value: object?.rawData?.region_historique || "Non disponible",
-              },
-              {
-                title: "Année de Création",
-                value:
-                  object?.rawData?.annee_de_creation_du_festival ||
-                  object?.rawData?.annee_d_obtention ||
-                  object?.rawData?.imauguration ||
-                  "Non disponible",
+                title: "Site Web",
+                value: object?.webSite || "Non disponible",
+                type: "URL",
               },
             ],
           },
           {
             label: "Coordonnées",
             fields: [
+              { title: "Nom", value: object?.name || "Non disponible" },
+              { title: "Adresse", value: object?.address || "Non disponible" },
+              { title: "Ville", value: object?.city || "Non disponible" },
+              { title: "Région", value: object?.region || "Non disponible" },
               {
                 title: "Département",
-                value: object?.rawData?.department || "Non disponible",
+                value: object?.department || "Non disponible",
               },
               {
-                title: "Région",
-                value:
-                  object?.rawData?.region ||
-                  object?.rawData?.region_principale_de_deroulement ||
-                  "Non disponible",
-              },
-              {
-                title: "Ville",
-                value:
-                  object?.rawData?.commune ||
-                  object?.rawData?.commune_principale_de_deroulement ||
-                  "Non disponible",
-              },
-              {
-                title: "Adresse",
-                value:
-                  object?.rawData?.adresse_complete ||
-                  object?.rawData?.adresse_postale ||
-                  "Non disponible",
-              },
-              {
-                title: "Site Web",
-                value: object?.rawData?.["Site web"] || "Non disponible",
+                title: "Site web",
+                value: object?.webSite || "Non disponible",
                 type: "URL",
               },
-
               {
-                title: "Email",
-                value: object?.rawData?.adresse_e_mail || "Non disponible",
+                title: "Coordonnées géographiques",
+                value:
+                  [object?.latitude, object?.longitude] || "Non disponible",
               },
             ],
           },

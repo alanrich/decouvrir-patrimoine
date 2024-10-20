@@ -90,13 +90,11 @@ export const useDomainObjects = (
                 return {
                   id: object.identifiant,
                   name: formatFrench(object.nom_officiel),
-                  address: formatFrench(object.adresse) || "Non disponible",
+                  address: formatFrench(object.adresse),
                   city: formatFrench(object.ville),
-                  genre:
-                    formatFrench(object.domaine_thematique) || "Non disponible",
+                  genre: formatFrench(object.domaine_thematique),
                   latitude: object.coordonnees.lat,
                   longitude: object.coordonnees.lon,
-                  rawData: object,
                   dataSet: selectedDataSet,
                 };
               }
@@ -113,20 +111,14 @@ export const useDomainObjects = (
               ) {
                 return {
                   id: object.identifiant || object.identifiant_cnm,
-                  genre:
-                    formatFrench(object.discipline_dominante) ||
-                    "Non disponible",
+                  genre: formatFrench(object.discipline_dominante),
                   name: formatFrench(object.nom_du_festival),
                   address:
                     formatFrench(object.adresse_postale) ||
-                    formatFrench(object.nom_de_la_voie) ||
-                    "Non disponible",
-                  city:
-                    formatFrench(object.commune_principale_de_deroulement) ||
-                    "Non disponible",
+                    formatFrench(object.nom_de_la_voie),
+                  city: formatFrench(object.commune_principale_de_deroulement),
                   latitude: object.geocodage_xy.lat,
                   longitude: object.geocodage_xy.lon,
-                  rawData: object,
                   dataSet: selectedDataSet,
                 };
               }
@@ -145,11 +137,15 @@ export const useDomainObjects = (
                   id: object.identifiant_deps || object.identifiant_origine,
                   name: formatFrench(object.nom_du_jardin),
                   city: formatFrench(object.commune),
-                  genre:
-                    formatFrench(object.types.join(", ")) || "Non disponible",
-                  latitude: object.coordonnees_geographiques.lat,
-                  longitude: object.coordonnees_geographiques.lon,
-                  rawData: object,
+                  region: object.region,
+                  department: object.department,
+                  genre: formatFrench(object.types.join(", ")),
+                  webSite: object.site_internet_et_autres_liens,
+                  description: object.description,
+                  inauguralYear: object.annee_d_obtention,
+                  famousPerson: object.auteur_nom_de_l_illustre,
+                  latitude: object.latitude,
+                  longitude: object.longitude,
                   dataSet: selectedDataSet,
                 };
               }
@@ -176,16 +172,15 @@ export const useDomainObjects = (
                   id: object.identifiant_deps || object.identifiant_origine,
                   name: formatFrench(object.nom),
                   city: formatFrench(object.commune),
-                  genre:
-                    formatFrench(object.types.join(", ")) || "Non disponible",
+                  region: object.region,
+                  department: object.department,
+                  genre: formatFrench(object.types.join(", ")),
+                  address: formatFrench(object.adresse_complete),
+                  webSite: object.site_internet_et_autres_liens.join(", "),
+                  description: formatFrench(object.description),
+                  famousPerson: object.auteur_nom_de_l_illustre,
                   latitude: object.coordonnees_geographiques.lat,
                   longitude: object.coordonnees_geographiques.lon,
-                  rawData: {
-                    ...object,
-                    site_internet_et_autres_liens: siteInternet,
-                    accessible_au_public: accessibleAuPublic,
-                    types: types,
-                  },
                   dataSet: selectedDataSet,
                 };
               }
@@ -226,40 +221,37 @@ export const useDomainObjects = (
                   latitude: object.coordonnees?.lat,
                   longitude: object.coordonnees?.lon,
                   referencesCadastrales: object.references_cadastrales,
-                  rawData: object,
                   dataSet: selectedDataSet,
                 };
               }
             }
 
-            // New datasets: Cathedrals, Châteaux, Opera Houses
             if (selectedDataSet === "cathedrals") {
+              // Cathedral object mapping
               if (object.name && object.ville) {
                 // dataset is not huge, dont exclude objects lacking geocoords
                 return {
                   id: object.id,
                   name: formatFrench(object.name),
                   city: formatFrench(object.ville),
-                  genre: formatFrench(
-                    object.style_dominant || "Non disponible"
-                  ),
-                  latitude: object.coordonnees?.latitude || null,
-                  longitude: object.coordonnees?.longitude || null,
-                  rawData: object,
+                  genre: formatFrench(object.style_dominant),
+                  department: object.department,
+                  region: object.region,
+                  latitude: object.coordonnes?.latitude || null,
+                  longitude: object.coordonnes?.longitude || null,
                   dataSet: selectedDataSet,
                 };
               }
             }
 
             if (selectedDataSet === "chateaux") {
+              // Chateaux object mapping
               if (object.name && object.commune) {
                 return {
                   id: object.id,
-                  name: formatFrench(object.name) || "Non disponible",
-                  city: formatFrench(object.commune) || "Non disponible",
-                  genre: formatFrench(
-                    object.periode_ou_style || "Non disponible"
-                  ),
+                  name: formatFrench(object.name),
+                  city: formatFrench(object.commune),
+                  genre: formatFrench(object.periode_ou_style),
                   style: formatFrench(object.periode_ou_style),
                   type: formatFrench(object.type),
                   proprietaire: formatFrench(object.proprietaire_actuel),
@@ -268,23 +260,25 @@ export const useDomainObjects = (
                   department: formatFrench(object.department),
                   latitude: object.coordonnes?.latitude || null,
                   longitude: object.coordonnes?.longitude || null,
-                  rawData: object,
                   dataSet: selectedDataSet,
                 };
               }
             }
 
             if (selectedDataSet === "operaHouses") {
+              // Opera House object mapping
               if (object.name && object.lieu) {
                 return {
                   id: object.id,
-                  name: formatFrench(object.name) || "Non disponible",
-                  city:
-                    formatFrench(object.lieu.split(",")[0]) || "Non disponible",
-                  genre: formatFrench(object.type || "Non disponible"),
+                  name: formatFrench(object.name),
+                  city: formatFrench(object.lieu),
+                  genre: formatFrench(object.type),
+                  architect: formatFrench(object.architecte),
+                  inauguration: object.inauguration,
+                  capacity: object.capacite,
+                  webSite: object.site_web,
                   latitude: object.coordonnees?.latitude || null,
                   longitude: object.coordonnees?.longitude || null,
-                  rawData: object,
                   dataSet: selectedDataSet,
                 };
               }
