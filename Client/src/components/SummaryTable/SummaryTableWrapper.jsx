@@ -20,66 +20,66 @@ const SummaryTableWrapper = ({
 
   if (selectedDataSet === "museums") {
     columns = [
-      { Header: "Name", accessor: "name" },
+      { Header: "Nom", accessor: "name" },
       {
         Header: "Genres",
         accessor: "genre",
         Cell: ({ value }) =>
           Array.isArray(value) ? value.join(", ") : "Non disponible",
       },
-      { Header: "City", accessor: "city" },
+      { Header: "Ville", accessor: "city" },
     ];
   } else if (selectedDataSet === "festivals") {
     columns = [
       { Header: "Name", accessor: "name" },
-      { Header: "Genre", accessor: "genre" },
-      { Header: "City", accessor: "city" },
+      { Header: "Genre des Festival", accessor: "genre" },
+      { Header: "Ville", accessor: "city" },
     ];
   } else if (selectedDataSet === "jardins") {
     columns = [
       { Header: "Name", accessor: "name" },
-      { Header: "Genre", accessor: "genre" },
-      { Header: "City", accessor: "city" },
+      { Header: "Genre de Jardin", accessor: "genre" },
+      { Header: "Ville", accessor: "city" },
     ];
   } else if (selectedDataSet === "maisonsDesIllustres") {
     columns = [
-      { Header: "Name", accessor: "name" },
+      { Header: "Nom", accessor: "name" },
       {
-        Header: "Genre",
+        Header: "Genre de Maison",
         accessor: "genre",
         Cell: ({ value }) =>
           Array.isArray(value) ? value.join(", ") : "Non disponible",
       },
-      { Header: "City", accessor: "city" },
+      { Header: "Ville", accessor: "city" },
     ];
   } else if (selectedDataSet === "cathedrals") {
     columns = [
       { Header: "Nom", accessor: "name" },
-      { Header: "Style", accessor: "genre" },
+      { Header: "Style de Cathedral", accessor: "genre" },
       { Header: "Ville", accessor: "city" },
     ];
   } else if (selectedDataSet === "chateaux") {
     columns = [
       { Header: "Nom", accessor: "name" },
-      { Header: "Période ou Style", accessor: "genre" },
-      { Header: "Commune", accessor: "city" },
+      { Header: "Style de Château", accessor: "genre" },
+      { Header: "Ville", accessor: "city" },
     ];
   } else if (selectedDataSet === "operaHouses") {
     columns = [
       { Header: "Nom", accessor: "name" },
-      { Header: "Type", accessor: "genre" },
-      { Header: "Lieu", accessor: "city" },
+      { Header: "Type de salle d'Opéra", accessor: "genre" },
+      { Header: "Ville", accessor: "city" },
     ];
   } else if (selectedDataSet === "architectureContemporaines") {
     columns = [
-      { Header: "Name", accessor: "name" },
+      { Header: "Nom", accessor: "name" },
       {
-        Header: "Genre",
+        Header: "Type de Bâtiment",
         accessor: "genre",
         Cell: ({ value }) =>
           Array.isArray(value) ? value.join(", ") : "Non disponible",
       },
-      { Header: "City", accessor: "city" },
+      { Header: "Ville", accessor: "city" },
     ];
   }
 
