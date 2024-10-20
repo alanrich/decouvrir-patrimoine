@@ -20,7 +20,7 @@ const AppContainer = styled("div")(({ theme }) => ({
 }));
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedDataSet, setSelectedDataSet] = useState("museums");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);

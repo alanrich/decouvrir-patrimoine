@@ -9,7 +9,7 @@ const cathedralSchema = new mongoose.Schema({
   department: String,
   region: String,
   ville: String,
-  coordonnees: {
+  coordonnes: {
     latitude: Number,
     longitude: Number,
   },

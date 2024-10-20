@@ -330,7 +330,7 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
           },
         ];
 
-      case "cathedral":
+      case "cathedrals":
         return [
           {
             label: "Photo",
@@ -350,6 +350,11 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
               {
                 title: "Style dominant",
                 value: object?.genre || "Non disponible",
+              },
+              {
+                title: "Site web",
+                value: object?.webSite || "Non disponible",
+                type: "URL",
               },
               {
                 title: "Coordonnées géographiques",

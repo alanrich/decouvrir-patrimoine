@@ -273,6 +273,7 @@ export const useDomainObjects = (
                   genre:
                     formatFrench(object.style_dominant) || "Non disponible",
                   department: object.department || "Non disponible",
+                  webSite: object.site_web || "Non disponible",
                   region: object.region || "Non disponible",
                   latitude: object.coordonnes?.latitude || null,
                   longitude: object.coordonnes?.longitude || null,

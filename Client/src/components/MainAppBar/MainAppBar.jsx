@@ -127,6 +127,8 @@ const MainAppBar = ({
     setAnchorElCultural(null);
   };
   const handleCulturalSelection = (dataSet) => {
+    setSearchTerm("");
+    setSearchActive(false);
     setSelectedDataSet(dataSet);
     handleCulturalMenuClose();
   };
