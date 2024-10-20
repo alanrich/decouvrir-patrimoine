@@ -28,11 +28,11 @@ app.use(
   })
 );
 
-// Middleware to parse JSON bodies (optional but recommended)
+// Middleware to parse JSON bodies
 app.use(express.json());
 
 // ========================
-// Your API Endpoints Below
+// API Endpoints Below
 // ========================
 
 // Field Maps
@@ -84,7 +84,7 @@ const cathedralFieldMap = {
   genre: "style_dominant",
 };
 
-// Create a reusable API handler for all datasets
+// Reusable API handler for all datasets
 const createApiEndpoint = (Model, fieldMap) => async (req, res) => {
   const {
     page = 0,
