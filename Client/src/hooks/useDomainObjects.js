@@ -196,21 +196,36 @@ export const useDomainObjects = (
               if (
                 object.titre_courant &&
                 object.commune &&
-                object.coordonnees &&
-                typeof object.coordonnees.lat === "number" &&
-                typeof object.coordonnees.lon === "number"
+                object.coordonnees
               ) {
                 return {
                   id: object.reference_de_la_notice,
                   name: formatFrench(object.titre_courant),
-                  address:
-                    formatFrench(object.adresse_normalisee) || "Non disponible",
+                  address: formatFrench(object.adresse_normalisee),
                   city: formatFrench(object.commune),
                   genre: Array.isArray(object.denominations)
                     ? formatFrench(object.denominations.join(", "))
                     : "Non disponible",
-                  latitude: object.coordonnees.lat,
-                  longitude: object.coordonnees.lon,
+                  description: object.description_de_l_edifice,
+                  historicalDescription: object.description_historique,
+                  ancien_nom_commune: object.ancien_nom_commune,
+                  constructionCentury:
+                    object.siecle_de_la_campagne_principale_de_construction,
+                  renovationCentury:
+                    object.siecle_de_campagne_secondaire_de_construction,
+                  yearCreated: object.datation_de_l_edifice,
+                  architect: object.auteur_de_l_edifice,
+                  designationDate: object.date_de_label,
+                  interestingFacts: object.precisions_sur_l_interet,
+                  remarkableElements:
+                    object.elements_remarquables_dans_l_edifice,
+                  publicOrPrivate: object.statut_juridique_du_proprietaire,
+                  structuralMaterial: object.materiaux_du_gros_oeuvre,
+                  department: object.departement_en_lettres,
+                  region: object.region,
+                  latitude: object.coordonnees?.lat,
+                  longitude: object.coordonnees?.lon,
+                  referencesCadastrales: object.references_cadastrales,
                   rawData: object,
                   dataSet: selectedDataSet,
                 };
@@ -220,6 +235,7 @@ export const useDomainObjects = (
             // New datasets: Cathedrals, Châteaux, Opera Houses
             if (selectedDataSet === "cathedrals") {
               if (object.name && object.ville) {
+                // dataset is not huge, dont exclude objects lacking geocoords
                 return {
                   id: object.id,
                   name: formatFrench(object.name),
@@ -244,6 +260,12 @@ export const useDomainObjects = (
                   genre: formatFrench(
                     object.periode_ou_style || "Non disponible"
                   ),
+                  style: formatFrench(object.periode_ou_style),
+                  type: formatFrench(object.type),
+                  proprietaire: formatFrench(object.proprietaire_actuel),
+                  region_historique: formatFrench(object.region_historique),
+                  region: formatFrench(object.region),
+                  department: formatFrench(object.department),
                   latitude: object.coordonnes?.latitude || null,
                   longitude: object.coordonnes?.longitude || null,
                   rawData: object,

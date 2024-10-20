@@ -145,6 +145,138 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             ],
           },
         ];
+
+      case "architectureContemporaines":
+        return [
+          {
+            label: "Photo",
+            fields: [],
+          },
+          {
+            label: "Aperçu",
+            fields: [
+              { title: "Nom", value: object?.name || "Non disponible" },
+              { title: "Ville", value: object?.city || "Non disponible" },
+              { title: "Adresse", value: object?.address || "Non disponible" },
+              {
+                title: "Description du Bâtiment",
+                value: object?.description || "Non disponible",
+              },
+              {
+                title: "Précisions Sur L'Intérêt",
+                value: object?.interestingFacts || "Non disponible",
+              },
+              {
+                title: "Remarquables de L'Edifice",
+                value: object?.remarkableElements || "Non disponible",
+              },
+              {
+                title: "Materieux du Gros Œuvre",
+                value: object?.structuralMaterial || "Non disponible",
+              },
+              {
+                title: "Statut Juridique du Proprietaire",
+                value: object?.publicOrPrivate || "Non disponible",
+              },
+            ],
+          },
+          {
+            label: "Histoire",
+            fields: [
+              {
+                title: "Siecle de la Campagne Principale de Construction",
+                value: object?.constructionCentury || "Non disponible",
+              },
+              {
+                title: "Siecle de la Campagne Secondaire de Construction",
+                value: object?.renovationCentury || "Non disponible",
+              },
+              {
+                title: "Datation de l'Edifice",
+                value: object?.yearCreated || "Non disponible",
+              },
+              {
+                title: "Date de Label",
+                value: object?.designationDate || "Non disponible",
+              },
+              {
+                title: "Architecte",
+                value: object?.architect || "Non disponible",
+              },
+              {
+                title: "Histoire du Bâtiment",
+                value: object?.historicalDescription || "Non disponible",
+              },
+            ],
+          },
+          {
+            label: "Coordonnées",
+            fields: [
+              { title: "Adresse", value: object?.address || "Non disponible" },
+              { title: "Ville", value: object?.city || "Non disponible" },
+              { title: "Région", value: object?.region || "Non disponible" },
+              {
+                title: "Département",
+                value: object?.department || "Non disponible",
+              },
+              {
+                title: "Références Cadastrales",
+                value: object?.referencesCadastrales || "Non disponible",
+              },
+              {
+                title: "Coordonnées Géographiques",
+                value: [object?.lat, object?.lon] || "Non disponible",
+              },
+            ],
+          },
+        ];
+      case "chateaux":
+        return [
+          {
+            label: "Photo",
+            fields: [],
+          },
+          {
+            label: "Aperçu",
+            fields: [
+              { title: "Nom", value: object?.name || "Non disponible" },
+              { title: "Ville", value: object?.city || "Non disponible" },
+              {
+                title: "Type de Château",
+                value: object?.type || "Non disponible",
+              },
+              {
+                title: "Periode ou Style",
+                value: object?.style || "Non disponible",
+              },
+              {
+                title: "Région Historique",
+                value: object?.region_historique || "Non disponible",
+              },
+              {
+                title: "Proprietaire",
+                value: object?.proprietaire || "Non disponible",
+              },
+            ],
+          },
+          {
+            label: "Coordonnées",
+            fields: [
+              { title: "Région", value: object?.region || "Non disponible" },
+              {
+                title: "Département",
+                value: object?.department || "Non disponible",
+              },
+              { title: "Ville", value: object?.city || "Non disponible" },
+              {
+                title: "Coordonnées Géographiques",
+                value:
+                  [object?.latitude, object?.longitude] || "Non disponible",
+              }, // TODO: Let's display a map in the right panel for coordonnées tab
+            ],
+          },
+        ];
+
       default:
         return [
           {
