@@ -88,13 +88,14 @@ export const useDomainObjects = (
                 typeof object.coordonnees.lon === "number"
               ) {
                 return {
-                  id: object.identifiant,
-                  name: formatFrench(object.nom_officiel),
-                  address: formatFrench(object.adresse),
-                  city: formatFrench(object.ville),
-                  genre: formatFrench(object.domaine_thematique),
-                  latitude: object.coordonnees.lat,
-                  longitude: object.coordonnees.lon,
+                  id: object.identifiant || "Non disponible",
+                  name: formatFrench(object.nom_officiel) || "Non disponible",
+                  address: formatFrench(object.adresse) || "Non disponible",
+                  city: formatFrench(object.ville) || "Non disponible",
+                  genre:
+                    formatFrench(object.domaine_thematique) || "Non disponible",
+                  latitude: object.coordonnees.lat || null,
+                  longitude: object.coordonnees.lon || null,
                   dataSet: selectedDataSet,
                 };
               }
@@ -110,15 +111,24 @@ export const useDomainObjects = (
                 typeof object.geocodage_xy.lon === "number"
               ) {
                 return {
-                  id: object.identifiant || object.identifiant_cnm,
-                  genre: formatFrench(object.discipline_dominante),
-                  name: formatFrench(object.nom_du_festival),
+                  id:
+                    object.identifiant ||
+                    object.identifiant_cnm ||
+                    "Non disponible",
+                  genre:
+                    formatFrench(object.discipline_dominante) ||
+                    "Non disponible",
+                  name:
+                    formatFrench(object.nom_du_festival) || "Non disponible",
                   address:
                     formatFrench(object.adresse_postale) ||
-                    formatFrench(object.nom_de_la_voie),
-                  city: formatFrench(object.commune_principale_de_deroulement),
-                  latitude: object.geocodage_xy.lat,
-                  longitude: object.geocodage_xy.lon,
+                    formatFrench(object.nom_de_la_voie) ||
+                    "Non disponible",
+                  city:
+                    formatFrench(object.commune_principale_de_deroulement) ||
+                    "Non disponible",
+                  latitude: object.geocodage_xy.lat || null,
+                  longitude: object.geocodage_xy.lon || null,
                   dataSet: selectedDataSet,
                 };
               }
@@ -134,18 +144,24 @@ export const useDomainObjects = (
                 typeof object.coordonnees_geographiques.lon === "number"
               ) {
                 return {
-                  id: object.identifiant_deps || object.identifiant_origine,
-                  name: formatFrench(object.nom_du_jardin),
-                  city: formatFrench(object.commune),
-                  region: object.region,
-                  department: object.department,
-                  genre: formatFrench(object.types.join(", ")),
-                  webSite: object.site_internet_et_autres_liens,
-                  description: object.description,
-                  inauguralYear: object.annee_d_obtention,
-                  famousPerson: object.auteur_nom_de_l_illustre,
-                  latitude: object.latitude,
-                  longitude: object.longitude,
+                  id:
+                    object.identifiant_deps ||
+                    object.identifiant_origine ||
+                    "Non disponible",
+                  name: formatFrench(object.nom_du_jardin) || "Non disponible",
+                  city: formatFrench(object.commune) || "Non disponible",
+                  region: object.region || "Non disponible",
+                  department: object.department || "Non disponible",
+                  genre:
+                    formatFrench(object.types.join(", ")) || "Non disponible",
+                  webSite:
+                    object.site_internet_et_autres_liens || "Non disponible",
+                  description: object.description || "Non disponible",
+                  inauguralYear: object.annee_d_obtention || "Non disponible",
+                  famousPerson:
+                    object.auteur_nom_de_l_illustre || "Non disponible",
+                  latitude: object.latitude || null,
+                  longitude: object.longitude || null,
                   dataSet: selectedDataSet,
                 };
               }
@@ -169,18 +185,27 @@ export const useDomainObjects = (
                 const types = parseJsonField(object.types);
 
                 return {
-                  id: object.identifiant_deps || object.identifiant_origine,
-                  name: formatFrench(object.nom),
-                  city: formatFrench(object.commune),
-                  region: object.region,
-                  department: object.department,
-                  genre: formatFrench(object.types.join(", ")),
-                  address: formatFrench(object.adresse_complete),
-                  webSite: object.site_internet_et_autres_liens.join(", "),
-                  description: formatFrench(object.description),
-                  famousPerson: object.auteur_nom_de_l_illustre,
-                  latitude: object.coordonnees_geographiques.lat,
-                  longitude: object.coordonnees_geographiques.lon,
+                  id:
+                    object.identifiant_deps ||
+                    object.identifiant_origine ||
+                    "Non disponible",
+                  name: formatFrench(object.nom) || "Non disponible",
+                  city: formatFrench(object.commune) || "Non disponible",
+                  region: object.region || "Non disponible",
+                  department: object.department || "Non disponible",
+                  genre:
+                    formatFrench(object.types.join(", ")) || "Non disponible",
+                  address:
+                    formatFrench(object.adresse_complete) || "Non disponible",
+                  webSite:
+                    object.site_internet_et_autres_liens.join(", ") ||
+                    "Non disponible",
+                  description:
+                    formatFrench(object.description) || "Non disponible",
+                  famousPerson:
+                    object.auteur_nom_de_l_illustre || "Non disponible",
+                  latitude: object.coordonnees_geographiques.lat || null,
+                  longitude: object.coordonnees_geographiques.lon || null,
                   dataSet: selectedDataSet,
                 };
               }
@@ -194,33 +219,44 @@ export const useDomainObjects = (
                 object.coordonnees
               ) {
                 return {
-                  id: object.reference_de_la_notice,
-                  name: formatFrench(object.titre_courant),
-                  address: formatFrench(object.adresse_normalisee),
-                  city: formatFrench(object.commune),
+                  id: object.reference_de_la_notice || "Non disponible",
+                  name: formatFrench(object.titre_courant) || "Non disponible",
+                  address:
+                    formatFrench(object.adresse_normalisee) || "Non disponible",
+                  city: formatFrench(object.commune) || "Non disponible",
                   genre: Array.isArray(object.denominations)
                     ? formatFrench(object.denominations.join(", "))
                     : "Non disponible",
-                  description: object.description_de_l_edifice,
-                  historicalDescription: object.description_historique,
-                  ancien_nom_commune: object.ancien_nom_commune,
+                  description:
+                    object.description_de_l_edifice || "Non disponible",
+                  historicalDescription:
+                    object.description_historique || "Non disponible",
+                  ancien_nom_commune:
+                    object.ancien_nom_commune || "Non disponible",
                   constructionCentury:
-                    object.siecle_de_la_campagne_principale_de_construction,
+                    object.siecle_de_la_campagne_principale_de_construction ||
+                    "Non disponible",
                   renovationCentury:
-                    object.siecle_de_campagne_secondaire_de_construction,
-                  yearCreated: object.datation_de_l_edifice,
-                  architect: object.auteur_de_l_edifice,
-                  designationDate: object.date_de_label,
-                  interestingFacts: object.precisions_sur_l_interet,
+                    object.siecle_de_campagne_secondaire_de_construction ||
+                    "Non disponible",
+                  yearCreated: object.datation_de_l_edifice || "Non disponible",
+                  architect: object.auteur_de_l_edifice || "Non disponible",
+                  designationDate: object.date_de_label || "Non disponible",
+                  interestingFacts:
+                    object.precisions_sur_l_interet || "Non disponible",
                   remarkableElements:
-                    object.elements_remarquables_dans_l_edifice,
-                  publicOrPrivate: object.statut_juridique_du_proprietaire,
-                  structuralMaterial: object.materiaux_du_gros_oeuvre,
-                  department: object.departement_en_lettres,
-                  region: object.region,
-                  latitude: object.coordonnees?.lat,
-                  longitude: object.coordonnees?.lon,
-                  referencesCadastrales: object.references_cadastrales,
+                    object.elements_remarquables_dans_l_edifice ||
+                    "Non disponible",
+                  publicOrPrivate:
+                    object.statut_juridique_du_proprietaire || "Non disponible",
+                  structuralMaterial:
+                    object.materiaux_du_gros_oeuvre || "Non disponible",
+                  department: object.departement_en_lettres || "Non disponible",
+                  region: object.region || "Non disponible",
+                  latitude: object.coordonnees?.lat || null,
+                  longitude: object.coordonnees?.lon || null,
+                  referencesCadastrales:
+                    object.references_cadastrales || "Non disponible",
                   dataSet: selectedDataSet,
                 };
               }
@@ -232,11 +268,12 @@ export const useDomainObjects = (
                 // dataset is not huge, dont exclude objects lacking geocoords
                 return {
                   id: object.id,
-                  name: formatFrench(object.name),
-                  city: formatFrench(object.ville),
-                  genre: formatFrench(object.style_dominant),
-                  department: object.department,
-                  region: object.region,
+                  name: formatFrench(object.name) || "Non disponible",
+                  city: formatFrench(object.ville) || "Non disponible",
+                  genre:
+                    formatFrench(object.style_dominant) || "Non disponible",
+                  department: object.department || "Non disponible",
+                  region: object.region || "Non disponible",
                   latitude: object.coordonnes?.latitude || null,
                   longitude: object.coordonnes?.longitude || null,
                   dataSet: selectedDataSet,
@@ -249,15 +286,21 @@ export const useDomainObjects = (
               if (object.name && object.commune) {
                 return {
                   id: object.id,
-                  name: formatFrench(object.name),
-                  city: formatFrench(object.commune),
-                  genre: formatFrench(object.periode_ou_style),
-                  style: formatFrench(object.periode_ou_style),
-                  type: formatFrench(object.type),
-                  proprietaire: formatFrench(object.proprietaire_actuel),
-                  region_historique: formatFrench(object.region_historique),
-                  region: formatFrench(object.region),
-                  department: formatFrench(object.department),
+                  name: formatFrench(object.name) || "Non disponible",
+                  city: formatFrench(object.commune) || "Non disponible",
+                  genre:
+                    formatFrench(object.periode_ou_style) || "Non disponible",
+                  style:
+                    formatFrench(object.periode_ou_style) || "Non disponible",
+                  type: formatFrench(object.type) || "Non disponible",
+                  proprietaire:
+                    formatFrench(object.proprietaire_actuel) ||
+                    "Non disponible",
+                  region_historique:
+                    formatFrench(object.region_historique) || "Non disponible",
+                  region: formatFrench(object.region) || "Non disponible",
+                  department:
+                    formatFrench(object.department) || "Non disponible",
                   latitude: object.coordonnes?.latitude || null,
                   longitude: object.coordonnes?.longitude || null,
                   dataSet: selectedDataSet,
@@ -270,13 +313,14 @@ export const useDomainObjects = (
               if (object.name && object.lieu) {
                 return {
                   id: object.id,
-                  name: formatFrench(object.name),
-                  city: formatFrench(object.lieu),
-                  genre: formatFrench(object.type),
-                  architect: formatFrench(object.architecte),
-                  inauguration: object.inauguration,
-                  capacity: object.capacite,
-                  webSite: object.site_web,
+                  name: formatFrench(object.name) || "Non disponible",
+                  city: formatFrench(object.lieu) || "Non disponible",
+                  genre: formatFrench(object.type) || "Non disponible",
+                  architect:
+                    formatFrench(object.architecte) || "Non disponible",
+                  inauguration: object.inauguration || "Non disponible",
+                  capacity: object.capacite || "Non disponible",
+                  webSite: object.site_web || "Non disponible",
                   latitude: object.coordonnees?.latitude || null,
                   longitude: object.coordonnees?.longitude || null,
                   dataSet: selectedDataSet,
