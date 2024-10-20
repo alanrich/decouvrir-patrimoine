@@ -184,16 +184,8 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             label: "Histoire",
             fields: [
               {
-                title: "Siecle de la Campagne Principale de Construction",
-                value: object?.constructionCentury || "Non disponible",
-              },
-              {
-                title: "Siecle de la Campagne Secondaire de Construction",
-                value: object?.renovationCentury || "Non disponible",
-              },
-              {
-                title: "Datation de l'Edifice",
-                value: object?.yearCreated || "Non disponible",
+                title: "Histoire du Bâtiment",
+                value: object?.historicalDescription || "Non disponible",
               },
               {
                 title: "Date de Label",
@@ -204,8 +196,16 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
                 value: object?.architect || "Non disponible",
               },
               {
-                title: "Histoire du Bâtiment",
-                value: object?.historicalDescription || "Non disponible",
+                title: "Siecle de la Campagne Principale de Construction",
+                value: object?.constructionCentury || "Non disponible",
+              },
+              {
+                title: "Siecle de la Campagne Secondaire de Construction",
+                value: object?.renovationCentury || "Non disponible",
+              },
+              {
+                title: "Datation de l'Edifice",
+                value: object?.yearCreated || "Non disponible",
               },
             ],
           },
@@ -276,6 +276,11 @@ const DetailViewWrapper = ({ object, selectedDataSet }) => {
             ],
           },
         ];
+
+      // TODO: Cathedrals
+      // TODO: Jardins
+      // TODO: Operas
+      // TODO: Maisons Des Illustres
 
       default:
         return [

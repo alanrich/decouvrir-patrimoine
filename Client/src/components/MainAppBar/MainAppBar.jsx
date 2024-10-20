@@ -390,6 +390,11 @@ const MainAppBar = ({
             >
               Maisons des Illustres
             </MenuItem>
+            {/*
+            *
+            * TO DO: This data set needs a better hook to fetch wiki info
+            * 
+            * 
             <MenuItem
               onClick={() =>
                 handleCulturalSelection("architectureContemporaines")
@@ -397,6 +402,7 @@ const MainAppBar = ({
             >
               Architecture Contemporaine
             </MenuItem>
+            */}
           </Menu>
 
           {/* Profile */}
