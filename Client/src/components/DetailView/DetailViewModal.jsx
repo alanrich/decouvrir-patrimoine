@@ -6,6 +6,7 @@ import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import TabPanelContent from "./TabPanelContent";
 import { useTheme } from "@mui/material/styles";
 import "react-tabs/style/react-tabs.css";
+import ArtistImage from "./ArtistImage";
 
 const DetailViewModal = ({
   isModalOpen,
@@ -16,7 +17,9 @@ const DetailViewModal = ({
   imageUrl,
   imageLoading,
   imageError,
-  object,
+  wikiPageContentData,
+  artistNames,
+  objectName,
 }) => {
   const theme = useTheme();
 
@@ -55,6 +58,7 @@ const DetailViewModal = ({
     },
   };
 
+  // Remove the Photo tab from tabConfigs
   const filteredTabConfigs = tabConfigs.filter((tab) => tab.label !== "Photo");
 
   return (
@@ -67,19 +71,17 @@ const DetailViewModal = ({
       <Box
         sx={{
           position: "absolute",
-          padding: 4,
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: "90%",
-          height: "90%",
-          bgcolor: theme.palette.grey[400],
+          width: "80%",
+          height: "80%",
+          bgcolor: theme.palette.common.white,
           boxShadow: 24,
-          p: 2,
           borderRadius: theme.shape.borderRadius,
           overflow: "hidden",
           display: "flex",
-          flexDirection: "row",
+          flexDirection: "column",
         }}
       >
         {/* Close button in the top right corner */}
@@ -88,92 +90,90 @@ const DetailViewModal = ({
           onClick={handleModalClose}
           sx={{
             position: "absolute",
-            top: 16,
-            right: 16,
+            top: 0,
+            right: 0,
             color: theme.palette.common.black,
           }}
         >
           <FullscreenExitIcon fontSize="small" />
         </IconButton>
 
-        {/* Left Panel for Tabs and Content with Card-like styling */}
-        <Box
-          sx={{
-            flex: "1",
+        {/* Tab Section */}
+        <Tabs
+          selectedIndex={modalTabValue}
+          onSelect={(index) => handleModalTabChange(null, index)}
+          style={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
             height: "100%",
-            padding: theme.spacing(2),
           }}
+          forceRenderTabPanel
         >
-          <Box
-            sx={{
-              width: "100%",
-              height: "90%",
-              boxShadow: theme.shadows[1],
-              borderRadius: theme.shape.borderRadius,
-              backgroundColor: theme.palette.background.paper,
+          <TabList
+            style={{
+              ...tabStyles.tabList,
+              padding: "0",
+              margin: "0",
+              height: "36px",
               display: "flex",
-              flexDirection: "column",
-              overflow: "hidden",
+              alignItems: "center",
+              backgroundColor: theme.palette.primary.main,
+              borderBottom: "none",
             }}
           >
-            <Tabs
-              selectedIndex={modalTabValue}
-              onSelect={(index) => handleModalTabChange(null, index)}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-              }}
-              forceRenderTabPanel
-            >
-              <TabList
+            {filteredTabConfigs.map((tab, index) => (
+              <Tab
+                key={index}
                 style={{
-                  ...tabStyles.tabList,
+                  ...tabStyles.tab,
+                  ...(modalTabValue === index ? tabStyles.selectedTab : {}),
                   padding: "0",
                   margin: "0",
-                  height: "36px",
+                  height: "100%",
                   display: "flex",
                   alignItems: "center",
-                  backgroundColor: theme.palette.primary.main,
-                  borderBottom: "none",
+                  justifyContent: "center",
+                  border: "none",
+                  position: "static",
+                  bottom: "auto",
                 }}
               >
-                {filteredTabConfigs.map((tab, index) => (
-                  <Tab
-                    key={index}
-                    style={{
-                      ...tabStyles.tab,
-                      ...(modalTabValue === index ? tabStyles.selectedTab : {}),
-                      padding: "0",
-                      margin: "0",
-                      height: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      border: "none",
-                      position: "static",
-                      bottom: "auto",
-                    }}
-                  >
-                    {tab.label}
-                  </Tab>
-                ))}
-              </TabList>
+                {tab.label}
+              </Tab>
+            ))}
+          </TabList>
 
-              {filteredTabConfigs.map((tab, index) => (
-                <TabPanel
-                  key={index}
-                  style={{
+          {filteredTabConfigs.map((tab, index) => (
+            <TabPanel
+              key={index}
+              style={{
+                flex: 1,
+                overflow: "hidden",
+                padding: theme.spacing(2),
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", sm: "row" },
+                  height: "100%",
+                }}
+              >
+                {/* Left Panel */}
+                <Box
+                  sx={{
                     flex: 1,
-                    overflow: "hidden",
-                    ...(["Histoire", "Œuvres"].includes(tab.label) && {
-                      maxWidth: "85%",
-                      margin: "0 auto",
-                    }),
+                    overflowY: "auto",
+                    marginRight: { xs: 0, sm: theme.spacing(4) },
+                    marginTop: {
+                      xs: theme.spacing(2),
+                      sm: theme.spacing(0),
+                      md: theme.spacing(2),
+                      lg: theme.spacing(2),
+                    },
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
                   }}
                 >
                   <TabPanelContent
@@ -181,53 +181,103 @@ const DetailViewModal = ({
                     isModal={true}
                     fontSize={theme.typography.body1.fontSize}
                   />
-                </TabPanel>
-              ))}
-            </Tabs>
-          </Box>
-        </Box>
+                </Box>
 
-        {/* Right Panel for the Image */}
-        <Box
-          sx={{
-            flex: "1",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: theme.spacing(2),
-          }}
-        >
-          {imageLoading && <Typography>Loading image...</Typography>}
-          {imageError && <Typography>Error: {imageError}</Typography>}
-          {imageUrl && (
-            <>
-              <img
-                src={imageUrl}
-                alt="Museum Image"
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                  objectFit: "cover",
-                  borderRadius: theme.shape.borderRadius,
-                }}
-              />
-              {/* Display the museum name under the photo */}
-              {object?.name && (
-                <Typography
-                  variant="h6"
-                  sx={{
-                    mt: 2,
-                    fontWeight: "bold",
-                    textAlign: "center",
-                  }}
-                >
-                  {object.name}
-                </Typography>
-              )}
-            </>
-          )}
-        </Box>
+                {/* Right Panel */}
+                {tab.label !== "Œuvres" && (
+                  <Box
+                    sx={{
+                      width: { xs: "100%", sm: "50%" },
+                      marginTop: {
+                        xs: theme.spacing(2),
+                        sm: theme.spacing(0),
+                        md: theme.spacing(2),
+                        lg: theme.spacing(2),
+                      },
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
+                      overflowY: "auto",
+                      gap: theme.spacing(1),
+                    }}
+                  >
+                    {/* Image */}
+                    {imageLoading && <Typography>Loading image...</Typography>}
+                    {imageError && <Typography>Error: {imageError}</Typography>}
+                    {imageUrl && (
+                      <img
+                        src={imageUrl}
+                        alt={`${objectName} Image`}
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "100%",
+                          objectFit: "contain",
+                        }}
+                      />
+                    )}
+                    <Typography>{objectName}</Typography>
+
+                    {/* Wikipedia Content */}
+                    {wikiPageContentData && wikiPageContentData.content && (
+                      <Box
+                        sx={{
+                          width: "100%",
+                          padding: theme.spacing(2),
+                        }}
+                      >
+                        <Typography variant="h6">Wikipedia</Typography>
+                        <TabPanelContent
+                          fields={[
+                            {
+                              title: "",
+                              value: wikiPageContentData.content,
+                              isWikiContent: true,
+                            },
+                          ]}
+                          fontSize={theme.typography.body1.fontSize}
+                        />
+                      </Box>
+                    )}
+                  </Box>
+                )}
+
+                {/* For Œuvres tab, show artist images */}
+                {tab.label === "Œuvres" && (
+                  <Box
+                    sx={{
+                      width: { xs: "100%", sm: "50%" },
+                      marginTop: {
+                        xs: theme.spacing(2),
+                        sm: theme.spacing(0),
+                        md: theme.spacing(2),
+                        lg: theme.spacing(2),
+                      },
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "flex-start",
+                      overflowY: "auto",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    {artistNames && artistNames.length > 0 ? (
+                      artistNames.map((artistName) => (
+                        <ArtistImage key={artistName} artistName={artistName} />
+                      ))
+                    ) : (
+                      <Typography
+                        variant="subtitle1"
+                        sx={theme.typography.subtitle1}
+                      >
+                        {objectName}
+                      </Typography>
+                    )}
+                  </Box>
+                )}
+              </Box>
+            </TabPanel>
+          ))}
+        </Tabs>
       </Box>
     </Modal>
   );
@@ -242,7 +292,9 @@ DetailViewModal.propTypes = {
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
-  object: PropTypes.object.isRequired,
+  wikiPageContentData: PropTypes.object,
+  artistNames: PropTypes.arrayOf(PropTypes.string),
+  objectName: PropTypes.string.isRequired,
 };
 
 export default DetailViewModal;

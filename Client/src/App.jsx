@@ -20,10 +20,10 @@ const AppContainer = styled("div")(({ theme }) => ({
 }));
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedDataSet, setSelectedDataSet] = useState("museums");
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [sortBy, setSortBy] = useState("name");
   const [sortOrder, setSortOrder] = useState("asc");
 
@@ -65,9 +65,24 @@ function App() {
     setPage(0);
   }, []);
 
+  // Reset page when sort options or search term change
   useEffect(() => {
     setPage(0);
   }, [sortBy, sortOrder, debouncedSearchTerm]);
+
+  // Reset page when dataset changes
+  useEffect(() => {
+    setPage(0);
+  }, [selectedDataSet]);
+
+  // Update selectedObject to the first item when domainObjects change
+  useEffect(() => {
+    if (domainObjects.length > 0) {
+      setSelectedObject(domainObjects[0]);
+    } else {
+      setSelectedObject(null);
+    }
+  }, [domainObjects, setSelectedObject]);
 
   return (
     <ThemeProvider theme={theme}>

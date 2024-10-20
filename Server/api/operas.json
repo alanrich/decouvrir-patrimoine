@@ -1,0 +1,464 @@
+[
+  {
+    "id": 1,
+    "name": "Grand Théâtre (Angers)",
+    "url": null,
+    "type": "Opéra, Théâtre",
+    "lieu": "Angers",
+    "architecte": "Alphonse Botrel et Auguste Magne",
+    "inauguration": "1871",
+    "capacite": "728",
+    "site_web": "https://www.angers.fr/vivre-a-angers/culture/theatre/grand-theatre/index.html",
+    "coordonnes": null
+  },
+  {
+    "id": 2,
+    "name": "Opéra d'Avignon",
+    "url": null,
+    "type": "Opéra, Théâtre",
+    "lieu": "Avignon",
+    "architecte": "Léon Feuchère et Théodore Charpentier",
+    "inauguration": "1847",
+    "capacite": null,
+    "site_web": "http://www.operagrandavignon.fr",
+    "coordonnes": null
+  },
+  {
+    "id": 3,
+    "name": "Théâtre Ledoux",
+    "url": null,
+    "type": "Opéra, Théâtre",
+    "lieu": "Besançon",
+    "architecte": "Claude-Nicolas LedouxClaude Joseph Alexandre Bertrand",
+    "inauguration": "1784",
+    "capacite": "1 100",
+    "site_web": "http://www.scenenationaledebesancon.fr",
+    "coordonnes": {
+      "latitude": 47.23444444444444,
+      "longitude": 6.026111111111111
+    }
+  },
+  {
+    "id": 4,
+    "name": "Opéra National de Bordeaux",
+    "url": null,
+    "type": "Opéra, Théâtre",
+    "lieu": "Bordeaux",
+    "architecte": "Victor Louis",
+    "inauguration": "7 avril 1780",
+    "capacite": "1 100",
+    "site_web": "http://www.opera-bordeaux.com",
+    "coordonnes": null
+  },
+  {
+    "id": 5,
+    "name": "Théâtre Fémina",
+    "url": null,
+    "type": null,
+    "lieu": "Bordeaux",
+    "architecte": "André Bac",
+    "inauguration": "31 Mars 1921",
+    "capacite": "1145",
+    "site_web": "https://www.theatrefemina.com/",
+    "coordonnes": null
+  },
+  {
+    "id": 6,
+    "name": "Grand-Théâtre Bordeaux",
+    "url": null,
+    "type": "Opéra, Théâtre",
+    "lieu": "Bordeaux",
+    "architecte": "Victor Louis",
+    "inauguration": "1780",
+    "capacite": "1100",
+    "site_web": "http://www.opera-bordeaux.com",
+    "coordonnes": null
+  },
+  {
+    "id": 7,
+    "name": "Opéra-Théâtre de Clermont-Ferrand",
+    "url": null,
+    "type": "Théâtre à l'italienne",
+    "lieu": "Clermont-Ferrand",
+    "architecte": "Jean Teillard",
+    "inauguration": "1894",
+    "capacite": "600",
+    "site_web": "https://clermont-ferrand.fr/opera-theatre",
+    "coordonnes": {
+      "latitude": 45.777499999999996,
+      "longitude": 3.0825
+    }
+  },
+  {
+    "id": 8,
+    "name": "Auditorium Robert-Poujade",
+    "url": null,
+    "type": "Auditorium",
+    "lieu": "Dijon",
+    "architecte": "Bougeault-Walgenwitz",
+    "inauguration": "1998",
+    "capacite": "1611",
+    "site_web": "http://www.opera-dijon.fr/",
+    "coordonnes": {
+      "latitude": 47.32805555555556,
+      "longitude": 5.0525
+    }
+  },
+  {
+    "id": 9,
+    "name": "Grand Théâtre (Dijon)",
+    "url": null,
+    "type": "Opéra, Théâtre",
+    "lieu": "Dijon",
+    "architecte": "Jacques Cellerier, Simon Vallot",
+    "inauguration": "1828",
+    "capacite": "691",
+    "site_web": "http://www.opera-dijon.fr/",
+    "coordonnes": {
+      "latitude": 47.32138888888889,
+      "longitude": 5.043055555555555
+    }
+  },
+  {
+    "id": 11,
+    "name": "La Filature",
+    "url": null,
+    "type": "Salle de Spectacle",
+    "lieu": "Mulhouse",
+    "architecte": null,
+    "inauguration": "4 septembre 1993",
+    "capacite": null,
+    "site_web": "http://www.lafilature.org",
+    "coordonnes": {
+      "latitude": 47.75361111111111,
+      "longitude": 7.349444444444444
+    }
+  },
+  {
+    "id": 12,
+    "name": "Grand Théâtre de Provence",
+    "url": null,
+    "type": null,
+    "lieu": "Provence",
+    "architecte": "Vittorio Gregotti",
+    "inauguration": "2007",
+    "capacite": "1382",
+    "site_web": "https://www.lestheatres.net/fr/33-grand-theatre-de-provence",
+    "coordonnes": null
+  },
+  {
+    "id": 13,
+    "name": "Théâtre Graslin",
+    "url": null,
+    "type": "Opéra",
+    "lieu": "Nantes",
+    "architecte": "Mathurin CrucyDominique Molknecht (sculptures)",
+    "inauguration": "23 mars 1788",
+    "capacite": "784",
+    "site_web": "http://www.angers-nantes-opera.com/",
+    "coordonnes": null
+  },
+  {
+    "id": 14,
+    "name": "Opéra de Lille",
+    "url": null,
+    "type": "Opéra",
+    "lieu": "Lille",
+    "architecte": "Louis Marie Cordonnier",
+    "inauguration": "1923",
+    "capacite": "1138",
+    "site_web": "http://www.opera-lille.fr",
+    "coordonnes": {
+      "latitude": 50.6375,
+      "longitude": 3.0652777777777778
+    }
+  },
+  {
+    "id": 15,
+    "name": "Opéra de Limoges",
+    "url": null,
+    "type": "Salle de Spectacle",
+    "lieu": "Limoges",
+    "architecte": "Pierre Sonrel",
+    "inauguration": "1963",
+    "capacite": "1484",
+    "site_web": "https://www.operalimoges.fr/",
+    "coordonnes": {
+      "latitude": 45.83222222222223,
+      "longitude": 1.258888888888889
+    }
+  },
+  {
+    "id": 16,
+    "name": "Opéra National de Lorraine",
+    "url": null,
+    "type": "Salle à l'Italienne",
+    "lieu": "Nancy",
+    "architecte": "Joseph Hornecker",
+    "inauguration": "1919 (reconstruction)",
+    "capacite": "1050",
+    "site_web": "http://www.opera-national-lorraine.fr/",
+    "coordonnes": {
+      "latitude": 48.69416666666666,
+      "longitude": 6.184166666666667
+    }
+  },
+  {
+    "id": 18,
+    "name": "Opéra de Lyon",
+    "url": null,
+    "type": "Salle d'opéra",
+    "lieu": "Lyon",
+    "architecte": "Antoine-Marie Chenavard et Jean-Marie Pollet",
+    "inauguration": "1831, puis 1993",
+    "capacite": "1100",
+    "site_web": "http://www.opera-lyon.com/",
+    "coordonnes": {
+      "latitude": 45.76777777777777,
+      "longitude": 4.836666666666666
+    }
+  },
+  {
+    "id": 19,
+    "name": "Opéra Municipal de Marseille",
+    "url": null,
+    "type": "Salle d'Opéra",
+    "lieu": "Marseille",
+    "architecte": "Charles Joachim Bénard",
+    "inauguration": "31 octobre 1787",
+    "capacite": "1823",
+    "site_web": "http://opera.marseille.fr",
+    "coordonnes": {
+      "latitude": 43.29333333333333,
+      "longitude": 5.375833333333333
+    }
+  },
+  {
+    "id": 20,
+    "name": "Opéra de Massy",
+    "url": null,
+    "type": "Salle d'Opéra",
+    "lieu": "Massy",
+    "architecte": "Arturo Oliveras et Alain Aubert",
+    "inauguration": "1993",
+    "capacite": null,
+    "site_web": "http://www.opera-massy.com/",
+    "coordonnes": {
+      "latitude": 48.731944444444444,
+      "longitude": 2.2894444444444444
+    }
+  },
+  {
+    "id": 21,
+    "name": "Opéra-théâtre de Metz",
+    "url": null,
+    "type": "Salle à l'italienne",
+    "lieu": "Metz",
+    "architecte": "Jacques Oger",
+    "inauguration": "1752",
+    "capacite": "750",
+    "site_web": "https://opera.eurometropolemetz.eu/",
+    "coordonnes": {
+      "latitude": 49.12166666666667,
+      "longitude": 6.172777777777778
+    }
+  },
+  {
+    "id": 22,
+    "name": "Corum (Montpellier)",
+    "url": null,
+    "type": null,
+    "lieu": "Montpellier",
+    "architecte": "Claude Vasconi",
+    "inauguration": "2001",
+    "capacite": "2000",
+    "site_web": "https://www.corum-montpellier.com/fr",
+    "coordonnes": null
+  },
+  {
+    "id": 24,
+    "name": "Opéra Comédie",
+    "url": null,
+    "type": "Salle à l'italienne)",
+    "lieu": "Montpellier",
+    "architecte": "Joseph-Marie Cassien-Bernard",
+    "inauguration": "1888",
+    "capacite": "1200",
+    "site_web": "https://www.opera-orchestre-montpellier.fr/",
+    "coordonnes": {
+      "latitude": 43.60777777777778,
+      "longitude": 3.878888888888889
+    }
+  },
+  {
+    "id": 25,
+    "name": "Théâtre de Nevers",
+    "url": null,
+    "type": "Opéra, Théâtre",
+    "lieu": "Nevers",
+    "architecte": "Lebrun Émile Vernon",
+    "inauguration": "1823",
+    "capacite": "320",
+    "site_web": "https://culture.nevers.fr/lieux-culturels/theatre-municipal732/",
+    "coordonnes": {
+      "latitude": 46.98833333333334,
+      "longitude": 3.1591666666666667
+    }
+  },
+  {
+    "id": 26,
+    "name": "Opéra de Nice",
+    "url": null,
+    "type": "Salle d'Opéra",
+    "lieu": "Nice",
+    "architecte": "François Aune",
+    "inauguration": "1885",
+    "capacite": "1083",
+    "site_web": "http://www.opera-nice.org/",
+    "coordonnes": {
+      "latitude": 43.69555555555555,
+      "longitude": 7.2725
+    }
+  },
+  {
+    "id": 27,
+    "name": "Opéra de Reims",
+    "url": null,
+    "type": "Salle d'Opéra",
+    "lieu": "Reims",
+    "architecte": "Alphonse Gosset, François Maille & Louis Sollier",
+    "inauguration": "1873",
+    "capacite": "790",
+    "site_web": "http://www.operadereims.com/",
+    "coordonnes": {
+      "latitude": 49.25416666666667,
+      "longitude": 4.030833333333334
+    }
+  },
+  {
+    "id": 28,
+    "name": "Opéra National de Lyon",
+    "url": null,
+    "type": "Salle d'Opéra",
+    "lieu": "Lyon",
+    "architecte": "Jean Nouvel",
+    "inauguration": "1993",
+    "capacite": "1100",
+    "site_web": "http://www.opera-lyon.com/",
+    "coordonnes": null
+  },
+  {
+    "id": 29,
+    "name": "Opéra de Rennes",
+    "url": null,
+    "type": "Salle à l'italienne",
+    "lieu": "Rennes,  France",
+    "architecte": "Charles Millardet",
+    "inauguration": "1836",
+    "capacite": "642",
+    "site_web": "https://www.opera-rennes.fr/fr",
+    "coordonnes": null
+  },
+  {
+    "id": 30,
+    "name": "Théâtre des Arts de Rouen",
+    "url": null,
+    "type": "Salle d'Opéra",
+    "lieu": "Rouen",
+    "architecte": "René Jean Charles Maillard",
+    "inauguration": "1962",
+    "capacite": "1350",
+    "site_web": "http://www.operaderouen.fr/",
+    "coordonnes": null
+  },
+  {
+    "id": 31,
+    "name": "Opéra de Saint-Étienne",
+    "url": null,
+    "type": "Salle d'Opéra",
+    "lieu": "Saint-Étienne  France",
+    "architecte": null,
+    "inauguration": "1969",
+    "capacite": "1200",
+    "site_web": "https://opera.saint-etienne.fr/otse",
+    "coordonnes": {
+      "latitude": 45.43388888888889,
+      "longitude": 4.397777777777778
+    }
+  },
+  {
+    "id": 32,
+    "name": "Opéra de Strasbourg",
+    "url": null,
+    "type": "Salle d'Opéra",
+    "lieu": "Strasbourg",
+    "architecte": "Villot",
+    "inauguration": "1821",
+    "capacite": "1100",
+    "site_web": "https://www.operanationaldurhin.eu/fr",
+    "coordonnes": {
+      "latitude": 48.58583333333333,
+      "longitude": 7.752222222222223
+    }
+  },
+  {
+    "id": 33,
+    "name": "Opéra de Toulon",
+    "url": null,
+    "type": "Salle d'Opéra",
+    "lieu": "Toulon",
+    "architecte": "Léon Feuchère",
+    "inauguration": "1862",
+    "capacite": "1329",
+    "site_web": "https://www.operadetoulon.fr",
+    "coordonnes": {
+      "latitude": 43.12416666666667,
+      "longitude": 5.9325
+    }
+  },
+  {
+    "id": 34,
+    "name": "Théâtre du Capitole de Toulouse",
+    "url": null,
+    "type": "Théâtre Lyrique",
+    "lieu": "Toulouse",
+    "architecte": " Guillaume Cammas",
+    "inauguration": "1818",
+    "capacite": "1156",
+    "site_web": "http://www.theatreducapitole.fr/",
+    "coordonnes": {
+      "latitude": 43.60416666666667,
+      "longitude": 1.4444444444444444
+    }
+  },
+  {
+    "id": 35,
+    "name": "Opéra Royal du Château de Versailles",
+    "url": null,
+    "type": "Salle d'Opéra",
+    "lieu": "Versailles",
+    "architecte": "Ange-Jacques Gabriel",
+    "inauguration": "1770",
+    "capacite": "650",
+    "site_web": "https://www.operaroyal-versailles.fr/room-event/opera-royal/",
+    "coordonnes": {
+      "latitude": 48.80583333333333,
+      "longitude": 2.122777777777778
+    }
+  },
+  {
+    "id": 36,
+    "name": "Opéra de Vichy",
+    "url": null,
+    "type": "Opéra",
+    "lieu": "Vichy",
+    "architecte": "Charles Le CœurLucien Woog",
+    "inauguration": "1903",
+    "capacite": "1450",
+    "site_web": "https://opera-vichy.com",
+    "coordonnes": {
+      "latitude": 46.123333333333335,
+      "longitude": 3.42
+    }
+  }
+]

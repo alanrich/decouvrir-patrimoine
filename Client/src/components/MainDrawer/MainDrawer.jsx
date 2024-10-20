@@ -25,10 +25,10 @@ const MainDrawer = () => {
   const drawerItems = [
     {
       icon: <DashboardIcon />,
-      label: "Dashboard",
+      label: "Coming Soon....Dashboard",
     },
-    { icon: <AccountCircleIcon />, label: "Profile" },
-    { icon: <SettingsIcon />, label: "Settings" },
+    { icon: <AccountCircleIcon />, label: "Coming Soon....Profile" },
+    { icon: <SettingsIcon />, label: "Coming Soon....Settings" },
   ];
 
   const drawerContent = (

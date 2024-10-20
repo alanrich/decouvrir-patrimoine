@@ -8,6 +8,7 @@ import "react-tabs/style/react-tabs.css";
 import TabPanelContent from "./TabPanelContent";
 import DetailViewModal from "./DetailViewModal";
 import { useTheme } from "@mui/material/styles";
+import ArtistImage from "./ArtistImage";
 
 const DetailView = memo(
   ({
@@ -22,7 +23,10 @@ const DetailView = memo(
     imageUrl,
     imageLoading,
     imageError,
+    wikiPageContentData,
+    artistNames,
     tabConfigs,
+    objectName,
   }) => {
     const theme = useTheme();
 
@@ -79,6 +83,7 @@ const DetailView = memo(
             flex: 1,
             boxShadow: theme.shadows[1],
             borderRadius: theme.shape.borderRadius,
+            backgroundColor: theme.palette.common.white,
             border: `2px solid ${theme.palette.grey[300]}`,
             overflow: "hidden",
             mb: "8px",
@@ -99,6 +104,7 @@ const DetailView = memo(
             flexDirection: "column",
             flex: 1,
             boxShadow: theme.shadows[1],
+            backgroundColor: theme.palette.common.white,
             borderRadius: theme.shape.borderRadius,
             border: `1px solid ${theme.palette.grey[300]}`,
             overflow: "hidden",
@@ -174,15 +180,10 @@ const DetailView = memo(
                   style={{
                     flex: 1,
                     overflow: "hidden",
-                    // This modificaatoin needs some help fron ChatGPT
-                    ...(["Histoire", "Œuvres"].includes(tab.label) && {
-                      maxWidth: "85%",
-                      margin: "0 auto",
-                    }),
                   }}
                 >
                   {tab.label === "Photo" ? (
-                    // Special handling for the Photo tab
+                    // Only display the image
                     <Box
                       sx={{
                         display: "flex",
@@ -202,16 +203,119 @@ const DetailView = memo(
                       {imageUrl && (
                         <img
                           src={imageUrl}
-                          alt={`${object.name} Image`}
+                          alt={`${objectName} Image`}
                           style={{ maxWidth: "100%", maxHeight: "400px" }}
                         />
                       )}
                     </Box>
+                  ) : tab.label === "Œuvres" ? (
+                    // For Œuvres tab, display artist images
+                    <Box
+                      sx={{
+                        display: "flex",
+                        height: "100%",
+                        overflow: "hidden",
+                        padding: theme.spacing(2),
+                      }}
+                    >
+                      {/* Left Panel */}
+                      <Box
+                        sx={{
+                          flex: 1,
+                          overflowY: "auto",
+                          marginRight: theme.spacing(2),
+                        }}
+                      >
+                        <TabPanelContent
+                          fields={tab.fields}
+                          fontSize={theme.typography.body1.fontSize}
+                        />
+                      </Box>
+
+                      {/* Right Panel */}
+                      <Box
+                        sx={{
+                          width: "40%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "flex-start",
+                          overflowY: "auto",
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        {artistNames && artistNames.length > 0 ? (
+                          artistNames.map((artistName) => (
+                            <ArtistImage
+                              key={artistName}
+                              artistName={artistName}
+                            />
+                          ))
+                        ) : (
+                          <Typography
+                            variant="subtitle1"
+                            sx={theme.typography.subtitle1}
+                          >
+                            {objectName}
+                          </Typography>
+                        )}
+                      </Box>
+                    </Box>
                   ) : (
-                    <TabPanelContent
-                      fields={tab.fields}
-                      fontSize={theme.typography.body1.fontSize}
-                    />
+                    // For other tabs, display left and right panels
+                    <Box
+                      sx={{
+                        display: "flex",
+                        height: "100%",
+                        overflow: "hidden",
+                        padding: theme.spacing(2),
+                      }}
+                    >
+                      {/* Left Panel */}
+                      <Box
+                        sx={{
+                          flex: 1,
+                          overflowY: "auto",
+                          marginRight: theme.spacing(2),
+                        }}
+                      >
+                        <TabPanelContent
+                          fields={tab.fields}
+                          fontSize={theme.typography.body1.fontSize}
+                        />
+                      </Box>
+
+                      {/* Right Panel */}
+                      <Box
+                        sx={{
+                          width: "40%",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          overflowY: "auto",
+                          padding: theme.spacing(2),
+                        }}
+                      >
+                        {imageLoading && (
+                          <Typography>Loading image...</Typography>
+                        )}
+                        {imageError && (
+                          <Typography>Error: {imageError}</Typography>
+                        )}
+                        {imageUrl && (
+                          <img
+                            src={imageUrl}
+                            alt={`${objectName} Image`}
+                            style={{
+                              width: "100%",
+                              height: "auto",
+                              objectFit: "contain",
+                            }}
+                          />
+                        )}
+                        <Typography>{objectName}</Typography>
+                      </Box>
+                    </Box>
                   )}
                 </TabPanel>
               ))}
@@ -221,9 +325,9 @@ const DetailView = memo(
           <Box
             sx={{
               flexShrink: 0,
-              borderTop: `1px solid ${theme.palette.grey[300]}`,
+              borderTop: `1px solid ${theme.palette.grey[100]}`,
               padding: "0px 16px",
-              backgroundColor: theme.palette.grey[500],
+              backgroundColor: theme.palette.primary.main,
               height: "32px",
               borderBottomLeftRadius: theme.shape.borderRadius,
               borderBottomRightRadius: theme.shape.borderRadius,
@@ -241,7 +345,7 @@ const DetailView = memo(
                 textOverflow: "ellipsis",
               }}
             >
-              {object.name || "No Name Available"}
+              {objectName || "Non disponible"}
             </Typography>
           </Box>
         </Box>
@@ -255,7 +359,10 @@ const DetailView = memo(
           imageUrl={imageUrl}
           imageLoading={imageLoading}
           imageError={imageError}
+          artistNames={artistNames}
+          wikiPageContentData={wikiPageContentData}
           object={object}
+          objectName={objectName}
         />
       </>
     );
@@ -274,7 +381,10 @@ DetailView.propTypes = {
   imageUrl: PropTypes.string,
   imageLoading: PropTypes.bool,
   imageError: PropTypes.string,
+  wikiPageContentData: PropTypes.object,
+  artistNames: PropTypes.arrayOf(PropTypes.string),
   tabConfigs: PropTypes.array.isRequired,
+  objectName: PropTypes.string.isRequired,
 };
 
 export default DetailView;

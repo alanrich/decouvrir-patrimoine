@@ -2,25 +2,46 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    primary: { main: "#1976d2" }, // primary blue
+    primary: { main: "#2B517A " }, //  marine blue = #2B517A     navy = #001f3d       medium-navy = #002952    light-navy = #003366
     secondary: { main: "#f50057" },
     background: {
       default: "#f4f6f8",
       paper: "#fff",
+      white: "#FFFFFF",
     },
     text: {
       primary: "#333",
       secondary: "#555",
     },
     grey: {
-      300: "#ddd",
-      400: "#e0e0e0",
-      500: "#808080",
+      100: "#8da9bf",
+      200: "#7e96aa",
+      300: "#6e8494",
+      400: "#5e717f",
+      500: "#4f5e6a",
+      600: "#3f4b55",
+      700: "#2f3840",
     },
     black: {
       300: "#1A1A1A",
       400: "#333333",
       500: "#000000",
+    },
+    bordeaux: {
+      100: "#4a001a",
+      200: "#3e0016",
+      300: "#310012",
+    },
+    marine: {
+      100: "#023562",
+      200: "#012647",
+      300: "#01223f",
+      400: "#011e37",
+      500: "#001527",
+    },
+    blue: {
+      100: "#0059b3",
+      200: "#0066CC",
     },
   },
   typography: {
@@ -30,6 +51,7 @@ const theme = createTheme({
     body1: { fontSize: "0.875rem" },
     body2: { fontSize: "0.8125rem" },
     subtitle1: { fontSize: "0.8rem", fontWeight: "bold" },
+    subtitle2: { fontSize: "0.6rem", fontWeight: "bold" },
     fancyText: {
       fontWeight: "bold",
       color: "#FFFFFF",
@@ -44,6 +66,7 @@ const theme = createTheme({
     borderRadiusRounded: 50,
   },
   shadows: [
+    // some MUI components use a shadows[8] value and omitting this value from my theme is throwing annoying console warnings I dont want to see
     "none",
     "0px 2px 10px rgba(0, 0, 0, 0.1)",
     "0px 2px 4px rgba(0, 0, 0, 0.15)",
@@ -53,11 +76,20 @@ const theme = createTheme({
     "0px 4px 16px rgba(0, 0, 0, 0.2)",
     "0px 4px 16px rgba(0, 0, 0, 0.2)",
     "0px 4px 16px rgba(0, 0, 0, 0.2)",
-    "0px 4px 16px rgba(0, 0, 0, 0.2)",
-    "0px 4px 16px rgba(0, 0, 0, 0.2)",
-    "0px 4px 16px rgba(0, 0, 0, 0.2)",
-    "0px 4px 16px rgba(0, 0, 0, 0.2)",
   ],
+  /*
+  spacing: {
+    0: "0px",
+    1: "8px",
+    2: "16px",
+    3: "24px",
+    4: "32px",
+    5: "40px",
+    6: "48px",
+    7: "56px",
+    8: "64px",
+  },
+  */
 });
 
 export default theme;

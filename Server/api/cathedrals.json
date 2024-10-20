@@ -1,0 +1,1397 @@
+[
+  {
+    "id": 1,
+    "name": "Cathédrale Saint-Caprais",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Caprais_d%27Agen",
+    "style_dominant": "RomanGothique",
+    "site_web": "https://paroissesaintefoyagen.com",
+    "department": "Lot-et-Garonne",
+    "region": "Nouvelle-Aquitaine",
+    "ville": "Agen",
+    "coordonnes": {
+      "latitude": 44.20666666666667,
+      "longitude": 0.6191666666666666
+    }
+  },
+  {
+    "id": 2,
+    "name": "Cathédrale Saint-Sauveur",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Sauveur_d%27Aix-en-Provence",
+    "style_dominant": "RomanGothique",
+    "site_web": "https://paroisses-aixarles.fr/aix-saintsauveur/",
+    "department": "Bouches-du-Rhône",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "ville": "Aix-en-Provence",
+    "coordonnes": {
+      "latitude": 43.53194444444444,
+      "longitude": 5.447222222222223
+    }
+  },
+  {
+    "id": 3,
+    "name": "Cathédrale Notre-Dame-de-l'Assomption",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-de-l%27Assomption_d%27Ajaccio",
+    "style_dominant": "Architecture baroque",
+    "site_web": "http://www.cathedrale-ajaccio.fr/",
+    "department": "Corse-du-Sud",
+    "region": "Corse",
+    "ville": "Ajaccio",
+    "coordonnes": {
+      "latitude": 41.9175,
+      "longitude": 8.738055555555555
+    }
+  },
+  {
+    "id": 4,
+    "name": "Cathédrale Sainte-Cécile",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Sainte-C%C3%A9cile_d%27Albi",
+    "style_dominant": "Gothique méridional",
+    "site_web": "https://cathedrale-albi.com/",
+    "department": "Tarn",
+    "region": "Occitanie",
+    "ville": "Albi",
+    "coordonnes": {
+      "latitude": 43.92861111111111,
+      "longitude": 2.1430555555555557
+    }
+  },
+  {
+    "id": 5,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_d%27Amiens",
+    "style_dominant": "Gothique",
+    "site_web": "https://notredameamiens.fr/",
+    "department": "Somme",
+    "region": "Hauts-de-France",
+    "ville": "Amiens",
+    "coordonnes": {
+      "latitude": 49.894444444444446,
+      "longitude": 2.301944444444444
+    }
+  },
+  {
+    "id": 6,
+    "name": "Cathédrale Saint-Maurice",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Maurice_d%27Angers",
+    "style_dominant": "romangothique angevin",
+    "site_web": "https://cathedralestmauricenotredame.diocese49.org/",
+    "department": "Maine-et-Loire",
+    "region": "Pays de la Loire",
+    "ville": "Angers",
+    "coordonnes": null
+  },
+  {
+    "id": 7,
+    "name": "Cathédrale Saint-Pierre",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Pierre_d%27Angoul%C3%AAme",
+    "style_dominant": "Roman",
+    "site_web": "https://charente.catholique.fr/grand-angouleme/paroisses/saints-apotres/",
+    "department": "Charente",
+    "region": "Nouvelle-Aquitaine",
+    "ville": "Angoulême",
+    "coordonnes": {
+      "latitude": 45.64888888888889,
+      "longitude": 0.15166666666666667
+    }
+  },
+  {
+    "id": 8,
+    "name": "Cathédrale Saint-Pierre",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Pierre_d%27Annecy",
+    "style_dominant": null,
+    "site_web": null,
+    "department": null,
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": "Annecy",
+    "coordonnes": {
+      "latitude": 45.89944444444444,
+      "longitude": 6.125555555555555
+    }
+  },
+  {
+    "id": 9,
+    "name": "Cathédrale Notre-Dame-et-Saint-Vaast",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-et-Saint-Vaast_d%27Arras",
+    "style_dominant": "Néo-classique",
+    "site_web": "https://www.paroisse-notre-dame-en-cite.com/",
+    "department": "Pas-de-Calais",
+    "region": "Hauts-de-France",
+    "ville": "Arras",
+    "coordonnes": {
+      "latitude": 50.293055555555554,
+      "longitude": 2.774722222222222
+    }
+  },
+  {
+    "id": 10,
+    "name": "Cathédrale Sainte-Marie",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Sainte-Marie_d%27Auch",
+    "style_dominant": "GothiqueRenaissanceNéoclassique",
+    "site_web": "https://messes.info/lieu/32/auch/cathedrale-sainte-marie",
+    "department": "Gers",
+    "region": "Occitanie",
+    "ville": null,
+    "coordonnes": {
+      "latitude": 43.646388888888886,
+      "longitude": 0.5858333333333333
+    }
+  },
+  {
+    "id": 11,
+    "name": "Cathédrale Saint-Lazare",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Lazare_d%27Autun",
+    "style_dominant": "RomanGothique",
+    "site_web": "https://cathedrale.autun-art-et-histoire.fr",
+    "department": "Saône-et-Loire",
+    "region": "Bourgogne-Franche-Comté",
+    "ville": "Autun",
+    "coordonnes": {
+      "latitude": 46.94499999999999,
+      "longitude": 4.299166666666666
+    }
+  },
+  {
+    "id": 12,
+    "name": "Cathédrale Notre-Dame-des-Doms",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_des_Doms_d%27Avignon",
+    "style_dominant": "Roman",
+    "site_web": "https://www.metropole.diocese-avignon.fr/",
+    "department": "Vaucluse",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "ville": "Avignon",
+    "coordonnes": {
+      "latitude": 43.95166666666667,
+      "longitude": 4.807777777777778
+    }
+  },
+  {
+    "id": 13,
+    "name": "Cathédrale Notre-Dame-de-Guadeloupe",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-de-Guadeloupe_de_Basse-Terre",
+    "style_dominant": "Architecture baroque",
+    "site_web": "https://catholique-guadeloupe.fr/?page_id=10848",
+    "department": "Guadeloupe",
+    "region": "Guadeloupe",
+    "ville": "Basse-Terre",
+    "coordonnes": null
+  },
+  {
+    "id": 14,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Bayeux",
+    "style_dominant": "romanGothique",
+    "site_web": "https://bayeuxlisieux.catholique.fr/paroisses/notre-dame-du-bessin/patrimoine/eglises-lieux-de-culte-a-bayeux/",
+    "department": "Calvados",
+    "region": "Normandie",
+    "ville": "Bayeux",
+    "coordonnes": null
+  },
+  {
+    "id": 15,
+    "name": "Cathédrale Sainte-Marie",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Sainte-Marie_de_Bayonne",
+    "style_dominant": "Gothique",
+    "site_web": "https://www.cathedraledebayonne.com/",
+    "department": "Pyrénées-Atlantiques",
+    "region": "Nouvelle-Aquitaine",
+    "ville": "Bayonne",
+    "coordonnes": null
+  },
+  {
+    "id": 16,
+    "name": "Cathédrale Saint-Pierre",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Pierre_de_Beauvais",
+    "style_dominant": "Gothique Flamboyant",
+    "site_web": "http://www.paroisse-beauvais-centre.fr/",
+    "department": "Oise",
+    "region": "Hauts-de-France",
+    "ville": "Beauvais",
+    "coordonnes": {
+      "latitude": 49.4325,
+      "longitude": 2.081388888888889
+    }
+  },
+  {
+    "id": 17,
+    "name": "Cathédrale Saint-Christophe",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Christophe_de_Belfort",
+    "style_dominant": "Architecture classique",
+    "site_web": "https://www.diocese-belfort-montbeliard.fr/belfort/paroisses/saint-jean-baptiste/",
+    "department": "Territoire de Belfort",
+    "region": "Bourgogne-Franche-Comté",
+    "ville": "Belfort",
+    "coordonnes": {
+      "latitude": 47.63861111111111,
+      "longitude": 6.863888888888889
+    }
+  },
+  {
+    "id": 18,
+    "name": "Cathédrale Saint-Jean-Baptiste",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Jean-Baptiste_de_Belley",
+    "style_dominant": "Néo-gothique",
+    "site_web": "https://catholique-belley-ars.fr/notre-diocese/paroisses/belley/la-cathedrale-de-belley",
+    "department": "Ain",
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": "Belley",
+    "coordonnes": {
+      "latitude": 45.7575,
+      "longitude": 5.689166666666667
+    }
+  },
+  {
+    "id": 19,
+    "name": "Cathédrale Saint-Jean",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Jean_de_Besan%C3%A7on",
+    "style_dominant": "Roman, gothique et baroque.",
+    "site_web": "https://www.diocese-besancon.fr/cathedrale",
+    "department": "Doubs",
+    "region": "Bourgogne-Franche-Comté",
+    "ville": "Besançon",
+    "coordonnes": {
+      "latitude": 47.23361111111111,
+      "longitude": 6.030555555555556
+    }
+  },
+  {
+    "id": 20,
+    "name": "Cathédrale Saint-Louis",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Louis_de_Blois",
+    "style_dominant": null,
+    "site_web": null,
+    "department": null,
+    "region": null,
+    "ville": null,
+    "coordonnes": null
+  },
+  {
+    "id": 21,
+    "name": "Cathédrale Saint-André",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Andr%C3%A9_de_Bordeaux",
+    "style_dominant": "Gothique angevin",
+    "site_web": "http://www.cathedrale-bordeaux.fr",
+    "department": "Gironde",
+    "region": "Nouvelle-Aquitaine",
+    "ville": "Bordeaux",
+    "coordonnes": null
+  },
+  {
+    "id": 22,
+    "name": "Cathédrale Saint-Étienne",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-%C3%89tienne_de_Bourges",
+    "style_dominant": "Gothique",
+    "site_web": "https://www.belleseglises.com/eglises/79",
+    "department": "Cher",
+    "region": "Centre-Val de Loire",
+    "ville": "Bourges",
+    "coordonnes": {
+      "latitude": 47.08222222222223,
+      "longitude": 2.3991666666666664
+    }
+  },
+  {
+    "id": 23,
+    "name": "Cathédrale Saint-Étienne",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-%C3%89tienne_de_Cahors",
+    "style_dominant": "RomanGothiqueRomano-Byzantin",
+    "site_web": "https://cahors.catholique.fr/eglise-pratique/doyennes-et-paroisses/doyenne-de-cahors/groupement-paroisse-saint-etienne/",
+    "department": "Lot",
+    "region": "Occitanie",
+    "ville": "Cahors",
+    "coordonnes": {
+      "latitude": 44.447222222222216,
+      "longitude": 1.4430555555555555
+    }
+  },
+  {
+    "id": 24,
+    "name": "Cathédrale Notre-Dame-de-Grâce",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Gr%C3%A2ce_de_Cambrai",
+    "style_dominant": "Architecture classique",
+    "site_web": "https://www.paroissesdecambrai.com/",
+    "department": "Nord",
+    "region": "Hauts-de-France",
+    "ville": "Cambrai",
+    "coordonnes": {
+      "latitude": 50.17222222222222,
+      "longitude": 3.2333333333333334
+    }
+  },
+  {
+    "id": 25,
+    "name": "Cathédrale Saint-Michel",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Michel_de_Carcassonne",
+    "style_dominant": "Gothique",
+    "site_web": "https://paroisse-carcassonne.fr/",
+    "department": "Aude",
+    "region": "Occitanie",
+    "ville": "Carcassonne",
+    "coordonnes": {
+      "latitude": 43.21083333333333,
+      "longitude": 2.3511111111111114
+    }
+  },
+  {
+    "id": 26,
+    "name": "Cathédrale Saint-Sauveur",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Sauveur_de_Cayenne",
+    "style_dominant": "Colonial",
+    "site_web": "https://www.guyane.catholique.fr/doyenne/cayenne/paroisse-saint-sauveur/",
+    "department": "Guyane",
+    "region": "Guyane",
+    "ville": "Cayenne",
+    "coordonnes": null
+  },
+  {
+    "id": 27,
+    "name": "Cathédrale Saint-Étienne",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-%C3%89tienne_de_Ch%C3%A2lons",
+    "style_dominant": "Roman -Gothique",
+    "site_web": "https://chalons.catholique.fr/stetienne/",
+    "department": "Marne",
+    "region": "Grand Est",
+    "ville": "Châlons-en-Champagne",
+    "coordonnes": {
+      "latitude": 48.955000000000005,
+      "longitude": 4.357777777777778
+    }
+  },
+  {
+    "id": 28,
+    "name": "Cathédrale Saint-François-de-Sales",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Fran%C3%A7ois-de-Sales_de_Chamb%C3%A9ry",
+    "style_dominant": "gothique flamboyant",
+    "site_web": "https://chambery-cathedrale.paroisse73.fr/",
+    "department": "Savoie",
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": "Chambéry",
+    "coordonnes": {
+      "latitude": 45.56527777777777,
+      "longitude": 5.923055555555556
+    }
+  },
+  {
+    "id": 29,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Chartres",
+    "style_dominant": "Gothique classique",
+    "site_web": "https://www.cathedrale-chartres.org",
+    "department": "Eure-et-Loir",
+    "region": "Centre-Val de Loire",
+    "ville": "Chartres",
+    "coordonnes": {
+      "latitude": 48.447222222222216,
+      "longitude": 1.4875
+    }
+  },
+  {
+    "id": 30,
+    "name": "Cathédrale Notre-Dame-de-l'Assomption",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-de-l%27Assomption_de_Clermont",
+    "style_dominant": "Roman (crypte)Gothique (reste de l'édifice)",
+    "site_web": "https://notredamedeclermont.fr/",
+    "department": "Puy-de-Dôme",
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": null,
+    "coordonnes": {
+      "latitude": 45.77861111111111,
+      "longitude": 3.0858333333333334
+    }
+  },
+  {
+    "id": 31,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Coutances",
+    "style_dominant": "Gothique",
+    "site_web": "https://www.coutances.catholique.fr/diocese/eveque",
+    "department": "Manche",
+    "region": "Normandie",
+    "ville": "Coutances",
+    "coordonnes": null
+  },
+  {
+    "id": 32,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Cr%C3%A9teil",
+    "style_dominant": "Moderne",
+    "site_web": "https://catholiques-val-de-marne.cef.fr/diocese/cathedrale/paroisse/",
+    "department": "Val-de-Marne",
+    "region": "Île-de-France",
+    "ville": "Créteil",
+    "coordonnes": {
+      "latitude": 48.78972222222222,
+      "longitude": 2.444166666666667
+    }
+  },
+  {
+    "id": 33,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Dax",
+    "style_dominant": "classiqueGothique (Portail des Apôtres)",
+    "site_web": "https://diocese40.fr/paroisse/saint-paul-saint-vincent-de-dax/",
+    "department": "Landes",
+    "region": "Nouvelle-Aquitaine",
+    "ville": "Dax",
+    "coordonnes": null
+  },
+  {
+    "id": 34,
+    "name": "Cathédrale Saint-Jérôme",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-J%C3%A9r%C3%B4me_de_Digne",
+    "style_dominant": "Gothique et néogothique",
+    "site_web": "http://paroissedigne.fr/",
+    "department": "Alpes-de-Haute-Provence",
+    "region": "Région Provence-Alpes-Côte d'Azur",
+    "ville": "Digne-les-Bains",
+    "coordonnes": {
+      "latitude": 44.091944444444444,
+      "longitude": 6.235833333333334
+    }
+  },
+  {
+    "id": 35,
+    "name": "Cathédrale Saint-Bénigne",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-B%C3%A9nigne_de_Dijon",
+    "style_dominant": "GothiqueRoman (crypte)",
+    "site_web": "http://cathedrale-dijon.fr/",
+    "department": "Côte-d'Or",
+    "region": "Bourgogne-Franche-Comté",
+    "ville": "Dijon",
+    "coordonnes": {
+      "latitude": 47.32138888888889,
+      "longitude": 5.0344444444444445
+    }
+  },
+  {
+    "id": 36,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_d%27%C3%89vreux",
+    "style_dominant": "Gothique",
+    "site_web": null,
+    "department": "Eure",
+    "region": "Normandie",
+    "ville": "Évreux",
+    "coordonnes": {
+      "latitude": 49.024166666666666,
+      "longitude": 1.1508333333333332
+    }
+  },
+  {
+    "id": 37,
+    "name": "Cathédrale de la Résurrection",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_de_la_R%C3%A9surrection_d%27%C3%89vry",
+    "style_dominant": "Contemporain",
+    "site_web": "https://evry.catholique.fr/cathedrale-de-la-resurrection",
+    "department": "Essonne",
+    "region": "Île-de-France",
+    "ville": "Évry",
+    "coordonnes": {
+      "latitude": 48.62361111111111,
+      "longitude": 2.428611111111111
+    }
+  },
+  {
+    "id": 38,
+    "name": "Cathédrale Saint-Louis",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Louis_de_Fort-de-France",
+    "style_dominant": "néogothique et romano-byzantin",
+    "site_web": "https://cathedralesaintlouismartinique.fr/",
+    "department": "Martinique",
+    "region": "Martinique",
+    "ville": "Fort-de-France",
+    "coordonnes": null
+  },
+  {
+    "id": 39,
+    "name": "Cathédrale Notre-Dame-et-Saint-Arnoux",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-et-Saint-Arnoux_de_Gap",
+    "style_dominant": "Néogothique",
+    "site_web": "http://www.paroisse-gap.fr/",
+    "department": "Hautes-Alpes",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "ville": "Gap",
+    "coordonnes": {
+      "latitude": 44.558055555555555,
+      "longitude": 6.078055555555555
+    }
+  },
+  {
+    "id": 40,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Grenoble",
+    "style_dominant": "Roman, Gothique",
+    "site_web": "http://www.cathedraledegrenoble.com/",
+    "department": "Isère",
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": "Grenoble",
+    "coordonnes": {
+      "latitude": 45.192499999999995,
+      "longitude": 5.732222222222222
+    }
+  },
+  {
+    "id": 41,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_du_Havre",
+    "style_dominant": "Gothique flamboyant[Note 1], baroque[Note 2], classique et influences de la renaissance artistique[Note 3]",
+    "site_web": "https://www.lehavre.catholique.fr/paroisse/paroisse-saint-yves-de-la-mer/",
+    "department": "Seine-Maritime",
+    "region": "Normandie",
+    "ville": "Le Havre",
+    "coordonnes": {
+      "latitude": 49.48694444444445,
+      "longitude": 0.10833333333333334
+    }
+  },
+  {
+    "id": 42,
+    "name": "Cathédrale Saint-Mammès",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Mamm%C3%A8s_de_Langres",
+    "style_dominant": "Roman-Gothique",
+    "site_web": "https://52.catholique.fr/St-Didier-Langres-50",
+    "department": "Haute-Marne",
+    "region": "Grand Est",
+    "ville": "Langres",
+    "coordonnes": {
+      "latitude": 47.86416666666667,
+      "longitude": 5.335277777777778
+    }
+  },
+  {
+    "id": 43,
+    "name": "Cathédrale de la Sainte-Trinité",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_de_la_Sainte-Trinit%C3%A9_de_Laval",
+    "style_dominant": "Roman, gothique, Renaissance",
+    "site_web": null,
+    "department": "Mayenne",
+    "region": "Pays de la Loire",
+    "ville": "Laval",
+    "coordonnes": null
+  },
+  {
+    "id": 44,
+    "name": "Cathédrale Notre-Dame-de-la-Treille",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-de-la-Treille_de_Lille",
+    "style_dominant": "Néo-gothique",
+    "site_web": "https://cathedralelille.fr/",
+    "department": "Nord",
+    "region": "Hauts-de-France",
+    "ville": "Lille",
+    "coordonnes": null
+  },
+  {
+    "id": 45,
+    "name": "Cathédrale Saint-Étienne",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-%C3%89tienne_de_Limoges",
+    "style_dominant": "Gothique rayonnant et flamboyant",
+    "site_web": "https://www.cathedrale-limoges.fr/accueil.html",
+    "department": "Haute-Vienne",
+    "region": "Nouvelle-Aquitaine",
+    "ville": "Limoges",
+    "coordonnes": {
+      "latitude": 45.82888888888889,
+      "longitude": 1.2666666666666666
+    }
+  },
+  {
+    "id": 46,
+    "name": "Cathédrale Notre-Dame-de-l'Assomption",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-de-l%27Assomption_de_Lu%C3%A7on",
+    "style_dominant": "RomanGothique",
+    "site_web": "https://www.paroissenotredamedelaplaine-lucon.fr/home",
+    "department": "Vendée",
+    "region": "Pays de la Loire",
+    "ville": "Luçon",
+    "coordonnes": null
+  },
+  {
+    "id": 47,
+    "name": "Primatiale Saint-Jean",
+    "url": "https://fr.wikipedia.org/wiki/Primatiale_Saint-Jean_de_Lyon",
+    "style_dominant": "romangothique",
+    "site_web": "https://www.primatiale.fr/",
+    "department": "Métropole de Lyon",
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": null,
+    "coordonnes": {
+      "latitude": 45.76083333333333,
+      "longitude": 4.827222222222222
+    }
+  },
+  {
+    "id": 48,
+    "name": "Cathédrale Saint-Julien",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Julien_du_Mans",
+    "style_dominant": "romans gothique angevin",
+    "site_web": "http://www.cathedraledumans.fr/",
+    "department": "Sarthe",
+    "region": "Pays de la Loire",
+    "ville": "Le Mans",
+    "coordonnes": {
+      "latitude": 48.009166666666665,
+      "longitude": 0.19888888888888887
+    }
+  },
+  {
+    "id": 49,
+    "name": "Cathédrale Sainte-Marie-Majeure",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Sainte-Marie-Majeure_de_Marseille",
+    "style_dominant": "NéoromanNéobyzantin",
+    "site_web": "https://marseille.catholique.fr/La-Major-cathedrale",
+    "department": "Bouches-du-Rhône (13)",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "ville": null,
+    "coordonnes": {
+      "latitude": 43.30027777777777,
+      "longitude": 5.3647222222222215
+    }
+  },
+  {
+    "id": 50,
+    "name": "Cathédrale Notre-Dame-de-l'Assomption",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-de-l%27Assomption_de_Mata-Utu",
+    "style_dominant": null,
+    "site_web": null,
+    "department": null,
+    "region": "Wallis-et-Futuna",
+    "ville": null,
+    "coordonnes": null
+  },
+  {
+    "id": 51,
+    "name": "Cathédrale Saint-Étienne",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-%C3%89tienne_de_Meaux",
+    "style_dominant": "Gothique",
+    "site_web": "https://cathomeaux.fr/wordpress/",
+    "department": "Seine-et-Marne",
+    "region": "Île-de-France",
+    "ville": "Meaux",
+    "coordonnes": {
+      "latitude": 48.96,
+      "longitude": 2.878888888888889
+    }
+  },
+  {
+    "id": 52,
+    "name": "Basilique-cathédrale Notre-Dame-et-Saint-Privat",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-et-Saint-Privat_de_Mende",
+    "style_dominant": "Gothique",
+    "site_web": "https://www.diocese-mende.fr/les-paroisses/saint-privat-de-mende/",
+    "department": "Lozère",
+    "region": "Occitanie",
+    "ville": "Mende",
+    "coordonnes": {
+      "latitude": 44.51722222222222,
+      "longitude": 3.4986111111111113
+    }
+  },
+  {
+    "id": 53,
+    "name": "Cathédrale Saint-Étienne",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-%C3%89tienne_de_Metz",
+    "style_dominant": "Gothique",
+    "site_web": "http://cathedrale-metz.fr/",
+    "department": "Moselle",
+    "region": "Grand Est",
+    "ville": "Metz",
+    "coordonnes": {
+      "latitude": 49.12027777777778,
+      "longitude": 6.1755555555555555
+    }
+  },
+  {
+    "id": 54,
+    "name": "Cathédrale Notre-Dame-de-l'Assomption",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-de-l%27Assomption_de_Montauban",
+    "style_dominant": "Architecture classique",
+    "site_web": "https://www.paroisse-montauban-centre.fr/",
+    "department": "Tarn-et-Garonne",
+    "region": "Occitanie",
+    "ville": "Montauban",
+    "coordonnes": {
+      "latitude": 44.015277777777776,
+      "longitude": 1.3552777777777778
+    }
+  },
+  {
+    "id": 55,
+    "name": "Cathédrale Saint-Pierre",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Pierre_de_Montpellier",
+    "style_dominant": "Gothique",
+    "site_web": "https://www.cathedrale-montpellier.fr/",
+    "department": "Hérault",
+    "region": "Occitanie",
+    "ville": "Montpellier",
+    "coordonnes": {
+      "latitude": 43.61333333333334,
+      "longitude": 3.8741666666666665
+    }
+  },
+  {
+    "id": 56,
+    "name": "Cathédrale Notre-Dame-de-l'Annonciation",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-de-l%27Annonciation_de_Moulins",
+    "style_dominant": "gothique flamboyant et néogothique",
+    "site_web": "https://paroisse-notredamedubourbonnais.catholique-moulins.fr/",
+    "department": null,
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": "Moulins",
+    "coordonnes": {
+      "latitude": 46.56666666666667,
+      "longitude": 3.3316666666666666
+    }
+  },
+  {
+    "id": 57,
+    "name": "Cathédrale Saint-Pierre",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Pierre_de_Mo%C3%BBtiers",
+    "style_dominant": "architecture romane, architecture classique",
+    "site_web": "https://moutiers.paroisse73.fr/",
+    "department": "Savoie",
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": "Moûtiers",
+    "coordonnes": {
+      "latitude": 45.48583333333333,
+      "longitude": 6.5344444444444445
+    }
+  },
+  {
+    "id": 58,
+    "name": "Cathédrale Notre-Dame-de-l'Annonciation",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-de-l%27Annonciation_de_Nancy",
+    "style_dominant": "Baroque",
+    "site_web": "https://www.catholique-nancy.fr/sites/notre-dame-de-bonne-nouvelle/",
+    "department": "Meurthe-et-Moselle",
+    "region": "Grand Est",
+    "ville": "Nancy",
+    "coordonnes": {
+      "latitude": 48.69138888888889,
+      "longitude": 6.186388888888889
+    }
+  },
+  {
+    "id": 59,
+    "name": "Cathédrale Sainte-Geneviève-et-Saint-Maurice",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Sainte-Genevi%C3%A8ve-et-Saint-Maurice_de_Nanterre",
+    "style_dominant": null,
+    "site_web": "https://nanterre.paroisse.net/",
+    "department": "Hauts-de-Seine",
+    "region": "Île-de-France",
+    "ville": "Nanterre",
+    "coordonnes": {
+      "latitude": 48.89083333333333,
+      "longitude": 2.196111111111111
+    }
+  },
+  {
+    "id": 60,
+    "name": "Cathédrale Saint-Pierre-et-Saint-Paul",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Pierre-et-Saint-Paul_de_Nantes",
+    "style_dominant": "Gothique (Gothique tardif ou flamboyant), Roman",
+    "site_web": "http://cathedrale-nantes.fr/",
+    "department": "Loire-Atlantique",
+    "region": "Pays de la Loire",
+    "ville": "Nantes",
+    "coordonnes": null
+  },
+  {
+    "id": 61,
+    "name": "Cathédrale Saint-Cyr-et-Sainte-Julitte",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Cyr-et-Sainte-Julitte_de_Nevers",
+    "style_dominant": "Roman (chœur)Gothique (nef)",
+    "site_web": "https://p-stf.com/",
+    "department": "Nièvre",
+    "region": "Bourgogne-Franche-Comté",
+    "ville": "Nevers",
+    "coordonnes": {
+      "latitude": 46.98722222222222,
+      "longitude": 3.157222222222222
+    }
+  },
+  {
+    "id": 62,
+    "name": "Cathédrale Sainte-Réparate",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Sainte-R%C3%A9parate_de_Nice",
+    "style_dominant": "Baroque",
+    "site_web": "https://cathedrale-nice.fr/",
+    "department": "Alpes-Maritimes",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "ville": "Nice",
+    "coordonnes": {
+      "latitude": 43.697222222222216,
+      "longitude": 7.275833333333333
+    }
+  },
+  {
+    "id": 63,
+    "name": "Cathédrale Notre-Dame-et-Saint-Castor",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-et-Saint-Castor_de_N%C3%AEmes",
+    "style_dominant": "ClassicismeNéo-roman",
+    "site_web": "http://cathonimes.fr/wpcn/",
+    "department": "Gard",
+    "region": "Occitanie",
+    "ville": "Nîmes",
+    "coordonnes": {
+      "latitude": 43.83833333333334,
+      "longitude": 4.360555555555555
+    }
+  },
+  {
+    "id": 64,
+    "name": "Cathédrale Saint-Joseph",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Joseph_de_Noum%C3%A9a",
+    "style_dominant": "ColonialNéo-gothique",
+    "site_web": "https://diocese.ddec.nc/paroisses/cathedrale.htm",
+    "department": null,
+    "region": "Nouvelle-Calédonie",
+    "ville": "Nouméa",
+    "coordonnes": {
+      "latitude": -22.272777777777776,
+      "longitude": 166.44444444444446
+    }
+  },
+  {
+    "id": 65,
+    "name": "Cathédrale Sainte-Croix",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Sainte-Croix_d%27Orl%C3%A9ans",
+    "style_dominant": "Gothique Néogothique",
+    "site_web": "https://www.cathedrale-orleans.fr",
+    "department": "Loiret",
+    "region": "Centre-Val de Loire",
+    "ville": "Orléans",
+    "coordonnes": null
+  },
+  {
+    "id": 66,
+    "name": "Cathédrale Saint-Antonin",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Antonin_de_Pamiers",
+    "style_dominant": "Gothique méridional",
+    "site_web": "https://ariege-catholique.fr/paroisse-de-pamiers/",
+    "department": "Ariège",
+    "region": "Occitanie",
+    "ville": "Pamiers",
+    "coordonnes": {
+      "latitude": 43.11416666666667,
+      "longitude": 1.608888888888889
+    }
+  },
+  {
+    "id": 67,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Papeete",
+    "style_dominant": null,
+    "site_web": "http://www.diocesedepapeete.com/pages/paroisses-1/papeete/paroisse-notre-dame/",
+    "department": null,
+    "region": "Polynésie française",
+    "ville": "Papeete",
+    "coordonnes": null
+  },
+  {
+    "id": 68,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Paris",
+    "style_dominant": "Gothique",
+    "site_web": "http://www.notredamedeparis.fr",
+    "department": null,
+    "region": "Île-de-France",
+    "ville": null,
+    "coordonnes": {
+      "latitude": 48.85305555555556,
+      "longitude": 2.3497222222222223
+    }
+  },
+  {
+    "id": 69,
+    "name": "Cathédrale Saint-Louis-des-Invalides",
+    "url": "https://fr.wikipedia.org/wiki/H%C3%B4tel_des_Invalides#La_cathédrale_Saint-Louis-des-Invalides",
+    "style_dominant": null,
+    "site_web": null,
+    "department": null,
+    "region": null,
+    "ville": null,
+    "coordonnes": null
+  },
+  {
+    "id": 70,
+    "name": "Cathédrale Saint-Front",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Front",
+    "style_dominant": "RomanByzantin",
+    "site_web": "https://paroisse-perigueux.diocese24.fr/",
+    "department": "Dordogne",
+    "region": "Nouvelle-Aquitaine",
+    "ville": "Périgueux",
+    "coordonnes": {
+      "latitude": 45.183611111111105,
+      "longitude": 0.7227777777777777
+    }
+  },
+  {
+    "id": 71,
+    "name": "Cathédrale Saint-Jean-Baptiste",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Jean-Baptiste_de_Perpignan",
+    "style_dominant": "Gothique méridional",
+    "site_web": "http://www.cathedraleperpignan.fr/",
+    "department": "Pyrénées-Orientales",
+    "region": "Occitanie",
+    "ville": "Perpignan",
+    "coordonnes": {
+      "latitude": 42.70055555555556,
+      "longitude": 2.8969444444444443
+    }
+  },
+  {
+    "id": 72,
+    "name": "Cathédrale Saint-Pierre",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Pierre_de_Poitiers",
+    "style_dominant": "Gothique gothique angevin",
+    "site_web": "https://paroisses.poitiers.catholique.fr/accueil/leglise-diocesaine/les-services-diocesains/missions-pole-communication/rcf-poitou-la-radio-du-diocese/accords-classique/la-trinite/",
+    "department": "Vienne",
+    "region": "Nouvelle-Aquitaine",
+    "ville": "Poitiers",
+    "coordonnes": {
+      "latitude": 46.58027777777778,
+      "longitude": 0.3491666666666666
+    }
+  },
+  {
+    "id": 73,
+    "name": "Abbatiale Notre-Dame-et-Saint-Edme",
+    "url": "https://fr.wikipedia.org/wiki/Abbatiale_Notre-Dame-et-Saint-Edme_de_Pontigny",
+    "style_dominant": "Roman, gothique primitif et gothique classique",
+    "site_web": "https://missiondefrance.fr/une-cathedrale-abbatiale/",
+    "department": "Yonne",
+    "region": "Bourgogne-Franche-Comté",
+    "ville": "Pontigny",
+    "coordonnes": {
+      "latitude": 47.909444444444446,
+      "longitude": 3.7147222222222225
+    }
+  },
+  {
+    "id": 74,
+    "name": "Cathédrale Saint-Maclou",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Maclou_de_Pontoise",
+    "style_dominant": "Gothique, Renaissance",
+    "site_web": "https://paroisses-pontoise.fr/",
+    "department": "Val-d'Oise",
+    "region": "Île-de-France",
+    "ville": null,
+    "coordonnes": {
+      "latitude": 49.050555555555555,
+      "longitude": 2.0972222222222223
+    }
+  },
+  {
+    "id": 75,
+    "name": "Cathédrale Notre-Dame-de-l'Annonciation",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-de-l%27Annonciation_du_Puy-en-Velay",
+    "style_dominant": "Roman",
+    "site_web": "https://www.cathedraledupuy.org/",
+    "department": "Haute-Loire",
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": "Le Puy-en-Velay",
+    "coordonnes": {
+      "latitude": 45.04555555555555,
+      "longitude": 3.8847222222222224
+    }
+  },
+  {
+    "id": 76,
+    "name": "Cathédrale Saint-Corentin",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Corentin_de_Quimper",
+    "style_dominant": "Gothique rayonnant (chœur)Gothique flamboyant (nef et transept)",
+    "site_web": "https://www.quimpersaintcorentin.com/",
+    "department": "Finistère",
+    "region": "Bretagne",
+    "ville": "Quimper",
+    "coordonnes": null
+  },
+  {
+    "id": 77,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Reims",
+    "style_dominant": "Gothique",
+    "site_web": "http://www.cathedrale-reims.com/",
+    "department": "Marne",
+    "region": "Grand Est",
+    "ville": "Reims",
+    "coordonnes": {
+      "latitude": 49.25361111111111,
+      "longitude": 4.033888888888889
+    }
+  },
+  {
+    "id": 78,
+    "name": "Cathédrale Saint-Pierre",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Pierre_de_Rennes",
+    "style_dominant": "Classique",
+    "site_web": "https://cathedrale-rennes.fr/",
+    "department": "Ille-et-Vilaine",
+    "region": "Bretagne",
+    "ville": null,
+    "coordonnes": null
+  },
+  {
+    "id": 79,
+    "name": "Cathédrale Saint-Louis",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Louis_de_La_Rochelle",
+    "style_dominant": "Architecture classique",
+    "site_web": "https://paroisse-larochellecentre.fr/",
+    "department": "Charente-Maritime",
+    "region": "Nouvelle-Aquitaine",
+    "ville": "La Rochelle",
+    "coordonnes": null
+  },
+  {
+    "id": 80,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Rodez",
+    "style_dominant": "Gothique Méridional et Gothique ,flamboyant",
+    "site_web": "https://www.cathedrale-de-rodez.com/",
+    "department": "Aveyron",
+    "region": "Occitanie",
+    "ville": "Rodez",
+    "coordonnes": {
+      "latitude": 44.350833333333334,
+      "longitude": 2.5738888888888884
+    }
+  },
+  {
+    "id": 81,
+    "name": "Cathédrale Notre-Dame de l'Assomption",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Rouen",
+    "style_dominant": "Gothique, Médiévale Normande",
+    "site_web": "http://www.cathedrale-rouen.net/",
+    "department": "Seine-Maritime (76)",
+    "region": "Normandie",
+    "ville": "Rouen (76000)",
+    "coordonnes": {
+      "latitude": 49.44027777777777,
+      "longitude": 1.0947222222222222
+    }
+  },
+  {
+    "id": 82,
+    "name": "Cathédrale Saint-Étienne",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-%C3%89tienne_de_Saint-Brieuc",
+    "style_dominant": "Gothique",
+    "site_web": "https://www.cathedrale-saintbrieuc.fr/",
+    "department": "Côtes-d'Armor",
+    "region": "Bretagne",
+    "ville": null,
+    "coordonnes": null
+  },
+  {
+    "id": 83,
+    "name": "Cathédrale Saint-Pierre, Saint-Paul et Saint-André",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Pierre-Saint-Paul-et-Saint-Andr%C3%A9",
+    "style_dominant": "Gothique",
+    "site_web": "http://www.doyennedesaint-claude.fr/",
+    "department": "Jura",
+    "region": "Bourgogne-Franche-Comté",
+    "ville": "Saint-Claude",
+    "coordonnes": {
+      "latitude": 46.38638888888889,
+      "longitude": 5.866388888888888
+    }
+  },
+  {
+    "id": 84,
+    "name": "Cathédrale Saint-Denis",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_de_Saint-Denis_de_La_R%C3%A9union",
+    "style_dominant": "Classique",
+    "site_web": "https://lacathedrale.re/",
+    "department": "La Réunion",
+    "region": "La Réunion",
+    "ville": "Saint-Denis",
+    "coordonnes": null
+  },
+  {
+    "id": 85,
+    "name": "Basilique Saint-Denis",
+    "url": "https://fr.wikipedia.org/wiki/Basilique_Saint-Denis",
+    "style_dominant": "Architecture gothique",
+    "site_web": "http://www.saint-denis-basilique.fr/",
+    "department": "Seine-Saint-Denis",
+    "region": "Île-de-France",
+    "ville": "Saint-Denis",
+    "coordonnes": {
+      "latitude": 48.93555555555555,
+      "longitude": 2.3597222222222225
+    }
+  },
+  {
+    "id": 86,
+    "name": "Cathédrale Saint-Dié",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Di%C3%A9_de_Saint-Di%C3%A9-des-Vosges",
+    "style_dominant": "Roman, gothique et classique",
+    "site_web": "https://saint-die.catholique88.fr/",
+    "department": "Vosges",
+    "region": "Grand Est",
+    "ville": "Saint-Dié-des-Vosges",
+    "coordonnes": {
+      "latitude": 48.28916666666667,
+      "longitude": 6.950555555555556
+    }
+  },
+  {
+    "id": 87,
+    "name": "Cathédrale Saint-Charles-Borromée",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Charles-Borrom%C3%A9e_de_Saint-%C3%89tienne",
+    "style_dominant": "Néogothique",
+    "site_web": "https://www.diocese-saintetienne.fr/locations/cathedrale-saint-charles/",
+    "department": "Loire",
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": "Saint-Étienne",
+    "coordonnes": {
+      "latitude": 45.441111111111105,
+      "longitude": 4.3852777777777785
+    }
+  },
+  {
+    "id": 88,
+    "name": "Cathédrale Saint-Pierre",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Pierre_de_Saint-Flour",
+    "style_dominant": "Gothique",
+    "site_web": "https://www.diocese15.net/paroisses/zone-de-saint-flour/saint-flour-en-planeze",
+    "department": "Cantal",
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": "Saint-Flour",
+    "coordonnes": {
+      "latitude": 45.03333333333333,
+      "longitude": 3.095
+    }
+  },
+  {
+    "id": 89,
+    "name": "Cathédrale Saint-Jean-Baptiste",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Jean-Baptiste_de_Saint-Jean-de-Maurienne",
+    "style_dominant": null,
+    "site_web": "https://stjeanmaurienne.paroisse73.fr/",
+    "department": "Savoie",
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": "Saint-Jean-de-Maurienne",
+    "coordonnes": {
+      "latitude": 45.272777777777776,
+      "longitude": 6.348333333333333
+    }
+  },
+  {
+    "id": 90,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_S%C3%A9es",
+    "style_dominant": "Gothique",
+    "site_web": "https://www.paroisse-sees.com/",
+    "department": "Orne",
+    "region": "Normandie",
+    "ville": "Sées",
+    "coordonnes": {
+      "latitude": 48.60527777777778,
+      "longitude": 0.17305555555555555
+    }
+  },
+  {
+    "id": 91,
+    "name": "Cathédrale Saint-Étienne",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-%C3%89tienne_de_Sens",
+    "style_dominant": "Gothique",
+    "site_web": "https://www.yonne.catholique.fr/sens-et-environs",
+    "department": "Yonne",
+    "region": "Bourgogne-Franche-Comté",
+    "ville": "Sens",
+    "coordonnes": {
+      "latitude": 48.19777777777777,
+      "longitude": 3.283611111111111
+    }
+  },
+  {
+    "id": 92,
+    "name": "Cathédrale Saint-Gervais-et-Saint-Protais",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Gervais-et-Saint-Protais_de_Soissons",
+    "style_dominant": "Gothique",
+    "site_web": "https://www.soissons.catholique.fr/zone-pastorale-de-soissons/paroisse-saint-sixte/",
+    "department": "Aisne",
+    "region": "Hauts-de-France",
+    "ville": "Soissons",
+    "coordonnes": {
+      "latitude": 49.380833333333335,
+      "longitude": 3.3252777777777776
+    }
+  },
+  {
+    "id": 93,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Strasbourg",
+    "style_dominant": "reliquats : romans\ntour et chaire : Gothique FlamboyantFlamboyant",
+    "site_web": "https://www.cathedrale-strasbourg.fr/",
+    "department": "Bas-Rhin",
+    "region": "Grand Est",
+    "ville": null,
+    "coordonnes": {
+      "latitude": 48.58166666666667,
+      "longitude": 7.750555555555556
+    }
+  },
+  {
+    "id": 94,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Taiohae",
+    "style_dominant": null,
+    "site_web": "http://www.cathedraledepapeete.com/",
+    "department": null,
+    "region": null,
+    "ville": "Taiohae",
+    "coordonnes": null
+  },
+  {
+    "id": 95,
+    "name": "Cathédrale Notre-Dame-de-la-Sède",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-de-la-S%C3%A8de_de_Tarbes",
+    "style_dominant": null,
+    "site_web": "https://www.jerusalem65.fr/",
+    "department": "Hautes-Pyrénées",
+    "region": "Occitanie",
+    "ville": "Tarbes",
+    "coordonnes": {
+      "latitude": 43.23361111111111,
+      "longitude": 0.06888888888888889
+    }
+  },
+  {
+    "id": 96,
+    "name": "Cathédrale Sainte-Marie-de-la-Seds",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame-de-la-Seds_de_Toulon",
+    "style_dominant": "Roman, Architecture gothique, Classique",
+    "site_web": "https://cathedrale-toulon.fr/",
+    "department": "Var",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "ville": "Toulon",
+    "coordonnes": {
+      "latitude": 43.12166666666667,
+      "longitude": 5.934166666666667
+    }
+  },
+  {
+    "id": 97,
+    "name": "Cathédrale Saint-Étienne",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-%C3%89tienne_de_Toulouse",
+    "style_dominant": "Gothique méridional et Gothique",
+    "site_web": "http://paroissescathedraletoulouse.fr/",
+    "department": "Haute-Garonne",
+    "region": "Occitanie",
+    "ville": "Toulouse",
+    "coordonnes": {
+      "latitude": 43.6,
+      "longitude": 1.4502777777777778
+    }
+  },
+  {
+    "id": 98,
+    "name": "Cathédrale Saint-Gatien",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Gatien_de_Tours",
+    "style_dominant": "Gothique FlamboyantFlamboyant Gothique classique (Façade)Roman (base et contreforts des tours)Renaissance(sommets des tours)Gothique FlamboyantFlamboyant et Rayonnant (Ornementation)",
+    "site_web": "https://www.paroisse-cathedrale-tours.fr/",
+    "department": "Indre-et-Loire",
+    "region": "Centre-Val de Loire",
+    "ville": "Tours",
+    "coordonnes": {
+      "latitude": 47.39555555555555,
+      "longitude": 0.6944444444444444
+    }
+  },
+  {
+    "id": 99,
+    "name": "Cathédrale Saint-Pierre-et-Saint-Paul",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Pierre-et-Saint-Paul_de_Troyes",
+    "style_dominant": "Gothique",
+    "site_web": "http://www.cathedraledetroyes.com/",
+    "department": "Aube",
+    "region": "Grand-Est",
+    "ville": null,
+    "coordonnes": {
+      "latitude": 48.30027777777777,
+      "longitude": 4.081388888888888
+    }
+  },
+  {
+    "id": 100,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Tulle",
+    "style_dominant": "roman et gothique",
+    "site_web": "https://www.correze.catholique.fr/paroisses/espace-missionnaire-de-tulle-et-pays-de-tulle/communaute-locale-de-tulle",
+    "department": "Corrèze",
+    "region": "Nouvelle-Aquitaine",
+    "ville": "Tulle",
+    "coordonnes": {
+      "latitude": 45.265277777777776,
+      "longitude": 1.7691666666666666
+    }
+  },
+  {
+    "id": 101,
+    "name": "Cathédrale Saint-Apollinaire",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Apollinaire_de_Valence",
+    "style_dominant": null,
+    "site_web": "http://stemilien-valence.cef.fr/",
+    "department": "Drôme",
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": "Valence",
+    "coordonnes": {
+      "latitude": 44.931666666666665,
+      "longitude": 4.889444444444444
+    }
+  },
+  {
+    "id": 102,
+    "name": "Cathédrale Saint-Pierre",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Pierre_de_Vannes",
+    "style_dominant": "GothiqueRoman (tour-clocher)",
+    "site_web": "http://www.cathedrale-vannes.fr/",
+    "department": "Morbihan",
+    "region": "Bretagne",
+    "ville": "Vannes",
+    "coordonnes": null
+  },
+  {
+    "id": 103,
+    "name": "Cathédrale Notre-Dame",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Notre-Dame_de_Verdun",
+    "style_dominant": "Roman, gothique",
+    "site_web": "https://catholique-verdun.cef.fr/paroisses/pays-du-verdunois/saint-vanne-en-verdunois/",
+    "department": "Meuse",
+    "region": "Grand Est",
+    "ville": null,
+    "coordonnes": {
+      "latitude": 49.159444444444446,
+      "longitude": 5.382499999999999
+    }
+  },
+  {
+    "id": 104,
+    "name": "Cathédrale Saint-Louis",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Louis_de_Versailles",
+    "style_dominant": "Architecture classique",
+    "site_web": "https://www.cathedralesaintlouisversailles.fr/",
+    "department": "Yvelines",
+    "region": "Île-de-France",
+    "ville": "Versailles",
+    "coordonnes": {
+      "latitude": 48.79833333333333,
+      "longitude": 2.1241666666666665
+    }
+  },
+  {
+    "id": 105,
+    "name": "Cathédrale Saint-Vincent",
+    "url": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale_Saint-Vincent_de_Viviers",
+    "style_dominant": "roman, gothique",
+    "site_web": "https://ardeche.catholique.fr/charles-foucauld-viviers-teil/",
+    "department": "Ardèche",
+    "region": "Auvergne-Rhône-Alpes",
+    "ville": "Viviers",
+    "coordonnes": {
+      "latitude": 44.481944444444444,
+      "longitude": 4.690277777777778
+    }
+  }
+]

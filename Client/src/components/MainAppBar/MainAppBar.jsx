@@ -76,6 +76,21 @@ const MainAppBar = ({
       { value: "city", label: "Ville" },
       { value: "genre", label: "Genre" },
     ],
+    chateaux: [
+      { value: "name", label: "Nom" },
+      { value: "city", label: "Commune" },
+      { value: "genre", label: "Période ou Style" },
+    ],
+    operaHouses: [
+      { value: "name", label: "Nom" },
+      { value: "city", label: "Lieu" },
+      { value: "genre", label: "Type" },
+    ],
+    cathedrals: [
+      { value: "name", label: "Nom" },
+      { value: "city", label: "Ville" },
+      { value: "genre", label: "Style" },
+    ],
   };
 
   const sortOptions = sortOptionsMap[selectedDataSet] || sortOptionsMap.museums;
@@ -112,6 +127,8 @@ const MainAppBar = ({
     setAnchorElCultural(null);
   };
   const handleCulturalSelection = (dataSet) => {
+    setSearchTerm("");
+    setSearchActive(false);
     setSelectedDataSet(dataSet);
     handleCulturalMenuClose();
   };
@@ -191,7 +208,7 @@ const MainAppBar = ({
               sx={{
                 display: "flex",
                 alignItems: "center",
-                backgroundColor: theme.palette.grey[200],
+                backgroundColor: theme.palette.background.white,
                 borderRadius: "24px",
                 padding: "0 8px",
                 height: "40px",
@@ -361,8 +378,14 @@ const MainAppBar = ({
             <MenuItem onClick={() => handleCulturalSelection("jardins")}>
               Jardins
             </MenuItem>
-            <MenuItem onClick={() => handleCulturalSelection("festivals")}>
-              Festivals
+            <MenuItem onClick={() => handleCulturalSelection("chateaux")}>
+              Châteaux
+            </MenuItem>
+            <MenuItem onClick={() => handleCulturalSelection("cathedrals")}>
+              Cathédrals
+            </MenuItem>
+            <MenuItem onClick={() => handleCulturalSelection("operaHouses")}>
+              Salles d'Opéra
             </MenuItem>
             <MenuItem
               onClick={() => handleCulturalSelection("maisonsDesIllustres")}
@@ -371,7 +394,7 @@ const MainAppBar = ({
             </MenuItem>
             {/*
             *
-            * TODO: Broken, data not populating table
+            * TO DO: This data set needs a better hook to fetch wiki info
             * 
             * 
             <MenuItem

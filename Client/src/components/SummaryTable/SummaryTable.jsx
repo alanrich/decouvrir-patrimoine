@@ -254,7 +254,7 @@ const SummaryTable = ({
       <Box
         sx={{
           borderTop: `1px solid ${theme.palette.grey[300]}`,
-          backgroundColor: theme.palette.grey[500],
+          backgroundColor: theme.palette.primary.main,
           height: "32px",
           flexShrink: 0,
         }}
@@ -270,6 +270,7 @@ const SummaryTable = ({
           sx={{
             height: "32px",
             display: "flex",
+            overflowY: "hidden",
             alignItems: "center",
             justifyContent: "flex-end",
             padding: "0 16px",
