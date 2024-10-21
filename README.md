@@ -1,6 +1,4 @@
-# Découvrir Patrimoine
-
-![Découvrir Patrimoine Banner](path/to/your/banner-image.png)
+# [Découvrir Patrimoine](https://www.decouvrirpatrimoine.fr)
 
 ## Table of Contents
 
@@ -35,16 +33,20 @@ Access the live application at [www.decouvrirpatrimoine.fr](https://www.decouvri
 
 ## Screenshots
 
-![Dashboard](./images/dashboard-screenshot.png)
+![Dashboard](./Client/src/assets/dashboard-screenshot.png)
+
 _Dashboard displaying the user's workspace._
 
-![Summary Table](./images/summary-table-screenshot.png)
+![Summary Table](./Client/src/assets/images/summary-table-screenshot.png)
+
 _Summary Table showcasing cultural datasets._
 
-![Detail View](./images/detail-view-screenshot.png)
+![Detail View](./Client/src/assets//detail-view-screenshot.png)
+
 _Detail View with a default view of the selected item's photo._
 
-![Detail View MOdal](./images/detail-view-modal-screenshot.png)
+![Detail View MOdal](./Client/src/assets//detail-view-modal-screenshot.png)
+
 _Detail View Modal with additional content displayed._
 
 ## Usage
