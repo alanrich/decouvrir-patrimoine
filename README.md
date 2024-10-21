@@ -35,16 +35,16 @@ Access the live application at [www.decouvrirpatrimoine.fr](https://www.decouvri
 
 ## Screenshots
 
-![Dashboard](./client/src/assets/images/dashboard-screenshot.png)
+![Dashboard](client/src/assets/images/dashboard-screenshot.png)
 _Dashboard displaying the user's workspace._
 
-![Summary Table](./client/src/assets/images/summary-table-screenshot.png)
+![Summary Table](client/src/assets/images/summary-table-screenshot.png)
 _Summary Table showcasing cultural datasets._
 
-![Detail View](./client/src/assets/images/detail-view-screenshot.png)
+![Detail View](client/src/assets/images/detail-view-screenshot.png)
 _Detail View with a default view of the selected item's photo._
 
-![Detail View MOdal](./client/src/assets/images/detail-view-modal-screenshot.png)
+![Detail View MOdal](client/src/assets/images/detail-view-modal-screenshot.png)
 _Detail View Modal with additional content displayed._
 
 ## Usage
