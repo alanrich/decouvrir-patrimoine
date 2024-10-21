@@ -15,7 +15,7 @@
 
 Access the live application at [www.decouvrirpatrimoine.fr](https://www.decouvrirpatrimoine.fr).
 
-The application is still very much a work in progress and the hooks that fetch content from wikipedia need some fine tuning so you may see some rather amusing results for the more esoteric datasets like Architecture Contemporaine and Maisons des Illustres
+The application is still very much a work in progress and the hooks that fetch content from wikipedia need some fine tuning, so you may see some rather amusing results for the more esoteric datasets like Architecture Contemporaine and Maisons des Illustres
 
 ## Features
 
