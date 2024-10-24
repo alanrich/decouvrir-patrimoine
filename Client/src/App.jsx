@@ -15,8 +15,13 @@ import theme from "./theme";
 const AppContainer = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
-  height: "100vh",
+  position: "fixed",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
   backgroundColor: theme.palette.background.default,
+  overflow: "hidden",
 }));
 
 function App() {
@@ -91,44 +96,34 @@ function App() {
         <Router>
           <AppContainer>
             <MainDrawer />
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                flexGrow: 1,
-              }}
-            >
-              <MainAppBar
-                searchTerm={searchTerm}
-                setSearchTerm={handleSetSearchTerm}
-                sortBy={sortBy}
-                setSortBy={setSortBy}
-                sortOrder={sortOrder}
-                setSortOrder={setSortOrder}
-                selectedDataSet={selectedDataSet}
-                setSelectedDataSet={setSelectedDataSet}
-              />
-
-              <WorkspaceContainer
-                loading={loading}
-                domainObjects={domainObjects}
-                totalObjects={totalObjects}
-                handleSetSelectedObject={handleSetSelectedObject}
-                selectedDataSet={selectedDataSet}
-                page={page}
-                rowsPerPage={rowsPerPage}
-                handleChangePage={handleChangePage}
-                handleChangeRowsPerPage={handleChangeRowsPerPage}
-                sortBy={sortBy}
-                setSortBy={setSortBy}
-                sortOrder={sortOrder}
-                setSortOrder={setSortOrder}
-                selectedObject={selectedObject}
-                selectedObjectLoaded={selectedObjectLoaded}
-                setSelectedObject={setSelectedObject}
-              />
-            </div>
+            <MainAppBar
+              searchTerm={searchTerm}
+              setSearchTerm={handleSetSearchTerm}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+              selectedDataSet={selectedDataSet}
+              setSelectedDataSet={setSelectedDataSet}
+            />
+            <WorkspaceContainer
+              loading={loading}
+              domainObjects={domainObjects}
+              totalObjects={totalObjects}
+              handleSetSelectedObject={handleSetSelectedObject}
+              selectedDataSet={selectedDataSet}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              handleChangePage={handleChangePage}
+              handleChangeRowsPerPage={handleChangeRowsPerPage}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+              selectedObject={selectedObject}
+              selectedObjectLoaded={selectedObjectLoaded}
+              setSelectedObject={setSelectedObject}
+            />
           </AppContainer>
         </Router>
       </ErrorBoundary>

@@ -63,7 +63,13 @@ const MainDrawer = () => {
   );
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        flexGrow: 1, // Moved this from App.jsx
+      }}
+    >
       {isMobile ? (
         <>
           <Drawer
@@ -102,7 +108,7 @@ const MainDrawer = () => {
           {drawerContent}
         </Drawer>
       )}
-    </>
+    </div>
   );
 };
 
